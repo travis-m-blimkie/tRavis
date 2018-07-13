@@ -1,0 +1,9 @@
+Package: tRavis
+Title: Custom functions by Travis B
+Version: 0.0.1
+Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
+Description: Simply loads a few custom function that I've found to be useful
+Depends: R (>= 3.4.0)
+License: CC0
+LazyData: true
+Imports: biomaRt (>= 2.36.1)
