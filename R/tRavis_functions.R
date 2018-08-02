@@ -18,11 +18,5 @@ biomart_table <- function() {
     getBM(attributes = c("ensembl_gene_id", "hgnc_symbol", "entrezgene"), mart = useMart("ensembl", dataset = "hsapiens_gene_ensembl"))
 }
 
-#=========================================================================#
 
-### Function to start biocLite so packages can easily be installed
-start_biocLite <- function() {
-    source("https://bioconductor.org/biocLite.R")
-    biocLite()
-}
 
