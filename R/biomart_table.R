@@ -6,6 +6,7 @@
 
 biomart_table <- function() { 
     require(biomaRt)
+    print("Biomart loaded. Creating conversion table...)
     getBM(attributes = c("ensembl_gene_id", "hgnc_symbol", "entrezgene"), 
           mart = useMart("ensembl", dataset = "hsapiens_gene_ensembl"))
 }
