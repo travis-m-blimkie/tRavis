@@ -1,7 +1,7 @@
 # README
 
 ### Description
-Github repository to hold my custom RStudio package, tRavis. 
+Github repository to hold my custom R package, tRavis. 
 
 #### Current functions contained therein:
 - **deseq2_results** Adds two columns to a DESeq results object and filters based on p-value and fold change
