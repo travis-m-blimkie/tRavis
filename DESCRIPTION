@@ -6,4 +6,4 @@ Description: Includes some custom functions and objects useful for my work
 Depends: R (>= 3.4.0)
 License: CC0
 LazyData: true
-Imports: biomaRt (>= 2.36.1)
+Imports: biomaRt (>= 2.36.1), tidyverse (>= 1.0.0)
