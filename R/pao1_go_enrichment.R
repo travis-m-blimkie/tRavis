@@ -5,10 +5,6 @@ pao1_go_enrichment <- function(GOI, pval = 0.05) {
 
   require(tidyverse)
   
-  # Read in GO list for testing ---------------------------------------------
-
-  go_list <- readRDS("/home/travisblimkie/go_list.rds")
-  
   
   # List of overlap size ----------------------------------------------------
   
