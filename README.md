@@ -2,6 +2,7 @@
 
 ### Description
 Github repository to hold my custom R package, tRavis. 
+Install via `devtools::install_github()` function. 
 
 #### Current functions contained therein:
 - **deseq2_results** Adds two columns to a DESeq results object and filters based on p-value and fold change. 
