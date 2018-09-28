@@ -1,3 +1,4 @@
 export(deseq2_results)
 export(biomart_table)
 export(pao1_enrichment)
+export(pao1_go_enrichment)
