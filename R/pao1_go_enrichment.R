@@ -55,7 +55,7 @@ pao1_go_enrichment <- function(GOI, pval = 0.05) {
   # Filter the result -------------------------------------------------------
   
   filtered_result <- result_table %>% 
-    filter(pvalue <= 0.05) %>% 
+    filter(pvalue <= pval) %>% 
     arrange(pvalue)
   
   return(filtered_result)
