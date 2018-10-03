@@ -1,6 +1,8 @@
 # Defines a function that performs GO term enrichment given an input list of genes
 # p-value can be set as desired, with a default of 0.05
 
+##TODO Add ability to filter enrichment background based on Namespace (e.g. only molecular process)
+
 pao1_go_enrichment <- function(GOI, pval = 0.05) {
 
   require(tidyverse)
@@ -69,5 +71,3 @@ pao1_go_enrichment <- function(GOI, pval = 0.05) {
   return(filtered_result)
   
 }
-
-##TODO Add ability to filter enrichment background based on Namespace (e.g. only molecular process)
