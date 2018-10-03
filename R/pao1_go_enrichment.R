@@ -5,9 +5,21 @@ pao1_go_enrichment <- function(GOI, pval = 0.05) {
 
   require(tidyverse)
   
+
+  # Check for correct input type --------------------------------------------
+
+  if (is.character(GOI) == F) 
+    stop("Please ensure GOI object is a character vector of locus tag IDs. If you gene names live as a column in a data frame, use dplyr::pull to extract the column as a character vector.")
   
-  # List of overlap size ----------------------------------------------------
+
+  # Download and read in the GO terms, make as named list -------------------
+
+  go_table <- read_tsv("https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/PAO1_gene_ontology_terms.txt")
+  go_list <- split(x = go_table$Locus_Tag, f = go_table$GO_Term)
   
+  
+  # Numbers for matrix extraction -------------------------------------------
+
   overlap_list <- map(.x = go_list, function(x) 
     as.numeric(length(intersect(x, GOI)))
   )
@@ -42,13 +54,13 @@ pao1_go_enrichment <- function(GOI, pval = 0.05) {
   
   # Create result table -----------------------------------------------------
   
-  result_table <- tibble(
-    term = names(fishers_result), 
-    pvalue = as.numeric(fishers_result[names(fishers_result)])
-  )
+  fishers_output <- tibble(GO_Term = names(fishers_result), 
+                           pvalue = as.numeric(fishers_result[names(fishers_result)]))
+  result_table <- left_join(fishers_output, distinct(go_table, GO_Term), by = "GO_Term") %>% 
+    select(., GO_Term, Accession, Namespace, GO_Evidence_Code, PMID, pvalue)
   
   
-  # Filter the result -------------------------------------------------------
+  # Filter the result and return --------------------------------------------
   
   filtered_result <- result_table %>% 
     filter(pvalue <= pval) %>% 
