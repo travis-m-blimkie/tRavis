@@ -56,7 +56,7 @@ pao1_go_enrichment <- function(GOI, pval = 0.05) {
   
   fishers_output <- tibble(GO_Term = names(fishers_result), 
                            pvalue = as.numeric(fishers_result[names(fishers_result)]))
-  result_table <- left_join(fishers_output, distinct(go_table, GO_Term), by = "GO_Term") %>% 
+  result_table <- left_join(fishers_output, distinct(go_table, GO_Term, .keep_all = T), by = "GO_Term") %>% 
     select(., GO_Term, Accession, Namespace, GO_Evidence_Code, PMID, pvalue)
   
   
@@ -69,3 +69,5 @@ pao1_go_enrichment <- function(GOI, pval = 0.05) {
   return(filtered_result)
   
 }
+
+##TODO Add ability to filter enrichment background based on Namespace (e.g. only molecular process)
