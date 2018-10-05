@@ -4,7 +4,7 @@
 Github repository to hold my custom R package, tRavis. 
 Install via `devtools::install_github()` function. 
 
-#### Current functions contained therein:
+#### Current functions include:
 - **deseq2_results** Adds two columns to a DESeq results object and filters based on p-value and fold change. 
 	The call to `results()` which feeds to this function must include the `tidy = T` option. 
 - **biomart_table** Creates a table from Biomart for converting between different ID types. Currently supports Ensembl, Entrez, and HGNC. 
