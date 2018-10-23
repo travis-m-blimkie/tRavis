@@ -12,19 +12,19 @@ Currently includes Ensembl, Entrez, and HGNC.
 }
 
 \usage{
-	biomart_table()
+biomart_table()
 }
 
 \arguments{
-	\item{none}{Currenly supports no direct arguments.}
+	\item{None}{  Currenly supports no direct arguments.}
 }
 
 \value{
-	\item{biomart_table}{A dataframe listing different ID types for human genes.}
+	\item{biomart_table}{   A dataframe listing different ID types for human genes.}
 }
 
 \references{
-	none. 
+	None. 
 }
 
 \seealso{
