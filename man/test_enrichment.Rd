@@ -1,6 +1,6 @@
-\name{pao1_enrichment}
+\name{test_enrichment}
 
-\alias{pao1_enrichment}
+\alias{test_enrichment}
 
 \title{
   Enrichment of custom gene set.
@@ -11,7 +11,7 @@ Function which perfroms Fisher's Exact test to determine enrichment of a set of 
 }
 
 \usage{
-pao1_enrichment(query_genes, enrichment_set)
+test_enrichment(query_genes, enrichment_set, total_genes)
 }
 
 \arguments{
@@ -19,6 +19,8 @@ pao1_enrichment(query_genes, enrichment_set)
   to test for enrichment.}
 	
 	\item{enrichment_set}{Set of genes of interest, such as virulence genes.}
+	
+	\item{total_genes}{Total number of genes for the organism/species.}
 }
 
 \value{
@@ -34,7 +36,7 @@ pao1_enrichment(query_genes, enrichment_set)
 }
 
 \examples{
-pao1_enrichment(experimental_genes, virulence_genes)
+test_enrichment(experimental_genes, virulence_genes, total_genes = 5688)
 }
 
 \keyword{functions}
