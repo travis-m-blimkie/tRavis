@@ -7,10 +7,7 @@ Adds columns and tidys a DESeq2 results object.
 }
 
 \description{
-This function adds two columns to the results object:
-	\item{ABSLFC} is the absolute value of the log2FoldChange column. 
-	\item{FC} is the fold change, calculated from the log2FoldChange. 
-It also filters the results based on absolute fold change and adjusted p-value.
+This function adds two columns to the results object: \code{ABSLFC} is the absolute value of the log2FoldChange column. \code{FC} is the fold change, calculated from the log2FoldChange. It also filters the results based on absolute fold change and adjusted p-value.
 }
 
 \usage{
