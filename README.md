@@ -9,5 +9,6 @@ Install via `devtools::install_github()` function.
 	The call to `deseq2::results()` which feeds to this function must include the `tidy = T` option. 
 - **biomart_table** Creates a table from Biomart for converting between different ID types. Currently supports Ensembl, Entrez, and HGNC. 
 - **test_enrichment** Tests for enrichment of a signature set of genes in a list of genes of interest, using Fisher's Exact Test.
-- **pao1_go_enrichment** Test for enrichment of a set of genes of interest against all GO terms for *P. aeruginosa*. 
+- **tr_go_enrichment** Test for enrichment of a set of genes of interest against all GO terms for *P. aeruginosa*. 
+- **tr_pe_enrichment** WIP script to test for pathway enrichment for *P. aeruginosa* strains. 
 
