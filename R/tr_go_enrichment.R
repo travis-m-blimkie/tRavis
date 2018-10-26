@@ -18,15 +18,23 @@ tr_go_enrichment <- function(GOI, pval = 0.05, strain = "", GO_class = "all") {
 
   # Selecting strain for use in enrichment ----------------------------------
 
-  if (strain == "PAO1") {
+  if (condition) {
+
+  }f (strain == "PAO1") {
     go_table_all <- suppressMessages(read_tsv(
-      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/gene_ontology_terms_PAO1.txt"))
+      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/gene_ontology_terms_PAO1.txt"
+    ))
+    total_genes <- 5701
   } else if (strain == "PA14") {
     go_table_all <- suppressMessages(read_tsv(
-      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/gene_ontology_terms_PA14.txt"))
+      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/gene_ontology_terms_PA14.txt"
+    ))
+    total_genes <- 5983
   } else if (strain == "LESB58") {
     go_table_all <- suppressMessages(read_tsv(
-      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/gene_ontology_terms_LESB58.txt"))
+      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/gene_ontology_terms_LESB58.txt"
+    ))
+    total_genes <- 6028
   } else if (strain == "") {
     stop("Please select one of the following strains: PAO1, PA14, or LESB58")
   }
@@ -69,7 +77,7 @@ tr_go_enrichment <- function(GOI, pval = 0.05, strain = "", GO_class = "all") {
       x,
       as.numeric(y - x),
       as.numeric(query_length - x),
-      as.numeric(5688 - (y - x))
+      as.numeric(total_genes - (y - x))
     ), nrow = 2, ncol = 2))
 
 
