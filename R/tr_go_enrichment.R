@@ -3,7 +3,7 @@
 # GO terms can also be filtered based on desired class
 
 
-tr_go_enrichment <- function(GOI, pval = 0.05, GO_class = "all") {
+tr_go_enrichment <- function(GOI, pval = 0.05, strain = "", GO_class = "all") {
 
   require(tidyverse)
 
@@ -16,10 +16,21 @@ tr_go_enrichment <- function(GOI, pval = 0.05, GO_class = "all") {
          to extract the column as a character vector.")
 
 
-  # Download and read in all of the GO terms --------------------------------
+  # Selecting strain for use in enrichment ----------------------------------
 
-  go_table_all <- suppressMessages(read_tsv(
-    "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/PAO1_gene_ontology_terms.txt"))
+  if (strain == "PAO1") {
+    go_table_all <- suppressMessages(read_tsv(
+      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/PAO1_gene_ontology_terms.txt"))
+  } else if (strain == "PA14") {
+    go_table_all <- suppressMessages(read_tsv(
+      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/test_pa14/PA14_gene_ontology_terms.txt"))
+  } else if (strain == "LESB58") {
+    go_table_all <- suppressMessages(read_tsv(
+      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/test_pa14/LESB58_gene_ontology_terms.txt"
+    ))
+  } else if (strain == "") {
+    stop("Please select one of the following strains: PAO1, PA14, or LESB58")
+  }
 
 
   # Filter based on desired class of GO terms -------------------------------
