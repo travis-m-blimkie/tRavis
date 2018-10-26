@@ -18,4 +18,3 @@ pao1_pe <- function(GOI, pvalue = 0.05) {
 }
 
 
-pao1_pe(GOI = test_genes)
