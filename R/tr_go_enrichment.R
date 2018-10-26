@@ -23,10 +23,10 @@ tr_go_enrichment <- function(GOI, pval = 0.05, strain = "", GO_class = "all") {
       "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/PAO1_gene_ontology_terms.txt"))
   } else if (strain == "PA14") {
     go_table_all <- suppressMessages(read_tsv(
-      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/test_pa14/PA14_gene_ontology_terms.txt"))
+      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/PA14_gene_ontology_terms.txt"))
   } else if (strain == "LESB58") {
     go_table_all <- suppressMessages(read_tsv(
-      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/test_pa14/LESB58_gene_ontology_terms.txt"
+      "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/LESB58_gene_ontology_terms.txt"
     ))
   } else if (strain == "") {
     stop("Please select one of the following strains: PAO1, PA14, or LESB58")
