@@ -7,8 +7,8 @@ Pulls ID conversions from BioMart
 }
 
 \description{
-This function pulls human gene names from BioMart to facilitate conversion. 
-Currently includes Ensembl, Entrez, and HGNC. 
+This function pulls human gene names from BioMart to facilitate conversion.
+Currently includes Ensembl, Entrez, and HGNC.
 }
 
 \usage{
@@ -24,7 +24,7 @@ biomart_table()
 }
 
 \references{
-	None. 
+	None.
 }
 
 \seealso{
