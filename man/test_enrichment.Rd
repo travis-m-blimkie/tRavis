@@ -17,18 +17,18 @@ test_enrichment(query_genes, enrichment_set, total_genes)
 \arguments{
   \item{query_genes}{List of experimentally or otherwise derived genes, in which one wishes
   to test for enrichment.}
-	
+
 	\item{enrichment_set}{Set of genes of interest, such as virulence genes.}
-	
+
 	\item{total_genes}{Total number of genes for the organism/species.}
 }
 
 \value{
-	\item{}{Produces the output the same as if \code{fisher.test}() had been called.}
+	\item{}{Produces the same output as if \code{fisher.test}() had been called.}
 }
 
 \references{
-	None. 
+	None.
 }
 
 \seealso{

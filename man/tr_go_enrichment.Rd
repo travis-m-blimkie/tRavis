@@ -19,7 +19,7 @@ tr_go_enrichment(GOI, pval = 0.05, strain = "", GO_class = "all")
 
 	\item{enrichment_set}{Desired significance threshold. Defaults to \code{0.05}}
 
-	\item{strain}{Desired strain for analysis. Currently supports three: PAO1, PA14, or LESB58.}
+	\item{strain}{Desired strain for analysis. Currently supports three: "PAO1", "PA14", or "LESB58".}
 
 	\item{GO_class}{Character or character vector of GO class to be tested against. Defaults to "all" for all classes. Can be any one or more of "CC" for Cellular Component, "BP" for Biological Process, or "MF" for Molecular Function.}
 }

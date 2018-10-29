@@ -24,7 +24,7 @@ tr_go_enrichment <- function(GOI, pval = 0.05, strain = "", GO_class = "all") {
     go_table_all <- suppressMessages(read_tsv(
       "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/gene_ontology_terms_PAO1.txt"
     ))
-    total_genes <- 5701
+    total_genes <- 5700
   } else if (strain == "PA14") {
     go_table_all <- suppressMessages(read_tsv(
       "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/gene_ontology_terms_PA14.txt"

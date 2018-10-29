@@ -7,7 +7,7 @@ Adds columns and sorts a DESeq2 results object.
 }
 
 \description{
-This function adds two columns to the results object: \code{ABSLFC} is the absolute value of the log2FoldChange column. \code{FC} is the fold change, calculated from the log2FoldChange. It also filters the results based on absolute fold change and adjusted p-value, and orders by adjusted p-value.
+This function adds two columns to the results object: \code{ABSLFC} is the absolute value of the log2FoldChange column. \code{FC} is the fold change, calculated from the log2FoldChange. It also filters the results based on absolute fold change and adjusted p-value, and orders by adjusted p-value. Requires \strong{\code{tidyverse}} installation.
 }
 
 \usage{
@@ -23,7 +23,7 @@ deseq2_results(result, pAdj = 0.05, fc = 1.5)
 }
 
 \value{
-A dataframe (tibble) of differentially expressed genes, filtered and without rownames.
+A dataframe (tibble) of differentially expressed genes, filtered and without rownames (first column contains gene identifier).
 }
 
 \references{
