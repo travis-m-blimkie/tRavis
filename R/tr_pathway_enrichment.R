@@ -3,7 +3,7 @@
 #' Currently set up as a simple Fisher's Test of overlapping genes
 
 
-pao1_pe <- function(GOI, strain = "", pvalue = 0.05) {
+tr_pathway_enrichment <- function(GOI, strain = "", pvalue = 0.05) {
 
   require(tidyverse)
 

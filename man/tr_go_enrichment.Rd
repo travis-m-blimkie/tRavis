@@ -17,7 +17,7 @@ tr_go_enrichment(GOI, pval = 0.05, strain = "", GO_class = "all")
 \arguments{
   \item{GOI}{List of genes to be tested for enriched GO terms. Must be provided as a character vector.}
 
-	\item{enrichment_set}{Desired significance threshold. Defaults to \code{0.05}}
+	\item{pval}{Desired significance threshold. Defaults to \code{0.05}}
 
 	\item{strain}{Desired strain for analysis. Currently supports three: "PAO1", "PA14", or "LESB58".}
 
