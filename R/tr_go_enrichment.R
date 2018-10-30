@@ -18,9 +18,7 @@ tr_go_enrichment <- function(GOI, pval = 0.05, strain = "", GO_class = "all") {
 
   # Selecting strain for use in enrichment ----------------------------------
 
-  if (condition) {
-
-  }f (strain == "PAO1") {
+  if (strain == "PAO1") {
     go_table_all <- suppressMessages(read_tsv(
       "https://raw.githubusercontent.com/travis-m-blimkie/tRavis/master/gene_ontology_terms_PAO1.txt"
     ))
