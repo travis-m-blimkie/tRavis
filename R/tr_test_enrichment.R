@@ -1,19 +1,19 @@
-# This function is designed to perform enrichment on a list of genes of interest, 
-#  comparing to some specified background. Uses Fisher's Exact Test for p-value. 
+# This function is designed to perform enrichment on a list of genes of interest,
+#  comparing to some specified background. Uses Fisher's Exact Test for p-value.
 
 
-test_enrichment <- function(query_genes, enrichment_set, total_genes) {
-  
+tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
+
   require(tidyverse)
-  
-  
+
+
   # Calculate overlap between the query list and enrichment set -------------
-  
+
   num_overlap <- as.numeric(length(intersect(query_genes, enrichment_set)))
-  
+
 
   # Construct the matrix to be used for the test ----------------------------
-  
+
   enrichment_matrix <- matrix(c(
     num_overlap,
     as.numeric(length(enrichment_set) - num_overlap),
@@ -23,6 +23,9 @@ test_enrichment <- function(query_genes, enrichment_set, total_genes) {
 
 
   # Run and return Fisher's Exact test on the matrix ------------------------
-  
-  return(fisher.test(enrichment_matrix, alternative = "greater"))
+
+  raw_pval <- fisher.test(enrichment_matrix, alternative = "greater")$p.value
+
+  return(raw_result)
+
 }
