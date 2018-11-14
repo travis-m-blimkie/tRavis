@@ -1,6 +1,6 @@
-\name{test_enrichment}
+\name{tr_test_enrichment}
 
-\alias{test_enrichment}
+\alias{tr_test_enrichment}
 
 \title{
   Enrichment of custom gene set.
@@ -11,7 +11,7 @@ Function which perfroms Fisher's Exact test to determine enrichment of a set of 
 }
 
 \usage{
-test_enrichment(query_genes, enrichment_set, total_genes)
+tr_test_enrichment(query_genes, enrichment_set, total_genes)
 }
 
 \arguments{
@@ -36,7 +36,7 @@ test_enrichment(query_genes, enrichment_set, total_genes)
 }
 
 \examples{
-test_enrichment(experimental_genes, virulence_genes, total_genes = 5688)
+tr_test_enrichment(experimental_genes, virulence_genes, total_genes = 5688)
 }
 
 \keyword{functions}
