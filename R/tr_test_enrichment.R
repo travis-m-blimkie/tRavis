@@ -26,6 +26,6 @@ tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
 
   raw_pval <- fisher.test(enrichment_matrix, alternative = "greater")$p.value
 
-  return(raw_result)
+  return(raw_pval)
 
 }
