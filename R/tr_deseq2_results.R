@@ -1,11 +1,11 @@
 
-# deseq2_results ----------------------------------------------------------
+# tr_deseq2_results ----------------------------------------------------------
 
 # Takes a DESeq results object as input (i.e. must have defined contrast)
 # Adds two new columns and filters based on padj and ABSLFC
 # Sorts genes by adjusted p-value
 
-deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
+tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
 
   require(tibble)
 

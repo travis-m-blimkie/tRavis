@@ -1,6 +1,6 @@
-\name{deseq2_results}
+\name{tr_deseq2_results}
 
-\alias{deseq2_results}
+\alias{tr_deseq2_results}
 
 \title{
 Adds columns and sorts a DESeq2 results object.
@@ -11,7 +11,7 @@ This function adds two columns to the results object: \code{ABSLFC} is the absol
 }
 
 \usage{
-deseq2_results(result, pAdj = 0.05, fc = 1.5)
+tr_deseq2_results(result, pAdj = 0.05, fc = 1.5)
 }
 
 \arguments{
@@ -37,7 +37,7 @@ None.
 \examples{
 initial_result <- results(dds, name = "treatment vs. control", tidy = T)
 
-new_result <- deseq2_results(initial_result, pAdj = 0.05, fc = 1.5)
+new_result <- tr_deseq2_results(initial_result, pAdj = 0.05, fc = 1.5)
 }
 
 \keyword{functions}
