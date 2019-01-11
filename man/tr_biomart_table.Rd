@@ -1,6 +1,6 @@
-\name{biomart_table}
+\name{tr_biomart_table}
 
-\alias{biomart_table}
+\alias{tr_biomart_table}
 
 \title{
 Pulls ID conversions from BioMart
@@ -12,7 +12,7 @@ Currently includes Ensembl, Entrez, and HGNC.
 }
 
 \usage{
-biomart_table()
+tr_biomart_table()
 }
 
 \arguments{
@@ -20,7 +20,7 @@ biomart_table()
 }
 
 \value{
-	\item{biomart_table}{   A dataframe listing different ID types for human genes.}
+	\item{tr_biomart_table}{   A dataframe listing different ID types for human genes.}
 }
 
 \references{
@@ -32,7 +32,7 @@ biomart_table()
 }
 
 \examples{
-conversion_table <- biomart_table()
+conversion_table <- tr_biomart_table()
 }
 
 \keyword{functions}
