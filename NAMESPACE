@@ -1,5 +1,5 @@
-export(biomart_table)
-export(deseq2_results)
+export(tr_biomart_table)
+export(tr_deseq2_results)
 export(tr_test_enrichment)
 export(tr_go_enrichment)
 export(tr_pathway_enrichment)
