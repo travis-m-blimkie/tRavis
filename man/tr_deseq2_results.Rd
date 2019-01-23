@@ -3,7 +3,7 @@
 \alias{tr_deseq2_results}
 
 \title{
-Adds columns and sorts a DESeq2 results object.
+Filters, sorts, and adds columns to a DESeq2 results() object.
 }
 
 \description{
