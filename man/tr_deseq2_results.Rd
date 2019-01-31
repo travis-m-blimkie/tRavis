@@ -31,7 +31,7 @@ None.
 }
 
 \seealso{
-\link{github.com/travis-m-blimkie/tRavis}
+\link{https://www.github.com/travis-m-blimkie/tRavis}
 }
 
 \examples{
