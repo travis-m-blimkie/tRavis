@@ -6,9 +6,9 @@
 tr_genebody_plotly <- function(qorts_dir) {
 
   # Load libraries
-  require(QoRTs)
-  require(dplyr)
-  require(plotly)
+  library(QoRTs)
+  library(dplyr)
+  library(plotly)
 
 
   # Get sample names based on directory names
