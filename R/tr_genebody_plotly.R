@@ -24,21 +24,21 @@ tr_genebody_plotly <- function(qorts_dir) {
 
 
   # Plotly of gene body coverage for all samples
-plot_ly(
-	group_by(genebodies, SampleName),
-    x = ~QUANTILE,
-    y = ~X2.upperMidQuartile,
-    name = "Upper_Mid_Quartile",
-    type = "scatter",
-    mode = "lines",
-    text = ~SampleName,
-    alpha = 0.3
-  ) %>%
-    layout(
-      title = "Gene Body Coverage of the Upper-Middle Quartile",
-      xaxis = list(title = "Percentile of Gene Body (5'->3')"),
-      yaxis = list(title = "Proportion of Reads")
-	)
+  plot_ly(
+  	group_by(genebodies, SampleName),
+      x = ~QUANTILE,
+      y = ~X2.upperMidQuartile,
+      name = "Upper_Mid_Quartile",
+      type = "scatter",
+      mode = "lines",
+      text = ~SampleName,
+      alpha = 0.3
+    ) %>%
+      layout(
+        title = "Gene Body Coverage of the Upper-Middle Quartile",
+        xaxis = list(title = "Percentile of Gene Body (5'->3')"),
+        yaxis = list(title = "Proportion of Reads")
+  	)
 
 
 
