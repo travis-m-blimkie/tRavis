@@ -35,7 +35,7 @@ plot_ly(
     alpha = 0.3
   ) %>%
     layout(
-      title = "Gene Body Coverage: Upper-Middle Quartile",
+      title = "Gene Body Coverage of the Upper-Middle Quartile",
       xaxis = list(title = "Percentile of Gene Body (5'->3')"),
       yaxis = list(title = "Proportion of Reads")
 	)
