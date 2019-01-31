@@ -5,25 +5,33 @@
 
 tr_genebody_plotly <- function(qorts_dir) {
 
-  # Load libraries
+
+  # Load libraries ----------------------------------------------------------
+
   library(QoRTs)
-  library(tidyverse)
+  library(dplyr)
   library(plotly)
 
 
-  # Get sample names based on directory names
+  # Get sample names based on directory names -------------------------------
+
   sample_ids <- list.dirs(qorts_dir, full.names = F, recursive = F)
 
 
-  # Read in all the results using QoRTs function
+
+  # Read in all the results using QoRTs function ----------------------------
+
   qorts_results <- read.qc.results.data(infile.dir = qorts_dir, decoder = sample_ids)
 
 
-  # Pull out the gene body coverage results
-  genebodies <- bind_rows(qorts_results@qc.data[["geneBodyCoverage.pct"]], .id = "SampleName")
+  # Pull out the gene body coverage results ---------------------------------
+
+  genebodies <- bind_rows(qorts_results@qc.data[["geneBodyCoverage.pct"]],
+                          .id = "SampleName")
 
 
-  # Plotly of gene body coverage for all samples
+  # Plotly of gene body coverage for all samples ----------------------------
+
   plot_ly(
   	group_by(genebodies, SampleName),
       x = ~QUANTILE,
@@ -39,7 +47,6 @@ tr_genebody_plotly <- function(qorts_dir) {
         xaxis = list(title = "Percentile of Gene Body (5'->3')"),
         yaxis = list(title = "Proportion of Reads")
   	)
-
 
 
 }
