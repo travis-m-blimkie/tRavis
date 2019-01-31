@@ -3,12 +3,11 @@
 \alias{tr_genebodyplotly}
 
 \title{
-Create plotl of Gene Body Coverage
+Plot of gene body coverage
 }
 
 \description{
-Using functions from the QoRTs package to read in gene body coverage data,
-and plot upper-middle quartile gene body coverage.
+Using functions from the QoRTs package to read and plot gene body coverage data for the upper-middle quartile.
 }
 
 \usage{
@@ -20,7 +19,7 @@ tr_genebody_plotly(qorts_dir)
 }
 
 \value{
-	\item{tr_genebody_plotly}{   Returns a plotly object (html) of the results.}
+	\item{tr_genebody_plotly}{  Returns a plotly object (html) of the results.}
 }
 
 \references{
@@ -28,11 +27,11 @@ tr_genebody_plotly(qorts_dir)
 }
 
 \seealso{
-	\link{github.com/travis-m-blimkie/tRavis}
+	\link{https://www.github.com/travis-m-blimkie/tRavis}
 }
 
 \examples{
-tr_genebody_coverage(qorts_dir = "~/my_data/qorts_results")
+tr_genebody_coverage(qorts_dir = "~/my_data/qorts_results/")
 }
 
 \keyword{functions}
