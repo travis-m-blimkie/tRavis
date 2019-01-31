@@ -3,7 +3,7 @@
 \alias{tr_test_enrichment}
 
 \title{
-  Enrichment of custom gene set.
+  Test enrichment of custom gene set.
 }
 
 \description{
@@ -32,7 +32,7 @@ tr_test_enrichment(query_genes, enrichment_set, total_genes)
 }
 
 \seealso{
-	\link{github.com/travis-m-blimkie/tRavis}
+	\link{https://www.github.com/travis-m-blimkie/tRavis}
 }
 
 \examples{
