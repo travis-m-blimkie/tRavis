@@ -7,7 +7,7 @@ tr_genebody_plotly <- function(qorts_dir) {
 
   # Load libraries
   library(QoRTs)
-  library(dplyr)
+  library(tidyverse)
   library(plotly)
 
 
