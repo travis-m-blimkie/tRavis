@@ -24,7 +24,7 @@ tr_genebody_plotly <- function(qorts_dir) {
 
 
   # Plotly of gene body coverage for all samples
-  genebody_plot <- plot_ly(
+plot_ly(
 	group_by(genebodies, SampleName),
     x = ~QUANTILE,
     y = ~X2.upperMidQuartile,
@@ -40,6 +40,6 @@ tr_genebody_plotly <- function(qorts_dir) {
       yaxis = list(title = "Proportion of Reads")
 	)
 
-  return(genebody_plot)
+
 
 }
