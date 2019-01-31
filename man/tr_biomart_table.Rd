@@ -3,7 +3,7 @@
 \alias{tr_biomart_table}
 
 \title{
-Pulls ID conversions from BioMart
+Pull human gene ID conversions from BioMart
 }
 
 \description{
@@ -28,7 +28,7 @@ tr_biomart_table()
 }
 
 \seealso{
-	\link{github.com/travis-m-blimkie/tRavis}
+	\link{https://www.github.com/travis-m-blimkie/tRavis}
 }
 
 \examples{
