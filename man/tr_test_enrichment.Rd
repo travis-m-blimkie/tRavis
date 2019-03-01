@@ -32,7 +32,7 @@ tr_test_enrichment(query_genes, enrichment_set, total_genes)
 }
 
 \seealso{
-	\link{https://www.github.com/travis-m-blimkie/tRavis}
+\url{https://www.github.com/travis-m-blimkie/tRavis}
 }
 
 \examples{
