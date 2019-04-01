@@ -1,7 +1,7 @@
 # tRavis
 
 ### Description
-Github repository to hold my custom R package, tRavis.
+Github repository to hold my custom R package.
 Install via `devtools::install_github()` function.
 
 #### Current functions include:
