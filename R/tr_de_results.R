@@ -11,7 +11,7 @@ tr_de_results <- function(dds_obj, col_name, numerator, denominator, pAdj = 0.05
   require(tidyverse)
 
   # Run DESeq2::results() with specified comparison, and "tidy = T"
-  deseq2_result <- results(object = dds, contrast = c(col_name, treatment, baseline), tidy = T)
+  deseq2_result <- results(object = dds_obj, contrast = c(col_name, numerator, denominator), tidy = T)
 
   # Add columns and filter the result
   output_result <- deseq2_result %>%
