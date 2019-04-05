@@ -3,11 +3,11 @@
 \alias{tr_de_results}
 
 \title{
-Runs \code{DESeq2::results()} with provided contrast
+Runs \code{DESeq2::results()} with specified contrast
 }
 
 \description{
-This function runs \code{DESeq2::results()} with the contrast as specified by the user. Adds columns, and filters the result based on user-provided cutoffs for adjusted p-value and fold change.
+This function runs \code{DESeq2::results()} using the \code{contrast} argument and levels specified by the user. It also adds columns for absolute log2 fold change and fold change, and filters the result based on user-provided cutoffs for adjusted p-value and log2 fold change.
 }
 
 \usage{
@@ -19,17 +19,17 @@ tr_de_results(dds_obj, col_name, numerator, denominator, pAdj = 0.05, fc = 1.5)
 
 	\item{col_name}{The name of the column/variable being analyzed, e.g. "Treatment" or "Genotype".}
 
-	\item{numerator}{The first argument used as the experimental condition in the DE comparison, e.g. "Treated", or "Mutant".}
+	\item{numerator}{The first argument used as the "experimental condition" in the DE comparison, e.g. "Treated", or "Mutant".}
 
 	\item{denominator}{The baseline or control condition used in the DE comparison, e.g. "Control" or "Untreated".}
 
 	\item{pAdj}{Cutoff for adjusted p-value. Defaults to 0.05}
 
-	\item{fc}{Cutoff for the fold change value. Defaults to 1.5}
+	\item{fc}{Cutoff for absolute fold change. Defaults to 1.5}
 }
 
 \value{
-A dataframe (tibble) of differentially expressed genes, filtered and without rownames (first column contains gene identifier).
+A dataframe (tibble) of differentially expressed genes, filtered and without rownames (first column \code{gene} contains gene identifier).
 }
 
 \references{
@@ -41,7 +41,10 @@ None.
 }
 
 \examples{
-
+de_genes <- tr_de_results(dds,
+  col_name = "Treatment",
+  numerator = "Peptide",
+  denominator = "Untreated")
 }
 
 \keyword{functions}
