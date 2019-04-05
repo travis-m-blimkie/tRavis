@@ -1,5 +1,6 @@
 export(tr_compare_lists)
 export(tr_de_results)
+export(tr_deseq2_results)
 export(tr_genebody_plotly)
 export(tr_test_enrichment)
 export(tr_tidy_gage)
