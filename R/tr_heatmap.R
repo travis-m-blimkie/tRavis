@@ -8,7 +8,7 @@ tr_heatmap <- function(x) {
   require(RColorBrewer)
 
 
-  heatmap_colour <- rev(colorRampPalette(brewer.pal(9, "RdBu"))(100))
+  heatmap_colour <- rev(colorRampPalette(brewer.pal(9, "Spectral"))(100))
 
   heatmap_matrix <- assay(x) %>%
     t() %>%
