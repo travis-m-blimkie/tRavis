@@ -15,9 +15,9 @@ tr_de_results <- function(dds_obj, col_name, numerator, denominator, pAdj = 0.05
 
   # Add columns and filter the result
   output_result <- deseq2_result %>%
-    rename("gene" = "row") %>%
-    mutate(ABSLFC = abs(log2FoldChange)) %>%
-    mutate(FC = sign(log2FoldChange) * (2 ^ ABSLFC)) %>%
+    dplyr::rename("gene" = "row") %>%
+    mutate(ABSLFC = abs(log2FoldChange),
+           FC = sign(log2FoldChange) * (2 ^ ABSLFC)) %>%
     filter(padj <= pAdj & ABSLFC >= log2(fc)) %>%
     arrange(padj)
 
