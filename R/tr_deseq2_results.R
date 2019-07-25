@@ -9,8 +9,10 @@ tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
 
   require(tibble)
 
-  if (is.data.frame(result) != T) stop("Did you call DESeq2::results() with the 'tidy = T' option?")
-
+  if (is.data.frame(result) != TRUE) {
+    stop("Did you call DESeq2::results() with the 'tidy = T' option?")
+  }
+  
   result$ABSLFC <- abs(result$log2FoldChange)
   result$FC <- (sign(result$log2FoldChange)) * (2 ^ (result$ABSLFC))
 
