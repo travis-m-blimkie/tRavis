@@ -40,7 +40,9 @@ tr_genebody_plotly <- function(qorts_dir) {
       type = "scatter",
       mode = "lines",
       text = ~SampleName,
-      alpha = 0.3
+      hoverinfo = "text",
+      alpha = 0.3,
+      line = list(shape = "spline")
     ) %>%
       plotly::layout(
         title = "Gene Body Coverage of the Upper-Middle Quartile",
