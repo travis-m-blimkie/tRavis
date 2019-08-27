@@ -21,7 +21,8 @@ tr_gtf_cleaner <- function(gtf_file) {
     select(locus_tag, name, start, end, strand) %>%
     mutate(locus_tag = str_extract(locus_tag, pattern = "PA(14|LES)?_?[0-9]{4,5}"),
            name = str_replace(name, pattern = ' name "(.*)"', replacement = "\\1")) %>%
-    separate(name, into = c("name", "description"), sep = " ,", fill = "left")
+    separate(name, into = c("name", "description"), sep = " ,", fill = "left") %>%
+    mutate(name = case_when(is.na(name) ~ locus_tag, TRUE ~ name))
 
 
   return(clean_gtf)
