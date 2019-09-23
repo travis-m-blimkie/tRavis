@@ -15,11 +15,11 @@ tr_genebody_plotly(qorts_dir)
 }
 
 \arguments{
-	\item{qorts_dir}{  Directory containing all the QoRTs results, with each sample having its own folder.}
+	\item{qorts_dir}{Directory containing all the QoRTs results, with each sample having its own folder.}
 }
 
 \value{
-	\item{tr_genebody_plotly}{  Returns a plotly object (html) of the results.}
+	\item{tr_genebody_plotly}{ Returns a plotly object (html) of the results.}
 }
 
 \references{
