@@ -22,7 +22,7 @@ tr_tidy_gage(gage_result, qval = 0.1)
     }
 
 \value{
-A dataframe (tibble) of enriched KEGG pathways, filtered and without rownames (first column contains pathway name/identifier identifier).
+A dataframe (tibble) of enriched KEGG pathways, filtered and without rownames (first column contains pathway name/identifier).
 }
 
 \references{

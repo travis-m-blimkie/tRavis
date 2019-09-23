@@ -7,7 +7,7 @@
 }
 
 \description{
-Function which perfroms Fisher's Exact test to determine enrichment of a set of genes of interest compared to some list of experimentally derived genes. Assumes \code{alternative = "greater"} in call to \code{fisher.test}(). Requires \code{tidyverse} installation.
+Perfroms Fisher's Exact test to determine enrichment of a set of genes of interest compared to some list of experimentally derived genes. Assumes \code{alternative = "greater"} in call to \code{fisher.test}(). Requires \code{tidyverse} installation.
 }
 
 \usage{
@@ -24,7 +24,7 @@ tr_test_enrichment(query_genes, enrichment_set, total_genes)
 }
 
 \value{
-	\item{}{Produces the same output as if \code{fisher.test}() had been called.}
+	\item{}{Produces the raw p-value from \code{fisher.test()}}
 }
 
 \references{

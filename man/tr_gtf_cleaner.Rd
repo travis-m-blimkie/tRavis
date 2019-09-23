@@ -7,7 +7,7 @@
 }
 
 \description{
-Function which takes a raw GTF file as input, and returns a clean data frame containing locus tag, gene name, description, start, end, and strand. Currently supports only PAO1, PA14, and LESB58 strains of \emph{Pseudomonas aeruginosa}.
+Given an input GTF file (bacterial), separates and cleans columns, returning a clean and tidy data frame. Only returns locus tag, gene name, description, start, end, and strand columns. Only supports PAO1, PA14, and LESB58. Uses a single regex to match and extract locus tag for all three strains.
 }
 
 \usage{

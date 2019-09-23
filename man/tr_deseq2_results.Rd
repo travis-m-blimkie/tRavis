@@ -15,7 +15,8 @@ tr_deseq2_results(result, pAdj = 0.05, fc = 1.5)
 }
 
 \arguments{
-	\item{result}{Output from call to DESeq2's \code{results} function. Must have been run with the (\code{tidy = T} argument) option.}
+	\item{result}{Output from call to DESeq2's \code{results} function. Must have been run with the \code{tidy = TRUE} option.
+	}
 
 	\item{pAdj}{Cutoff for adjusted p-value. Defaults to 0.05}
 

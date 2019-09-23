@@ -1,21 +1,34 @@
-
-# tr_tidy_gage ------------------------------------------------------------
-
-#' Takes a results object from Gage and munges it into a tidy data frame
-#' Also filters based on q-value, with a default of 0.1 from the Gage
-#' documentation.
-
-
+#' tr_tidy_gage
+#'
+#' @param gage_result Output from call to `gage` function.
+#' @param qval Cutoff for q-value. Defaults to 0.1
+#'
+#' @return A dataframe (tibble) of enriched KEGG pathways, filtered and without
+#'   rownames (first column contains pathway name/identifier)
+#'
+#' @export
+#'
+#' @description This function will simply convert the output from Gage
+#'   enrichment into a easier-to-use format, namely a data frame. At the same
+#'   time it also filters the result based on q-value, with a default of
+#'   `0.1`. Requires tidyverse installation.
+#'
+#' @references None.
+#'
+#' @seealso https://www.github.com/travis-m-blimkie/tRavis
+#'
+#' @examples
+#' new_result <- tr_tidy_gage(gage_result, qval = 0.1)
+#'
 tr_tidy_gage <- function(gage_result, qval = 0.1) {
 
-  require(dplyr, tibble)
+  requireNamespace(tidyverse)
 
-  bind_rows(
-    list(
+  bind_rows(list(
     Up = as.data.frame(gage_result[["greater"]]) %>% rownames_to_column(),
     Down = as.data.frame(gage_result[["less"]]) %>% rownames_to_column()
-    ),
-    .id = "Direction") %>% filter(., q.val < qval)
+  ), .id = "Direction") %>%
+    filter(., q.val < qval)
 
 }
 
