@@ -1,9 +1,20 @@
 Package: tRavis
-Title: Custom functions by Travis B
-Version: 0.4.2
+Title: Custom functions by Travis Blimkie
+Version: 0.5.0
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
-Description: Includes some custom functions useful for work
+Description: Includes some custom functions useful for work.
 Depends: R (>= 3.5.0)
-License: CC0
+License: MIT + file LICENSE
 LazyData: true
-Imports: tidyverse (>= 1.0.0), DESeq2 (>= 1.20.0)
+Imports: 
+    plotly,
+    DESeq2,
+    QoRTs,
+    tibble,
+    dplyr,
+    purrr,
+    stringr,
+    readr,
+    tidyr,
+    stats
+RoxygenNote: 6.1.1
