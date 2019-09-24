@@ -2,23 +2,20 @@
 #'
 #' @param folder Directory containing files of interest
 #' @param pattern Optional pattern to use in file searching
-#' @param date Do file names contain a date to be removed from names?
+#' @param date Do file names contain a date which should be removed?
 #'
-#' @return Named list of files to be read into R
+#' @return Named list of files to be read
 #'
 #' @export
 #'
 #' @description Function which creates a named list of files in a specified
 #'   directory. Names are trimmed versions of file names, contents of the list
 #'   are the file names themselves. Can be easily piped into
-#'   purrr::map(~read.csv(.)) to create named list of data frames.
+#'   \code{purrr::map(~read.csv(.))} to create named list of data frames.
 #'
 #' @references None.
 #'
 #' @seealso https://www.github.com/travis-m-blimkie/tRavis
-#'
-#' @examples
-#' myFiles <- tr_get_files(folder = "Results", pattern = "DE", date = TRUE)
 #'
 tr_get_files <- function(folder, pattern = "", date = FALSE) {
 

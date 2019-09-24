@@ -16,10 +16,7 @@
 #'
 #' @references None.
 #'
-#' @seealso https://www.github.com/travis-m-blimkie/tRavis}
-#'
-#' @examples
-#' tidy_gtf <- tr_gtf_cleaner("Pseudomonas_aeruginosa_PAO1_107.gtf")
+#' @seealso https://www.github.com/travis-m-blimkie/tRavis
 #'
 tr_gtf_cleaner <- function(gtf_file) {
 

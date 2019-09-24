@@ -7,17 +7,13 @@
 #'
 #' @export
 #'
-#' @description
-#' Performs \code{intersect(x, y)}, \code{setdiff(x, y)}, and setdiff(y, x).
-#' Returns these elements in a named list, with names "common", "unique_x", and
-#' "unique_y".
+#' @description Performs \code{intersect(x, y)}, \code{setdiff(x, y)}, and
+#' \code{setdiff(y, x)}. Returns these elements in a named list, with names
+#' "common", "unique_x", and "unique_y".
 #'
 #' @references None.
 #'
 #' @seealso https://www.github.com/travis-m-blimkie/tRavis
-#'
-#' @examples
-#' comparison <- tr_compare_lists(x = c(1, 2, 3, 4, 5), y = c(4, 5, 6, 7, 8))
 #'
 tr_compare_lists <- function(x, y) {
 
