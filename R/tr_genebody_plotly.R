@@ -1,34 +1,29 @@
 #' tr_genebody_plotly
 #'
 #' @param qorts_dir Directory containing all the QoRTs results, with each sample
-#'   having its own folder
+#'   having its own folder. Directory name should include trailing "/".
 #'
 #' @return Returns a plotly object (html) of the results
 #'
 #' @export
 #'
-#' @description Using functions from the QoRTs package to read and plot gene
-#'   body coverage data for the upper-middle quartile.
+#' @description Using functions from the \code{QoRTs} package to read and plot
+#'   gene body coverage data for the upper-middle quartile.
 #'
 #' @references None.
 #'
 #' @seealso https://www.github.com/travis-m-blimkie/tRavis
 #'
-#' @examples
-#' tr_genebody_coverage(qorts_dir = "~/my_data/qorts_results/")
-#'
 tr_genebody_plotly <- function(qorts_dir) {
 
   # Required libraries
-  requireNamespace(QoRTs)
   requireNamespace(tidyverse)
-  requireNamespace(plotly)
 
   # Get list of samples based on directory names
   sample_ids <- list.dirs(qorts_dir, full.names = FALSE, recursive = FALSE)
 
   # Read in all the results using QoRTs function
-  qorts_results <- read.qc.results.data(infile.dir = qorts_dir,
+  qorts_results <- QoRTs::read.qc.results.data(infile.dir = qorts_dir,
                                         decoder = sample_ids)
 
 
@@ -38,7 +33,7 @@ tr_genebody_plotly <- function(qorts_dir) {
 
 
   # Plotly of gene body coverage for all samples
-  plot_ly(
+  plotly::plot_ly(
   	group_by(genebodies, SampleName),
       x = ~QUANTILE,
       y = ~X2.upperMidQuartile,

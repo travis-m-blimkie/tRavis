@@ -1,7 +1,7 @@
 #' tr_deseq2_results
 #'
 #' @param result Output from call to DESeq2's results function. Must have been
-#'   run with the tidy = TRUE option
+#'   run with the \code{tidy = TRUE} option
 #' @param pAdj Cutoff for adjusted p-value. Defaults to 0.05
 #' @param fc Cutoff for the fold change value. Defaults to 1.5
 #'
@@ -10,17 +10,13 @@
 #'
 #' @export
 #'
-#' @description This function adds two columns to the results object: ABSLFC is
-#'   the absolute value of the log2FoldChange column. FC is the fold change,
-#'   calculated from the log2FoldChange. It also filters the results based on
-#'   absolute fold change and adjusted p-value, and orders by adjusted p-value.
-#'   Requires tidyverse installation.
+#' @description This function adds two columns to the results object: "ABSLFC"
+#'   is the absolute value of the default "log2FoldChange" column. "FC" is the
+#'   fold change, calculated from the "log2FoldChange". It also filters the
+#'   results based on absolute fold change and adjusted p-value, and orders by
+#'   adjusted p-value.
 #'
 #' @seealso https://www.github.com/travis-m-blimkie/tRavis
-#'
-#' @examples
-#' initial_result <- results(dds, name = "treatment vs. control", tidy = T)
-#' new_result <- tr_deseq2_results(initial_result, pAdj = 0.05, fc = 1.5)
 #'
 tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
 

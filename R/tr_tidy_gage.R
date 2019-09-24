@@ -1,6 +1,6 @@
 #' tr_tidy_gage
 #'
-#' @param gage_result Output from call to `gage` function.
+#' @param gage_result Output from call to \code{gage} function.
 #' @param qval Cutoff for q-value. Defaults to 0.1
 #'
 #' @return A dataframe (tibble) of enriched KEGG pathways, filtered and without
@@ -11,14 +11,11 @@
 #' @description This function will simply convert the output from Gage
 #'   enrichment into a easier-to-use format, namely a data frame. At the same
 #'   time it also filters the result based on q-value, with a default of
-#'   `0.1`. Requires tidyverse installation.
+#'   "0.1".
 #'
 #' @references None.
 #'
 #' @seealso https://www.github.com/travis-m-blimkie/tRavis
-#'
-#' @examples
-#' new_result <- tr_tidy_gage(gage_result, qval = 0.1)
 #'
 tr_tidy_gage <- function(gage_result, qval = 0.1) {
 
