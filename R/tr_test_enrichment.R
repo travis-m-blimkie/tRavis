@@ -1,11 +1,11 @@
 #' tr_test_enrichment
 #'
 #' @param query_genes List of experimentally or otherwise derived genes, in
-#'   which one wishes to test for enrichment
-#' @param enrichment_set Set of genes of interest, such as virulence genes
-#' @param total_genes Total number of genes for the organism/species
+#'   which one wishes to test for enrichment.
+#' @param enrichment_set Set of genes of interest, such as virulence genes.
+#' @param total_genes Total number of genes for the organism/species.
 #'
-#' @return Produces the raw p-value from \code{fisher.test()}
+#' @return Produces the raw p-value from \code{fisher.test()}.
 #'
 #' @export
 #'
@@ -19,10 +19,8 @@
 #'
 tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
 
-  requireNamespace(tidyverse)
-
   # Calculate overlap between the query list and enrichment set
-  num_overlap <- as.numeric(length(intersect(query_genes, enrichment_set)))
+  num_overlap <- as.numeric(length(dplyr::intersect(query_genes, enrichment_set)))
 
   # Construct the matrix to be used for the test
   enrichment_matrix <- matrix(c(
@@ -33,7 +31,7 @@ tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
   ), nrow = 2, ncol = 2)
 
   # Run and return Fisher's Exact test on the matrix
-  raw_pval <- fisher.test(enrichment_matrix, alternative = "greater")$p.value
+  raw_pval <- stats::fisher.test(enrichment_matrix, alternative = "greater")$p.value
 
   return(raw_pval)
 }

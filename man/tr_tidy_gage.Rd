@@ -9,11 +9,11 @@ tr_tidy_gage(gage_result, qval = 0.1)
 \arguments{
 \item{gage_result}{Output from call to \code{gage} function.}
 
-\item{qval}{Cutoff for q-value. Defaults to 0.1}
+\item{qval}{Cutoff for q-value. Defaults to 0.1.}
 }
 \value{
 A dataframe (tibble) of enriched KEGG pathways, filtered and without
-  rownames (first column contains pathway name/identifier)
+  rownames (first column contains pathway name/identifier).
 }
 \description{
 This function will simply convert the output from Gage

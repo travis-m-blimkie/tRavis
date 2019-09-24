@@ -1,7 +1,7 @@
 #' tr_compare_lists
 #'
-#' @param x First vector to compare
-#' @param y Second vector to compare
+#' @param x First vector to compare.
+#' @param y Second vector to compare.
 #'
 #' @return A named list of the common and unique elements of x and y.
 #'
@@ -17,11 +17,9 @@
 #'
 tr_compare_lists <- function(x, y) {
 
-  requireNamespace(tidyverse)
-
-  list(common = intersect(x, y),
-       unique_x = setdiff(x, y),
-       unique_y = setdiff(y, x)
+  list(common   = dplyr::intersect(x, y),
+       unique_x = dplyr::setdiff(x, y),
+       unique_y = dplyr::setdiff(y, x)
   )
 
 }

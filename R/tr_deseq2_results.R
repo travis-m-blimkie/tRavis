@@ -1,9 +1,9 @@
 #' tr_deseq2_results
 #'
 #' @param result Output from call to DESeq2's results function. Must have been
-#'   run with the \code{tidy = TRUE} option
-#' @param pAdj Cutoff for adjusted p-value. Defaults to 0.05
-#' @param fc Cutoff for the fold change value. Defaults to 1.5
+#'   run with the \code{tidy = TRUE} option.
+#' @param pAdj Cutoff for adjusted p-value. Defaults to 0.05.
+#' @param fc Cutoff for the fold change value. Defaults to 1.5.
 #'
 #' @return A dataframe (tibble) of differentially expressed genes, filtered and
 #'   without rownames (first column contains gene identifier).
@@ -20,8 +20,7 @@
 #'
 tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
 
-  requireNamespace(tidyverse)
-
+  # Check for proper input type
   if (is.data.frame(result) != TRUE) {
     stop("Did you call DESeq2::results() with the 'tidy = TRUE' option?")
   }
@@ -35,7 +34,7 @@ tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
 
   colnames(result)[colnames(result) == "row"] <- "gene"
 
-  result <- remove_rownames(result)
+  result <- tibble::remove_rownames(result)
 
   return(result)
 

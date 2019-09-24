@@ -8,11 +8,11 @@ tr_deseq2_results(result, pAdj = 0.05, fc = 1.5)
 }
 \arguments{
 \item{result}{Output from call to DESeq2's results function. Must have been
-run with the \code{tidy = TRUE} option}
+run with the \code{tidy = TRUE} option.}
 
-\item{pAdj}{Cutoff for adjusted p-value. Defaults to 0.05}
+\item{pAdj}{Cutoff for adjusted p-value. Defaults to 0.05.}
 
-\item{fc}{Cutoff for the fold change value. Defaults to 1.5}
+\item{fc}{Cutoff for the fold change value. Defaults to 1.5.}
 }
 \value{
 A dataframe (tibble) of differentially expressed genes, filtered and

@@ -8,14 +8,14 @@ tr_test_enrichment(query_genes, enrichment_set, total_genes)
 }
 \arguments{
 \item{query_genes}{List of experimentally or otherwise derived genes, in
-which one wishes to test for enrichment}
+which one wishes to test for enrichment.}
 
-\item{enrichment_set}{Set of genes of interest, such as virulence genes}
+\item{enrichment_set}{Set of genes of interest, such as virulence genes.}
 
-\item{total_genes}{Total number of genes for the organism/species}
+\item{total_genes}{Total number of genes for the organism/species.}
 }
 \value{
-Produces the raw p-value from \code{fisher.test()}
+Produces the raw p-value from \code{fisher.test()}.
 }
 \description{
 Perfroms Fisher's Exact test to determine enrichment of a set of

@@ -11,7 +11,7 @@ tr_genebody_plotly(qorts_dir)
 having its own folder. Directory name should include trailing "/".}
 }
 \value{
-Returns a plotly object (html) of the results
+Returns a plotly object (html) of the results.
 }
 \description{
 Using functions from the \code{QoRTs} package to read and plot
