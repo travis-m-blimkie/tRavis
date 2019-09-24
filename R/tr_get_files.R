@@ -26,11 +26,11 @@ tr_get_files <- function(folder, pattern = "", date = FALSE) {
   # Create names for the list based on file names. Remove file extension and
   # date if specified
   if (date == FALSE) {
-    f_Names <- list.files(folder) %>%
+    f_Names <- list.files(folder, pattern = pattern) %>%
       purrr::map(~stringr::str_remove(., pattern = "\\.(csv|tsv|txt)"))
 
   } else if (date == TRUE) {
-    f_Names <- list.files(folder) %>%
+    f_Names <- list.files(folder, pattern = pattern) %>%
       purrr::map(~stringr::str_remove(., pattern = "_[0-9]{8}\\.(csv|tsv|txt)"))
   }
 
