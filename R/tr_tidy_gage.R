@@ -1,10 +1,10 @@
 #' tr_tidy_gage
 #'
 #' @param gage_result Output from call to \code{gage} function.
-#' @param qval Cutoff for q-value. Defaults to 0.1
+#' @param qval Cutoff for q-value. Defaults to 0.1.
 #'
 #' @return A dataframe (tibble) of enriched KEGG pathways, filtered and without
-#'   rownames (first column contains pathway name/identifier)
+#'   rownames (first column contains pathway name/identifier).
 #'
 #' @export
 #'
@@ -19,13 +19,11 @@
 #'
 tr_tidy_gage <- function(gage_result, qval = 0.1) {
 
-  requireNamespace(tidyverse)
-
-  bind_rows(list(
-    Up = as.data.frame(gage_result[["greater"]]) %>% rownames_to_column(),
-    Down = as.data.frame(gage_result[["less"]]) %>% rownames_to_column()
+  dplyr::bind_rows(list(
+    Up = as.data.frame(gage_result[["greater"]]) %>% tibble::rownames_to_column(),
+    Down = as.data.frame(gage_result[["less"]]) %>% tibble::rownames_to_column()
   ), .id = "Direction") %>%
-    filter(., q.val < qval)
+    dplyr::filter(., q.val < qval)
 
 }
 

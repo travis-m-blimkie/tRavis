@@ -7,9 +7,9 @@
 tr_compare_lists(x, y)
 }
 \arguments{
-\item{x}{First vector to compare}
+\item{x}{First vector to compare.}
 
-\item{y}{Second vector to compare}
+\item{y}{Second vector to compare.}
 }
 \value{
 A named list of the common and unique elements of x and y.

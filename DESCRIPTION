@@ -1,5 +1,5 @@
 Package: tRavis
-Title: Custom functions by Travis B
+Title: Custom functions by Travis Blimkie
 Version: 0.5.0
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: Includes some custom functions useful for work.
@@ -9,5 +9,12 @@ LazyData: true
 Imports: 
     plotly,
     DESeq2,
-    QoRTs
+    QoRTs,
+    tibble,
+    dplyr,
+    purrr,
+    stringr,
+    readr,
+    tidyr,
+    stats
 RoxygenNote: 6.1.1

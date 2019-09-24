@@ -9,20 +9,20 @@ tr_de_results(dds_obj, col_name, numerator, denominator, pAdj = 0.05,
 }
 \arguments{
 \item{dds_obj}{A DESEq2 dataset object as produced by running
-\code{DESeq2::DESeq()}}
+\code{DESeq2::DESeq()}.}
 
 \item{col_name}{The name of the column/variable being analyzed, e.g.
-"Treatment" or "Genotype"}
+"Treatment" or "Genotype".}
 
 \item{numerator}{The first argument used as the "experimental condition" in
-the DE comparison, e.g. "Treated", or "Mutant"}
+the DE comparison, e.g. "Treated", or "Mutant".}
 
 \item{denominator}{The baseline or control condition used in the DE
-comparison, e.g. "Control" or "Untreated"}
+comparison, e.g. "Control" or "Untreated".}
 
-\item{pAdj}{Cutoff for adjusted p-value. Defaults to 0.05}
+\item{pAdj}{Cutoff for adjusted p-value. Defaults to 0.05.}
 
-\item{fc}{Cutoff for absolute fold change. Defaults to 1.5}
+\item{fc}{Cutoff for absolute fold change. Defaults to 1.5.}
 }
 \value{
 A dataframe (tibble) of differentially expressed genes, filtered and

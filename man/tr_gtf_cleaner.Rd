@@ -7,7 +7,7 @@
 tr_gtf_cleaner(gtf_file)
 }
 \arguments{
-\item{gtf_file}{Path to the input GTF file}
+\item{gtf_file}{Path to the input GTF file.}
 }
 \value{
 A dataframe (tibble) of the cleaned GTF file, containing the

@@ -7,14 +7,14 @@
 tr_get_files(folder, pattern = "", date = FALSE)
 }
 \arguments{
-\item{folder}{Directory containing files of interest}
+\item{folder}{Directory containing files of interest.}
 
-\item{pattern}{Optional pattern to use in file searching}
+\item{pattern}{Optional pattern to use in file searching.}
 
 \item{date}{Do file names contain a date which should be removed?}
 }
 \value{
-Named list of files to be read
+Named list of files to be read.
 }
 \description{
 Function which creates a named list of files in a specified
