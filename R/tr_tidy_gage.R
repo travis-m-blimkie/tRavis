@@ -8,6 +8,9 @@
 #'
 #' @export
 #'
+#' @import dplyr
+#' @import tibble
+#'
 #' @description This function will simply convert the output from Gage
 #'   enrichment into a easier-to-use format, namely a data frame. At the same
 #'   time it also filters the result based on q-value, with a default of

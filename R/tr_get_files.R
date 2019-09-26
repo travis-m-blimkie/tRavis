@@ -8,6 +8,9 @@
 #'
 #' @export
 #'
+#' @import purrr
+#' @import stringr
+#'
 #' @description Function which creates a named list of files in a specified
 #'   directory. Names are trimmed versions of file names, contents of the list
 #'   are the file names themselves. Can be easily piped into
@@ -27,15 +30,15 @@ tr_get_files <- function(folder, pattern = "", date = FALSE) {
   # date if specified
   if (date == FALSE) {
     f_Names <- list.files(folder, pattern = pattern) %>%
-      purrr::map(~stringr::str_remove(., pattern = "\\.(csv|tsv|txt)"))
+      map(~str_remove(., pattern = "\\.(csv|tsv|txt)"))
 
   } else if (date == TRUE) {
     f_Names <- list.files(folder, pattern = pattern) %>%
-      purrr::map(~stringr::str_remove(., pattern = "_[0-9]{8}\\.(csv|tsv|txt)"))
+      map(~str_remove(., pattern = "_[0-9]{8}\\.(csv|tsv|txt)"))
   }
 
   # Create and return output object
-  f_Output <- purrr::set_names(f_Files, f_Names)
+  f_Output <- set_names(f_Files, f_Names)
   return(as.list(f_Output))
 
 }
