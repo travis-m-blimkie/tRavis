@@ -7,6 +7,8 @@
 #'
 #' @export
 #'
+#' @import dplyr
+#'
 #' @description Using functions from the \code{QoRTs} package to read and plot
 #'   gene body coverage data for the upper-middle quartile.
 #'
@@ -25,13 +27,13 @@ tr_genebody_plotly <- function(qorts_dir) {
 
 
   # Pull out the gene body coverage results
-  genebodies <- dplyr::bind_rows(qorts_results@qc.data[["geneBodyCoverage.pct"]],
+  genebodies <- bind_rows(qorts_results@qc.data[["geneBodyCoverage.pct"]],
                                  .id = "SampleName")
 
 
   # Plotly of gene body coverage for all samples
   plotly::plot_ly(
-    dplyr::group_by(genebodies, SampleName),
+    group_by(genebodies, SampleName),
     x = ~QUANTILE,
     y = ~X2.upperMidQuartile,
     name = "Upper_Mid_Quartile",
