@@ -7,6 +7,8 @@
 #'
 #' @export
 #'
+#' @import dplyr
+#'
 #' @description Performs \code{intersect(x, y)}, \code{setdiff(x, y)}, and
 #' \code{setdiff(y, x)}. Returns these elements in a named list, with names
 #' "common", "unique_x", and "unique_y".
@@ -17,9 +19,9 @@
 #'
 tr_compare_lists <- function(x, y) {
 
-  list(common   = dplyr::intersect(x, y),
-       unique_x = dplyr::setdiff(x, y),
-       unique_y = dplyr::setdiff(y, x)
+  list(common   = intersect(x, y),
+       unique_x = setdiff(x, y),
+       unique_y = setdiff(y, x)
   )
 
 }
