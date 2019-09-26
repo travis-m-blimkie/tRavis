@@ -8,6 +8,10 @@
 #'
 #' @export
 #'
+#' @import dplyr
+#' @import tidyr
+#' @import stringr
+#'
 #' @description Given an input GTF file (bacterial), separates and cleans
 #'   columns, returning a clean and tidy data frame. Only returns locus tag,
 #'   gene name, description, start, end, and strand columns. Only supports PAO1,
@@ -28,13 +32,13 @@ tr_gtf_cleaner <- function(gtf_file) {
   # Make extensive use of tidyverse functions to clean the GTF file. Uses the
   # single regex to match IDs from all three strains in one go
   clean_gtf <- gtf %>%
-    dplyr::filter(feature == "CDS") %>%
-    tidyr::separate(attribute, into = c("gene_id", "transcript_id", "locus_tag", "name", "ref"), sep = ";") %>%
-    dplyr::select(locus_tag, name, start, end, strand) %>%
-    dplyr::mutate(locus_tag = stringr::str_extract(locus_tag, pattern = "PA(14|LES)?_?[0-9]{4,5}"),
-                  name = stringr::str_replace(name, pattern = ' name "(.*)"', replacement = "\\1")) %>%
-    tidyr::separate(name, into = c("name", "description"), sep = " ,", fill = "left") %>%
-    dplyr::mutate(name = dplyr::case_when(is.na(name) ~ locus_tag, TRUE ~ name))
+    filter(feature == "CDS") %>%
+    separate(attribute, into = c("gene_id", "transcript_id", "locus_tag", "name", "ref"), sep = ";") %>%
+    select(locus_tag, name, start, end, strand) %>%
+    mutate(locus_tag = str_extract(locus_tag, pattern = "PA(14|LES)?_?[0-9]{4,5}"),
+                  name = str_replace(name, pattern = ' name "(.*)"', replacement = "\\1")) %>%
+    separate(name, into = c("name", "description"), sep = " ,", fill = "left") %>%
+    mutate(name = case_when(is.na(name) ~ locus_tag, TRUE ~ name))
 
   return(clean_gtf)
 }

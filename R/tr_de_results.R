@@ -16,6 +16,8 @@
 #'
 #' @export
 #'
+#' @import dplyr
+#'
 #' @description This function runs \code{DESeq2::results()} using the contrast
 #'   argument and levels specified by the user. It also adds columns for
 #'   absolute log2 fold change and fold change, and filters the result based on
@@ -39,10 +41,10 @@ tr_de_results <- function(dds_obj,
 
   # Add columns and filter the result
   output_result <- deseq2_result %>%
-    dplyr::rename("gene" = "row") %>%
-    dplyr::mutate(ABSLFC = abs(log2FoldChange),
+    rename("gene" = "row") %>%
+    mutate(ABSLFC = abs(log2FoldChange),
                   FC = sign(log2FoldChange) * (2 ^ ABSLFC)) %>%
-    dplyr::filter(padj <= pAdj & ABSLFC >= log2(fc)) %>%
-    dplyr::arrange(padj)
+    filter(padj <= pAdj & ABSLFC >= log2(fc)) %>%
+    arrange(padj)
 
 }
