@@ -26,5 +26,5 @@ Perfroms Fisher's Exact test to determine enrichment of a set of
 None.
 }
 \seealso{
-https://www.github.com/travis-m-blimkie/tRavis
+\url{https://www.github.com/travis-m-blimkie/tRavis}
 }

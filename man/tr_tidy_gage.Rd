@@ -25,5 +25,5 @@ This function will simply convert the output from Gage
 None.
 }
 \seealso{
-https://www.github.com/travis-m-blimkie/tRavis
+\url{https://www.github.com/travis-m-blimkie/tRavis}
 }

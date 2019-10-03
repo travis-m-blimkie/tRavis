@@ -23,5 +23,5 @@ Performs \code{intersect(x, y)}, \code{setdiff(x, y)}, and
 None.
 }
 \seealso{
-https://www.github.com/travis-m-blimkie/tRavis
+\url{https://www.github.com/travis-m-blimkie/tRavis}
 }

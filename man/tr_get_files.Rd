@@ -4,14 +4,18 @@
 \alias{tr_get_files}
 \title{tr_get_files}
 \usage{
-tr_get_files(folder, pattern = "", date = FALSE)
+tr_get_files(folder, pattern = "", date = FALSE, removeString = "")
 }
 \arguments{
 \item{folder}{Directory containing files of interest.}
 
 \item{pattern}{Optional pattern to use in file searching.}
 
-\item{date}{Do file names contain a date which should be removed?}
+\item{date}{Do file names contain a date which should be removed? Should be
+of the format "YYYYMMDD"}
+
+\item{removeString}{Optional string which can be removed from file names when
+creating names for the list.}
 }
 \value{
 Named list of files to be read.
@@ -26,5 +30,5 @@ Function which creates a named list of files in a specified
 None.
 }
 \seealso{
-https://www.github.com/travis-m-blimkie/tRavis
+\url{https://www.github.com/travis-m-blimkie/tRavis}
 }

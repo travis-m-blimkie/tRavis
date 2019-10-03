@@ -21,5 +21,5 @@ Using functions from the \code{QoRTs} package to read and plot
 None.
 }
 \seealso{
-https://www.github.com/travis-m-blimkie/tRavis
+\url{https://www.github.com/travis-m-blimkie/tRavis}
 }
