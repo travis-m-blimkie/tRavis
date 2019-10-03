@@ -16,7 +16,7 @@
 #'   results based on absolute fold change and adjusted p-value, and orders by
 #'   adjusted p-value.
 #'
-#' @seealso https://www.github.com/travis-m-blimkie/tRavis
+#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
 tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
 

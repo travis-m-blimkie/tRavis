@@ -15,7 +15,7 @@
 #'
 #' @references None.
 #'
-#' @seealso https://www.github.com/travis-m-blimkie/tRavis
+#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
 tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
 
