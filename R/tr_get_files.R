@@ -40,10 +40,13 @@ tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") 
       map(~str_remove(., pattern = "_[0-9]{8}\\.(csv|tsv|txt)"))
   }
 
-  # Remove specified string if provided
-  f_Names <- f_Names %>% map(
-    ~str_remove(., pattern = removeString)
-  )
+  # Remove specified string if provided. Needs to be in a conditional, otherwise
+  # `str_remove()` returns an error for trying to remove nothing.
+  if (removeString != "") {
+    f_Names <- f_Names %>% map(
+      ~str_remove(., pattern = removeString)
+    )
+  }
 
   # Create and return output object
   f_Output <- set_names(f_Files, f_Names)
