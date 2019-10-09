@@ -26,5 +26,5 @@ This function adds two columns to the results object: "ABSLFC"
   adjusted p-value.
 }
 \seealso{
-https://www.github.com/travis-m-blimkie/tRavis
+\url{https://www.github.com/travis-m-blimkie/tRavis}
 }

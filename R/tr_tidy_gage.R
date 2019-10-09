@@ -18,7 +18,7 @@
 #'
 #' @references None.
 #'
-#' @seealso https://www.github.com/travis-m-blimkie/tRavis
+#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
 tr_tidy_gage <- function(gage_result, qval = 0.1) {
 
