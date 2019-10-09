@@ -2,7 +2,10 @@
 #'
 #' @param folder Directory containing files of interest.
 #' @param pattern Optional pattern to use in file searching.
-#' @param date Do file names contain a date which should be removed?
+#' @param date Do file names contain a date which should be removed? Should be
+#'   of the format "YYYYMMDD"
+#' @param removeString Optional string which can be removed from file names when
+#'   creating names for the list.
 #'
 #' @return Named list of files to be read.
 #'
@@ -18,9 +21,9 @@
 #'
 #' @references None.
 #'
-#' @seealso https://www.github.com/travis-m-blimkie/tRavis
+#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
-tr_get_files <- function(folder, pattern = "", date = FALSE) {
+tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") {
 
   # List all files in the specifed folder, using the provided pattern, else
   # match all files in the specifed folder
@@ -35,6 +38,14 @@ tr_get_files <- function(folder, pattern = "", date = FALSE) {
   } else if (date == TRUE) {
     f_Names <- list.files(folder, pattern = pattern) %>%
       map(~str_remove(., pattern = "_[0-9]{8}\\.(csv|tsv|txt)"))
+  }
+
+  # Remove specified string if provided. Needs to be in a conditional, otherwise
+  # `str_remove()` returns an error for trying to remove nothing.
+  if (removeString != "") {
+    f_Names <- f_Names %>% map(
+      ~str_remove(., pattern = removeString)
+    )
   }
 
   # Create and return output object

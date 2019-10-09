@@ -14,7 +14,7 @@
 #'
 #' @references None.
 #'
-#' @seealso https://www.github.com/travis-m-blimkie/tRavis
+#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
 tr_genebody_plotly <- function(qorts_dir) {
 
