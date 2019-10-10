@@ -26,22 +26,25 @@
 tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") {
 
   # List all files in the specifed folder, using the provided pattern, else
-  # match all files in the specifed folder
-  f_Files <- list.files(folder, full.names = TRUE, pattern = pattern)
+  # match all files.
+  f_Files <- list.files(folder, pattern = pattern, full.names = TRUE) %>%
+    grep("(csv|tsv|txt)$", ., value = TRUE)
 
-  # Create names for the list based on file names. Remove file extension and
-  # date if specified
-  if (date == FALSE) {
-    f_Names <- list.files(folder, pattern = pattern) %>%
-      map(~str_remove(., pattern = "\\.(csv|tsv|txt)"))
+  # Create the names to be assigned to each file in the list, removing the
+  # extension from the end.
+  f_Names <- list.files(folder, pattern = pattern) %>%
+    grep("(csv|tsv|txt)$", ., value = TRUE) %>%
+    map(~str_remove(., pattern = "\\.(csv|tsv|txt)"))
 
-  } else if (date == TRUE) {
-    f_Names <- list.files(folder, pattern = pattern) %>%
-      map(~str_remove(., pattern = "_[0-9]{8}\\.(csv|tsv|txt)"))
+  # If specified, remove dates from the names for files.
+  if (date == TRUE) {
+    f_Names <- f_Names %>%
+      map(~str_remove(., pattern = "_?[0-9]{8}"))
   }
 
   # Remove specified string if provided. Needs to be in a conditional, otherwise
-  # `str_remove()` returns an error for trying to remove nothing.
+  # `str_remove()` returns an error for trying to remove nothing/everything/
+  # anything.
   if (removeString != "") {
     f_Names <- f_Names %>% map(
       ~str_remove(., pattern = removeString)
@@ -51,5 +54,4 @@ tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") 
   # Create and return output object
   f_Output <- set_names(f_Files, f_Names)
   return(as.list(f_Output))
-
 }
