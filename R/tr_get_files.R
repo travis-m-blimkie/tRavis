@@ -47,7 +47,7 @@ tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") 
   # anything.
   if (removeString != "") {
     f_Names <- f_Names %>% map(
-      ~str_remove(., pattern = removeString)
+      ~str_remove_all(., pattern = removeString)
     )
   }
 
