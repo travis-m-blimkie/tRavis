@@ -1,8 +1,9 @@
 # tRavis
 
 ### Description
-Github repository to hold my custom R package.
-Install via `devtools::install_github()` function.
+Github repository to hold my custom R package, containing a suite of useful
+functions.
+
 
 #### Current functions include:
 - **tr_compare_lists:** Returns common and unique elements for two vectors `x` and `y`.
@@ -13,3 +14,30 @@ Install via `devtools::install_github()` function.
 - **tr_gtf_cleaner:** Cleans and parses GTF files from *Pseudomonas aeruginosa*.
 - **tr_test_enrichment:** Tests for enrichment of a specified set of genes in a list of genes of interest, using Fisher's Exact Test.
 - **tr_tidy_gage:** Coverts output of Gage main function to a tidy dataframe, combining `greater` and `less`, while also filtering on q-value.
+
+### Installation
+The code below installs all dependencies and then tRavis itself.
+```
+# Tidyverse
+install.packages("tidyverse")
+
+# Devtools
+install.packages("devtools")
+
+# BiocManager
+install.packages("BiocManager")
+
+# DESeq2
+BiocManager::install("DESeq2")
+
+# QoRTs
+install.packages("http://hartleys.github.io/QoRTs/QoRTs_STABLE.tar.gz",
+                 repos = NULL, 
+                 type = "source")
+
+# Finally, you can install tRavis itself
+devtools::install_github("travis-m-blimkie/tRavis")
+
+# To update, use the following
+devtools::update_packages("tRavis")
+```
