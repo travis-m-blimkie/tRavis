@@ -25,5 +25,5 @@ Given an input GTF file (bacterial), separates and cleans
 None.
 }
 \seealso{
-https://www.github.com/travis-m-blimkie/tRavis
+\url{https://www.github.com/travis-m-blimkie/tRavis}
 }
