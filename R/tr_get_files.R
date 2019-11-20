@@ -23,7 +23,7 @@
 #'
 #' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
-tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") {
+tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = NULL) {
 
   # List all files in the specifed folder, using the provided pattern, else
   # match all files.
@@ -53,7 +53,7 @@ tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") 
   # Remove specified string if provided. Needs to be in a conditional, otherwise
   # `str_remove()` returns an error for trying to remove nothing/everything/
   # anything.
-  if (removeString != "") {
+  if (!is.null(removeString)) {
     f_Names <- f_Names %>% map(
       ~str_remove_all(., pattern = removeString)
     )
