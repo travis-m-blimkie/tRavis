@@ -4,8 +4,7 @@
 \alias{tr_de_results}
 \title{tr_de_results}
 \usage{
-tr_de_results(dds_obj, col_name, numerator, denominator, pAdj = 0.05,
-  fc = 1.5)
+tr_de_results(dds_obj, col_name, numerator, denominator, pAdj = 0.05, fc = 1.5)
 }
 \arguments{
 \item{dds_obj}{A DESEq2 dataset object as produced by running
