@@ -30,6 +30,14 @@ tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") 
   f_Files <- list.files(folder, pattern = pattern, full.names = TRUE) %>%
     grep("(csv|tsv|txt)$", ., value = TRUE)
 
+  if (length(f_Files) == 0) {
+    stop(paste0(
+      "No files found matching the specified pattern. Please note ",
+      "that this function only supports files with the extension 'csv', 'tsv', ",
+      "or 'txt'."
+    ))
+  }
+
   # Create the names to be assigned to each file in the list, removing the
   # extension from the end.
   f_Names <- list.files(folder, pattern = pattern) %>%
