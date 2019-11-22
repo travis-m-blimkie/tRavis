@@ -33,8 +33,8 @@ tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = NULL
   if (length(f_Files) == 0) {
     stop(paste0(
       "No files found matching the specified pattern. Please note ",
-      "that this function only supports files with the extension 'csv', 'tsv', ",
-      "or 'txt'."
+      "that this function only supports files with the extension ",
+      "'csv', 'tsv', or 'txt'."
     ))
   }
 
