@@ -23,12 +23,20 @@
 #'
 #' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
-tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") {
+tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = NULL) {
 
   # List all files in the specifed folder, using the provided pattern, else
   # match all files.
   f_Files <- list.files(folder, pattern = pattern, full.names = TRUE) %>%
     grep("(csv|tsv|txt)$", ., value = TRUE)
+
+  if (length(f_Files) == 0) {
+    stop(paste0(
+      "No files found matching the specified pattern. Please note ",
+      "that this function only supports files with the extension ",
+      "'csv', 'tsv', or 'txt'."
+    ))
+  }
 
   # Create the names to be assigned to each file in the list, removing the
   # extension from the end.
@@ -45,7 +53,7 @@ tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = "") 
   # Remove specified string if provided. Needs to be in a conditional, otherwise
   # `str_remove()` returns an error for trying to remove nothing/everything/
   # anything.
-  if (removeString != "") {
+  if (!is.null(removeString)) {
     f_Names <- f_Names %>% map(
       ~str_remove_all(., pattern = removeString)
     )
