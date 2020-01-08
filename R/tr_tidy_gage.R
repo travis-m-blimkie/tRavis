@@ -22,11 +22,14 @@
 #'
 tr_tidy_gage <- function(gage_result, qval = 0.1) {
 
-  dplyr::bind_rows(list(
-    Up = as.data.frame(gage_result[["greater"]]) %>% tibble::rownames_to_column(),
-    Down = as.data.frame(gage_result[["less"]]) %>% tibble::rownames_to_column()
-  ), .id = "Direction") %>%
-    dplyr::filter(., q.val < qval)
+  gageList <- list(Up = gage_result[["greater"]], Down = gage_result[["less"]])
 
+  gageOut <- gageList %>% map(
+    ~as.data.frame(.) %>% rownames_to_column("Pathway")
+  ) %>%
+    bind_rows(.id = "Direction") %>%
+    filter(q.val <= qval)
+
+  return(gageOut)
 }
 
