@@ -4,7 +4,7 @@
 \alias{tr_get_files}
 \title{tr_get_files}
 \usage{
-tr_get_files(folder, pattern = "", date = FALSE, removeString = "")
+tr_get_files(folder, pattern = "", date = FALSE, removeString = NULL)
 }
 \arguments{
 \item{folder}{Directory containing files of interest.}
