@@ -11,8 +11,8 @@ tr_get_files(folder, pattern = "", date = FALSE, removeString = NULL)
 
 \item{pattern}{Optional pattern to use in file searching.}
 
-\item{date}{Do file names contain a date which should be removed? Should be
-of the format "YYYYMMDD"}
+\item{date}{Do file names contain a date which should be removed? Must be of
+the format "YYYYMMDD".}
 
 \item{removeString}{Optional string which can be removed from file names when
 creating names for the list.}
@@ -22,9 +22,11 @@ Named list of files to be read.
 }
 \description{
 Function which creates a named list of files in a specified
-  directory. Names are trimmed versions of file names, contents of the list
-  are the file names themselves. Can be easily piped into
-  \code{purrr::map(~read.csv(.))} to create named list of data frames.
+  directory. The list names are trimmed versions of file names, while
+  contents of the list are the file names themselves. In this way, it can be
+  easily piped into \code{purrr::map(~read.csv(.))} to create named list of
+  data frames. Note this function will only find files with the extension
+  "csv", "tsv", or "txt".
 }
 \references{
 None.
