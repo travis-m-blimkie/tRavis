@@ -16,7 +16,8 @@
 #'   columns, returning a clean and tidy data frame. Only returns locus tag,
 #'   gene name, description, start, end, and strand columns. Only supports PAO1,
 #'   PA14, and LESB58. Uses a single regex to match and extract locus tag for
-#'   all three strains.
+#'   all three strains. Will not work with latest GTF version from PGDB (v19).
+#'   Version 18 and below should work fine.
 #'
 #' @references None.
 #'
