@@ -24,9 +24,8 @@ tr_tidy_gage <- function(gage_result, qval = 0.1) {
 
   gageList <- list(Up = gage_result[["greater"]], Down = gage_result[["less"]])
 
-  gageOut <- gageList %>% map(
-    ~as.data.frame(.) %>% rownames_to_column("Pathway")
-  ) %>%
+  gageOut <- gageList %>%
+    map(~as.data.frame(.) %>% rownames_to_column("Pathway")) %>%
     bind_rows(.id = "Direction") %>%
     filter(q.val <= qval)
 
