@@ -3,7 +3,7 @@
 #' @param folder Directory containing files of interest.
 #' @param pattern Optional pattern to use in file searching.
 #' @param date Do file names contain a date which should be removed? Must be of
-#'   the format "YYYYMMDD".
+#'   the format "YYYYMMDD". Defaults to FALSE.
 #' @param removeString Optional string which can be removed from file names when
 #'   creating names for the list.
 #'
