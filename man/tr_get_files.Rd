@@ -12,7 +12,7 @@ tr_get_files(folder, pattern = "", date = FALSE, removeString = NULL)
 \item{pattern}{Optional pattern to use in file searching.}
 
 \item{date}{Do file names contain a date which should be removed? Must be of
-the format "YYYYMMDD".}
+the format "YYYYMMDD". Defaults to FALSE.}
 
 \item{removeString}{Optional string which can be removed from file names when
 creating names for the list.}
