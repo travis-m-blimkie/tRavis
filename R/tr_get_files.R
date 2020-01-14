@@ -2,6 +2,8 @@
 #'
 #' @param folder Directory containing files of interest.
 #' @param pattern Optional pattern to use in file searching.
+#' @param recur Boolean, whether file listing should be done recursively.
+#'   Defaults to FALSE.
 #' @param date Do file names contain a date which should be removed? Must be of
 #'   the format "YYYYMMDD". Defaults to FALSE.
 #' @param removeString Optional string which can be removed from file names when
@@ -26,11 +28,11 @@
 #'
 #' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
-tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = NULL) {
+tr_get_files <- function(folder, pattern = "", recur = FALSE, date = FALSE, removeString = NULL) {
 
   # List all files in the specifed folder, using the provided pattern, else
   # match all files.
-  f_Files <- list.files(folder, pattern = pattern, full.names = TRUE) %>%
+  f_Files <- list.files(folder, pattern = pattern, recursive = recur, full.names = TRUE) %>%
     grep("(csv|tsv|txt)$", ., value = TRUE)
 
   # Provide a custom error message if no files are found, and remind the user
@@ -45,7 +47,7 @@ tr_get_files <- function(folder, pattern = "", date = FALSE, removeString = NULL
 
   # Create the names to be assigned to each file in the list, removing the
   # extension from the end.
-  f_Names <- list.files(folder, pattern = pattern) %>%
+  f_Names <- list.files(folder, pattern = pattern, recursive = recur) %>%
     grep("(csv|tsv|txt)$", ., value = TRUE) %>%
     str_remove(., pattern = "\\.(csv|tsv|txt)")
 

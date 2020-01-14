@@ -4,12 +4,21 @@
 \alias{tr_get_files}
 \title{tr_get_files}
 \usage{
-tr_get_files(folder, pattern = "", date = FALSE, removeString = NULL)
+tr_get_files(
+  folder,
+  pattern = "",
+  recur = FALSE,
+  date = FALSE,
+  removeString = NULL
+)
 }
 \arguments{
 \item{folder}{Directory containing files of interest.}
 
 \item{pattern}{Optional pattern to use in file searching.}
+
+\item{recur}{Boolean, whether file listing should be done recursively.
+Defaults to FALSE.}
 
 \item{date}{Do file names contain a date which should be removed? Must be of
 the format "YYYYMMDD". Defaults to FALSE.}
