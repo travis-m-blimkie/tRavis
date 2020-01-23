@@ -19,6 +19,10 @@
 #'
 tr_compare_lists <- function(x, y) {
 
+  if ( (is.vector(x) & is.vector(y)) == FALSE ) {
+    stop("Wrong input type. Please ensure both 'x' and 'y' are vectors.")
+  }
+
   list(common   = intersect(x, y),
        unique_x = setdiff(x, y),
        unique_y = setdiff(y, x)
