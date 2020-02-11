@@ -27,7 +27,7 @@ tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
     num_overlap,
     length(enrichment_set) - num_overlap,
     length(query_genes) - num_overlap,
-    total_genes - (length(enrichment_set) - num_overlap)
+    total_genes - length(enrichment_set) - (length(query_genes) - num_overlap)
   ), nrow = 2, ncol = 2)
 
   # Run and return Fisher's Exact test on the matrix
