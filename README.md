@@ -25,4 +25,4 @@ devtools::install_github("travis-m-blimkie/tRavis")
 devtools::update_packages("tRavis")
 ```
 
-***
+
