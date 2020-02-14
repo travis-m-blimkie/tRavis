@@ -1,6 +1,6 @@
 Package: tRavis
 Title: Custom functions by Travis Blimkie
-Version: 0.5.91
+Version: 0.60.00
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: Includes some custom functions useful for work.
 Depends: R (>= 3.6.0)
@@ -17,7 +17,8 @@ Imports:
     readr,
     tidyr,
     stats,
-    ggplot2
+    ggplot2,
+    janitor
 RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0)
