@@ -26,9 +26,3 @@ devtools::update_packages("tRavis")
 ```
 
 ***
-
-#### **Note**
-At the current time, the function `tr_gtf_cleaner()` will not work properly with
-the latest version of GTF files from [PGDB](http://www.pseudomonas.com/), i.e.
-version 19. I am aware of this issue and will work on a fix as soon as I am
-able.
