@@ -4,10 +4,10 @@
 \alias{tr_anno_cleaner}
 \title{tr_anno_cleaner}
 \usage{
-tr_anno_cleaner(tsv_file)
+tr_anno_cleaner(input_file)
 }
 \arguments{
-\item{tsv_file}{Path to the input TSV file.}
+\item{input_file}{Path to the input TSV file.}
 }
 \value{
 A dataframe (tibble) of the cleaned TSV file, containing the
@@ -15,12 +15,11 @@ A dataframe (tibble) of the cleaned TSV file, containing the
   strand.
 }
 \description{
-Given an input TSV file (\emph{P. aeruginosa}), separates and
-  cleans columns, returning a clean and tidy data frame. Only returns locus
-  tag, gene name, description, start, end, and strand columns. Only supports
-  PAO1, PA14, and LESB58. Uses a single regex to match and extract locus tag
-  for all three strains. Will work only with TSV files from
-  \href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
+Given an input CSV/TSV file (\emph{P. aeruginosa}), separates
+  and cleans columns, returning a clean and tidy data frame. Only returns
+  locus tag, gene name, description, start, end, and strand columns. Designed
+  to work with files from \href{pseudomonas.com}{PGDB}, and only tested on
+  the latest version (19).
 }
 \references{
 None.
