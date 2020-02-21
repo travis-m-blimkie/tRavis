@@ -1,6 +1,6 @@
 #' tr_anno_cleaner
 #'
-#' @param tsv_file Path to the input TSV file.
+#' @param input_file Path to the input TSV file.
 #'
 #' @return A dataframe (tibble) of the cleaned TSV file, containing the
 #'   following columns: locus tag, gene name, description, start, end, and
@@ -9,26 +9,30 @@
 #' @export
 #'
 #' @import dplyr
-#' @import tidyr
-#' @import stringr
 #'
-#' @description Given an input TSV file (\emph{P. aeruginosa}), separates and
-#'   cleans columns, returning a clean and tidy data frame. Only returns locus
-#'   tag, gene name, description, start, end, and strand columns. Only supports
-#'   PAO1, PA14, and LESB58. Uses a single regex to match and extract locus tag
-#'   for all three strains. Will work only with TSV files from
-#'   \href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
+#' @description Given an input CSV/TSV file (\emph{P. aeruginosa}), separates
+#'   and cleans columns, returning a clean and tidy data frame. Only returns
+#'   locus tag, gene name, description, start, end, and strand columns. Designed
+#'   to work with files from \href{pseudomonas.com}{PGDB}, and only tested on
+#'   the latest version (19).
 #'
 #' @references None.
 #'
 #' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
-tr_anno_cleaner <- function(tsv_file) {
-  step1 <- readr::read_tsv(tsv_file) %>%
-    janitor::clean_names()
+tr_anno_cleaner <- function(input_file) {
 
-  # Make extensive use of tidyverse functions to clean the GTF file. Uses the
-  # single regex to match IDs from all three strains in one go
+  file_type <- stringr::str_extract(input_file, pattern = "(c|t)sv$")
+
+  if (is.na(file_type)) {
+    stop("Input must be tab- or comma-delimited file from pseudomonas.com")
+  } else if (file_type == "csv") {
+    step1 <- readr::read_csv(input_file) %>% janitor::clean_names()
+  } else if ( file_type == "tsv") {
+    step1 <- readr::read_tsv(input_file) %>% janitor::clean_names()
+  }
+
+  # Make extensive use of tidyverse functions to clean the TSV file
   step2 <- step1 %>%
     select(locus_tag, gene_name, product_name, start, end, strand) %>%
     distinct(locus_tag, .keep_all = TRUE) %>%
