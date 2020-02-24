@@ -27,5 +27,4 @@ tr_compare_lists <- function(x, y) {
        unique_x = setdiff(x, y),
        unique_y = setdiff(y, x)
   )
-
 }

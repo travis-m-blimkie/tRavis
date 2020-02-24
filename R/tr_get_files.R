@@ -2,10 +2,10 @@
 #'
 #' @param folder Directory containing files of interest.
 #' @param pattern Optional pattern to use in file searching.
-#' @param recur Boolean, whether file listing should be done recursively.
-#'   Defaults to FALSE.
+#' @param recur Whether file listing should be done recursively. Defaults to
+#'   FALSE.
 #' @param date Do file names contain a date which should be removed? Must be of
-#'   the format "YYYYMMDD". Defaults to FALSE.
+#'   the format "_YYYYMMDD". Defaults to FALSE.
 #' @param removeString Optional string which can be removed from file names when
 #'   creating names for the list.
 #'
@@ -57,7 +57,7 @@ tr_get_files <- function(folder, pattern = "", recur = FALSE, date = FALSE, remo
   }
 
   # Remove specified string if provided. Needs to be in a conditional, otherwise
-  # `str_remove()` returns an error for trying to remove nothing/everything/
+  # `str_remove_all()` returns an error for trying to remove nothing/everything/
   # anything.
   if (!is.null(removeString)) {
     f_Names <- f_Names %>% str_remove_all(., pattern = removeString)

@@ -10,11 +10,11 @@
 #'
 #' @import dplyr
 #'
-#' @description Given an input CSV/TSV file (\emph{P. aeruginosa}), separates
-#'   and cleans columns, returning a clean and tidy data frame. Only returns
-#'   locus tag, gene name, description, start, end, and strand columns. Designed
-#'   to work with files from \href{pseudomonas.com}{PGDB}, and only tested on
-#'   the latest version (19).
+#' @description Given an input CSV/TSV annotation file (from \emph{P.
+#'   aeruginosa}), separates and cleans columns, returning a clean and tidy data
+#'   frame. Only returns locus tag, gene name, description, start, end, and
+#'   strand columns. Designed to work with files from
+#'   \href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
 #'
 #' @references None.
 #'
@@ -32,7 +32,7 @@ tr_anno_cleaner <- function(input_file) {
     step1 <- readr::read_tsv(input_file) %>% janitor::clean_names()
   }
 
-  # Make extensive use of tidyverse functions to clean the TSV file
+  # Make extensive use of tidyverse functions to clean the CVS/TSV file
   step2 <- step1 %>%
     select(locus_tag, gene_name, product_name, start, end, strand) %>%
     distinct(locus_tag, .keep_all = TRUE) %>%
