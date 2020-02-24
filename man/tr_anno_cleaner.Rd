@@ -15,11 +15,11 @@ A dataframe (tibble) of the cleaned TSV file, containing the
   strand.
 }
 \description{
-Given an input CSV/TSV file (\emph{P. aeruginosa}), separates
-  and cleans columns, returning a clean and tidy data frame. Only returns
-  locus tag, gene name, description, start, end, and strand columns. Designed
-  to work with files from \href{pseudomonas.com}{PGDB}, and only tested on
-  the latest version (19).
+Given an input CSV/TSV annotation file (from \emph{P.
+  aeruginosa}), separates and cleans columns, returning a clean and tidy data
+  frame. Only returns locus tag, gene name, description, start, end, and
+  strand columns. Designed to work with files from
+  \href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
 }
 \references{
 None.
