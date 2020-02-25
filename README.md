@@ -90,7 +90,7 @@ This package makes use of [SemVer](https://semver.org/) for versioning.
 
 ### **Authors**
 
-* Travis Blimkie - Originator an principal contributor
+* Travis Blimkie - Originator and principal contributor
 
 See also the [list of all contributors](https://github.com/travis-m-blimkie/tRavis/graphs/contributors).
 
