@@ -1,12 +1,8 @@
 # **tRavis**
 
-<br>
-
 ### **Description**
 Github repository to hold my custom R package, containing a suite of useful
 functions.
-
-<br>
 
 ### **Installation**
 The code below installs all dependencies and then tRavis itself.
@@ -70,16 +66,7 @@ tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
 
 <br>
 
-Easy themes for `ggplot2`:
-```r
-# Default ggplot2 theme
-ggplot(mtcars, aes(cyl, mpg)) + geom_point()
-```
-![](man/figures/tr_theme_ex1.png)
-
-<br>
-
-
+Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/):
 ```r
 # Using tr_theme() with no grid
 ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
@@ -111,3 +98,5 @@ See also the [list of all contributors](https://github.com/travis-m-blimkie/tRav
 
 ### **License**
 This project is written under the MIT license, available [here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE.md)
+
+<br>
