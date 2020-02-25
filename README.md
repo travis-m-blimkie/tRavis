@@ -1,10 +1,10 @@
 # **tRavis**
 
-### **Description**
+## **Description**
 Github repository to hold my custom R package, containing a suite of useful
 functions.
 
-### **Installation**
+## **Installation**
 The code below installs all dependencies and then **tRavis** itself.
 ```r
 # tidyverse, devtools, and BiocManager
@@ -20,13 +20,14 @@ install.packages("http://hartleys.github.io/QoRTs/QoRTs_STABLE.tar.gz",
 
 # Finally, you can install tRavis itself
 devtools::install_github("travis-m-blimkie/tRavis")
-
-# To update, use the following
-devtools::update_packages("tRavis")
 ```
 
-### **Examples**
-Compare two lists:
+<br>
+
+## **Examples**
+
+#### `tr_compare_lists()`
+Compare two lists to get the common/unique elements:
 ```r
 tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
 # > $common
@@ -41,7 +42,9 @@ tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
 
 <br>
 
-Read in multiple files:
+#### `tr_get_files()`
+Create a named list of files, easily piped into `purrr::map(~read.csv(.))` to
+create a named list of data frames. Supports recursive searching too!
 ```r
 tr_get_files(
   "~/Downloads/new_data", 
@@ -58,7 +61,9 @@ tr_get_files(
 
 <br>
 
-Fisher's test for gene enrichment:
+#### `tr_test_enrichment()`
+Fisher's test for gene enrichment, which constructs the matrix for you and
+returns the p-value.
 ```r
 tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
 # > 0.00325
@@ -66,37 +71,46 @@ tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
 
 <br>
 
-Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/):
+#### `tr_theme()`
+Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/) that improve on
+the default in ways such as increasing font size. Have the option to remove
+any/all grid elements:
 ```r
-# Using tr_theme() with no grid
 ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
 ```
 ![](man/figures/tr_theme_noGrid.png)
 
-<br>
 
+Or create a nice minimal grid, like so:
 ```r
-# Using tr_theme() with grid
 ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
 ```
 ![](man/figures/tr_theme_wGrid.png)
 
 <br>
 
-### **Versioning**
+## **Versioning**
 This package makes use of [SemVer](https://semver.org/) for versioning.
 
 <br>
 
-### **Authors**
+## **Authors**
 
 * Travis Blimkie - Originator and principal contributor
 
-See also the [list of all contributors](https://github.com/travis-m-blimkie/tRavis/graphs/contributors).
+See also the [list of all
+contributors](https://github.com/travis-m-blimkie/tRavis/graphs/contributors).
 
 <br>
 
-### **License**
-This project is written under the MIT license, available [here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE.md)
+## **License**
+This project is written under the MIT license, available
+[here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE.md)
+
+<br>
+
+## **Acknowledgements**
+Thanks to everyone in the lab has used these functions and provided
+ideas/feedback!
 
 <br>
