@@ -5,7 +5,7 @@ Github repository to hold my custom R package, containing a suite of useful
 functions.
 
 ### **Installation**
-The code below installs all dependencies and then tRavis itself.
+The code below installs all dependencies and then **tRavis** itself.
 ```r
 # tidyverse, devtools, and BiocManager
 install.packages(c("tidyverse", "devtools", "BiocManager"))
@@ -71,7 +71,7 @@ Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/):
 # Using tr_theme() with no grid
 ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
 ```
-![](man/figures/tr_theme_ex2.png)
+![](man/figures/tr_theme_noGrid.png)
 
 <br>
 
@@ -79,7 +79,7 @@ ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
 # Using tr_theme() with grid
 ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
 ```
-![](man/figures/tr_theme_ex3.png)
+![](man/figures/tr_theme_wGrid.png)
 
 <br>
 
