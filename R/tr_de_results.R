@@ -11,8 +11,8 @@
 #' @param pAdj Cutoff for adjusted p-value. Defaults to 0.05.
 #' @param fc Cutoff for absolute fold change. Defaults to 1.5.
 #'
-#' @return A dataframe (tibble) of differentially expressed genes, filtered and
-#'   without rownames (first column gene contains gene identifier).
+#' @return A data frame (tibble) of differentially expressed genes, filtered and
+#'   without rownames (first column contains gene identifier).
 #'
 #' @export
 #'
@@ -27,24 +27,23 @@
 #'
 #' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
-tr_de_results <- function(dds_obj,
-                          col_name,
-                          numerator,
-                          denominator,
-                          pAdj = 0.05,
-                          fc = 1.5) {
+tr_de_results <-
+  function(dds_obj, col_name, numerator, denominator, pAdj = 0.05, fc = 1.5) {
 
   # Run DESeq2::results() with specified comparison, and "tidy = TRUE"
-  deseq2_result <- DESeq2::results(object = dds_obj,
-                                   contrast = c(col_name, numerator, denominator),
-                                   tidy = TRUE)
+  deseq2_result <- DESeq2::results(
+    object = dds_obj,
+    contrast = c(col_name, numerator, denominator),
+    tidy = TRUE
+  )
 
   # Add columns and filter the result
   output_result <- deseq2_result %>%
     rename("gene" = "row") %>%
-    mutate(ABSLFC = abs(log2FoldChange),
-                  FC = sign(log2FoldChange) * (2 ^ ABSLFC)) %>%
+    mutate(
+      ABSLFC = abs(log2FoldChange),
+      FC = sign(log2FoldChange) * (2 ^ ABSLFC)
+    ) %>%
     filter(padj <= pAdj & ABSLFC >= log2(fc)) %>%
     arrange(padj)
-
 }

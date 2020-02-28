@@ -5,7 +5,7 @@
 #' @param pAdj Cutoff for adjusted p-value. Defaults to 0.05.
 #' @param fc Cutoff for the fold change value. Defaults to 1.5.
 #'
-#' @return A dataframe (tibble) of differentially expressed genes, filtered and
+#' @return A data frame (tibble) of differentially expressed genes, filtered and
 #'   without rownames (first column contains gene identifier).
 #'
 #' @export
@@ -21,7 +21,7 @@
 tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
 
   # Check for proper input type
-  if (is.data.frame(result) != TRUE) {
+  if (!is.data.frame(result)) {
     stop("Did you call DESeq2::results() with the 'tidy = TRUE' option?")
   }
 
@@ -37,5 +37,4 @@ tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
   result <- tibble::remove_rownames(result)
 
   return(result)
-
 }

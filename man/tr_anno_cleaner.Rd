@@ -7,15 +7,15 @@
 tr_anno_cleaner(input_file)
 }
 \arguments{
-\item{input_file}{Path to the input TSV file.}
+\item{input_file}{Path to the input TSV or CSV file.}
 }
 \value{
-A dataframe (tibble) of the cleaned TSV file, containing the
+A data frame (tibble) of the cleaned input file, containing the
   following columns: locus tag, gene name, description, start, end, and
   strand.
 }
 \description{
-Given an input CSV/TSV annotation file (from \emph{P.
+Given an input CSV or TSV annotation file (from \emph{P.
   aeruginosa}), separates and cleans columns, returning a clean and tidy data
   frame. Only returns locus tag, gene name, description, start, end, and
   strand columns. Designed to work with files from
