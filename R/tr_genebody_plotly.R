@@ -1,7 +1,7 @@
 #' tr_genebody_plotly
 #'
 #' @param qorts_dir Directory containing all the QoRTs results, with each sample
-#'   having its own folder. Directory name should include trailing "/".
+#'   having its own folder. Directory name should include a trailing "/".
 #'
 #' @return Returns a plotly object (html) of the results.
 #'
@@ -22,13 +22,15 @@ tr_genebody_plotly <- function(qorts_dir) {
   sample_ids <- list.dirs(qorts_dir, full.names = FALSE, recursive = FALSE)
 
   # Read in all the results using QoRTs function
-  qorts_results <- QoRTs::read.qc.results.data(infile.dir = qorts_dir,
-                                               decoder = sample_ids)
+  qorts_results <-
+    QoRTs::read.qc.results.data(infile.dir = qorts_dir, decoder = sample_ids)
 
 
   # Pull out the gene body coverage results
-  genebodies <- bind_rows(qorts_results@qc.data[["geneBodyCoverage.pct"]],
-                                 .id = "SampleName")
+  genebodies <- bind_rows(
+    qorts_results@qc.data[["geneBodyCoverage.pct"]],
+    .id = "SampleName"
+  )
 
 
   # Plotly of gene body coverage for all samples
