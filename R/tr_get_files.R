@@ -64,6 +64,6 @@ tr_get_files <- function(folder, pattern = "", recur = FALSE, date = FALSE, remo
   }
 
   # Create and return output object
-  f_Output <- set_names(f_Files, f_Names)
+  f_Output <- set_names(f_Files, f_Names) %>% as.list()
   return(f_Output)
 }
