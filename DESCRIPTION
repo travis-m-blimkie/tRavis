@@ -1,6 +1,6 @@
 Package: tRavis
 Title: Custom functions by Travis Blimkie
-Version: 0.63.01
+Version: 0.63.02
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: Includes some custom functions useful for work.
 Depends: R (>= 3.6.0)
@@ -19,6 +19,6 @@ Imports:
     stringr,
     tibble,
     tidyr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Suggests: 
     testthat (>= 2.1.0)
