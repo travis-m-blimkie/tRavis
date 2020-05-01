@@ -8,7 +8,7 @@ tr_genebody_plotly(qorts_dir)
 }
 \arguments{
 \item{qorts_dir}{Directory containing all the QoRTs results, with each sample
-having its own folder. Directory name should include trailing "/".}
+having its own folder. Directory name should include a trailing "/".}
 }
 \value{
 Returns a plotly object (html) of the results.

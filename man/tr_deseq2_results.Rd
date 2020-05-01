@@ -15,7 +15,7 @@ run with the \code{tidy = TRUE} option.}
 \item{fc}{Cutoff for the fold change value. Defaults to 1.5.}
 }
 \value{
-A dataframe (tibble) of differentially expressed genes, filtered and
+A data frame (tibble) of differentially expressed genes, filtered and
   without rownames (first column contains gene identifier).
 }
 \description{

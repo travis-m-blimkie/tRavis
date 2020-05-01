@@ -24,8 +24,8 @@ comparison, e.g. "Control" or "Untreated".}
 \item{fc}{Cutoff for absolute fold change. Defaults to 1.5.}
 }
 \value{
-A dataframe (tibble) of differentially expressed genes, filtered and
-  without rownames (first column gene contains gene identifier).
+A data frame (tibble) of differentially expressed genes, filtered and
+  without rownames (first column contains gene identifier).
 }
 \description{
 This function runs \code{DESeq2::results()} using the contrast
