@@ -110,7 +110,7 @@ This project is written under the MIT license, available
 <br>
 
 ## **Acknowledgements**
-Thanks to everyone in the lab has used these functions and provided
+Thanks to everyone in the lab who has used these functions and provided
 ideas/feedback!
 
 <br>
