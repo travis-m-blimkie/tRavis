@@ -10,8 +10,8 @@
 #' @import dplyr
 #'
 #' @description Performs \code{intersect(x, y)}, \code{setdiff(x, y)}, and
-#' \code{setdiff(y, x)}. Returns these elements in a named list, with names
-#' "common", "unique_x", and "unique_y".
+#'   \code{setdiff(y, x)}. Returns these elements in a list with names "common",
+#'   "unique_x", and "unique_y".
 #'
 #' @references None.
 #'
@@ -19,7 +19,7 @@
 #'
 tr_compare_lists <- function(x, y) {
 
-  if ( (is.vector(x) & is.vector(y)) == FALSE ) {
+  if ((is.vector(x) & is.vector(y)) == FALSE) {
     stop("Wrong input type. Please ensure both 'x' and 'y' are vectors.")
   }
 
@@ -27,5 +27,4 @@ tr_compare_lists <- function(x, y) {
        unique_x = setdiff(x, y),
        unique_y = setdiff(y, x)
   )
-
 }

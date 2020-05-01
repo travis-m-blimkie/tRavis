@@ -3,7 +3,7 @@
 #' @param gage_result Output from call to \code{gage} function.
 #' @param qval Cutoff for q-value. Defaults to 0.1.
 #'
-#' @return A dataframe (tibble) of enriched KEGG pathways, filtered and without
+#' @return A data frame (tibble) of enriched KEGG pathways, filtered and without
 #'   rownames (first column contains pathway name/identifier).
 #'
 #' @export

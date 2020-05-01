@@ -12,7 +12,7 @@ tr_tidy_gage(gage_result, qval = 0.1)
 \item{qval}{Cutoff for q-value. Defaults to 0.1.}
 }
 \value{
-A dataframe (tibble) of enriched KEGG pathways, filtered and without
+A data frame (tibble) of enriched KEGG pathways, filtered and without
   rownames (first column contains pathway name/identifier).
 }
 \description{

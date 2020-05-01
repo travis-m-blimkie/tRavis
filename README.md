@@ -1,11 +1,11 @@
-# tRavis
+# **tRavis**
 
-### Description
+## **Description**
 Github repository to hold my custom R package, containing a suite of useful
 functions.
 
-### Installation
-The code below installs all dependencies and then tRavis itself.
+## **Installation**
+The code below installs all dependencies and then **tRavis** itself.
 ```r
 # tidyverse, devtools, and BiocManager
 install.packages(c("tidyverse", "devtools", "BiocManager"))
@@ -20,15 +20,97 @@ install.packages("http://hartleys.github.io/QoRTs/QoRTs_STABLE.tar.gz",
 
 # Finally, you can install tRavis itself
 devtools::install_github("travis-m-blimkie/tRavis")
-
-# To update, use the following
-devtools::update_packages("tRavis")
 ```
 
-***
+<br>
 
-#### **Note**
-At the current time, the function `tr_gtf_cleaner()` will not work properly with
-the latest version of GTF files from [PGDB](http://www.pseudomonas.com/), i.e.
-version 19. I am aware of this issue and will work on a fix as soon as I am
-able.
+## **Examples**
+
+#### `tr_compare_lists()`
+Compare two lists to get the common/unique elements:
+```r
+tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
+# > $common
+# > [1] 3 4
+# > 
+# > $unique_x
+# > [1] 1 2
+# > 
+# > $unique_y
+# > [1] 5 6
+```
+
+<br>
+
+#### `tr_get_files()`
+Create a named list of files, easily piped into `purrr::map(~read.csv(.))` to
+create a named list of data frames. Supports recursive searching too!
+```r
+tr_get_files(
+  "~/Downloads/new_data", 
+  pattern = "de_genes", 
+  recur = FALSE, 
+  date = TRUE, 
+  removeString = "de_genes_"
+)
+# >                                                       treatment1 
+# > "/home/user/Downloads/new_data/de_genes_treatment1_20200224.csv" 
+# >                                                       treatment2 
+# > "/home/user/Downloads/new_data/de_genes_treatment2_20200224.csv" 
+```
+
+<br>
+
+#### `tr_test_enrichment()`
+Fisher's test for gene enrichment, which constructs the matrix for you and
+returns the p-value.
+```r
+tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
+# > 0.00325
+```
+
+<br>
+
+#### `tr_theme()`
+Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/) that improve on
+the default in ways such as increasing font size. You also have the option to 
+remove any/all grid elements:
+```r
+ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
+```
+![](man/figures/tr_theme_noGrid.png)
+
+
+Or create a nice minimal grid, like so:
+```r
+ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
+```
+![](man/figures/tr_theme_wGrid.png)
+
+<br>
+
+## **Versioning**
+This package makes use of [SemVer](https://semver.org/) for versioning.
+
+<br>
+
+## **Authors**
+
+* Travis Blimkie - Originator and principal contributor
+
+See also the [list of all
+contributors](https://github.com/travis-m-blimkie/tRavis/graphs/contributors).
+
+<br>
+
+## **License**
+This project is written under the MIT license, available
+[here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE.md)
+
+<br>
+
+## **Acknowledgements**
+Thanks to everyone in the lab who has used these functions and provided
+ideas/feedback!
+
+<br>
