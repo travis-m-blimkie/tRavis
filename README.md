@@ -73,10 +73,10 @@ tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
 
 #### `tr_theme()`
 Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/) that improve on
-the default in ways such as increasing font size. Have the option to remove
-any/all grid elements:
+the default in ways such as increasing font size. You also have the option to 
+remove any/all grid elements:
 ```r
-ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
+ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
 ```
 ![](man/figures/tr_theme_noGrid.png)
 
