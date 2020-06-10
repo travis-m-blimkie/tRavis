@@ -1,12 +1,10 @@
 # **tRavis**
-
-## **Description**
 Github repository to hold my custom R package, containing a suite of useful
 functions.
 
 ## **Installation**
 Some of the dependencies for tRavis require building from source. If you are
-on Windows, you will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/history.html) 
+on Windows, you will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) 
 before running the code below. 
 The code below installs all dependencies and then **tRavis** itself.
 ```r
