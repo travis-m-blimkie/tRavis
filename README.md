@@ -1,8 +1,5 @@
 # **tRavis**
 
-## **NOTE**
-tRavis had not yet been cleared for version 4.0 of R, so use at your own risk!
-
 ## **Description**
 Github repository to hold my custom R package, containing a suite of useful
 functions.
