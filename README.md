@@ -45,7 +45,8 @@ tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
 
 #### `tr_get_files()`
 Create a named list of files, easily piped into `purrr::map(~read.csv(.))` to
-create a named list of data frames. Supports recursive searching too!
+gnenerate a named list of data frames. Supports recursive searching, custom
+string/pattern removal, and date removal (assuming standard format YYYYMMDD).
 ```r
 tr_get_files(
   "~/Downloads/new_data", 
@@ -58,6 +59,26 @@ tr_get_files(
 # > "/home/user/Downloads/new_data/de_genes_treatment1_20200224.csv" 
 # >                                                       treatment2 
 # > "/home/user/Downloads/new_data/de_genes_treatment2_20200224.csv" 
+```
+
+<br>
+
+#### `tr_sort_alphanum()`
+Sort a column of alphanumeric strings in (non-binary) numerical order given an
+input data frame and desired column. You can use the column name or index, and
+it is compatible with pipes.
+```r
+> my_dataframe
+# >    c1 c2
+# > 1  a1  1
+# > 2 a11  3
+# > 3  a5  2
+
+> tr_sort_alphanum(input_df = my_dataframe, sort_col = "c1")
+# >    c1 c2
+# > 1  a1  1
+# > 3  a5  2
+# > 2 a11  3
 ```
 
 <br>
@@ -75,14 +96,14 @@ tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
 #### `tr_theme()`
 Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/) that improve on
 the default in ways such as increasing font size. You also have the option to 
-remove any/all grid elements:
+remove any/all grid elements...
 ```r
 ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
 ```
 ![](man/figures/tr_theme_noGrid.png)
 
 
-Or create a nice minimal grid, like so:
+...Or create a nice minimal grid, like so:
 ```r
 ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
 ```
