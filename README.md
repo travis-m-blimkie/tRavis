@@ -19,7 +19,7 @@ install.packages("http://hartleys.github.io/QoRTs/QoRTs_STABLE.tar.gz",
                  repos = NULL, 
                  type = "source")
 
-# Finally, you can install tRavis itself
+# Finally, you can install tRavis
 devtools::install_github("travis-m-blimkie/tRavis")
 ```
 
