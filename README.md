@@ -45,7 +45,7 @@ tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
 
 #### tr_get_files()
 Create a named list of files, easily piped into `purrr::map(~read.csv(.))` to
-gnenerate a named list of data frames. Supports recursive searching, custom
+generate a named list of data frames. Supports recursive searching, custom
 string/pattern removal, and date removal (assuming standard format YYYYMMDD).
 ```r
 tr_get_files(
