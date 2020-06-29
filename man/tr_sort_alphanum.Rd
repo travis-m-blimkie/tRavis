@@ -18,7 +18,7 @@ Column-sorted data frame
 \description{
 Function to sort a column of alphanumeric strings (e.g. c("a1",
   "a11", "a2")) in numeric order (e.g. c("a1", "a2", "a11")). It works with
-  pipes, and you can provide column name or index as argument `sort_col`.
+  pipes, and you can provide column name or index as argument \code{sort_col}.
 }
 \examples{
 \dontrun{

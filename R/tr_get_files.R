@@ -30,7 +30,7 @@
 #'
 tr_get_files <- function(folder, pattern = "", recur = FALSE, date = FALSE, removeString = NULL) {
 
-  # List all files in the specifed folder, using the provided pattern, else
+  # List all files in the specified folder, using the provided pattern, else
   # match all files.
   f_Files <- list.files(folder, pattern = pattern, recursive = recur, full.names = TRUE) %>%
     grep("(csv|tsv|txt)$", ., value = TRUE)
