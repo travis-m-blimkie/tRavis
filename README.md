@@ -93,7 +93,7 @@ tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
 <br>
 
 #### **tr_theme()**
-Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/) that improve on
+Easy themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve on
 the default in ways such as increasing font size. You also have the option to 
 remove any/all grid elements...
 ```r
