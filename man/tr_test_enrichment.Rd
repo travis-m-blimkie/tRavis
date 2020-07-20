@@ -18,7 +18,7 @@ which one wishes to test for enrichment.}
 Produces the raw p-value from \code{fisher.test()}.
 }
 \description{
-Perfroms Fisher's Exact test to determine enrichment of a set of
+Performs Fisher's Exact test to determine enrichment of a set of
   genes of interest compared to some list of experimentally derived genes.
   Assumes \code{alternative = "greater"} in call to \code{fisher.test()}.
 }
