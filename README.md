@@ -29,7 +29,7 @@ devtools::install_github("travis-m-blimkie/tRavis")
 #### **tr_compare_lists()**
 Compare two lists to get the common/unique elements:
 ```r
-tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
+> tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
 # > $common
 # > [1] 3 4
 # > 
@@ -47,7 +47,7 @@ Create a named list of files, easily piped into `purrr::map(~read.csv(.))` to
 gnenerate a named list of data frames. Supports recursive searching, custom
 string/pattern removal, and date removal (assuming standard format YYYYMMDD).
 ```r
-tr_get_files(
+> tr_get_files(
   "~/Downloads/new_data", 
   pattern = "de_genes", 
   recur = FALSE, 
@@ -86,7 +86,7 @@ it is compatible with pipes.
 Fisher's test for gene enrichment, which constructs the matrix for you and
 returns the p-value.
 ```r
-tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
+> tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
 # > 0.00325
 ```
 
@@ -97,14 +97,14 @@ Easy themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve on
 the default in ways such as increasing font size. You also have the option to 
 remove any/all grid elements...
 ```r
-ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
+> ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
 ```
 ![](man/figures/tr_theme_noGrid.png)
 
 
 ...Or create a nice minimal grid, like so:
 ```r
-ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
+> ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
 ```
 ![](man/figures/tr_theme_wGrid.png)
 
