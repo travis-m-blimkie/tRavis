@@ -44,7 +44,7 @@ Compare two lists to get the common/unique elements:
 
 #### **tr_get_files()**
 Create a named list of files, easily piped into `purrr::map(~read.csv(.))` to
-gnenerate a named list of data frames. Supports recursive searching, custom
+generate a named list of data frames. Supports recursive searching, custom
 string/pattern removal, and date removal (assuming standard format YYYYMMDD).
 ```r
 > tr_get_files(
@@ -92,8 +92,9 @@ returns the p-value.
 
 <br>
 
+
 #### **tr_theme()**
-Easy themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve on
+Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/) that improve on
 the default in ways such as increasing font size. You also have the option to 
 remove any/all grid elements...
 ```r
