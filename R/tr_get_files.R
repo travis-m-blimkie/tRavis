@@ -1,7 +1,7 @@
 #' tr_get_files
 #'
 #' @param folder Directory containing files of interest.
-#' @param pattern Optional pattern to use in file searching.
+#' @param pattern Optional, case-sensitive pattern to use in file searching.
 #' @param recur Whether file listing should be done recursively. Defaults to
 #'   FALSE.
 #' @param date Do file names contain a date which should be removed? Must be of
@@ -28,12 +28,21 @@
 #'
 #' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
-tr_get_files <- function(folder, pattern = "", recur = FALSE, date = FALSE, removeString = NULL) {
+tr_get_files <- function(folder,
+                         pattern = "",
+                         recur = FALSE,
+                         date = FALSE,
+                         removeString = NULL) {
 
-  # List all files in the specifed folder, using the provided pattern, else
+  # List all files in the specified folder, using the provided pattern, else
   # match all files.
-  f_Files <- list.files(folder, pattern = pattern, recursive = recur, full.names = TRUE) %>%
-    grep("(csv|tsv|txt)$", ., value = TRUE)
+  f_Files <- list.files(
+    path = folder,
+    pattern = pattern,
+    recursive = recur,
+    full.names = TRUE
+  ) %>%
+    grep(pattern = "(csv|tsv|txt)$", x = ., value = TRUE)
 
   # Provide a custom error message if no files are found, and remind the user
   # that only certain file extensions are supported.
@@ -56,7 +65,7 @@ tr_get_files <- function(folder, pattern = "", recur = FALSE, date = FALSE, remo
     f_Names <- f_Names %>% str_remove(., pattern = "_?[0-9]{8}")
   }
 
-  # Remove specified string if provided. Needs to be in a conditional, otherwise
+  # Remove specified string if provided. Needs to be conditional, otherwise
   # `str_remove_all()` returns an error for trying to remove nothing/everything/
   # anything.
   if (!is.null(removeString)) {
