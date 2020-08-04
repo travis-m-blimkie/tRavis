@@ -12,7 +12,7 @@
 #' @import ggplot2
 #'
 #' @description Custom theme that can be applied to ggplot2 plots. Increases
-#'   base font size, sets a white background, grey grid, and black border.
+#'   base font size, sets a white background, gray grid, and black border.
 #'
 #' @references None.
 #'
