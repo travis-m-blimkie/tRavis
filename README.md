@@ -26,7 +26,7 @@ devtools::install_github("travis-m-blimkie/tRavis")
 
 ## **Examples**
 
-#### **tr_compare_lists()**
+### **tr_compare_lists()**
 Compare two lists to get the common/unique elements:
 ```r
 > tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
@@ -42,7 +42,7 @@ Compare two lists to get the common/unique elements:
 
 <br>
 
-#### **tr_get_files()**
+### **tr_get_files()**
 Create a named list of files, easily piped into `purrr::map(~read.csv(.))` to
 generate a named list of data frames. Supports recursive searching, custom
 string/pattern removal, and date removal (assuming standard format YYYYMMDD).
@@ -62,7 +62,7 @@ string/pattern removal, and date removal (assuming standard format YYYYMMDD).
 
 <br>
 
-#### **tr_sort_alphanum()**
+### **tr_sort_alphanum()**
 Sort a column of alphanumeric strings in (non-binary) numerical order given an
 input data frame and desired column. You can use the column name or index, and
 it is compatible with pipes.
@@ -82,7 +82,7 @@ it is compatible with pipes.
 
 <br>
 
-#### **tr_test_enrichment()**
+### **tr_test_enrichment()**
 Fisher's test for gene enrichment, which constructs the matrix for you and
 returns the p-value.
 ```r
@@ -92,8 +92,7 @@ returns the p-value.
 
 <br>
 
-
-#### **tr_theme()**
+### **tr_theme()**
 Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/) that improve on
 the default in ways such as increasing font size. You also have the option to 
 remove any/all grid elements...
