@@ -8,7 +8,7 @@ on Windows, you will need to install [Rtools](https://cran.r-project.org/bin/win
 before running the code below, which installs all dependencies and then **tRavis** itself.
 ```r
 # tidyverse, devtools, and BiocManager
-install.packages(c("tidyverse", "devtools", "backports", "BiocManager"))
+install.packages(c("tidyverse", "devtools", "BiocManager"))
 
 # DESeq2 using BiocManager
 BiocManager::install("DESeq2")
