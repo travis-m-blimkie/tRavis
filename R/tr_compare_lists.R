@@ -17,6 +17,14 @@
 #'
 #' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
+#' @examples
+#' \dontrun{
+#'   tr_compare_lists(
+#'     x = c(1, 2, 4, 5, 6),
+#'     y = c(2, 3, 6, 7)
+#'   )
+#' }
+#'
 tr_compare_lists <- function(x, y) {
 
   if ((is.vector(x) & is.vector(y)) == FALSE) {
