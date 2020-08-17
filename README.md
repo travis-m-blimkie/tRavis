@@ -2,7 +2,7 @@
 Github repository to hold my custom R package, containing a suite of useful
 functions.
 
-## **Installation**
+## Installation
 Some of the dependencies for tRavis require building from source. If you are
 on Windows, you will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) 
 before running the code below, which installs all dependencies and then **tRavis** itself.
@@ -22,11 +22,9 @@ install.packages("http://hartleys.github.io/QoRTs/QoRTs_STABLE.tar.gz",
 devtools::install_github("travis-m-blimkie/tRavis")
 ```
 
-<br>
+## Examples
 
-## **Examples**
-
-### **tr_compare_lists()**
+### tr_compare_lists()
 Compare two lists to get the common/unique elements:
 ```r
 > tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
@@ -40,9 +38,7 @@ Compare two lists to get the common/unique elements:
 # > [1] 5 6
 ```
 
-<br>
-
-### **tr_get_files()**
+### tr_get_files()
 Create a named list of files, easily piped into `purrr::map(~read.csv(.))` to
 generate a named list of data frames. Supports recursive searching, custom
 string/pattern removal, and date removal (assuming standard format YYYYMMDD).
@@ -60,9 +56,7 @@ string/pattern removal, and date removal (assuming standard format YYYYMMDD).
 # > "/home/user/Downloads/new_data/de_genes_treatment2_20200224.csv" 
 ```
 
-<br>
-
-### **tr_sort_alphanum()**
+### tr_sort_alphanum()
 Sort a column of alphanumeric strings in (non-binary) numerical order given an
 input data frame and desired column. You can use the column name or index, and
 it is compatible with pipes.
@@ -80,9 +74,7 @@ it is compatible with pipes.
 # > 2 a11  3
 ```
 
-<br>
-
-### **tr_test_enrichment()**
+### tr_test_enrichment()
 Fisher's test for gene enrichment, which constructs the matrix for you and
 returns the p-value.
 ```r
@@ -90,19 +82,17 @@ returns the p-value.
 # > 0.00325
 ```
 
-<br>
-
-### **tr_theme()**
-Easy themes for [**ggplot2**](https://ggplot2.tidyverse.org/) that improve on
-the default in ways such as increasing font size. You also have the option to 
-remove any/all grid elements...
+### tr_theme()
+Easy themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve on
+the default in ways such as increasing font size, changing the background to 
+white and adding a border. You also have the option to remove all grid elements...
 ```r
 > ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
 ```
 ![](man/figures/tr_theme_noGrid.png)
 
 
-...Or create a nice minimal grid, like so:
+...Or create a nice minimal grid:
 ```r
 > ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
 ```
@@ -110,27 +100,19 @@ remove any/all grid elements...
 
 <br>
 
-## **Versioning**
+## Versioning
 This package makes use of [SemVer](https://semver.org/) for versioning.
 
-<br>
+## Authors
 
-## **Authors**
+Travis Blimkie is the originator and principal contributor. You can check the
+list of all contributors [here](https://github.com/travis-m-blimkie/tRavis/graphs/contributors).
 
-* Travis Blimkie - Originator and principal contributor
-
-See also the [list of all
-contributors](https://github.com/travis-m-blimkie/tRavis/graphs/contributors).
-
-<br>
-
-## **License**
+## License
 This project is written under the MIT license, available
-[here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE.md)
+[here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE)
 
-<br>
-
-## **Acknowledgements**
+## Acknowledgements
 Thanks to everyone in the lab who has used these functions and provided
 ideas/feedback!
 
