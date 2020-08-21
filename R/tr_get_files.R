@@ -1,7 +1,9 @@
 #' tr_get_files
 #'
 #' @param folder Directory containing files of interest.
-#' @param pattern Optional, case-sensitive pattern to use in file searching.
+#' @param pattern Optional, case-sensitive pattern to use in file searching. If
+#'   no pattern is supplied, all files in the specified directory will be
+#'   matched.
 #' @param recur Whether file listing should be done recursively. Defaults to
 #'   FALSE.
 #' @param date Do file names contain a date which should be removed? Must be of
@@ -48,9 +50,8 @@ tr_get_files <- function(folder,
   # that only certain file extensions are supported.
   if (length(f_Files) == 0) {
     stop(paste0(
-      "No files found matching the specified pattern. Please note ",
-      "that this function only supports files with the extension ",
-      "'csv', 'tsv', or 'txt'."
+      "No files found matching the specified pattern. Please note that this ",
+      "function only supports files with the extension 'csv', 'tsv', or 'txt'."
     ))
   }
 

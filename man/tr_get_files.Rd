@@ -15,7 +15,9 @@ tr_get_files(
 \arguments{
 \item{folder}{Directory containing files of interest.}
 
-\item{pattern}{Optional, case-sensitive pattern to use in file searching.}
+\item{pattern}{Optional, case-sensitive pattern to use in file searching. If
+no pattern is supplied, all files in the specified directory will be
+matched.}
 
 \item{recur}{Whether file listing should be done recursively. Defaults to
 FALSE.}
