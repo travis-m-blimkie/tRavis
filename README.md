@@ -24,18 +24,44 @@ devtools::install_github("travis-m-blimkie/tRavis")
 
 ## Examples
 
+### tr_anno_cleaner()
+Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from
+[pseudomonas.com](pseudomonas.com), with some options for customizing output:
+```r
+> tr_anno_cleaner(
+  "Downloads/Pseudomonas_aeruginosa_PAO1_107.tsv",
+  extra_cols = FALSE, 
+  fill_names = FALSE
+)
+# A tibble: 5,711 x 3
+   locus_tag gene_name product_description                           
+   <chr>     <chr>     <chr>                                         
+ 1 PA0001    dnaA      chromosomal replication initiator protein DnaA
+ 2 PA0002    dnaN      DNA polymerase III, beta chain                
+ 3 PA0003    recF      RecF protein                                  
+ 4 PA0004    gyrB      DNA gyrase subunit B                          
+ 5 PA0005    lptA      lysophosphatidic acid acyltransferase, LptA   
+ 6 PA0006    NA        conserved hypothetical protein                
+ 7 PA0007    NA        hypothetical protein                          
+ 8 PA0008    glyS      glycyl-tRNA synthetase beta chain             
+ 9 PA0009    glyQ      glycyl-tRNA synthetase alpha chain            
+10 PA0010    tag       DNA-3-methyladenine glycosidase I             
+# ... with 5,701 more rows
+```
+
+
 ### tr_compare_lists()
 Compare two lists to get the common/unique elements:
 ```r
 > tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
-# > $common
-# > [1] 3 4
-# > 
-# > $unique_x
-# > [1] 1 2
-# > 
-# > $unique_y
-# > [1] 5 6
+$common
+[1] 3 4
+
+$unique_x
+[1] 1 2
+
+$unique_y
+[1] 5 6
 ```
 
 ### tr_get_files()
@@ -44,16 +70,16 @@ generate a named list of data frames. Supports recursive searching, custom
 string/pattern removal, and date removal (assuming standard format YYYYMMDD).
 ```r
 > tr_get_files(
-  "~/Downloads/new_data", 
+  folder = "~/Downloads/new_data",
   pattern = "de_genes", 
   recur = FALSE, 
   date = TRUE, 
   removeString = "de_genes_"
 )
-# >                                                       treatment1 
-# > "/home/user/Downloads/new_data/de_genes_treatment1_20200224.csv" 
-# >                                                       treatment2 
-# > "/home/user/Downloads/new_data/de_genes_treatment2_20200224.csv" 
+                                                      treatment1 
+"/home/user/Downloads/new_data/de_genes_treatment1_20200224.csv" 
+                                                      treatment2 
+"/home/user/Downloads/new_data/de_genes_treatment2_20200224.csv" 
 ```
 
 ### tr_sort_alphanum()
@@ -62,16 +88,16 @@ input data frame and desired column. You can use the column name or index, and
 it is compatible with pipes.
 ```r
 > my_dataframe
-# >    c1 c2
-# > 1  a1  1
-# > 2 a11  3
-# > 3  a5  2
+   c1 c2
+1  a1  1
+2 a11  3
+3  a5  2
 
 > tr_sort_alphanum(input_df = my_dataframe, sort_col = "c1")
-# >    c1 c2
-# > 1  a1  1
-# > 3  a5  2
-# > 2 a11  3
+   c1 c2
+1  a1  1
+3  a5  2
+2 a11  3
 ```
 
 ### tr_test_enrichment()
@@ -79,7 +105,7 @@ Fisher's test for gene enrichment, which constructs the matrix for you and
 returns the p-value.
 ```r
 > tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
-# > 0.00325
+0.00325
 ```
 
 ### tr_theme()
