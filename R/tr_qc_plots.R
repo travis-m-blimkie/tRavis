@@ -86,23 +86,8 @@ tr_qc_plots <- function(directory) {
   ) %>% clean_names()
 
   star_tidy <- star_raw %>%
-    select(
-      sample,
-      uniquely_mapped,
-      multimapped,
-      multimapped_toomany,
-      unmapped_tooshort,
-      unmapped_other,
-      uniquely_mapped_percent,
-      multimapped_percent,
-      multimapped_toomany_percent,
-      unmapped_tooshort_percent,
-      unmapped_other_percent
-    ) %>%
     arrange(sample) %>%
-    mutate(
-      sample = fct_rev(sample)
-    )
+    mutate(sample = fct_rev(sample))
 
 
   star_plot <- plotly::plot_ly(
