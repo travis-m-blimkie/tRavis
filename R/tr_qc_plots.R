@@ -69,12 +69,18 @@ tr_qc_plots <- function(directory) {
     )
   ) %>%
     plotly::layout(
-      xaxis = list(showline = TRUE, mirror = "ticks"),
+      xaxis = list(
+        title = "Base Position",
+        showline = TRUE,
+        mirror = "ticks"
+      ),
       yaxis = list(
+        title = "Phred Score",
         range = c(0, max(fastqc_final$Phred_Score) + 2),
         showline = TRUE,
         mirror = "ticks"
-      )
+      ),
+      title = "<b>FastQC: Phred Scores</b>"
     )
 
 
@@ -149,7 +155,7 @@ tr_qc_plots <- function(directory) {
   # HTSeq -----------------------------------------------------------------
 
   htseq_raw <- read_tsv(
-    list.files("multiqc_data/", pattern = "multiqc_htseq.txt", full.names = TRUE),
+    list.files(directory, pattern = "multiqc_htseq.txt", full.names = TRUE),
     col_types = cols()
   ) %>%
     clean_names() %>%
