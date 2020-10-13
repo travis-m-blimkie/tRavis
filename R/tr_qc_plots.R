@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'   tr_qc_plots("multiqc_data/)
+#'   tr_qc_plots("multiqc_data/")
 #' }
 #'
 tr_qc_plots <- function(directory) {

@@ -1,5 +1,9 @@
 # News
 
+### 0.67.00
+
+* Added new function `tr_get_sigora_genes`
+
 ### v0.66.02
 
 * Changed behaviour of `tr_theme` to display grid by default

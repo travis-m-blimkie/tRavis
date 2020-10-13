@@ -2,7 +2,7 @@
 #'
 #' @param baseSize Base font size applied to all text in the plot
 #' @param baseFamily Base font type applies to all text in the plot
-#' @param grid Determines if grid lines should be drawn. Defaults to FALSE. When
+#' @param grid Determines if grid lines should be drawn. Defaults to TRUE. When
 #'   TRUE, only "major" grid lines are included.
 #'
 #' @return Theme object

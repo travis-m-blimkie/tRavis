@@ -4,14 +4,14 @@
 \alias{tr_theme}
 \title{tr_theme}
 \usage{
-tr_theme(baseSize = 16, baseFamily = "", grid = FALSE)
+tr_theme(baseSize = 16, baseFamily = "", grid = TRUE)
 }
 \arguments{
 \item{baseSize}{Base font size applied to all text in the plot}
 
 \item{baseFamily}{Base font type applies to all text in the plot}
 
-\item{grid}{Determines if grid lines should be drawn. Defaults to FALSE. When
+\item{grid}{Determines if grid lines should be drawn. Defaults to TRUE. When
 TRUE, only "major" grid lines are included.}
 }
 \value{
