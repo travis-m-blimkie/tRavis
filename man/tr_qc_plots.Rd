@@ -15,6 +15,12 @@ List of \code{plotly} plot objects
 \description{
 Creates three plotly plots from MultiQC results.
 }
+\examples{
+\dontrun{
+  tr_qc_plots("multiqc_data/")
+}
+
+}
 \references{
 None.
 }

@@ -127,7 +127,7 @@ white and adding a border. You also have the option to remove all grid elements.
 <br>
 
 ## Versioning
-This package makes use of [SemVer](https://semver.org/) for versioning.
+This package makes use of [SemVer](https://semver.org/).
 
 ## Authors
 
