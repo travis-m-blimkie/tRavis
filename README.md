@@ -111,14 +111,14 @@ returns the p-value.
 ### tr_theme()
 Easy themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve on
 the default in ways such as increasing font size, changing the background to 
-white and adding a border. You also have the option to remove all grid elements...
+white and adding a border. By default, it uses a minimal grid, like so:
 ```r
 > ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
 ```
 ![](man/figures/tr_theme_wGrid.png)
 
 
-...Or create a nice minimal grid:
+...Or you can remove the grid entirely:
 ```r
 > ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
 ```
