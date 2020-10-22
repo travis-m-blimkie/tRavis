@@ -113,16 +113,16 @@ Easy themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve on
 the default in ways such as increasing font size, changing the background to 
 white and adding a border. You also have the option to remove all grid elements...
 ```r
-> ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
+> ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
 ```
-![](man/figures/tr_theme_noGrid.png)
+![](man/figures/tr_theme_wGrid.png)
 
 
 ...Or create a nice minimal grid:
 ```r
-> ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
+> ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
 ```
-![](man/figures/tr_theme_wGrid.png)
+![](man/figures/tr_theme_noGrid.png)
 
 <br>
 
