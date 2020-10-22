@@ -1,5 +1,9 @@
 # News
 
+### 0.68.00
+
+* Removed function  `tr_get_sigora_genes`
+
 ### 0.67.00
 
 * Added new function `tr_get_sigora_genes`
