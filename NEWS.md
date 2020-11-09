@@ -1,5 +1,9 @@
 # News
 
+### 0.69.00
+
+* Added function `tr_sigora_wrapper`
+
 ### 0.68.00
 
 * Removed function  `tr_get_sigora_genes`
