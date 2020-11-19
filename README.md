@@ -3,23 +3,12 @@ Github repository to hold my custom R package, containing a suite of useful
 functions.
 
 ## Installation
-Some of the dependencies for tRavis require building from source. If you are
-on Windows, you will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) 
-before running the code below, which installs all dependencies and then **tRavis** itself.
 ```r
-# tidyverse, devtools, and BiocManager
-install.packages(c("tidyverse", "devtools", "BiocManager"))
+# Install dependency tidyverse
+install.packages("tidyverse")
 
-# DESeq2 using BiocManager
-BiocManager::install("DESeq2")
-
-# QoRTs from Github
-install.packages("http://hartleys.github.io/QoRTs/QoRTs_STABLE.tar.gz",
-                 repos = NULL, 
-                 type = "source")
-
-# Finally, you can install tRavis
-devtools::install_github("travis-m-blimkie/tRavis")
+# Install tRavis
+remotes::install_github("travis-m-blimkie/tRavis")
 ```
 
 ## Examples
