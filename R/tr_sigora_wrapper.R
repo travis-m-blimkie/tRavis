@@ -9,6 +9,7 @@
 #'
 #' @export
 #'
+#' @import purrr
 #' @import sigora
 #'
 #' @description This simple wrapper function allows us to more easily get the
@@ -44,11 +45,14 @@ tr_sigora_wrapper <- function(query_list, database) {
     ".temp.tsv"
   )
 
+  # Make a quiet version of sigora() that doesn't print to console
+  quiet_sigora <- quietly(sigora)
+
   # Run Sigora using the requested database and appropriate level
   if (db == "kegg") {
-    message("Running sigora() with parameters 'GPSrepo = kegH, level = 2'...")
+    message("Running sigora with parameters 'GPSrepo = kegH, level = 2'...")
 
-    result_part1 <- sigora::sigora(
+    result_part1 <- quiet_sigora(
       GPSrepo   = sigora::kegH,
       level     = 2,
       queryList = query_list,
@@ -56,9 +60,9 @@ tr_sigora_wrapper <- function(query_list, database) {
     )
 
   } else if (db == "reactome") {
-    message("Running sigora() with parameters 'GPSrepo = reaH, level = 4'...")
+    message("Running sigora with parameters 'GPSrepo = reaH, level = 4'...")
 
-    result_part1 <- sigora::sigora(
+    result_part1 <- quiet_sigora(
       GPSrepo   = sigora::reaH,
       level     = 4,
       queryList = query_list,
@@ -71,6 +75,6 @@ tr_sigora_wrapper <- function(query_list, database) {
     read_tsv(temp_file, col_types = cols()) %>% rename("genes" = Genes)
   file.remove(temp_file)
 
-  message("Done!\n")
+  message("Done!")
   return(result_part2)
 }
