@@ -4,30 +4,35 @@
 \alias{tr_clean_deseq2_result}
 \title{tr_clean_deseq2_result}
 \usage{
-tr_clean_deseq2_result(deseq2_result, padjusted = 0.05, foldchange = 1.5)
+tr_clean_deseq2_result(
+  deseq2_result,
+  p_adjusted = 0.05,
+  fold_change = 1.5,
+  inform = TRUE
+)
 }
 \arguments{
-\item{deseq2_result}{Results object for DE genes. \code{DESeq2::results()}
-must have been called with 'tidy = TRUE'.}
+\item{deseq2_result}{Results object for DE genes, of class
+\code{DESeqResults}.}
 
-\item{padjusted}{Threshold for adjusted p-value, defaults to 0.05}
+\item{p_adjusted}{Threshold for adjusted p-value, defaults to 0.05}
 
-\item{foldchange}{Threshold for fold change, defaults to 1.5}
+\item{fold_change}{Threshold for fold change, defaults to 1.5}
+
+\item{inform}{Should a message be printed with the number of DE genes found?
+Defaults to \code{TRUE}.}
 }
 \value{
 Tidy dataframe of filtered DE genes.
 }
 \description{
 Helper function to filter and sort results from DESeq2 to aid in
-  identifying differentially expressed genes
+  identifying differentially expressed genes.
 }
 \examples{
 \dontrun{
-  DESeq2::results(
-    dds,
-    name = "treatment_peptide_vs_vehicle",
-    tidy = TRUE
-  ) \%>\%  tr_clean_deseq2_result(.)
+  DESeq2::results(dds, name = "treatment_peptide_vs_vehicle") \%>\%
+    tr_clean_deseq2_result()
 }
 
 }

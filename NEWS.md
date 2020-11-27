@@ -1,5 +1,9 @@
 # News
 
+### 0.70.1
+
+* Added and updated with new function `tr_clean_deseq2_result`
+
 ### 0.69.00
 
 * Added function `tr_sigora_wrapper`
