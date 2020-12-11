@@ -4,6 +4,8 @@
 #' @param database Database to use, one of "KEGG" or "Reactome". The
 #'   \code{level} argument of \code{sigora} is automatically set based on chosen
 #'   database (2 for KEGG, 4 for Reactome).
+#' @param species Species in which to test for pathways. Can be "human" or
+#'   "mouse".
 #'
 #' @return Sigora "summary_results" object.
 #'
@@ -22,7 +24,7 @@
 #'
 #' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
 #'
-tr_sigora_wrapper <- function(query_list, database) {
+tr_sigora_wrapper <- function(query_list, database, species) {
 
   # Check and sanitize our inputs
   if (!is.character(query_list)) {
@@ -34,47 +36,15 @@ tr_sigora_wrapper <- function(query_list, database) {
     stop("Argument 'database' must be one of 'KEGG' or 'Reactome'.")
   }
 
-  # Create the temporary file path
-  temp_file <- paste0(
-    "./sigora_",
-    str_replace_all(
-      format(Sys.time(), "%Y-%m-%d_%T"),
-      pattern =  ":",
-      replacement = "-"
-    ),
-    ".temp.tsv"
-  )
-
-  # Make a quiet version of sigora() that doesn't print to console
-  quiet_sigora <- quietly(sigora)
-
-  # Run Sigora using the requested database and appropriate level
-  if (db == "kegg") {
-    message("Running sigora with parameters 'GPSrepo = kegH, level = 2'...")
-
-    result_part1 <- quiet_sigora(
-      GPSrepo   = sigora::kegH,
-      level     = 2,
-      queryList = query_list,
-      saveFile  = temp_file
-    )
-
-  } else if (db == "reactome") {
-    message("Running sigora with parameters 'GPSrepo = reaH, level = 4'...")
-
-    result_part1 <- quiet_sigora(
-      GPSrepo   = sigora::reaH,
-      level     = 4,
-      queryList = query_list,
-      saveFile  = temp_file
-    )
+  species <- tolower(species)
+  if (!species %in% c("human", "mouse")) {
+    stop("Argument 'species' must be one of 'human' or 'mouse'.")
   }
 
-  # Read in the saved results and remove the temporary file
-  result_part2 <-
-    read_tsv(temp_file, col_types = cols()) %>% rename("genes" = Genes)
-  file.remove(temp_file)
+  if (species == "human") {
+    tr_sigora_wrapper_H(query_list = query_list, database = database)
+  } else if (species == "mouse") {
+    tr_sigora_wrapper_M(query_list = query_list, database = database)
+  }
 
-  message("Done!")
-  return(result_part2)
 }
