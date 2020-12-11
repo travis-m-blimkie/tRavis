@@ -1,5 +1,9 @@
 # News
 
+### 0.70.2
+
+* Added option to use `tr_sigora_wrapper()` with human or mouse input genes
+
 ### 0.70.1
 
 * Added and updated with new function `tr_clean_deseq2_result`
