@@ -69,8 +69,8 @@ tr_sigora_wrapper_M <- function(query_list, database) {
   }
 
   # Read in the saved results and remove the temporary file
-  result_part2 <-
-    read_tsv(temp_file, col_types = cols()) %>% rename("genes" = Genes)
+  result_part2 <- read_tsv(temp_file, col_types = cols()) %>%
+    rename("genes" = Genes)
   file.remove(temp_file)
 
   message("Done!")
