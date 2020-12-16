@@ -1,6 +1,6 @@
 #' tr_tidy_gage
 #'
-#' @param gage_result Output from call to \code{gage} function.
+#' @param gage_result Output from call to `gage` function.
 #' @param qval Cutoff for q-value. Defaults to 0.1.
 #'
 #' @return A data frame (tibble) of enriched KEGG pathways, filtered and without
@@ -18,7 +18,7 @@
 #'
 #' @references None.
 #'
-#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
+#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 tr_tidy_gage <- function(gage_result, qval = 0.1) {
 

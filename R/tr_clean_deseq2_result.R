@@ -1,11 +1,11 @@
 #' tr_clean_deseq2_result
 #'
 #' @param deseq2_result Results object for DE genes, of class
-#'   \code{DESeqResults}.
+#'   `DESeqResults`.
 #' @param p_adjusted Threshold for adjusted p-value, defaults to 0.05
 #' @param fold_change Threshold for fold change, defaults to 1.5
 #' @param inform Should a message be printed with the number of DE genes found?
-#'   Defaults to \code{TRUE}.
+#'   Defaults to `TRUE`.
 #'
 #' @return Tidy dataframe of filtered DE genes.
 #'
@@ -18,7 +18,7 @@
 #'
 #' @references None.
 #'
-#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
+#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
 #' \dontrun{

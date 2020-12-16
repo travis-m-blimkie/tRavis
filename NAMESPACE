@@ -3,6 +3,7 @@
 export(tr_anno_cleaner)
 export(tr_clean_deseq2_result)
 export(tr_compare_lists)
+export(tr_deseq2_results)
 export(tr_get_files)
 export(tr_qc_plots)
 export(tr_sigora_wrapper)
