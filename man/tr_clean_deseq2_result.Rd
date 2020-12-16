@@ -27,7 +27,7 @@ Tidy dataframe of filtered DE genes.
 }
 \description{
 Helper function to filter and sort results from DESeq2 to aid in
-  identifying differentially expressed genes.
+identifying differentially expressed genes.
 }
 \examples{
 \dontrun{

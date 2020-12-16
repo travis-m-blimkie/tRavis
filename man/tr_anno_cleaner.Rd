@@ -17,15 +17,15 @@ filled in with corresponding locus tag. Defaults to \code{FALSE}.}
 }
 \value{
 A data frame (tibble) of the cleaned input file, containing the
-  following columns: locus tag, gene name, description, start, end, and
-  strand.
+following columns: locus tag, gene name, description, start, end, and
+strand.
 }
 \description{
 Given an input CSV or TSV annotation file (from \emph{P.
-  aeruginosa}), separates and cleans columns, returning a clean and tidy data
-  frame. Only returns locus tag, gene name, description, start, end, and
-  strand columns. Designed to work with files from
-  \href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
+aeruginosa}), separates and cleans columns, returning a clean and tidy data
+frame. Only returns locus tag, gene name, description, start, end, and
+strand columns. Designed to work with files from
+\href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
 }
 \examples{
 \dontrun{

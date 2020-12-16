@@ -21,10 +21,10 @@ Sigora "summary_results" object.
 }
 \description{
 This simple wrapper function allows us to more easily get the
-  candidate genes from the \code{sigora} results, as they are automatically included
-  when using the "saveFile" argument. It writes the results to a temporary
-  file before loading those same results back in and returning them to the
-  user.
+candidate genes from the \code{sigora} results, as they are automatically included
+when using the "saveFile" argument. It writes the results to a temporary
+file before loading those same results back in and returning them to the
+user.
 }
 \references{
 None.
