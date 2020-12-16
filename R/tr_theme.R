@@ -16,7 +16,7 @@
 #'
 #' @references None.
 #'
-#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
+#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
 #' \dontrun{

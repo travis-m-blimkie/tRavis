@@ -2,7 +2,7 @@
 #'
 #' @param query_list List of input genes as a character vector.
 #' @param database Database to use, one of "KEGG" or "Reactome". The
-#'   \code{level} argument of \code{sigora} is automatically set based on chosen
+#'   `level` argument of `sigora` is automatically set based on chosen
 #'   database (2 for KEGG, 4 for Reactome).
 #'
 #' @return Sigora "summary_results" object.
@@ -11,14 +11,14 @@
 #' @import sigora
 #'
 #' @description This simple wrapper function allows us to more easily get the
-#'   candidate genes from the \code{sigora} results, as they are automatically included
+#'   candidate genes from the `sigora` results, as they are automatically included
 #'   when using the "saveFile" argument. It writes the results to a temporary
 #'   file before loading those same results back in and returning them to the
 #'   user.
 #'
 #' @references None.
 #'
-#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
+#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 tr_sigora_wrapper_H <- function(query_list, database) {
 
