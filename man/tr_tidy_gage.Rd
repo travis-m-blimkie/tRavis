@@ -13,13 +13,13 @@ tr_tidy_gage(gage_result, qval = 0.1)
 }
 \value{
 A data frame (tibble) of enriched KEGG pathways, filtered and without
-  rownames (first column contains pathway name/identifier).
+rownames (first column contains pathway name/identifier).
 }
 \description{
 This function will simply convert the output from Gage
-  enrichment into a easier-to-use format, namely a data frame. At the same
-  time it also filters the result based on q-value, with a default of
-  "0.1".
+enrichment into a easier-to-use format, namely a data frame. At the same
+time it also filters the result based on q-value, with a default of
+"0.1".
 }
 \references{
 None.
