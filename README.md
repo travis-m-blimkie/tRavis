@@ -1,7 +1,5 @@
----
-title: "**tRavis**"
-output: html_document
----
+
+# **tRavis**
 
 Github repository to hold my custom R package, containing a suite of useful
 functions.
