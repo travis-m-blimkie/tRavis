@@ -10,7 +10,7 @@ tr_sigora_wrapper(query_list, database, species)
 \item{query_list}{List of input genes as a character vector.}
 
 \item{database}{Database to use, one of "KEGG" or "Reactome". The
-\code{level} argument of \code{sigora} is automatically set based on chosen
+\code{level} argument of \code{sigora} is automatically set based on the chosen
 database (2 for KEGG, 4 for Reactome).}
 
 \item{species}{Species in which to test for pathways. Can be "human" or

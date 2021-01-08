@@ -2,7 +2,7 @@
 #'
 #' @param query_list List of input genes as a character vector.
 #' @param database Database to use, one of "KEGG" or "Reactome". The
-#'   `level` argument of `sigora` is automatically set based on chosen
+#'   `level` argument of `sigora` is automatically set based on the chosen
 #'   database (2 for KEGG, 4 for Reactome).
 #' @param species Species in which to test for pathways. Can be "human" or
 #'   "mouse".
