@@ -22,16 +22,6 @@
 #'
 tr_sigora_wrapper_M <- function(query_list, database) {
 
-  # Check and sanitize our inputs
-  if (!is.character(query_list)) {
-    stop("Argument 'query_list' must be a character vector.")
-  }
-
-  db <- tolower(database)
-  if (!db %in% c("reactome", "kegg")) {
-    stop("Argument 'database' must be one of 'KEGG' or 'Reactome'.")
-  }
-
   # Create the temporary file path
   temp_file <- paste0(
     "./sigora_",
