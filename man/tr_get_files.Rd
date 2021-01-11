@@ -15,7 +15,9 @@ tr_get_files(
 \arguments{
 \item{folder}{Directory containing files of interest.}
 
-\item{pattern}{Optional, case-sensitive pattern to use in file searching.}
+\item{pattern}{Optional, case-sensitive pattern to use in file searching. If
+no pattern is supplied, all files in the specified directory will be
+matched.}
 
 \item{recur}{Whether file listing should be done recursively. Defaults to
 FALSE.}
@@ -31,11 +33,11 @@ Named list of files to be read.
 }
 \description{
 Function which creates a named list of files in a specified
-  directory. The list names are trimmed versions of file names, while
-  contents of the list are the file names themselves. In this way, it can be
-  easily piped into \code{purrr::map(~read.csv(.))} to create named list of
-  data frames. Note this function will only find files with the extension
-  "csv", "tsv", or "txt".
+directory. The list names are trimmed versions of file names, while
+contents of the list are the file names themselves. In this way, it can be
+easily piped into \code{purrr::map(~read.csv(.))} to create named list of
+data frames. Note this function will only find files with the extension
+"csv", "tsv", or "txt".
 }
 \references{
 None.

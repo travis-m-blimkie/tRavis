@@ -16,14 +16,15 @@ run with the \code{tidy = TRUE} option.}
 }
 \value{
 A data frame (tibble) of differentially expressed genes, filtered and
-  without rownames (first column contains gene identifier).
+without rownames (first column contains gene identifier).
 }
 \description{
-This function adds two columns to the results object: "ABSLFC"
-  is the absolute value of the default "log2FoldChange" column. "FC" is the
-  fold change, calculated from the "log2FoldChange". It also filters the
-  results based on absolute fold change and adjusted p-value, and orders by
-  adjusted p-value.
+\Sexpr[results=rd, stage=render]{lifecycle::badge("superseded")}
+This function adds two columns to the results object: "ABSLFC" is the
+absolute value of the default "log2FoldChange" column. "FC" is the fold
+change, calculated from the "log2FoldChange". It also filters the results
+based on absolute fold change and adjusted p-value, and orders by adjusted
+p-value.
 }
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}

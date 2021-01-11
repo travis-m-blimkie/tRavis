@@ -9,13 +9,21 @@
 #'
 #' @import dplyr
 #'
-#' @description Performs \code{intersect(x, y)}, \code{setdiff(x, y)}, and
-#'   \code{setdiff(y, x)}. Returns these elements in a list with names "common",
+#' @description Performs `intersect(x, y)`, `setdiff(x, y)`, and
+#'   `setdiff(y, x)`. Returns these elements in a list with names "common",
 #'   "unique_x", and "unique_y".
 #'
 #' @references None.
 #'
-#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
+#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
+#'
+#' @examples
+#' \dontrun{
+#'   tr_compare_lists(
+#'     x = c(1, 2, 4, 5, 6),
+#'     y = c(2, 3, 6, 7)
+#'   )
+#' }
 #'
 tr_compare_lists <- function(x, y) {
 
