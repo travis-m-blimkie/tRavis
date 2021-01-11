@@ -16,8 +16,17 @@ A named list of the common and unique elements of x and y.
 }
 \description{
 Performs \code{intersect(x, y)}, \code{setdiff(x, y)}, and
-  \code{setdiff(y, x)}. Returns these elements in a list with names "common",
-  "unique_x", and "unique_y".
+\code{setdiff(y, x)}. Returns these elements in a list with names "common",
+"unique_x", and "unique_y".
+}
+\examples{
+\dontrun{
+  tr_compare_lists(
+    x = c(1, 2, 4, 5, 6),
+    y = c(2, 3, 6, 7)
+  )
+}
+
 }
 \references{
 None.

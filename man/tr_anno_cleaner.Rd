@@ -4,22 +4,38 @@
 \alias{tr_anno_cleaner}
 \title{tr_anno_cleaner}
 \usage{
-tr_anno_cleaner(input_file)
+tr_anno_cleaner(input_file, extra_cols = FALSE, fill_names = FALSE)
 }
 \arguments{
 \item{input_file}{Path to the input TSV or CSV file.}
+
+\item{extra_cols}{Logical to determine if start, end, and strand columns
+should be included. Defaults to \code{FALSE}.}
+
+\item{fill_names}{Logical to determine if blank/NA genes names should be
+filled in with corresponding locus tag. Defaults to \code{FALSE}.}
 }
 \value{
 A data frame (tibble) of the cleaned input file, containing the
-  following columns: locus tag, gene name, description, start, end, and
-  strand.
+following columns: locus tag, gene name, description, start, end, and
+strand.
 }
 \description{
 Given an input CSV or TSV annotation file (from \emph{P.
-  aeruginosa}), separates and cleans columns, returning a clean and tidy data
-  frame. Only returns locus tag, gene name, description, start, end, and
-  strand columns. Designed to work with files from
-  \href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
+aeruginosa}), separates and cleans columns, returning a clean and tidy data
+frame. Only returns locus tag, gene name, description, start, end, and
+strand columns. Designed to work with files from
+\href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
+}
+\examples{
+\dontrun{
+  tr_anno_cleaner(
+    "Downloads/Pseudomonas_aeruginosa_PAO1_107.tsv",
+    extra_cols = FALSE,
+    fill_names = FALSE
+  )
+}
+
 }
 \references{
 None.

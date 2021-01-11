@@ -5,17 +5,17 @@
 #' @param enrichment_set Set of genes of interest, such as virulence genes.
 #' @param total_genes Total number of genes for the organism/species.
 #'
-#' @return Produces the raw p-value from \code{fisher.test()}.
+#' @return Produces the raw p-value from `fisher.test()`.
 #'
 #' @export
 #'
 #' @description Performs Fisher's Exact test to determine enrichment of a set of
 #'   genes of interest compared to some list of experimentally derived genes.
-#'   Assumes \code{alternative = "greater"} in call to \code{fisher.test()}.
+#'   Assumes `alternative = "greater"` in call to `fisher.test()`.
 #'
 #' @references None.
 #'
-#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
+#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
 

@@ -1,7 +1,7 @@
 #' tr_deseq2_results
 #'
 #' @param result Output from call to DESeq2's results function. Must have been
-#'   run with the \code{tidy = TRUE} option.
+#'   run with the `tidy = TRUE` option.
 #' @param pAdj Cutoff for adjusted p-value. Defaults to 0.05.
 #' @param fc Cutoff for the fold change value. Defaults to 1.5.
 #'
@@ -10,15 +10,22 @@
 #'
 #' @export
 #'
-#' @description This function adds two columns to the results object: "ABSLFC"
-#'   is the absolute value of the default "log2FoldChange" column. "FC" is the
-#'   fold change, calculated from the "log2FoldChange". It also filters the
-#'   results based on absolute fold change and adjusted p-value, and orders by
-#'   adjusted p-value.
+#' @description \Sexpr[results=rd, stage=render]{lifecycle::badge("superseded")}
+#'   This function adds two columns to the results object: "ABSLFC" is the
+#'   absolute value of the default "log2FoldChange" column. "FC" is the fold
+#'   change, calculated from the "log2FoldChange". It also filters the results
+#'   based on absolute fold change and adjusted p-value, and orders by adjusted
+#'   p-value.
 #'
-#' @seealso \url{https://www.github.com/travis-m-blimkie/tRavis}
+#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
+
+  # Message to tell user the function is deprecated
+  message(
+    "WARNING: This function is now superseded by 'tr_clean_deseq2_results()', ",
+    "and will be removed in the near future."
+  )
 
   # Check for proper input type
   if (!is.data.frame(result)) {
