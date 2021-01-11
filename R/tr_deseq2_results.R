@@ -23,8 +23,8 @@ tr_deseq2_results <- function(result, pAdj = 0.05, fc = 1.5) {
 
   # Message to tell user the function is deprecated
   message(
-    "Please note that this function is now superseded by ",
-    "'tr_clean_deseq2_results()', and will be removed in the next major version."
+    "WARNING: This function is now superseded by 'tr_clean_deseq2_results()', ",
+    "and will be removed in the near future."
   )
 
   # Check for proper input type
