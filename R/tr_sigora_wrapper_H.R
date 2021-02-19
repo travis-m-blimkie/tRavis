@@ -5,16 +5,20 @@
 #'   `level` argument of `sigora` is automatically set based on chosen
 #'   database (2 for KEGG, 4 for Reactome).
 #'
-#' @return Sigora "summary_results" object.
+#' @return A tibble corresponding to `sigora`'s "summary_results" object with
+#'   the "genes" column.
 #'
 #' @import purrr
 #' @import sigora
 #'
 #' @description This simple wrapper function allows us to more easily get the
-#'   candidate genes from the `sigora` results, as they are automatically included
-#'   when using the "saveFile" argument. It writes the results to a temporary
-#'   file before loading those same results back in and returning them to the
-#'   user.
+#'   candidate genes from the `sigora` results, as they are automatically
+#'   included when using the "saveFile" argument. It writes the results to a
+#'   temporary file before loading those same results back in and returning them
+#'   to the user. The function uses a quiet and safe version of `sigora` (based
+#'   on the `quiet()` and `possibly()` `purrr` functions), meaning it will
+#'   return NULL instead of an error, such as in the case when there are too few
+#'   genes given as input.
 #'
 #' @references None.
 #'
@@ -33,14 +37,15 @@ tr_sigora_wrapper_H <- function(query_list, database) {
     ".temp.tsv"
   )
 
-  # Make a quiet version of sigora() that doesn't print to console
-  quiet_sigora <- quietly(sigora)
+  # Make a quiet version of sigora() that doesn't print to console and returns
+  # NULL instead of giving an error.
+  safe_sigora <- possibly(.f = quietly(sigora), otherwise = NULL)
 
   # Run Sigora using the requested database and appropriate level
   if (db == "kegg") {
     message("Running sigora with parameters 'GPSrepo = kegH, level = 2'...")
 
-    result_part1 <- quiet_sigora(
+    result_part1 <- safe_sigora(
       GPSrepo   = sigora::kegH,
       level     = 2,
       queryList = query_list,
@@ -50,7 +55,7 @@ tr_sigora_wrapper_H <- function(query_list, database) {
   } else if (db == "reactome") {
     message("Running sigora with parameters 'GPSrepo = reaH, level = 4'...")
 
-    result_part1 <- quiet_sigora(
+    result_part1 <- safe_sigora(
       GPSrepo   = sigora::reaH,
       level     = 4,
       queryList = query_list,
