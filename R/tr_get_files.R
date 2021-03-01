@@ -23,8 +23,7 @@
 #'   directory. The list names are trimmed versions of file names, while
 #'   contents of the list are the file names themselves. In this way, it can be
 #'   easily piped into `purrr::map(~read.csv(.))` to create named list of
-#'   data frames. Note this function will only find files with the extension
-#'   "csv", "tsv", or "txt".
+#'   data frames.
 #'
 #' @references None.
 #'
@@ -43,23 +42,20 @@ tr_get_files <- function(folder,
     pattern = pattern,
     recursive = recur,
     full.names = TRUE
-  ) %>%
-    grep(pattern = "(csv|tsv|txt)$", x = ., value = TRUE)
+  )
 
   # Provide a custom error message if no files are found, and remind the user
   # that only certain file extensions are supported.
   if (length(f_Files) == 0) {
     stop(paste0(
-      "No files found matching the specified pattern. Please note that this ",
-      "function only supports files with the extension 'csv', 'tsv', or 'txt'."
+      "No files found matching the specified pattern!"
     ))
   }
 
   # Create the names to be assigned to each file in the list, removing the
   # extension from the end.
   f_Names <- list.files(folder, pattern = pattern, recursive = recur) %>%
-    grep("(csv|tsv|txt)$", ., value = TRUE) %>%
-    str_remove(., pattern = "\\.(csv|tsv|txt)")
+    str_remove(., pattern = "\\..*$")
 
   # If specified, remove dates from the names for files.
   if (date == TRUE) {
