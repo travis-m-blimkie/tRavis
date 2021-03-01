@@ -40,7 +40,7 @@ Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from
 
 
 ### tr_compare_lists()
-Compare two lists to get the common/unique elements:
+Compare two lists to find the common/unique elements:
 ```r
 > tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
 $common
