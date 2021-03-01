@@ -4,14 +4,12 @@
 Github repository to hold my custom R package, containing a suite of useful
 functions.
 
-
 ## Installation
 The only recommended installation for using **tRavis** is the [tidyverse](https://www.tidyverse.org/).
 ```r
 install.packages("tidyverse")
 remotes::install_github("travis-m-blimkie/tRavis")
 ```
-
 
 ## Examples
 
