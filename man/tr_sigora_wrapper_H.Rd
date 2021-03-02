@@ -14,8 +14,8 @@ tr_sigora_wrapper_H(query_list, database)
 database (2 for KEGG, 4 for Reactome).}
 }
 \value{
-A tibble corresponding to \code{sigora}'s "summary_results" object with
-the "genes" column.
+A tibble corresponding to \code{sigora}'s "summary_results" object, with
+the addition of the "genes" column.
 }
 \description{
 This simple wrapper function allows us to more easily get the

@@ -5,8 +5,8 @@
 #'   `level` argument of `sigora` is automatically set based on chosen
 #'   database (2 for KEGG, 4 for Reactome).
 #'
-#' @return A tibble corresponding to `sigora`'s "summary_results" object with
-#'   the "genes" column.
+#' @return A tibble corresponding to `sigora`'s "summary_results" object, with
+#'   the addition of the "genes" column.
 #'
 #' @import purrr
 #' @import sigora
@@ -37,8 +37,8 @@ tr_sigora_wrapper_H <- function(query_list, database) {
     ".temp.tsv"
   )
 
-  # Make a quiet version of sigora() that doesn't print to console and returns
-  # NULL instead of giving an error.
+  # Make a safe and quiet version of sigora() that doesn't print to console and
+  # returns NULL instead of giving an error.
   safe_sigora <- possibly(.f = quietly(sigora), otherwise = NULL)
 
   # Run Sigora using the requested database and appropriate level
