@@ -22,11 +22,12 @@ matched.}
 \item{recur}{Whether file listing should be done recursively. Defaults to
 FALSE.}
 
-\item{date}{Do file names contain a date which should be removed? Must be of
-the format "_YYYYMMDD". Defaults to FALSE.}
+\item{date}{Do file names contain a date which should be removed? Must be
+formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
+Defaults to FALSE.}
 
 \item{removeString}{Optional string which can be removed from file names when
-creating names for the list.}
+creating names for the output list.}
 }
 \value{
 Named list of files to be read.
