@@ -1,5 +1,9 @@
 # News
 
+### 0.71.22
+
+* `tr_get_files()` is no longer specific to csv, tsv, and txt files.
+
 ### 0.71.01
 
 * `tr_sigora_wrapper()` now runs quietly and returns NULL instead of an error
