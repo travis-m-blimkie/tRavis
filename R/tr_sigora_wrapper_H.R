@@ -41,8 +41,10 @@ tr_sigora_wrapper_H <- function(query_list, database) {
   # returns NULL instead of giving an error.
   safe_sigora <- possibly(.f = quietly(sigora), otherwise = NULL)
 
+  result_part1 <- NULL
+
   # Run Sigora using the requested database and appropriate level
-  if (db == "kegg") {
+  if (database == "kegg") {
     message("Running sigora with parameters 'GPSrepo = kegH, level = 2'...")
 
     result_part1 <- safe_sigora(
@@ -52,7 +54,7 @@ tr_sigora_wrapper_H <- function(query_list, database) {
       saveFile  = temp_file
     )
 
-  } else if (db == "reactome") {
+  } else if (database == "reactome") {
     message("Running sigora with parameters 'GPSrepo = reaH, level = 4'...")
 
     result_part1 <- safe_sigora(
@@ -64,10 +66,16 @@ tr_sigora_wrapper_H <- function(query_list, database) {
   }
 
   # Read in the saved results and remove the temporary file
-  result_part2 <- read_tsv(temp_file, col_types = cols()) %>%
-    rename("genes" = Genes)
-  file.remove(temp_file)
+  if (!is.null(result_part1)) {
+    result_part2 <- read_tsv(temp_file, col_types = cols()) %>%
+      rename("genes" = Genes)
 
-  message("Done!")
-  return(result_part2)
+    file.remove(temp_file)
+
+    message("Done!")
+    return(result_part2)
+  } else {
+    message("WARNING: No results, likely too few genes. Returning NULL")
+    return(result_part1)
+  }
 }
