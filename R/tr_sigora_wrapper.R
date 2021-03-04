@@ -43,9 +43,9 @@ tr_sigora_wrapper <- function(query_list, database, species) {
   species <- tolower(species)
 
   if (species == "human") {
-    tr_sigora_wrapper_H(query_list = query_list, database = database)
+    tr_sigora_wrapper_H(query_list = query_list, database = db)
   } else if (species == "mouse") {
-    tr_sigora_wrapper_M(query_list = query_list, database = database)
+    tr_sigora_wrapper_M(query_list = query_list, database = db)
   } else {
     stop("Argument 'species' must be one of 'human' or 'mouse'.")
   }
