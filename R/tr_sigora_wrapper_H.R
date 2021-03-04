@@ -45,7 +45,7 @@ tr_sigora_wrapper_H <- function(query_list, database) {
 
   # Run Sigora using the requested database and appropriate level
   if (database == "kegg") {
-    message("Running sigora with parameters 'GPSrepo = kegH, level = 2'...")
+    message("Running sigora with parameters \"GPSrepo = kegH, level = 2\"...")
 
     result_part1 <- safe_sigora(
       GPSrepo   = sigora::kegH,
@@ -55,7 +55,7 @@ tr_sigora_wrapper_H <- function(query_list, database) {
     )
 
   } else if (database == "reactome") {
-    message("Running sigora with parameters 'GPSrepo = reaH, level = 4'...")
+    message("Running sigora with parameters \"GPSrepo = reaH, level = 4\"...")
 
     result_part1 <- safe_sigora(
       GPSrepo   = sigora::reaH,
