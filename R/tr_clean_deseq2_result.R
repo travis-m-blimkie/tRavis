@@ -4,10 +4,10 @@
 #'   `DESeqResults`.
 #' @param p_adjusted Threshold for adjusted p-value, defaults to 0.05
 #' @param fold_change Threshold for fold change, defaults to 1.5
-#' @param inform Should a message be printed with the number of DE genes found?
-#'   Defaults to `TRUE`.
+#' @param inform Should a message be printed with the DE comparison and number
+#'   of DE genes found? Defaults to `TRUE`.
 #'
-#' @return Tidy dataframe of filtered DE genes.
+#' @return Tidy data frame of filtered DE genes.
 #'
 #' @export
 #'

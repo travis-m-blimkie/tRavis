@@ -6,10 +6,11 @@
 #'   matched.
 #' @param recur Whether file listing should be done recursively. Defaults to
 #'   FALSE.
-#' @param date Do file names contain a date which should be removed? Must be of
-#'   the format "_YYYYMMDD". Defaults to FALSE.
+#' @param date Do file names contain a date which should be removed? Must be
+#' formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
+#' Defaults to FALSE.
 #' @param removeString Optional string which can be removed from file names when
-#'   creating names for the list.
+#'   creating names for the output list.
 #'
 #' @return Named list of files to be read.
 #'
@@ -23,8 +24,7 @@
 #'   directory. The list names are trimmed versions of file names, while
 #'   contents of the list are the file names themselves. In this way, it can be
 #'   easily piped into `purrr::map(~read.csv(.))` to create named list of
-#'   data frames. Note this function will only find files with the extension
-#'   "csv", "tsv", or "txt".
+#'   data frames.
 #'
 #' @references None.
 #'
@@ -36,44 +36,41 @@ tr_get_files <- function(folder,
                          date = FALSE,
                          removeString = NULL) {
 
-  # List all files in the specified folder, using the provided pattern, else
-  # match all files.
-  f_Files <- list.files(
-    path = folder,
-    pattern = pattern,
-    recursive = recur,
+  # List all files in the specified folder, using the provided pattern. If no
+  # pattern is supplied, then we will list all files.
+  f_files <- list.files(
+    path       = folder,
+    pattern    = pattern,
+    recursive  = recur,
     full.names = TRUE
-  ) %>%
-    grep(pattern = "(csv|tsv|txt)$", x = ., value = TRUE)
+  )
 
-  # Provide a custom error message if no files are found, and remind the user
-  # that only certain file extensions are supported.
-  if (length(f_Files) == 0) {
+  # Provide a custom error message if no files are found matching the pattern
+  if (length(f_files) == 0) {
     stop(paste0(
-      "No files found matching the specified pattern. Please note that this ",
-      "function only supports files with the extension 'csv', 'tsv', or 'txt'."
+      "No files found matching the specified pattern."
     ))
   }
 
   # Create the names to be assigned to each file in the list, removing the
-  # extension from the end.
-  f_Names <- list.files(folder, pattern = pattern, recursive = recur) %>%
-    grep("(csv|tsv|txt)$", ., value = TRUE) %>%
-    str_remove(., pattern = "\\.(csv|tsv|txt)")
+  # extension from the end. The regex to match a file extension was taken from:
+  # https://stackoverflow.com/questions/22235518/regex-for-any-file-extension
+  f_names <-
+    list.files(folder, pattern = pattern, recursive = recur) %>%
+    str_remove(., pattern = "\\.[^\\.]+$")
 
-  # If specified, remove dates from the names for files.
+  # If specified, remove dates from the file names, assuming YYYYMMDD format
   if (date == TRUE) {
-    f_Names <- f_Names %>% str_remove(., pattern = "_?[0-9]{8}")
+    f_names <- f_names %>% str_remove(., pattern = "_?[0-9]{8}")
   }
 
   # Remove specified string if provided. Needs to be conditional, otherwise
-  # `str_remove_all()` returns an error for trying to remove nothing/everything/
-  # anything.
+  # `str_remove_all()` returns an error for trying to remove NULL.
   if (!is.null(removeString)) {
-    f_Names <- f_Names %>% str_remove_all(., pattern = removeString)
+    f_names <- f_names %>% str_remove_all(., pattern = removeString)
   }
 
   # Create and return output object
-  f_Output <- set_names(f_Files, f_Names) %>% as.list()
-  return(f_Output)
+  f_output <- set_names(f_files, f_names) %>% as.list()
+  return(f_output)
 }

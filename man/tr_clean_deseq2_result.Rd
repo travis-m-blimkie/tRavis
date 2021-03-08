@@ -19,11 +19,11 @@ tr_clean_deseq2_result(
 
 \item{fold_change}{Threshold for fold change, defaults to 1.5}
 
-\item{inform}{Should a message be printed with the number of DE genes found?
-Defaults to \code{TRUE}.}
+\item{inform}{Should a message be printed with the DE comparison and number
+of DE genes found? Defaults to \code{TRUE}.}
 }
 \value{
-Tidy dataframe of filtered DE genes.
+Tidy data frame of filtered DE genes.
 }
 \description{
 Helper function to filter and sort results from DESeq2 to aid in
