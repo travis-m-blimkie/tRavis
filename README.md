@@ -14,7 +14,7 @@ remotes::install_github("travis-m-blimkie/tRavis")
 
 To install the current development version of tRavis:
 ```r
-remotes::install_github("travis-m-blimkie/tRavis", ref = "dev07")
+remotes::install_github("travis-m-blimkie/tRavis", ref = "dev08")
 ```
 
 ## Examples
