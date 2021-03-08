@@ -7,7 +7,8 @@
 #' @param species Species in which to test for pathways. Can be "human" or
 #'   "mouse".
 #'
-#' @return Sigora "summary_results" object.
+#' @return A tibble corresponding to `sigora`'s "summary_results" object with
+#'   the "genes" column.
 #'
 #' @export
 #'
@@ -15,10 +16,13 @@
 #' @import sigora
 #'
 #' @description This simple wrapper function allows us to more easily get the
-#'   candidate genes from the `sigora` results, as they are automatically included
-#'   when using the "saveFile" argument. It writes the results to a temporary
-#'   file before loading those same results back in and returning them to the
-#'   user.
+#'   candidate genes from the `sigora` results, as they are automatically
+#'   included when using the "saveFile" argument. It writes the results to a
+#'   temporary file before loading those same results back in and returning them
+#'   to the user. The function uses a quiet and safe version of `sigora` (based
+#'   on the `quiet()` and `possibly()` `purrr` functions), meaning it will
+#'   return NULL instead of an error, such as in the case when there are too few
+#'   genes given as input.
 #'
 #' @references None.
 #'
@@ -39,9 +43,9 @@ tr_sigora_wrapper <- function(query_list, database, species) {
   species <- tolower(species)
 
   if (species == "human") {
-    tr_sigora_wrapper_H(query_list = query_list, database = database)
+    tr_sigora_wrapper_H(query_list = query_list, database = db)
   } else if (species == "mouse") {
-    tr_sigora_wrapper_M(query_list = query_list, database = database)
+    tr_sigora_wrapper_M(query_list = query_list, database = db)
   } else {
     stop("Argument 'species' must be one of 'human' or 'mouse'.")
   }

@@ -22,11 +22,12 @@ matched.}
 \item{recur}{Whether file listing should be done recursively. Defaults to
 FALSE.}
 
-\item{date}{Do file names contain a date which should be removed? Must be of
-the format "_YYYYMMDD". Defaults to FALSE.}
+\item{date}{Do file names contain a date which should be removed? Must be
+formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
+Defaults to FALSE.}
 
 \item{removeString}{Optional string which can be removed from file names when
-creating names for the list.}
+creating names for the output list.}
 }
 \value{
 Named list of files to be read.
@@ -36,8 +37,7 @@ Function which creates a named list of files in a specified
 directory. The list names are trimmed versions of file names, while
 contents of the list are the file names themselves. In this way, it can be
 easily piped into \code{purrr::map(~read.csv(.))} to create named list of
-data frames. Note this function will only find files with the extension
-"csv", "tsv", or "txt".
+data frames.
 }
 \references{
 None.
