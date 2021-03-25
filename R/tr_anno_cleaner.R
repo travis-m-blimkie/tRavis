@@ -39,7 +39,7 @@ tr_anno_cleaner <- function(input_file, extra_cols = FALSE, fill_names = FALSE) 
   file_type <- stringr::str_extract(input_file, pattern = "(c|t)sv$")
 
   if (is.na(file_type)) {
-    stop("Input must be tab- or comma-delimited file from pseudomonas.com")
+    stop("Input must be a tab- or comma-delimited file from pseudomonas.com")
 
   } else if (file_type == "csv") {
     step1 <- read_csv(input_file, col_types = cols()) %>% janitor::clean_names()
