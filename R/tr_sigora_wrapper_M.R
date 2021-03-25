@@ -75,7 +75,7 @@ tr_sigora_wrapper_M <- function(query_list, database) {
     message("Done!")
     return(result_part2)
   } else {
-    message("WARNING: No results, likely too few genes. Returning NULL")
+    message("WARNING: No results, likely too few genes. Returning NULL.")
     return(result_part1)
   }
 }

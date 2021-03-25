@@ -38,8 +38,8 @@ tr_clean_deseq2_result <- function(deseq2_result,
     as.data.frame() %>%
     rownames_to_column("gene") %>%
     filter(
-      padj < p_adjusted,
-      abs(log2FoldChange) > log2(fold_change)
+      padj <= p_adjusted,
+      abs(log2FoldChange) >= log2(fold_change)
     ) %>%
     arrange(padj, abs(log2FoldChange))
 
