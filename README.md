@@ -17,6 +17,15 @@ To install the current development version of tRavis:
 remotes::install_github("travis-m-blimkie/tRavis", ref = "dev08")
 ```
 
+### A Note on Sigora
+The package `sigora`, one of the dependencies for tRavis, is currently not 
+available with the latest R version (4.0.5). To avoid `tRavis` installation
+problems, you can install sigora from its archive, available 
+[here](https://cran.r-project.org/web/packages/sigora/index.html). Installation
+from a local source looks something like (check the path!):
+```r
+install.packages("sigora_3.0.5.tar.gz", repos = NULL)
+```
 ## Examples
 
 ### tr_anno_cleaner()
@@ -43,7 +52,6 @@ Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from
 10 PA0010    tag       DNA-3-methyladenine glycosidase I             
 # ... with 5,701 more rows
 ```
-
 
 ### tr_compare_lists()
 Compare two lists to find the common/unique elements:
