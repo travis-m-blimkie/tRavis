@@ -100,7 +100,6 @@ tr_qc_plots <- function(directory) {
     star_tidy,
     x = ~uniquely_mapped,
     y = ~sample,
-    width = 0.8,
     type = "bar",
     hoverinfo = "text",
     text = ~paste0(
@@ -116,7 +115,6 @@ tr_qc_plots <- function(directory) {
     plotly::add_trace(
       x = ~multimapped,
       y = ~sample,
-      width = 0.8,
       type = "bar",
       marker = list(color = "#7cb5ec"),
       name = "Mapped to multiple loci"
@@ -124,7 +122,6 @@ tr_qc_plots <- function(directory) {
     plotly::add_trace(
       x = ~multimapped_toomany,
       y = ~sample,
-      width = 0.8,
       type = "bar",
       marker = list(color = "#eda467"),
       name = "Mapped to too many loci"
@@ -132,7 +129,6 @@ tr_qc_plots <- function(directory) {
     plotly::add_trace(
       x = ~unmapped_tooshort,
       y = ~sample,
-      width = 0.8,
       type = "bar",
       marker = list(color = "#b1084c"),
       name = "Unmapped: too short"
@@ -140,7 +136,6 @@ tr_qc_plots <- function(directory) {
     plotly::add_trace(
       x = ~unmapped_other,
       y = ~sample,
-      width = 0.8,
       type = "bar",
       marker = list(color = "#7f0000"),
       name = "Unmapped: other"
@@ -182,7 +177,6 @@ tr_qc_plots <- function(directory) {
     htseq_tidy,
     x = ~assigned,
     y = ~sample,
-    width = 0.8,
     type = "bar",
     hoverinfo = "text",
     text = ~paste0(
@@ -199,7 +193,6 @@ tr_qc_plots <- function(directory) {
     plotly::add_trace(
       x = ~ambiguous,
       y = ~sample,
-      width = 0.8,
       type = "bar",
       marker = list(color = "#434348"),
       name = "Ambiguous"
@@ -207,7 +200,6 @@ tr_qc_plots <- function(directory) {
     plotly::add_trace(
       x = ~alignment_not_unique,
       y = ~sample,
-      width = 0.8,
       type = "bar",
       marker = list(color = "#90ed7d"),
       name = "Alignment not unique"
@@ -215,7 +207,6 @@ tr_qc_plots <- function(directory) {
     plotly::add_trace(
       x = ~no_feature,
       y = ~sample,
-      width = 0.8,
       type = "bar",
       marker = list(color = "#f7a35c"),
       name = "No feature"
@@ -223,7 +214,6 @@ tr_qc_plots <- function(directory) {
     plotly::add_trace(
       x = ~too_low_a_qual,
       y = ~sample,
-      width = 0.8,
       type = "bar",
       marker = list(color = "#8085e9"),
       name = "Too low aQual"
@@ -231,7 +221,6 @@ tr_qc_plots <- function(directory) {
     plotly::add_trace(
       x = ~not_aligned,
       y = ~sample,
-      width = 0.8,
       type = "bar",
       marker = list(color = "#f15c80"),
       name = "Not aligned"
