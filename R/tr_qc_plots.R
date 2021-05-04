@@ -144,7 +144,7 @@ tr_qc_plots <- function(directory) {
       barmode = "stack",
       xaxis = list(title = "Number of Reads"),
       yaxis = list(title = ""),
-      legend = list(orientation = 'h'),
+      legend = list(orientation = "h", y = -0.15),
       title = "<b>STAR: Aligned Reads</b>"
     ) %>%
     plotly::style(
@@ -229,7 +229,7 @@ tr_qc_plots <- function(directory) {
       barmode = "stack",
       xaxis = list(title = "Number of Counts"),
       yaxis = list(title = ""),
-      legend = list(orientation = 'h'),
+      legend = list(orientation = "h", y = -0.15),
       title = "<b>HTSeq-count: Gene Counts</b>"
     ) %>%
     plotly::style(
