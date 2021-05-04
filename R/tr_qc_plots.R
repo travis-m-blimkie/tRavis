@@ -62,7 +62,7 @@ tr_qc_plots <- function(directory) {
     y = ~Phred_Score,
     type = "scatter",
     mode = "lines",
-    line = list(color = "green"),
+    line = list(color = "grey"),
     hoverinfo = "text",
     text = ~paste0(
       "Sample: ", sample
@@ -80,7 +80,48 @@ tr_qc_plots <- function(directory) {
         showline = TRUE,
         mirror = "ticks"
       ),
-      title = "<b>FastQC: Phred Scores</b>"
+      title = "<b>FastQC: Phred Scores</b>",
+      shapes = list(
+        list(
+          type = "rect",
+          fillcolor = "red",
+          line = list(color = "red"),
+          opacity = 0.1,
+          x0 = 0,
+          x1 = 150,
+          xref = "x",
+          y0 = 0,
+          y1 = 20,
+          yref = "y"
+        ),
+        list(
+          type = "rect",
+          fillcolor = "orange",
+          line = list(color = "orange"),
+          opacity = 0.1,
+          x0 = 0,
+          x1 = 150,
+          xref = "x",
+          y0 = 20,
+          y1 = 28,
+          yref = "y"
+        ),
+        list(
+          type = "rect",
+          fillcolor = "green",
+          line = list(color = "green"),
+          opacity = 0.1,
+          x0 = 0,
+          x1 = 150,
+          xref = "x",
+          y0 = 28,
+          y1 = 50,
+          yref = "y"
+        )
+      )
+    ) %>%
+    plotly::style(
+      hoverlabel = list(bgcolor = "white", bordercolor = "black")
     )
 
 
