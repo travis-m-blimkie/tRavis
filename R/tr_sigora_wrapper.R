@@ -15,14 +15,14 @@
 #' @import purrr
 #' @import sigora
 #'
-#' @description This simple wrapper function allows us to more easily get the
-#'   candidate genes from the `sigora` results, as they are automatically
-#'   included when using the "saveFile" argument. It writes the results to a
-#'   temporary file before loading those same results back in and returning them
-#'   to the user. The function uses a quiet and safe version of `sigora` (based
-#'   on the `quiet()` and `possibly()` `purrr` functions), meaning it will
-#'   return NULL instead of an error, such as in the case when there are too few
-#'   genes given as input.
+#' @description `r lifecycle::badge('deprecated')` This simple wrapper function
+#'   allows us to more easily get the candidate genes from the `sigora` results,
+#'   as they are automatically included when using the "saveFile" argument. It
+#'   writes the results to a temporary file before loading those same results
+#'   back in and returning them to the user. The function uses a quiet and safe
+#'   version of `sigora` (based on the `quiet()` and `possibly()` `purrr`
+#'   functions), meaning it will return NULL instead of an error, such as in the
+#'   case when there are too few genes given as input.
 #'
 #' @references None.
 #'
