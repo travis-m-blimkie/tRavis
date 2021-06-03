@@ -17,6 +17,18 @@ To install the current development version of tRavis:
 remotes::install_github("travis-m-blimkie/tRavis", ref = "dev08")
 ```
 
+### A Note on Sigora
+The package `sigora`, one of the dependencies for tRavis, is currently not 
+available with the latest R version (4.1.0). To avoid `tRavis` installation
+problems, you can install sigora from its archive, available 
+[here](https://cran.r-project.org/web/packages/sigora/index.html). Installation
+from a local source looks something like:
+```r
+install.packages("path/to/sigora_3.0.5.tar.gz", repos = NULL)
+```
+> Be aware that `tr_sigora_wrapper` is now considered deprecated, and will be 
+> removed from `tRavis` in the near future.
+
 ## Examples
 
 ### tr_anno_cleaner()
@@ -75,31 +87,6 @@ string/pattern removal, and date removal (assuming standard format YYYYMMDD).
 "/home/user/Downloads/new_data/de_genes_treatment1_20200224.csv" 
                                                       treatment2 
 "/home/user/Downloads/new_data/de_genes_treatment2_20200224.csv" 
-```
-
-### tr_sigora_wrapper()
-Run pathway enrichment using [Sigora]() on a set of query genes. Uses the
-"saveFile" argument to return results with candidate genes to the user. Can be
-run with human or mouse genes/data, with KEGG or Reactome pathways.
-```r
-> tr_sigora_wrapper(query_list = de_genes, database = "Reactome", species = "mouse")
-# Running sigora with parameters 'GPSrepo = reaM, level = 4'...
-# Done!
-
-# A tibble: 171 x 9
-   pathwy.id  description         pvalues Bonferroni successes PathwaySize      N sample.size genes            
-   <chr>      <chr>                 <dbl>      <dbl>     <dbl>       <dbl>  <dbl>       <dbl> <chr>            
- 1 R-MMU-216… Integrin cell sur… 3.58e-10    2.84e-7      9.86       587.  5.13e5        342. Jam2;Icam2;Itgax…
- 2 R-MMU-329… TRP channels       2.10e- 6    1.66e-3      5.01       299.  5.13e5        342. Trpc4;Trpv4;Mcol…
- 3 R-MMU-680… COPI-mediated ant… 7.00e- 6    5.54e-3     10         2424.  5.13e5        342. Cog4;Dctn6;Cope;…
- 4 R-MMU-147… Extracellular mat… 2.92e- 5    2.31e-2     14.7       5556.  5.13e5        342. Serpinh1;Adam8;F…
- 5 R-MMU-917… Endosomal Sorting… 6.52e- 5    5.15e-2      3.68       113.  5.13e5        342. Vps4a;Vps36;Vps3…
- 6 R-MMU-446… Asparagine N-link… 1.56e- 4    1.23e-1     10.5       3522.  5.13e5        342. Amfr;Alg6;St6gal…
- 7 R-MMU-140… Formation of Fibr… 1.19e- 3    9.42e-1      2.24        75.4 5.13e5        342. F3;Tfpi;Serpine2 
- 8 R-MMU-773… Insulin receptor … 1.34e- 3    1.00e+0      3          318.  5.13e5        342. Atp6v1b2;Atp6v0d…
- 9 R-MMU-895… Post-translationa… 1.96e- 3    1.00e+0      8.57      3320.  5.13e5        342. Cyr61;Rcn1;Penk;…
-10 R-MMU-948… Transport to the … 2.08e- 3    1.00e+0      5.87      1320.  5.13e5        342. Man1a;B4galt4;Tr…
-# … with 161 more rows
 ```
 
 ### tr_sort_alphanum()
