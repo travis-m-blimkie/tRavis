@@ -56,6 +56,8 @@ tr_qc_plots <- function(directory) {
   ) %>%
     bind_rows()
 
+  read_length <- max(fastqc_final$Base_Position)
+
   fastqc_plot <- plotly::plot_ly(
     group_by(fastqc_final, sample),
     x = ~Base_Position,
@@ -88,7 +90,7 @@ tr_qc_plots <- function(directory) {
           line = list(color = "red"),
           opacity = 0.1,
           x0 = 0,
-          x1 = 150,
+          x1 = (read_length + 2),
           xref = "x",
           y0 = 0,
           y1 = 20,
@@ -100,7 +102,7 @@ tr_qc_plots <- function(directory) {
           line = list(color = "orange"),
           opacity = 0.1,
           x0 = 0,
-          x1 = 150,
+          x1 = (read_length + 2),
           xref = "x",
           y0 = 20,
           y1 = 28,
@@ -112,7 +114,7 @@ tr_qc_plots <- function(directory) {
           line = list(color = "green"),
           opacity = 0.1,
           x0 = 0,
-          x1 = 150,
+          x1 = (read_length + 2),
           xref = "x",
           y0 = 28,
           y1 = 50,
