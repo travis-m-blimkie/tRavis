@@ -17,18 +17,6 @@ To install the current development version of tRavis:
 remotes::install_github("travis-m-blimkie/tRavis", ref = "dev08")
 ```
 
-### A Note on Sigora
-The package `sigora`, one of the dependencies for tRavis, is currently not 
-available with the latest R version (4.1.0). To avoid `tRavis` installation
-problems, you can install sigora from its archive, available 
-[here](https://cran.r-project.org/web/packages/sigora/index.html). Installation
-from a local source looks something like:
-```r
-install.packages("path/to/sigora_3.0.5.tar.gz", repos = NULL)
-```
-> Be aware that `tr_sigora_wrapper` is now considered deprecated, and will be 
-> removed from `tRavis` in the near future.
-
 ## Examples
 
 ### tr_anno_cleaner()
@@ -40,20 +28,20 @@ Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from
   extra_cols = FALSE, 
   fill_names = FALSE
 )
-# A tibble: 5,711 x 3
-   locus_tag gene_name product_description                           
-   <chr>     <chr>     <chr>                                         
- 1 PA0001    dnaA      chromosomal replication initiator protein DnaA
- 2 PA0002    dnaN      DNA polymerase III, beta chain                
- 3 PA0003    recF      RecF protein                                  
- 4 PA0004    gyrB      DNA gyrase subunit B                          
- 5 PA0005    lptA      lysophosphatidic acid acyltransferase, LptA   
- 6 PA0006    NA        conserved hypothetical protein                
- 7 PA0007    NA        hypothetical protein                          
- 8 PA0008    glyS      glycyl-tRNA synthetase beta chain             
- 9 PA0009    glyQ      glycyl-tRNA synthetase alpha chain            
-10 PA0010    tag       DNA-3-methyladenine glycosidase I             
-# ... with 5,701 more rows
+# # A tibble: 5,711 x 3
+#    locus_tag gene_name product_description                           
+#    <chr>     <chr>     <chr>                                         
+#  1 PA0001    dnaA      chromosomal replication initiator protein DnaA
+#  2 PA0002    dnaN      DNA polymerase III, beta chain                
+#  3 PA0003    recF      RecF protein                                  
+#  4 PA0004    gyrB      DNA gyrase subunit B                          
+#  5 PA0005    lptA      lysophosphatidic acid acyltransferase, LptA   
+#  6 PA0006    NA        conserved hypothetical protein                
+#  7 PA0007    NA        hypothetical protein                          
+#  8 PA0008    glyS      glycyl-tRNA synthetase beta chain             
+#  9 PA0009    glyQ      glycyl-tRNA synthetase alpha chain            
+# 10 PA0010    tag       DNA-3-methyladenine glycosidase I             
+# # ... with 5,701 more rows
 ```
 
 
@@ -61,14 +49,65 @@ Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from
 Compare two lists to find the common/unique elements:
 ```r
 > tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
-$common
-[1] 3 4
+# $common
+# [1] 3 4
+# 
+# $unique_x
+# [1] 1 2
+# 
+# $unique_y
+# [1] 5 6
+```
 
-$unique_x
-[1] 1 2
+### tr_enrichment_wrapper()
+Perform pathway enrichment using ReactomePA or Sigora:
+```r 
+# For ReactomePA
+> tr_enrichment_wrapper(
+  tool = "ReactomePA",
+  input_genes = entrez_gene_ids,
+  species = "human",
+  background = gene_universe_entrez
+)
+# Testing 1172 genes...Done
+# # A tibble: 981 × 9
+#    id            description                gene_ratio bg_ratio   pvalue p_adjust   qvalue gene_id count
+#    <chr>         <chr>                      <chr>      <chr>       <dbl>    <dbl>    <dbl> <chr>   <int>
+#  1 R-HSA-1474244 Extracellular matrix orga… 59/715     213/7696 3.67e-15 3.61e-12 3.20e-12 1294/3…    59
+#  2 R-HSA-909733  Interferon alpha/beta sig… 28/715     57/7696  8.54e-15 4.19e-12 3.72e-12 91543/…    28
+#  3 R-HSA-913531  Interferon Signaling       46/715     169/7696 8.87e-12 2.69e- 9 2.39e- 9 91543/…    46
+#  4 R-HSA-500792  GPCR ligand binding        47/715     176/7696 1.10e-11 2.69e- 9 2.39e- 9 4161/7…    47
+#  5 R-HSA-1474228 Degradation of the extrac… 31/715     92/7696  6.70e-11 1.32e- 8 1.17e- 8 1294/4…    31
+#  6 R-HSA-198933  Immunoregulatory interact… 32/715     106/7696 8.16e-10 1.33e- 7 1.18e- 7 1278/3…    32
+#  7 R-HSA-1442490 Collagen degradation       20/715     46/7696  9.71e-10 1.36e- 7 1.21e- 7 1294/4…    20
+#  8 R-HSA-375276  Peptide ligand-binding re… 25/715     76/7696  8.43e- 9 8.64e- 7 7.67e- 7 4161/5…    25
+#  9 R-HSA-877300  Interferon gamma signaling 25/715     76/7696  8.43e- 9 8.64e- 7 7.67e- 7 3665/6…    25
+# 10 R-HSA-6783783 Interleukin-10 signaling   18/715     42/7696  8.97e- 9 8.64e- 7 7.67e- 7 3557/3…    18
+# # … with 971 more rows
 
-$unique_y
-[1] 5 6
+# Or Sigora
+> tr_enrichment_wrapper(
+  tool = "Sigora",
+  input_genes = ensembl_gene_ids,
+  species = "human",
+  gps_repo = gps_rea_hsa,
+  lvl = 4
+)
+# Testing 1284 genes...Done
+# # A tibble: 467 × 8
+#    pathwy_id     description                pvalues bonferroni successes pathway_size      n sample_size
+#    <chr>         <chr>                        <dbl>      <dbl>     <dbl>        <dbl>  <dbl>       <dbl>
+#  1 R-HSA-909733  Interferon alpha/beta s… 2.57e-166  3.11e-163     172.         1437. 6.37e5       3533.
+#  2 R-HSA-380108  Chemokine receptors bin… 3.87e- 69  4.68e- 66     109.         1964. 6.37e5       3533.
+#  3 R-HSA-1474244 Extracellular matrix or… 8.67e- 66  1.05e- 62     181.         6731. 6.37e5       3533.
+#  4 R-HSA-1442490 Collagen degradation     5.84e- 43  7.06e- 40      48.6         495. 6.37e5       3533.
+#  5 R-HSA-216083  Integrin cell surface i… 3.28e- 42  3.96e- 39      57.4         836. 6.37e5       3533.
+#  6 R-HSA-8948216 Collagen chain trimeriz… 9.26e- 41  1.12e- 37      59.7         974. 6.37e5       3533.
+#  7 R-HSA-913531  Interferon Signaling     3.37e- 37  4.08e- 34      99.9        3609. 6.37e5       3533.
+#  8 R-HSA-5669034 TNFs bind their physiol… 1.02e- 28  1.24e- 25      34.5         407. 6.37e5       3533.
+#  9 R-HSA-1169408 ISG15 antiviral mechani… 1.00e- 26  1.21e- 23      41           767. 6.37e5       3533.
+# 10 R-HSA-877300  Interferon gamma signal… 6.47e- 26  7.82e- 23     114.         6460. 6.37e5       3533.
+# # … with 457 more rows
 ```
 
 ### tr_get_files()
@@ -83,10 +122,10 @@ string/pattern removal, and date removal (assuming standard format YYYYMMDD).
   date = TRUE, 
   removeString = "de_genes_"
 )
-                                                      treatment1 
-"/home/user/Downloads/new_data/de_genes_treatment1_20200224.csv" 
-                                                      treatment2 
-"/home/user/Downloads/new_data/de_genes_treatment2_20200224.csv" 
+#                                                       treatment1 
+# "/home/user/Downloads/new_data/de_genes_treatment1_20200224.csv" 
+#                                                       treatment2 
+# "/home/user/Downloads/new_data/de_genes_treatment2_20200224.csv" 
 ```
 
 ### tr_sort_alphanum()
@@ -95,16 +134,16 @@ input data frame and desired column. You can use the column name or index, and
 it is compatible with pipes.
 ```r
 > my_dataframe
-   c1 c2
-1  a1  1
-2 a11  3
-3  a5  2
+#    c1 c2
+# 1  a1  1
+# 2 a11  3
+# 3  a5  2
 
 > tr_sort_alphanum(input_df = my_dataframe, sort_col = "c1")
-   c1 c2
-1  a1  1
-3  a5  2
-2 a11  3
+#    c1 c2
+# 1  a1  1
+# 3  a5  2
+# 2 a11  3
 ```
 
 ### tr_test_enrichment()
@@ -112,7 +151,7 @@ Fisher's test for gene enrichment, which constructs the matrix for you and
 returns the p-value.
 ```r
 > tr_test_enrichment(de_genes, biofilm_genes, total_genes = 5000)
-0.00325
+# 0.00325
 ```
 
 ### tr_theme()
