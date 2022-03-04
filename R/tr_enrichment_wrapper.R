@@ -45,7 +45,8 @@ tr_enrichment_wrapper <- function(tool, input_genes, species = "human", backgrou
     ) %>%
       pluck("result") %>%
       remove_rownames() %>%
-      janitor::clean_names()
+      janitor::clean_names() %>%
+      as_tibble()
 
     message("Done")
     return(output)
@@ -56,15 +57,22 @@ tr_enrichment_wrapper <- function(tool, input_genes, species = "human", backgrou
       "Testing {length(input_clean)} genes..."
     ), appendLF = FALSE)
 
-    output <- sigora(
+    quiet <- function(...) {
+      sink(tempfile())
+      on.exit(sink())
+      eval(...)
+    }
+
+    output <- quiet(sigora(
       queryList = input_clean,
       GPSrepo   = gps_repo,
       level     = lvl
 
-    ) %>%
+    )) %>%
       pluck("summary_results") %>%
       remove_rownames() %>%
-      janitor::clean_names()
+      janitor::clean_names() %>%
+      as_tibble()
 
     message("Done")
     return(output)
