@@ -67,7 +67,6 @@ tr_enrichment_wrapper <- function(tool, input_genes, species = "human", backgrou
       queryList = input_clean,
       GPSrepo   = gps_repo,
       level     = lvl
-
     )) %>%
       pluck("summary_results") %>%
       remove_rownames() %>%
