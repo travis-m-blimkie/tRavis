@@ -42,3 +42,26 @@
 #'   \item{call}{The call to `makeGPS`}
 #' }
 "gps_rea_mmu"
+
+
+#' Human ID mapping from biomaRt
+#'
+#' @format A tibble with 68005 rows and 3 columns:
+#' \describe{
+#'   \item{ensembl_gene_id}{Human Ensembl gene IDs}
+#'   \item{hgnc_symbol}{Human gene symbols}
+#'   \item{entrez_gene_id}{Human NCBI/Entrez gene IDs}
+#' }
+"biomart_id_mapping_human"
+
+
+#' Mouse ID mapping from biomaRt
+#'
+#' @format A tibble with 55414 rows and 3 columns:
+#' \describe{
+#'   \item{ensembl_gene_id}{Mouse Ensembl gene IDs}
+#'   \item{mgi_symbol}{Mouse gene name/symbol}
+#'   \item{entrez_gene_id}{Mouse NCBI/Entrez gene IDs}
+#' }
+"biomart_id_mapping_mouse"
+
