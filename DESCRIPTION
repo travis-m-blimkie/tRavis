@@ -1,6 +1,6 @@
 Package: tRavis
 Title: Custom functions by Travis Blimkie
-Version: 0.71.49
+Version: 0.71.50
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: Includes some custom functions useful for work.
 Depends: R (>= 3.6.0)
@@ -21,7 +21,6 @@ Imports:
     tibble,
     rjson,
     sigora,
-    lifecycle,
     ReactomePA,
     glue
 RoxygenNote: 7.1.2
