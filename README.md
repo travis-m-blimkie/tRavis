@@ -8,7 +8,7 @@ functions and data objects.
 devtools::install_github("travis-m-blimkie/tRavis", ref = "main")
 
 # Or the current development version:
-remotes::install_github("travis-m-blimkie/tRavis", ref = "dev08")
+devtools::install_github("travis-m-blimkie/tRavis", ref = "dev08")
 ```
 
 ## Examples
