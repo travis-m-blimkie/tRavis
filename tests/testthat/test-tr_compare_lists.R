@@ -6,8 +6,8 @@ vec2 <- c("b", "c", "d")
 vec3 <- c("a", NA)
 
 expected_normal <- list(
-  common = c("b", "c"),
   unique_x = "a",
+  common = c("b", "c"),
   unique_y = "d"
 )
 
