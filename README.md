@@ -1,19 +1,13 @@
 # **tRavis**
 
-![GitHub R package version (branch)](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
-
-Github repository to hold my custom R package, containing a suite of useful
-functions.
+Github repository to hold my custom R package, containing a suite of useful R
+functions and data objects.
 
 ## Installation
-The code below will install the required dependencies and tRavis itself.
 ```r
-install.packages(c("tidyverse", "sigora", "janitor"))
-remotes::install_github("travis-m-blimkie/tRavis")
-```
+devtools::install_github("travis-m-blimkie/tRavis", ref = "main")
 
-To install the current development version of tRavis:
-```r
+# Or the current development version:
 remotes::install_github("travis-m-blimkie/tRavis", ref = "dev08")
 ```
 
@@ -44,30 +38,49 @@ Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from
 # # ... with 5,701 more rows
 ```
 
+### tr_clean_deseq2_result()
+Takes a DESeq2 results object, and returns the significant DE genes for the
+desired contrast name (from `DESeq2::resultsNames()`), printing a message if
+`inform = TRUE`.
+```r
+> resultsNames(dds)
+# [1] "Intercept" "condition_treatment_vs_control"
+
+> tr_clean_deseq2_results(
+    deseq2_result = DESeq2::results(dds, name = "condition_treatment_vs_control"), 
+    p_adjusted    = 0.05,
+    fold_change   = 1.5,
+    inform        = TRUE
+  )
+# Found 2331 DE genes for condition treatment vs. control
+```
 
 ### tr_compare_lists()
-Compare two lists to find the common/unique elements:
+Compare two lists to find the common/unique elements, with an optional `names`
+argument to apply to the results:
 ```r
-> tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6))
+> tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6), names = c("A", "B"))
+# $unique_A
+# [1] 1 2
+# 
 # $common
 # [1] 3 4
 # 
-# $unique_x
-# [1] 1 2
-# 
-# $unique_y
+# $unique_B
 # [1] 5 6
 ```
 
 ### tr_enrichment_wrapper()
-Perform pathway enrichment using ReactomePA or Sigora:
+Perform pathway enrichment using ReactomePA or Sigora. The package also includes
+up-to-date gene-pair signature (GPS) objects for both human and mouse Reactome
+data to use with Sigora.
 ```r 
 # For ReactomePA
 > tr_enrichment_wrapper(
-  tool = "ReactomePA",
+  tool        = "ReactomePA",
   input_genes = entrez_gene_ids,
-  species = "human",
-  background = gene_universe_entrez
+  species     = "human",
+  background  = gene_universe_entrez
 )
 # Testing 1172 genes...Done
 # # A tibble: 981 × 9
@@ -87,11 +100,11 @@ Perform pathway enrichment using ReactomePA or Sigora:
 
 # Or Sigora
 > tr_enrichment_wrapper(
-  tool = "Sigora",
+  tool        = "Sigora",
   input_genes = ensembl_gene_ids,
-  species = "human",
-  gps_repo = gps_rea_hsa,
-  lvl = 4
+  species     = "human",
+  gps_repo    = gps_rea_hsa,
+  lvl         = 4
 )
 # Testing 1284 genes...Done
 # # A tibble: 467 × 8
@@ -116,10 +129,10 @@ generate a named list of data frames. Supports recursive searching, custom
 string/pattern removal, and date removal (assuming standard format YYYYMMDD).
 ```r
 > tr_get_files(
-  folder = "~/Downloads/new_data",
-  pattern = "de_genes", 
-  recur = FALSE, 
-  date = TRUE, 
+  folder       = "~/Downloads/new_data",
+  pattern      = "de_genes", 
+  recur        = FALSE, 
+  date         = TRUE, 
   removeString = "de_genes_"
 )
 #                                                       treatment1 
