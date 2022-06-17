@@ -22,4 +22,4 @@ reactome_data_mouse <- reactome_data_all %>%
 # Construct the GPS object and save
 gps_rea_mmu <- makeGPS(pathwayTable = reactome_data_mouse)
 
-usethis::use_data(gps_rea_mmu, overwrite = TRUE, )
+usethis::use_data(gps_rea_mmu, overwrite = TRUE)
