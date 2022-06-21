@@ -9,8 +9,8 @@ tr_enrichment_wrapper(
   input_genes,
   species = "human",
   background = NULL,
-  gps_repo,
-  lvl
+  gps_repo = NULL,
+  lvl = NULL
 )
 }
 \arguments{
@@ -21,20 +21,21 @@ tr_enrichment_wrapper(
 should be Entrez IDs; for Sigora, Ensembl IDs are recommended.}
 
 \item{species}{Desired species for ReactomePA, either "human" (default) or
-"mouse"}
+"mouse". Does not apply to \code{tool = "sigora"}.}
 
 \item{background}{Specified gene universe for ReactomePA; default is NULL, or
-can be a character vector of Entrez gene IDs.}
+can be a character vector of Entrez gene IDs. Does not apply to \code{tool = "sigora"}}
 
-\item{gps_repo}{Pathway data to run Sigora with. Should be either one of the
-provided options (e.g. \code{data("reaH")}) or one created by
-\code{sigora::makeGPS()}}
+\item{gps_repo}{Gene pair signature object for Sigora to use. Can be one of
+the data objects shipped with this package (\code{gps_rea_hsa} or \code{gps_rea_mmu}
+for Reactome data for human and mouse, respectively), or one from Sigora
+itself - see \code{?sigora::sigora} for details. Does not apply for \code{tool = "ReactomePA"}}
 
-\item{lvl}{Level to use for Sigora enrichment; should be 4 for Reactome, or 2
-for KEGG}
+\item{lvl}{Level to use when running Sigora; recommend 4 for Reactome data,
+or 2 for KEGG data. Does not apply for \code{tool = "ReactomePA"}}
 }
 \value{
-Data frame of results
+Data frame (tibble) of results
 }
 \description{
 Wrapper for pathway enrichment with ReactomePA or sigora
