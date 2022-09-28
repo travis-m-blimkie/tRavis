@@ -66,7 +66,7 @@ tr_qc_plots <- function(directory) {
     mode = "lines",
     line = list(color = "grey"),
     hoverinfo = "text",
-    text = ~paste0(
+    hovertext = ~paste0(
       "Sample: ", sample
     )
   ) %>%
@@ -145,7 +145,7 @@ tr_qc_plots <- function(directory) {
     y = ~sample,
     type = "bar",
     hoverinfo = "text",
-    text = ~paste0(
+    hovertext = ~paste0(
       "<b>Uniquely Mapped: </b>", uniquely_mapped, " (", uniquely_mapped_percent, "%)<br>",
       "<b>Multimapped: </b>", multimapped, " (", multimapped_percent, "%)<br>",
       "<b>Multimapped Too Many: </b>", multimapped_toomany, " (", multimapped_toomany_percent, "%)<br>",
@@ -222,7 +222,7 @@ tr_qc_plots <- function(directory) {
     y = ~sample,
     type = "bar",
     hoverinfo = "text",
-    text = ~paste0(
+    hovertext = ~paste0(
       "<b>Assigned: </b>", assigned, " (", percent_assigned, "%)<br>",
       "<b>Ambiguous: </b>", ambiguous, " (", ambiguous_percent, "%)<br>",
       "<b>Alignment not unique: </b>", alignment_not_unique, " (", alignment_not_unique_percent, "%)<br>",
