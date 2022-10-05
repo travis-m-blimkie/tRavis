@@ -13,7 +13,7 @@ tr_clean_deseq2_result(
 }
 \arguments{
 \item{deseq2_result}{Results object for DE genes, of class
-\code{DESeqResults}.}
+\code{DESeqResults}}
 
 \item{p_adjusted}{Threshold for adjusted p-value, defaults to 0.05}
 
@@ -23,7 +23,7 @@ tr_clean_deseq2_result(
 of DE genes found? Defaults to \code{TRUE}.}
 }
 \value{
-Tidy data frame of filtered DE genes.
+Tidy data frame (tibble) of filtered DE genes.
 }
 \description{
 Helper function to filter and sort results from DESeq2 to aid in
