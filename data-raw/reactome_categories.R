@@ -90,6 +90,7 @@ reactome_categories <- enr_pathway_high_level %>%
   left_join(., rename(all_pathways, "level_2" = description), by = c(level_2_id = "pathway_id")) %>%
   left_join(., all_pathways, by = "pathway_id") %>%
   select("id" = pathway_id, description, level_1, level_2) %>%
-  distinct(id, .keep_all = TRUE)
+  distinct(id, .keep_all = TRUE) %>%
+  as_tibble()
 
 usethis::use_data(reactome_categories, overwrite = TRUE)
