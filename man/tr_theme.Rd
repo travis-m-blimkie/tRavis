@@ -4,7 +4,7 @@
 \alias{tr_theme}
 \title{tr_theme}
 \usage{
-tr_theme(baseSize = 16, baseFamily = "", grid = TRUE)
+tr_theme(baseSize = 18, baseFamily = "", grid = TRUE)
 }
 \arguments{
 \item{baseSize}{Base font size applied to all text in the plot}

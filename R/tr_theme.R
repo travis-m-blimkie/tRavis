@@ -23,7 +23,7 @@
 #'   ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
 #' }
 #'
-tr_theme <- function(baseSize = 16, baseFamily = "", grid = TRUE) {
+tr_theme <- function(baseSize = 18, baseFamily = "", grid = TRUE) {
   if (grid) {
     theme_light(base_size = baseSize, base_family = baseFamily) +
       theme(
