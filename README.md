@@ -11,6 +11,15 @@ devtools::install_github("travis-m-blimkie/tRavis", ref = "main")
 devtools::install_github("travis-m-blimkie/tRavis", ref = "dev08")
 ```
 
+### A Note on Sigora
+The package `sigora`, one of the dependencies for tRavis, is currently not 
+available with the latest R version (4.0.5). To avoid `tRavis` installation
+problems, you can install sigora from its archive, available 
+[here](https://cran.r-project.org/web/packages/sigora/index.html). Installation
+from a local source looks something like:
+```r
+install.packages("path/to/sigora_3.0.5.tar.gz", repos = NULL)
+```
 ## Examples
 
 ### tr_anno_cleaner()
