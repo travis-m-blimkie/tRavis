@@ -4,12 +4,15 @@
 \alias{tr_compare_lists}
 \title{tr_compare_lists}
 \usage{
-tr_compare_lists(x, y)
+tr_compare_lists(x, y, names = NULL)
 }
 \arguments{
 \item{x}{First vector to compare.}
 
 \item{y}{Second vector to compare.}
+
+\item{names}{Optional character vector, containing names of \code{x} and \code{y} to
+apply to the output.}
 }
 \value{
 A named list of the common and unique elements of x and y.
@@ -23,7 +26,8 @@ Performs \code{intersect(x, y)}, \code{setdiff(x, y)}, and
 \dontrun{
   tr_compare_lists(
     x = c(1, 2, 4, 5, 6),
-    y = c(2, 3, 6, 7)
+    y = c(2, 3, 6, 7),
+    names = c("A", "B")
   )
 }
 

@@ -56,15 +56,17 @@ tr_qc_plots <- function(directory) {
   ) %>%
     bind_rows()
 
+  read_length <- max(fastqc_final$Base_Position)
+
   fastqc_plot <- plotly::plot_ly(
     group_by(fastqc_final, sample),
     x = ~Base_Position,
     y = ~Phred_Score,
     type = "scatter",
     mode = "lines",
-    line = list(color = "green"),
+    line = list(color = "grey"),
     hoverinfo = "text",
-    text = ~paste0(
+    hovertext = ~paste0(
       "Sample: ", sample
     )
   ) %>%
@@ -80,7 +82,48 @@ tr_qc_plots <- function(directory) {
         showline = TRUE,
         mirror = "ticks"
       ),
-      title = "<b>FastQC: Phred Scores</b>"
+      title = "<b>FastQC: Phred Scores</b>",
+      shapes = list(
+        list(
+          type = "rect",
+          fillcolor = "red",
+          line = list(color = "red"),
+          opacity = 0.1,
+          x0 = 0,
+          x1 = (read_length + 2),
+          xref = "x",
+          y0 = 0,
+          y1 = 20,
+          yref = "y"
+        ),
+        list(
+          type = "rect",
+          fillcolor = "orange",
+          line = list(color = "orange"),
+          opacity = 0.1,
+          x0 = 0,
+          x1 = (read_length + 2),
+          xref = "x",
+          y0 = 20,
+          y1 = 28,
+          yref = "y"
+        ),
+        list(
+          type = "rect",
+          fillcolor = "green",
+          line = list(color = "green"),
+          opacity = 0.1,
+          x0 = 0,
+          x1 = (read_length + 2),
+          xref = "x",
+          y0 = 28,
+          y1 = 50,
+          yref = "y"
+        )
+      )
+    ) %>%
+    plotly::style(
+      hoverlabel = list(bgcolor = "white", bordercolor = "black")
     )
 
 
@@ -102,7 +145,7 @@ tr_qc_plots <- function(directory) {
     y = ~sample,
     type = "bar",
     hoverinfo = "text",
-    text = ~paste0(
+    hovertext = ~paste0(
       "<b>Uniquely Mapped: </b>", uniquely_mapped, " (", uniquely_mapped_percent, "%)<br>",
       "<b>Multimapped: </b>", multimapped, " (", multimapped_percent, "%)<br>",
       "<b>Multimapped Too Many: </b>", multimapped_toomany, " (", multimapped_toomany_percent, "%)<br>",
@@ -144,7 +187,7 @@ tr_qc_plots <- function(directory) {
       barmode = "stack",
       xaxis = list(title = "Number of Reads"),
       yaxis = list(title = ""),
-      legend = list(orientation = 'h'),
+      legend = list(orientation = "h", y = -0.15),
       title = "<b>STAR: Aligned Reads</b>"
     ) %>%
     plotly::style(
@@ -179,7 +222,7 @@ tr_qc_plots <- function(directory) {
     y = ~sample,
     type = "bar",
     hoverinfo = "text",
-    text = ~paste0(
+    hovertext = ~paste0(
       "<b>Assigned: </b>", assigned, " (", percent_assigned, "%)<br>",
       "<b>Ambiguous: </b>", ambiguous, " (", ambiguous_percent, "%)<br>",
       "<b>Alignment not unique: </b>", alignment_not_unique, " (", alignment_not_unique_percent, "%)<br>",
@@ -229,7 +272,7 @@ tr_qc_plots <- function(directory) {
       barmode = "stack",
       xaxis = list(title = "Number of Counts"),
       yaxis = list(title = ""),
-      legend = list(orientation = 'h'),
+      legend = list(orientation = "h", y = -0.15),
       title = "<b>HTSeq-count: Gene Counts</b>"
     ) %>%
     plotly::style(

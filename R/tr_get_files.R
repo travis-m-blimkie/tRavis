@@ -23,7 +23,7 @@
 #' @description Function which creates a named list of files in a specified
 #'   directory. The list names are trimmed versions of file names, while
 #'   contents of the list are the file names themselves. In this way, it can be
-#'   easily piped into `purrr::map(~read.csv(.))` to create named list of
+#'   easily piped into `purrr::map(~read.csv(.))` to create a named list of
 #'   data frames.
 #'
 #' @references None.
@@ -53,13 +53,15 @@ tr_get_files <- function(folder,
   }
 
   # Create the names to be assigned to each file in the list, removing the
-  # extension from the end. The regex to match a file extension was taken from:
+  # extension from the end. The regex to match any file extension was taken
+  # from:
   # https://stackoverflow.com/questions/22235518/regex-for-any-file-extension
   f_names <-
     list.files(folder, pattern = pattern, recursive = recur) %>%
     str_remove(., pattern = "\\.[^\\.]+$")
 
-  # If specified, remove dates from the file names, assuming YYYYMMDD format
+  # If specified, remove dates from the file names, assuming YYYYMMDD or similar
+  # format
   if (date == TRUE) {
     f_names <- f_names %>% str_remove(., pattern = "_?[0-9]{8}")
   }

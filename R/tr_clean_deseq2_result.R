@@ -1,13 +1,13 @@
 #' tr_clean_deseq2_result
 #'
 #' @param deseq2_result Results object for DE genes, of class
-#'   `DESeqResults`.
+#'   `DESeqResults`
 #' @param p_adjusted Threshold for adjusted p-value, defaults to 0.05
 #' @param fold_change Threshold for fold change, defaults to 1.5
 #' @param inform Should a message be printed with the DE comparison and number
 #'   of DE genes found? Defaults to `TRUE`.
 #'
-#' @return Tidy data frame of filtered DE genes.
+#' @return Tidy data frame (tibble) of filtered DE genes.
 #'
 #' @export
 #'
@@ -31,6 +31,8 @@ tr_clean_deseq2_result <- function(deseq2_result,
                                    fold_change = 1.5,
                                    inform      = TRUE) {
 
+  stopifnot(class(deseq2_result) == "DESeqResults")
+
   comparison <- attr(deseq2_result, "elementMetadata")[2, 2] %>%
     str_remove(., "log2 fold change \\(MLE\\): ")
 
@@ -38,10 +40,11 @@ tr_clean_deseq2_result <- function(deseq2_result,
     as.data.frame() %>%
     rownames_to_column("gene") %>%
     filter(
-      padj < p_adjusted,
-      abs(log2FoldChange) > log2(fold_change)
+      padj <= p_adjusted,
+      abs(log2FoldChange) >= log2(fold_change)
     ) %>%
-    arrange(padj, abs(log2FoldChange))
+    arrange(padj, abs(log2FoldChange)) %>%
+    as_tibble()
 
   num_de_genes <- nrow(output_result)
 
