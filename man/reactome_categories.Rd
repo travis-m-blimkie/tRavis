@@ -5,7 +5,7 @@
 \alias{reactome_categories}
 \title{Pathway hierarchy from Reactome}
 \format{
-A data frame with 2553 riws and 4 columns
+A data frame (tibble) with 2553 riws and 4 columns
 \describe{
 \item{id}{Pathway ID}
 \item{description}{Pathway name}
