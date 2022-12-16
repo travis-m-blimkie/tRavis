@@ -27,7 +27,7 @@
 #' Reactome human pathway data, constructed by `sigora::makeGPS()` and suitable
 #' for use in pathway enrichment.
 #'
-#' @details For more information see sigora's documentation:
+#' @details For more information see Sigora's documentation:
 #'   <https://cran.r-project.org/package=sigora>
 #'
 #' @format A list with nine elements:
@@ -50,7 +50,7 @@
 #' Reactome mouse pathway data, constructed by `sigora::makeGPS()` and suitable
 #' for use in pathway enrichment.
 #'
-#' @details For more information see sigora's documentation:
+#' @details For more information see Sigora's documentation:
 #'   <https://cran.r-project.org/package=sigora>
 #'
 #' @format A list with nine elements:
@@ -72,7 +72,7 @@
 #'
 #' Reactome pathway hierarchy data for humans
 #'
-#' @format A data frame (tibble) with 2553 riws and 4 columns
+#' @format A data frame (tibble) with 2553 rows and 4 columns
 #' \describe{
 #'   \item{id}{Pathway ID}
 #'   \item{description}{Pathway name}
