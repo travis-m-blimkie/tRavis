@@ -5,11 +5,12 @@
 \alias{biomart_id_mapping_human}
 \title{Human ID mapping from biomaRt}
 \format{
-A tibble with 68005 rows and 3 columns:
+A tibble with 75123 rows and 4 columns:
 \describe{
 \item{ensembl_gene_id}{Human Ensembl gene IDs}
 \item{hgnc_symbol}{Human gene symbols}
 \item{entrez_gene_id}{Human NCBI/Entrez gene IDs}
+\item{description}{Description of the gene}
 }
 }
 \usage{

@@ -5,11 +5,12 @@
 \alias{biomart_id_mapping_mouse}
 \title{Mouse ID mapping from biomaRt}
 \format{
-A tibble with 55414 rows and 3 columns:
+A tibble with 57298 rows and 4 columns:
 \describe{
 \item{ensembl_gene_id}{Mouse Ensembl gene IDs}
 \item{mgi_symbol}{Mouse gene name/symbol}
 \item{entrez_gene_id}{Mouse NCBI/Entrez gene IDs}
+\item{description}{Description of the gene}
 }
 }
 \usage{
