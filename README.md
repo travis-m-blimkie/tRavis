@@ -5,21 +5,9 @@ functions and data objects.
 
 ## Installation
 ```r
-devtools::install_github("travis-m-blimkie/tRavis", ref = "main")
-
-# Or the current development version:
-devtools::install_github("travis-m-blimkie/tRavis", ref = "dev08")
+devtools::install_github("travis-m-blimkie/tRavis")
 ```
 
-### A Note on Sigora
-The package `sigora`, one of the dependencies for tRavis, is currently not 
-available with the latest R version (4.0.5). To avoid `tRavis` installation
-problems, you can install sigora from its archive, available 
-[here](https://cran.r-project.org/web/packages/sigora/index.html). Installation
-from a local source looks something like:
-```r
-install.packages("path/to/sigora_3.0.5.tar.gz", repos = NULL)
-```
 ## Examples
 
 ### tr_anno_cleaner()
@@ -142,12 +130,21 @@ string/pattern removal, and date removal (assuming standard format YYYYMMDD).
   pattern      = "de_genes", 
   recur        = FALSE, 
   date         = TRUE, 
-  removeString = "de_genes_"
+  removeString = "de_genes"
 )
 #                                                       treatment1 
 # "/home/user/Downloads/new_data/de_genes_treatment1_20200224.csv" 
 #                                                       treatment2 
 # "/home/user/Downloads/new_data/de_genes_treatment2_20200224.csv" 
+```
+
+### tr_qc_plots()
+Generate RNA-Seq QC plots from [MultiQC](https://multiqc.info/) outputs.
+Currently only supports summary plots for FastQC, STAR, and HTSeq. Plots are
+created with [plotly](https://plotly.com/r/), meaning they can be embedded in
+RMarkdown documents and retain interactivity.
+```r
+tr_qc_plots(directory = "multiqc_data")
 ```
 
 ### tr_sort_alphanum()
@@ -191,6 +188,36 @@ white and adding a border. By default, it uses a minimal grid, like so:
 > ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = FALSE)
 ```
 ![](man/figures/tr_theme_noGrid.png)
+
+
+### tr_tidy_gage()
+Tidies the output from [Gage](https://bioconductor.org/packages/gage/) pathway
+enrichment.
+```r
+gage_gset <- gage::kegg.gsets(species = "pae")
+gage_result <- gage::gage(input_genes, gsets = gage_gset)
+
+tr_tidy_gage(gage_result)
+# # A tibble: 7 × 1
+#   spoT$Direction $Pathway                    $p.ge…¹ $stat…²  $p.val $q.val $set.…³   $exp1
+#   <chr>          <chr>                         <dbl>   <dbl>   <dbl>  <dbl>   <dbl>   <dbl>
+# 1 Up             pae00780 Biotin metabolism  0.00358    3.36 0.00358 0.0967      10 0.00358
+# 2 Down           pae02020 Two-component sys… 0.00476   -2.64 0.00476 0.0664      53 0.00476
+# 3 Down           pae00220 Arginine biosynth… 0.00560   -2.73 0.00560 0.0664      14 0.00560
+# 4 Down           pae02040 Flagellar assembly 0.00927   -2.55 0.00927 0.0664      21 0.00927
+# 5 Down           pae00860 Porphyrin and chl… 0.00983   -2.56 0.00983 0.0664      11 0.00983
+# 6 Down           pae02024 Quorum sensing     0.0173    -2.21 0.0173  0.0933      21 0.0173 
+# 7 Down           pae00190 Oxidative phospho… 0.0207    -2.21 0.0207  0.0933      10 0.0207 
+# # … with abbreviated variable names ¹​$p.geomean, ²​$stat.mean, ³​$set.size
+```
+
+### tr_trunc_neatly()
+Simple means of truncating long strings without breaking them in the middle of a 
+word. Useful for example when trimming long Reactome pathway names in a plot.
+```r
+tr_trunc_neatly(x = "This is a long string that we want to break neatly.", l = 40)
+# [1] "This is a long string that we want to..."
+```
 
 <br>
 
