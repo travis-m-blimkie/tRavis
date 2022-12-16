@@ -30,11 +30,13 @@
 #'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
-tr_get_files <- function(folder,
-                         pattern = "",
-                         recur = FALSE,
-                         date = FALSE,
-                         removeString = NULL) {
+tr_get_files <- function(
+    folder,
+    pattern = "",
+    recur = FALSE,
+    date = FALSE,
+    removeString = NULL
+) {
 
   # List all files in the specified folder, using the provided pattern. If no
   # pattern is supplied, then we will list all files.
@@ -58,7 +60,8 @@ tr_get_files <- function(folder,
   # https://stackoverflow.com/questions/22235518/regex-for-any-file-extension
   f_names <-
     list.files(folder, pattern = pattern, recursive = recur) %>%
-    str_remove(., pattern = "\\.[^\\.]+$")
+    str_remove(., pattern = "\\.[^\\.]+$") %>%
+    str_remove_all(., pattern = "^_|_$")
 
   # If specified, remove dates from the file names, assuming YYYYMMDD or similar
   # format
