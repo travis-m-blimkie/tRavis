@@ -152,6 +152,7 @@ tr_enrichment_wrapper <- function(input_genes,
         y  = reactome_categories_human,
         by = c("pathway_id" = "id", "description")
       ) %>%
+      mutate(across(where(is.factor), as.character)) %>%
       relocate(genes, .after = last_col())
   } else if (species == "mouse") {
     output_final <- output %>%
@@ -160,6 +161,7 @@ tr_enrichment_wrapper <- function(input_genes,
         y  = reactome_categories_mouse, -description,
         by = c("pathway_id" = "id", "description")
       ) %>%
+      mutate(across(where(is.factor), as.character)) %>%
       relocate(genes, .after = last_col())
   }
 
