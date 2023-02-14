@@ -9,13 +9,13 @@ pathway_hierarchy <- readr::read_tsv(
   "https://reactome.org/download/current/ReactomePathwaysRelation.txt",
   col_names = c("higher", "pathway_id")
 ) %>%
-  filter(stringr::str_detect(higher, "^R-HSA"))
+  filter(stringr::str_detect(higher, "^R-MMU"))
 
 all_pathways <- readr::read_tsv(
   "https://reactome.org/download/current/ReactomePathways.txt",
   col_names = c("pathway_id", "description", "organism")
 ) %>%
-  filter(stringr::str_detect(pathway_id, "^R-HSA")) %>%
+  filter(stringr::str_detect(pathway_id, "^R-MMU")) %>%
   select(-organism)
 
 
@@ -85,7 +85,7 @@ pathway_categories <-
   select(pathway_id, "pathway_description" = description, level_1) %>%
   distinct(pathway_id, .keep_all = TRUE)
 
-reactome_categories <- enr_pathway_high_level %>%
+reactome_categories_mouse <- enr_pathway_high_level %>%
   left_join(., rename(all_pathways, "level_1" = description), by = c(level_1_id = "pathway_id")) %>%
   left_join(., rename(all_pathways, "level_2" = description), by = c(level_2_id = "pathway_id")) %>%
   left_join(., all_pathways, by = "pathway_id") %>%
@@ -93,4 +93,4 @@ reactome_categories <- enr_pathway_high_level %>%
   distinct(id, .keep_all = TRUE) %>%
   as_tibble()
 
-usethis::use_data(reactome_categories, overwrite = TRUE)
+usethis::use_data(reactome_categories_mouse, overwrite = TRUE)

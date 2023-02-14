@@ -68,15 +68,29 @@
 "gps_rea_mmu"
 
 
-#' Pathway hierarchy from Reactome
+#' Human pathway hierarchy from Reactome
 #'
 #' Reactome pathway hierarchy data for humans
 #'
-#' @format A data frame (tibble) with 2553 rows and 4 columns
+#' @format A data frame (tibble) with 2610 rows and 4 columns
 #' \describe{
 #'   \item{id}{Pathway ID}
 #'   \item{description}{Pathway name}
 #'   \item{level_1}{Top-level parent term}
 #'   \item{level_2}{Second-level hierarchy term}
 #' }
-"reactome_categories"
+"reactome_categories_human"
+
+
+#' Mouse pathway hierarchy from Reactome
+#'
+#' Reactome pathway hierarchy data for mice
+#'
+#' @format A data frame (tibble) with 1717 rows and 4 columns
+#' \describe{
+#'   \item{id}{Pathway ID}
+#'   \item{description}{Pathway name}
+#'   \item{level_1}{Top-level parent term}
+#'   \item{level_2}{Second-level hierarchy term}
+#' }
+"reactome_categories_human"
