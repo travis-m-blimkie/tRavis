@@ -1,6 +1,6 @@
 Package: tRavis
 Title: Custom functions by Travis Blimkie
-Version: 0.71.63
+Version: 0.72.06
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: Includes some custom functions useful for work.
 Depends: R (>= 3.6.0)
@@ -8,7 +8,6 @@ License: MIT + file LICENSE
 LazyData: true
 LazyDataCompression: xz
 Imports: 
-    crayon,
     dplyr,
     plotly,
     ggplot2,

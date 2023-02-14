@@ -5,8 +5,8 @@
 \title{Wrapper for pathway enrichment with ReactomePA or sigora}
 \usage{
 tr_enrichment_wrapper(
-  tool,
   input_genes,
+  tool,
   species = "human",
   background = NULL,
   gps_repo = NULL,
@@ -14,11 +14,11 @@ tr_enrichment_wrapper(
 )
 }
 \arguments{
-\item{tool}{Package to use for enrichment tests - either "ReactomePA" or
-"Sigora"}
-
 \item{input_genes}{Character vector of input genes. For ReactomePA, these
 should be Entrez IDs; for Sigora, Ensembl IDs are recommended.}
+
+\item{tool}{Package to use for enrichment tests - either "ReactomePA" or
+"Sigora"}
 
 \item{species}{Desired species for ReactomePA, either "human" (default) or
 "mouse". Does not apply to \code{tool = "sigora"}.}
