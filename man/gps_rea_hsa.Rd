@@ -26,7 +26,7 @@ Reactome human pathway data, constructed by \code{sigora::makeGPS()} and suitabl
 for use in pathway enrichment.
 }
 \details{
-For more information see sigora's documentation:
+For more information see Sigora's documentation:
 \url{https://cran.r-project.org/package=sigora}
 }
 \keyword{datasets}
