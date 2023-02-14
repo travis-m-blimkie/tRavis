@@ -93,4 +93,4 @@
 #'   \item{level_1}{Top-level parent term}
 #'   \item{level_2}{Second-level hierarchy term}
 #' }
-"reactome_categories_human"
+"reactome_categories_mouse"
