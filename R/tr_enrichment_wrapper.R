@@ -40,14 +40,23 @@ tr_enrichment_wrapper <- function(input_genes,
                                   gps_repo = NULL,
                                   lvl = NULL,
                                   gene_ratio = FALSE) {
-  # Check inputs
+
+
+  # Basic input checks
   stopifnot(is.character(input_genes))
   input_clean <- na.omit(unique(input_genes))
   tool <- tolower(tool)
 
+
+
+
+  # ReactomePA
   if (tool == "reactomepa") {
-    message(glue::glue("Testing {length(input_clean)} genes with ReactomePA..."),
-            appendLF = FALSE)
+
+    message(
+      glue::glue("Testing {length(input_clean)} genes with ReactomePA..."),
+      appendLF = FALSE
+    )
 
     suppressPackageStartupMessages(
       rpa_part1 <- enrichPathway(
@@ -58,39 +67,36 @@ tr_enrichment_wrapper <- function(input_genes,
         pluck("result") %>%
         remove_rownames() %>%
         as_tibble() %>%
-        janitor::clean_names()
+        janitor::clean_names() %>%
+        dplyr::rename("pathway_id" = id, "genes" = gene_id)
     )
 
-    if (!gene_ratio) {
-      output <- rpa_part1 %>%
-        dplyr::select(
-          "pathway_id" = id,
-          description,
-          pvalue,
-          p_adjust
-        )
 
-    } else if (gene_ratio) {
-      output <- rpa_part1 %>%
+    ## Optional gene ratio calculation
+    if (gene_ratio) {
+      rpa_part1 <- rpa_part1 %>%
         mutate(
           n_cd_genes = count,
           n_bg_genes = as.numeric(str_extract(bg_ratio, "^[0-9]{1,4}")),
           gene_ratio = signif(n_cd_genes / n_bg_genes, digits = 2)
-        ) %>%
-        dplyr::select(
-          "pathway_id" = id,
-          description,
-          pvalue,
-          p_adjust,
-          n_cd_genes,
-          n_bg_genes,
-          gene_ratio,
-          "genes" = gene_id
         )
     }
 
+
+    ## Reorder columns
+    output <- rpa_part1 %>%
+      dplyr::select(
+        all_of(c("pathway_id", "description", "pvalue", "p_adjust")),
+        any_of(c("n_cd_genes", "n_bg_genes", "genes"))
+      )
+
+
+
+  # Sigora
   } else if (tool == "sigora") {
-    # Check Sigora-specific inputs
+
+
+    ## Check Sigora-specific inputs
     if (is.null(gps_repo)) {
       stop(
         "When running Sigora, you must provide a GPS object. ",
@@ -105,16 +111,21 @@ tr_enrichment_wrapper <- function(input_genes,
       )
     }
 
-    message(glue::glue("Testing {length(input_clean)} genes with Sigora..."),
-            appendLF = FALSE)
-
     quiet <- function(...) {
       sink(tempfile())
       on.exit(sink())
       eval(...)
     }
 
+    message(
+      glue::glue("Testing {length(input_clean)} genes with Sigora..."),
+      appendLF = FALSE
+    )
+
+
+    ## Code for "gene_ratio = TRUE"
     if (gene_ratio) {
+
       sigora_temp_file <- tempfile(
         pattern = "sigora_temp_",
         tmpdir  = ".",
@@ -123,65 +134,67 @@ tr_enrichment_wrapper <- function(input_genes,
 
       pathway_sizes <-
         gps_repo[str_subset(names(gps_repo), "^L[0-9]")] %>%
-        map(~pluck(.x, "pwyszs") %>% enframe("pathway_id", "n_bg_genes")) %>%
+        map(~pluck(.x, "pwyszs") %>% enframe("pathwy_id", "n_bg_genes")) %>%
         bind_rows() %>%
         distinct() %>%
         mutate(n_bg_genes = as.numeric(n_bg_genes))
 
-      output_0 <- quiet(sigora(
+      sigora_part1 <- quiet(sigora(
         queryList = input_clean,
         GPSrepo   = gps_repo,
         level     = lvl,
         saveFile  = sigora_temp_file
       ))
 
-      output_1 <- read.delim(sigora_temp_file) %>%
+      sigora_part2 <- read.delim(sigora_temp_file) %>%
         remove_rownames() %>%
         as_tibble() %>%
-        janitor::clean_names() %>%
-        dplyr::select(
-          "pathway_id" = pathwy_id,
-          description,
-          "pvalue" = pvalues,
-          bonferroni,
-          genes
-        )
+        janitor::clean_names()
 
       file.remove(sigora_temp_file)
 
-      output <- left_join(
-        x  = output_1,
+      sigora_part3 <- left_join(
+        x  = sigora_part2,
         y  = pathway_sizes,
-        by = "pathway_id"
+        by = "pathwy_id"
       ) %>%
         mutate(
           n_cd_genes = str_count(genes, ";") + 1,
           gene_ratio = as.numeric(signif(n_cd_genes / n_bg_genes, digits = 2))
         )
 
+
+    ## Code for "gene_ratio = FALSE"
     } else if (!gene_ratio) {
-      output_0 <- quiet(sigora(
+
+      sigora_part1 <- quiet(sigora(
         queryList = input_clean,
         GPSrepo   = gps_repo,
         level     = lvl
       ))
 
-      output <- output_0 %>%
+      sigora_part3 <- sigora_part1 %>%
         pluck("summary_results") %>%
         as_tibble() %>%
-        janitor::clean_names() %>%
-        dplyr::select(
-          "pathway_id" = pathwy_id,
-          description,
-          "pvalue" = pvalues,
-          bonferroni
-        )
+        janitor::clean_names()
     }
+
+
+    ## Tidy both types of Sigora output
+    output <- sigora_part3 %>%
+      rename("pathway_id" = pathwy_id, "pvalue" = pvalues) %>%
+      dplyr::select(
+        all_of(c("pathway_id", "description", "pvalue", "bonferroni")),
+        any_of(c("n_cd_genes", "n_bg_genes", "gene_ratio", "genes"))
+      )
+
 
   } else {
     stop("Argument 'tool' must be one of 'ReactomePA' or 'Sigora'")
   }
 
+
+  # Add hierarchy info
   if (species == "human") {
     output_final <- output %>%
       left_join(
@@ -203,6 +216,8 @@ tr_enrichment_wrapper <- function(input_genes,
       relocate(any_of("genes"), .after = last_col())
   }
 
+
+  # Finished!
   message("Done!")
   return(output_final)
 }
