@@ -10,7 +10,8 @@ tr_enrichment_wrapper(
   species = "human",
   background = NULL,
   gps_repo = NULL,
-  lvl = NULL
+  lvl = NULL,
+  gene_ratio = FALSE
 )
 }
 \arguments{
@@ -33,6 +34,10 @@ itself - see \code{?sigora::sigora} for details. Does not apply for \code{tool =
 
 \item{lvl}{Level to use when running Sigora; recommend 4 for Reactome data,
 or 2 for KEGG data. Does not apply for \code{tool = "ReactomePA"}}
+
+\item{gene_ratio}{Logical. Should the output table contain information about
+candidate/background genes and gene ratio for each pathway? Note if using
+this option with Sigora, enrichment will take noticeably longer to run.}
 }
 \value{
 Data frame (tibble) of results
