@@ -6,23 +6,38 @@
 \usage{
 tr_enrichment_wrapper(
   input_genes,
+  directional = NULL,
+  gene_ratio = FALSE,
   tool,
   species = "human",
   background = NULL,
   gps_repo = NULL,
-  lvl = NULL,
-  gene_ratio = FALSE
+  lvl = NULL
 )
 }
 \arguments{
 \item{input_genes}{Character vector of input genes. For ReactomePA, these
-should be Entrez IDs; for Sigora, Ensembl IDs are recommended.}
+should be Entrez IDs; for Sigora, Ensembl IDs are recommended.
+Alternatively one can supply a data frame to use in conjunction with the
+\code{directional} argument.}
+
+\item{directional}{If NULL (the default), \code{input_genes} is assumed to be a
+character vector of gene IDs to be tested as-is. Alternatively, one can
+supply a two item character vector of column names, where the first
+indicates the column containing gene IDs, and the second indicates a column
+containing values to be used to split the genes into up/down. In this case
+\code{input_genes} must be a data frame.}
+
+\item{gene_ratio}{Logical. Should the output table contain information about
+candidate/background genes and gene ratio for each pathway? Note if using
+this option with Sigora, enrichment will take noticeably longer to run.}
 
 \item{tool}{Package to use for enrichment tests - either "ReactomePA" or
 "Sigora"}
 
-\item{species}{Desired species for ReactomePA, either "human" (default) or
-"mouse". Does not apply to \code{tool = "sigora"}.}
+\item{species}{Currently only supports human (default) or mouse. Needed by
+ReactomePA, and also used to add Reactome hierarchy information to the
+results (both tools).}
 
 \item{background}{Specified gene universe for ReactomePA; default is NULL, or
 can be a character vector of Entrez gene IDs. Does not apply to \code{tool = "sigora"}}
@@ -33,14 +48,10 @@ for Reactome data for human and mouse, respectively), or one from Sigora
 itself - see \code{?sigora::sigora} for details. Does not apply for \code{tool = "ReactomePA"}}
 
 \item{lvl}{Level to use when running Sigora; recommend 4 for Reactome data,
-or 2 for KEGG data. Does not apply for \code{tool = "ReactomePA"}}
-
-\item{gene_ratio}{Logical. Should the output table contain information about
-candidate/background genes and gene ratio for each pathway? Note if using
-this option with Sigora, enrichment will take noticeably longer to run.}
+or 2 for KEGG data. Does not apply when \code{tool = "ReactomePA"}}
 }
 \value{
-Data frame (tibble) of results
+Data frame (tibble) of unfiltered results
 }
 \description{
 Wrapper for pathway enrichment with ReactomePA or sigora

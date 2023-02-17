@@ -1,11 +1,23 @@
 #' Wrapper for pathway enrichment with ReactomePA or sigora
 #'
-#' @param tool Package to use for enrichment tests - either "ReactomePA" or
-#'   "Sigora"
 #' @param input_genes Character vector of input genes. For ReactomePA, these
 #'   should be Entrez IDs; for Sigora, Ensembl IDs are recommended.
-#' @param species Desired species for ReactomePA, either "human" (default) or
-#'   "mouse". Does not apply to `tool = "sigora"`.
+#'   Alternatively one can supply a data frame to use in conjunction with the
+#'   `directional` argument.
+#' @param directional If NULL (the default), `input_genes` is assumed to be a
+#'   character vector of gene IDs to be tested as-is. Alternatively, one can
+#'   supply a two item character vector of column names, where the first
+#'   indicates the column containing gene IDs, and the second indicates a column
+#'   containing values to be used to split the genes into up/down. In this case
+#'   `input_genes` must be a data frame.
+#' @param gene_ratio Logical. Should the output table contain information about
+#'   candidate/background genes and gene ratio for each pathway? Note if using
+#'   this option with Sigora, enrichment will take noticeably longer to run.
+#' @param tool Package to use for enrichment tests - either "ReactomePA" or
+#'   "Sigora"
+#' @param species Currently only supports human (default) or mouse. Needed by
+#'   ReactomePA, and also used to add Reactome hierarchy information to the
+#'   results (both tools).
 #' @param background Specified gene universe for ReactomePA; default is NULL, or
 #'   can be a character vector of Entrez gene IDs. Does not apply to `tool =
 #'   "sigora"`
@@ -15,13 +27,12 @@
 #'   itself - see `?sigora::sigora` for details. Does not apply for `tool =
 #'   "ReactomePA"`
 #' @param lvl Level to use when running Sigora; recommend 4 for Reactome data,
-#'   or 2 for KEGG data. Does not apply for `tool = "ReactomePA"`
-#' @param gene_ratio Logical. Should the output table contain information about
-#'   candidate/background genes and gene ratio for each pathway? Note if using
-#'   this option with Sigora, enrichment will take noticeably longer to run.
+#'   or 2 for KEGG data. Does not apply when `tool = "ReactomePA"`
 #'
-#' @return Data frame (tibble) of results
+#' @return Data frame (tibble) of unfiltered results
 #' @export
+#'
+#' @importFrom glue glue
 #'
 #' @import ReactomePA
 #' @import sigora
@@ -34,45 +45,85 @@
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 tr_enrichment_wrapper <- function(input_genes,
+                                  directional = NULL,
+                                  gene_ratio = FALSE,
                                   tool,
                                   species = "human",
                                   background = NULL,
                                   gps_repo = NULL,
-                                  lvl = NULL,
-                                  gene_ratio = FALSE) {
-
+                                  lvl = NULL) {
 
   # Basic input checks
-  stopifnot(is.character(input_genes))
-  input_clean <- na.omit(unique(input_genes))
   tool <- tolower(tool)
+  stopifnot(tool %in% c("reactomepa", "sigora"))
 
+  if (is.null(directional)) {
+    stopifnot(is.character(input_genes))
+    input_clean <- na.omit(unique(as.character(input_genes)))
 
+  } else {
+    stopifnot(is.data.frame(input_genes))
+    input_clean <- split(
+      x = input_genes[[directional[1]]],
+      f = input_genes[[directional[2]]] < 0
+    ) %>%
+      set_names(c("up", "down")) %>%
+      map(~na.omit(unique(as.character(.x))))
+  }
 
 
   # ReactomePA
   if (tool == "reactomepa") {
 
-    message(
-      glue::glue("Testing {length(input_clean)} genes with ReactomePA..."),
-      appendLF = FALSE
-    )
+    stopifnot(species %in% c("human", "mouse"))
 
-    suppressPackageStartupMessages(
-      rpa_part1 <- enrichPathway(
-        gene = input_clean,
-        organism = species,
-        universe = background
-      ) %>%
-        pluck("result") %>%
-        remove_rownames() %>%
-        as_tibble() %>%
-        janitor::clean_names() %>%
-        dplyr::rename("pathway_id" = id, "genes" = gene_id)
-    )
+    if (is.null(directional)) {
 
+      message(glue(
+        "Testing {length(input_clean)} genes with ReactomePA..."
+      ))
 
-    ## Optional gene ratio calculation
+      suppressPackageStartupMessages(
+        rpa_part1 <- enrichPathway(
+          gene = input_clean,
+          organism = species,
+          universe = background
+        ) %>%
+          pluck("result") %>%
+          remove_rownames() %>%
+          as_tibble() %>%
+          janitor::clean_names() %>%
+          dplyr::rename("pathway_id" = id, "genes" = gene_id)
+      )
+
+    } else {
+
+      message(glue(
+        "Testing {length(unlist(input_clean))} total genes with ReactomePA:"
+      ))
+
+      suppressPackageStartupMessages(
+        rpa_part1 <- imap(
+          input_clean,
+          function(x, nm) {
+            message(glue("\t{length(x)} {nm}-regulated genes..."))
+
+            enrichPathway(
+              gene = x,
+              organism = species,
+              universe = background
+            ) %>%
+              pluck("result") %>%
+              remove_rownames() %>%
+              as_tibble() %>%
+              janitor::clean_names() %>%
+              dplyr::rename("pathway_id" = id, "genes" = gene_id)
+          }
+        ) %>% bind_rows(.id = "direction")
+      )
+    }
+
+    # Optional gene ratio calculation (applies regardless of "directional")
     if (gene_ratio) {
       rpa_part1 <- rpa_part1 %>%
         mutate(
@@ -82,28 +133,25 @@ tr_enrichment_wrapper <- function(input_genes,
         )
     }
 
-
-    ## Reorder columns
+    # Reorder columns (applies regardless of "directional" and "gene_ratio")
     output <- rpa_part1 %>%
       dplyr::select(
         all_of(c("pathway_id", "description", "pvalue", "p_adjust")),
-        any_of(c("n_cd_genes", "n_bg_genes", "genes"))
+        any_of(c("direction", "n_cd_genes", "n_bg_genes", "gene_ratio", "genes"))
       )
-
 
 
   # Sigora
   } else if (tool == "sigora") {
 
 
-    ## Check Sigora-specific inputs
+    # Check Sigora-specific inputs
     if (is.null(gps_repo)) {
       stop(
         "When running Sigora, you must provide a GPS object. ",
         "See '?tr_enrichment_wrapper' for more information"
       )
     }
-
     if (is.null(lvl)) {
       stop(
         "When running Sigora, you must provide the 'lvl' argument. ",
@@ -117,84 +165,149 @@ tr_enrichment_wrapper <- function(input_genes,
       eval(...)
     }
 
-    message(
-      glue::glue("Testing {length(input_clean)} genes with Sigora..."),
-      appendLF = FALSE
-    )
 
+    if (is.null(directional)) {
 
-    ## Code for "gene_ratio = TRUE"
-    if (gene_ratio) {
-
-      sigora_temp_file <- tempfile(
-        pattern = "sigora_temp_",
-        tmpdir  = ".",
-        fileext = ".tsv"
-      )
-
-      pathway_sizes <-
-        gps_repo[str_subset(names(gps_repo), "^L[0-9]")] %>%
-        map(~pluck(.x, "pwyszs") %>% enframe("pathwy_id", "n_bg_genes")) %>%
-        bind_rows() %>%
-        distinct() %>%
-        mutate(n_bg_genes = as.numeric(n_bg_genes))
-
-      sigora_part1 <- quiet(sigora(
-        queryList = input_clean,
-        GPSrepo   = gps_repo,
-        level     = lvl,
-        saveFile  = sigora_temp_file
+      message(glue(
+        "Testing {length(input_clean)} genes with Sigora..."
       ))
 
-      sigora_part2 <- read.delim(sigora_temp_file) %>%
-        remove_rownames() %>%
-        as_tibble() %>%
-        janitor::clean_names()
+      if (gene_ratio) { # Non-directional, "gene_ratio = TRUE"
 
-      file.remove(sigora_temp_file)
-
-      sigora_part3 <- left_join(
-        x  = sigora_part2,
-        y  = pathway_sizes,
-        by = "pathwy_id"
-      ) %>%
-        mutate(
-          n_cd_genes = str_count(genes, ";") + 1,
-          gene_ratio = as.numeric(signif(n_cd_genes / n_bg_genes, digits = 2))
+        pathway_sizes <-
+          gps_repo[str_subset(names(gps_repo), "^L[0-9]")] %>%
+          map(~pluck(.x, "pwyszs") %>% enframe("pathwy_id", "n_bg_genes")) %>%
+          bind_rows() %>%
+          distinct() %>%
+          mutate(n_bg_genes = as.numeric(n_bg_genes))
+        sigora_temp_file <- tempfile(
+          pattern = "sigora_temp_",
+          tmpdir  = ".",
+          fileext = ".tsv"
         )
+        sigora_part1 <- quiet(sigora(
+          queryList = input_clean,
+          GPSrepo   = gps_repo,
+          level     = lvl,
+          saveFile  = sigora_temp_file
+        ))
+        sigora_part2 <- read.delim(sigora_temp_file) %>%
+          remove_rownames() %>%
+          as_tibble() %>%
+          janitor::clean_names()
+        file.remove(sigora_temp_file)
+        sigora_part3 <- left_join(
+          x  = sigora_part2,
+          y  = pathway_sizes,
+          by = "pathwy_id"
+        ) %>%
+          mutate(
+            n_cd_genes = str_count(genes, ";") + 1,
+            gene_ratio = as.numeric(signif(n_cd_genes / n_bg_genes, digits = 2))
+          )
+
+      } else if (!gene_ratio) { # Non-directional, "gene_ratio = FALSE"
+
+        sigora_part1 <- quiet(sigora(
+          queryList = input_clean,
+          GPSrepo   = gps_repo,
+          level     = lvl
+        ))
+        sigora_part3 <- sigora_part1 %>%
+          pluck("summary_results") %>%
+          as_tibble() %>%
+          janitor::clean_names()
+      }
 
 
-    ## Code for "gene_ratio = FALSE"
-    } else if (!gene_ratio) {
+    } else { # Directional
 
-      sigora_part1 <- quiet(sigora(
-        queryList = input_clean,
-        GPSrepo   = gps_repo,
-        level     = lvl
+      message(glue(
+        "Testing {length(unlist(input_clean))} total genes with Sigora:"
       ))
 
-      sigora_part3 <- sigora_part1 %>%
-        pluck("summary_results") %>%
-        as_tibble() %>%
-        janitor::clean_names()
+      if (gene_ratio) { # Directional, "gene_ratio = TRUE"
+
+        pathway_sizes <-
+          gps_repo[str_subset(names(gps_repo), "^L[0-9]")] %>%
+          map(~pluck(.x, "pwyszs") %>% enframe("pathwy_id", "n_bg_genes")) %>%
+          bind_rows() %>%
+          distinct() %>%
+          mutate(n_bg_genes = as.numeric(n_bg_genes))
+
+        sigora_part3 <- imap(
+          input_clean,
+          function(x, nm) {
+            message(glue("\t{length(x)} {nm}-regulated genes..."))
+
+            sigora_temp_file <- tempfile(
+              pattern = glue("sigora_temp_{nm}_"),
+              tmpdir  = ".",
+              fileext = ".tsv"
+            )
+
+            sigora_part1 <- quiet(sigora(
+              queryList = x,
+              GPSrepo   = gps_repo,
+              level     = lvl,
+              saveFile  = sigora_temp_file
+            ))
+
+            sigora_part2 <- read.delim(sigora_temp_file) %>%
+              remove_rownames() %>%
+              as_tibble() %>%
+              janitor::clean_names()
+
+            file.remove(sigora_temp_file)
+
+            left_join(
+              x  = sigora_part2,
+              y  = pathway_sizes,
+              by = "pathwy_id"
+            ) %>%
+              mutate(
+                n_cd_genes = str_count(genes, ";") + 1,
+                gene_ratio = as.numeric(
+                  signif(n_cd_genes / n_bg_genes, digits = 2)
+                )
+              )
+          }
+        ) %>% bind_rows(.id = "direction")
+
+      } else if (!gene_ratio) { # Directional, "gene_ratio = FALSE"
+
+        sigora_part3 <- imap(
+          input_clean,
+          function(x, nm) {
+
+            message(glue("\t{length(x)} {nm}-regulated genes..."))
+
+            sigora_part1 <- quiet(sigora(
+              queryList = x,
+              GPSrepo   = gps_repo,
+              level     = lvl
+            ))
+
+            sigora_part1 %>%
+              pluck("summary_results") %>%
+              as_tibble() %>%
+              janitor::clean_names()
+          }) %>% bind_rows(.id = "direction")
+      }
     }
 
-
-    ## Tidy both types of Sigora output
+    # Tidy any type of Sigora output ("gene_ratio" TRUE or FALSE, directional
+    # or not)
     output <- sigora_part3 %>%
-      rename("pathway_id" = pathwy_id, "pvalue" = pvalues) %>%
+      dplyr::rename("pathway_id" = pathwy_id, "pvalue" = pvalues) %>%
       dplyr::select(
         all_of(c("pathway_id", "description", "pvalue", "bonferroni")),
-        any_of(c("n_cd_genes", "n_bg_genes", "gene_ratio", "genes"))
+        any_of(c("direction", "n_cd_genes", "n_bg_genes", "gene_ratio",
+                 "genes"))
       )
-
-
-  } else {
-    stop("Argument 'tool' must be one of 'ReactomePA' or 'Sigora'")
   }
 
-
-  # Add hierarchy info
+  # Tool-agnostic: Add species-based Reactome hierarchy info
   if (species == "human") {
     output_final <- output %>%
       left_join(
@@ -215,7 +328,6 @@ tr_enrichment_wrapper <- function(input_genes,
       mutate(across(where(is.factor), as.character)) %>%
       relocate(any_of("genes"), .after = last_col())
   }
-
 
   # Finished!
   message("Done!")
