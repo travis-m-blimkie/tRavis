@@ -63,11 +63,18 @@ tr_enrichment_wrapper <- function(input_genes,
 
   } else {
     stopifnot(is.data.frame(input_genes))
-    input_clean <- split(
-      x = input_genes[[directional[1]]],
-      f = input_genes[[directional[2]]] < 0
+    # input_clean <- split(
+    #   x = input_genes[[directional[1]]],
+    #   f = input_genes[[directional[2]]] < 0
+    # ) %>%
+    #   set_names(c("up", "down")) %>%
+    #   map(~na.omit(unique(as.character(.x))))
+
+    input_clean <- list(
+      "up"   = pull(filter(input_genes, .data[[directional[2]]] > 0), directional[1]),
+      "down" = pull(filter(input_genes, .data[[directional[2]]] < 0), directional[1])
     ) %>%
-      set_names(c("up", "down")) %>%
+      discard(~length(.x) == 0) %>%
       map(~na.omit(unique(as.character(.x))))
   }
 
@@ -165,6 +172,8 @@ tr_enrichment_wrapper <- function(input_genes,
       eval(...)
     }
 
+    sigora_safe <- possibly(sigora, otherwise = NULL)
+
 
     if (is.null(directional)) {
 
@@ -185,7 +194,7 @@ tr_enrichment_wrapper <- function(input_genes,
           tmpdir  = ".",
           fileext = ".tsv"
         )
-        sigora_part1 <- quiet(sigora(
+        sigora_part1 <- quiet(sigora_safe(
           queryList = input_clean,
           GPSrepo   = gps_repo,
           level     = lvl,
@@ -208,7 +217,7 @@ tr_enrichment_wrapper <- function(input_genes,
 
       } else if (!gene_ratio) { # Non-directional, "gene_ratio = FALSE"
 
-        sigora_part1 <- quiet(sigora(
+        sigora_part1 <- quiet(sigora_safe(
           queryList = input_clean,
           GPSrepo   = gps_repo,
           level     = lvl
@@ -246,19 +255,22 @@ tr_enrichment_wrapper <- function(input_genes,
               fileext = ".tsv"
             )
 
-            sigora_part1 <- quiet(sigora(
+            sigora_part1 <- quiet(sigora_safe(
               queryList = x,
               GPSrepo   = gps_repo,
               level     = lvl,
               saveFile  = sigora_temp_file
             ))
 
-            sigora_part2 <- read.delim(sigora_temp_file) %>%
-              remove_rownames() %>%
-              as_tibble() %>%
-              janitor::clean_names()
-
-            file.remove(sigora_temp_file)
+            if (file.exists(sigora_temp_file)) {
+              sigora_part2 <- read.delim(sigora_temp_file) %>%
+                remove_rownames() %>%
+                as_tibble() %>%
+                janitor::clean_names()
+              file.remove(sigora_temp_file)
+            } else {
+              return(NULL)
+            }
 
             left_join(
               x  = sigora_part2,
@@ -274,6 +286,7 @@ tr_enrichment_wrapper <- function(input_genes,
           }
         ) %>% bind_rows(.id = "direction")
 
+
       } else if (!gene_ratio) { # Directional, "gene_ratio = FALSE"
 
         sigora_part3 <- imap(
@@ -282,7 +295,7 @@ tr_enrichment_wrapper <- function(input_genes,
 
             message(glue("\t{length(x)} {nm}-regulated genes..."))
 
-            sigora_part1 <- quiet(sigora(
+            sigora_part1 <- quiet(sigora_safe(
               queryList = x,
               GPSrepo   = gps_repo,
               level     = lvl
@@ -298,13 +311,24 @@ tr_enrichment_wrapper <- function(input_genes,
 
     # Tidy any type of Sigora output ("gene_ratio" TRUE or FALSE, directional
     # or not)
-    output <- sigora_part3 %>%
-      dplyr::rename("pathway_id" = pathwy_id, "pvalue" = pvalues) %>%
-      dplyr::select(
-        all_of(c("pathway_id", "description", "pvalue", "bonferroni")),
-        any_of(c("direction", "n_cd_genes", "n_bg_genes", "gene_ratio",
-                 "genes"))
-      )
+    sigora_part4 <- if (!nrow(sigora_part3) == 0) {
+      sigora_part3
+    } else {
+      NULL
+    }
+
+    if (!is.null(sigora_part4)) {
+      output <- sigora_part4 %>%
+        dplyr::rename("pathway_id" = pathwy_id, "pvalue" = pvalues) %>%
+        dplyr::select(
+          all_of(c("pathway_id", "description", "pvalue", "bonferroni")),
+          any_of(c("direction", "n_cd_genes", "n_bg_genes", "gene_ratio",
+                   "genes"))
+        )
+    } else {
+      message("\tNo hits found by Sigora!")
+      return(NULL)
+    }
   }
 
   # Tool-agnostic: Add species-based Reactome hierarchy info
