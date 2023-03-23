@@ -25,7 +25,6 @@ mapped_data <- reaH$origRepo[[3]] %>%
 
 sigora_database_L4 <- mapped_data %>%
   select(pathway_id, EntrezGene.ID) %>%
-  left_join(idmap) %>%
   filter(pathway_id %in% reaH$L1$ps[!reaH$L1$ps %in% reaH$L5$ps])
 
 
@@ -33,14 +32,12 @@ sigora_database_L4 <- mapped_data %>%
 
 sigora_database_description <- reaH$pathwaydescriptions %>%
   as_tibble() %>%
-  rename("pathway_id" = 1, "pathway_name" = 2) %>%
+  rename("pathway_id" = 1, "description" = 2) %>%
   left_join(sigora_database_L4, .)
 
 sigora_database <- sigora_database_description %>%
-  select(-EntrezGene.ID) %>%
   distinct() %>%
-  janitor::clean_names() %>%
-  rename("hgnc_symbol" = symbol, "description" = pathway_name)
+  janitor::clean_names()
 
 
 # Save the object for the package -----------------------------------------

@@ -103,8 +103,7 @@
 #' @format A data frame (tibble) with 60775 rows and 4 columns
 #' \describe{
 #'   \item{pathway_id}{Pathway ID}
-#'   \item{ensembl_gene_id}{Ensembl ID for constituent genes}
-#'   \item{hgnc_symbol}{HGNC symbol for constituent genes}
+#'   \item{entrez_gene_id}{Entrez gene ID for constituent genes}
 #'   \item{description}{Pathway name}
 #' }
 "sigora_database"
