@@ -63,12 +63,6 @@ tr_enrichment_wrapper <- function(input_genes,
 
   } else {
     stopifnot(is.data.frame(input_genes))
-    # input_clean <- split(
-    #   x = input_genes[[directional[1]]],
-    #   f = input_genes[[directional[2]]] < 0
-    # ) %>%
-    #   set_names(c("up", "down")) %>%
-    #   map(~na.omit(unique(as.character(.x))))
 
     input_clean <- list(
       "up"   = pull(filter(input_genes, .data[[directional[2]]] > 0), directional[1]),
@@ -183,37 +177,48 @@ tr_enrichment_wrapper <- function(input_genes,
 
       if (gene_ratio) { # Non-directional, "gene_ratio = TRUE"
 
-        pathway_sizes <-
-          gps_repo[str_subset(names(gps_repo), "^L[0-9]")] %>%
-          map(~pluck(.x, "pwyszs") %>% enframe("pathwy_id", "n_bg_genes")) %>%
-          bind_rows() %>%
-          distinct() %>%
-          mutate(n_bg_genes = as.numeric(n_bg_genes))
-        sigora_temp_file <- tempfile(
-          pattern = "sigora_temp_",
-          tmpdir  = ".",
-          fileext = ".tsv"
-        )
         sigora_part1 <- quiet(sigora_safe(
           queryList = input_clean,
           GPSrepo   = gps_repo,
-          level     = lvl,
-          saveFile  = sigora_temp_file
+          level     = lvl
         ))
-        sigora_part2 <- read.delim(sigora_temp_file) %>%
+
+        sigora_part2 <- sigora_part1$summary_results %>%
           remove_rownames() %>%
           as_tibble() %>%
           janitor::clean_names()
-        file.remove(sigora_temp_file)
-        sigora_part3 <- left_join(
-          x  = sigora_part2,
-          y  = pathway_sizes,
+
+        sigora_detailed_list <- sigora_part1$detailed_results %>%
+          as_tibble() %>%
+          select(pathway, contains("gene")) %>%
+          split(x = ., f = .$pathway)
+
+        pathway_cd_data <- imap(sigora_detailed_list, function(x, nm)
+          tibble(
+            "pathwy_id" = nm,
+            "entrez_gene_id" = unique(c(pull(x, gene1), pull(x, gene2)))
+          )
+        ) %>%
+          bind_rows() %>%
+          count(pathwy_id, name = "n_cd_genes")
+
+        pathway_bg_data <- sigora_database %>%
+          rename("pathwy_id" = pathway_id) %>%
+          filter(pathwy_id %in% pathway_cd_data$pathwy_id) %>%
+          count(pathwy_id, name = "n_bg_genes")
+
+        pathway_ratio_data <- left_join(
+          pathway_cd_data,
+          pathway_bg_data,
           by = "pathwy_id"
         ) %>%
-          mutate(
-            n_cd_genes = str_count(genes, ";") + 1,
-            gene_ratio = as.numeric(signif(n_cd_genes / n_bg_genes, digits = 2))
-          )
+          mutate(gene_ratio = signif(n_cd_genes / n_bg_genes, digits = 2))
+
+        sigora_part3 <- left_join(
+          x  = sigora_part2,
+          y  = pathway_ratio_data,
+          by = "pathwy_id"
+        )
 
       } else if (!gene_ratio) { # Non-directional, "gene_ratio = FALSE"
 
@@ -237,52 +242,53 @@ tr_enrichment_wrapper <- function(input_genes,
 
       if (gene_ratio) { # Directional, "gene_ratio = TRUE"
 
-        pathway_sizes <-
-          gps_repo[str_subset(names(gps_repo), "^L[0-9]")] %>%
-          map(~pluck(.x, "pwyszs") %>% enframe("pathwy_id", "n_bg_genes")) %>%
-          bind_rows() %>%
-          distinct() %>%
-          mutate(n_bg_genes = as.numeric(n_bg_genes))
-
         sigora_part3 <- imap(
           input_clean,
           function(x, nm) {
             message(glue("\t{length(x)} {nm}-regulated genes..."))
 
-            sigora_temp_file <- tempfile(
-              pattern = glue("sigora_temp_{nm}_"),
-              tmpdir  = ".",
-              fileext = ".tsv"
-            )
-
             sigora_part1 <- quiet(sigora_safe(
               queryList = x,
               GPSrepo   = gps_repo,
-              level     = lvl,
-              saveFile  = sigora_temp_file
+              level     = lvl
             ))
 
-            if (file.exists(sigora_temp_file)) {
-              sigora_part2 <- read.delim(sigora_temp_file) %>%
-                remove_rownames() %>%
-                as_tibble() %>%
-                janitor::clean_names()
-              file.remove(sigora_temp_file)
-            } else {
-              return(NULL)
-            }
+            sigora_part2 <- sigora_part1$summary_results %>%
+              remove_rownames() %>%
+              as_tibble() %>%
+              janitor::clean_names()
+
+            sigora_detailed_list <- sigora_part1$detailed_results %>%
+              as_tibble() %>%
+              select(pathway, contains("gene")) %>%
+              split(x = ., f = .$pathway)
+
+            pathway_cd_data <- imap(sigora_detailed_list, function(a, b)
+              tibble(
+                "pathwy_id" = b,
+                "entrez_gene_id" = unique(c(pull(a, gene1), pull(a, gene2)))
+              )
+            ) %>%
+              bind_rows() %>%
+              count(pathwy_id, name = "n_cd_genes")
+
+            pathway_bg_data <- sigora_database %>%
+              rename("pathwy_id" = pathway_id) %>%
+              filter(pathwy_id %in% pathway_cd_data$pathwy_id) %>%
+              count(pathwy_id, name = "n_bg_genes")
+
+            pathway_ratio_data <- left_join(
+              pathway_cd_data,
+              pathway_bg_data,
+              by = "pathwy_id"
+            ) %>%
+              mutate(gene_ratio = signif(n_cd_genes / n_bg_genes, digits = 2))
 
             left_join(
               x  = sigora_part2,
-              y  = pathway_sizes,
+              y  = pathway_ratio_data,
               by = "pathwy_id"
-            ) %>%
-              mutate(
-                n_cd_genes = str_count(genes, ";") + 1,
-                gene_ratio = as.numeric(
-                  signif(n_cd_genes / n_bg_genes, digits = 2)
-                )
-              )
+            )
           }
         ) %>% bind_rows(.id = "direction")
 
@@ -354,6 +360,6 @@ tr_enrichment_wrapper <- function(input_genes,
   }
 
   # Finished!
-  message("Done!")
+  message("Done!\n")
   return(output_final)
 }
