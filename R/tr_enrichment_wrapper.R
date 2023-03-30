@@ -60,6 +60,7 @@ tr_enrichment_wrapper <- function(input_genes,
   if (is.null(directional)) {
     stopifnot(is.character(input_genes))
     input_clean <- na.omit(unique(as.character(input_genes)))
+    stopifnot(!any(str_detect(input_clean, "[[:alpha:]]")))
 
   } else {
     stopifnot(is.data.frame(input_genes))
@@ -70,6 +71,9 @@ tr_enrichment_wrapper <- function(input_genes,
     ) %>%
       discard(~length(.x) == 0) %>%
       map(~na.omit(unique(as.character(.x))))
+
+    stopifnot(!any(str_detect(input_clean[[1]], "[[:alpha:]]")))
+    stopifnot(!any(str_detect(input_clean[[2]], "[[:alpha:]]")))
   }
 
 
@@ -337,14 +341,19 @@ tr_enrichment_wrapper <- function(input_genes,
     }
   }
 
-  # Tool-agnostic: Add species-based Reactome hierarchy info
+  # Tool-agnostic: Add species-based Reactome hierarchy info, joining with a
+  # lower case version of the "description" column to avoid matching issues
   if (species == "human") {
     output_final <- output %>%
+      mutate(description = str_trim(description)) %>%
       left_join(
-        x  = .,
-        y  = reactome_categories_human,
-        by = c("pathway_id" = "id", "description")
+        x  = mutate(., key_col = tolower(description)),
+        y  = mutate(reactome_categories_human,
+                    key_col = tolower(description),
+                    .keep = "unused"),
+        by = c("pathway_id" = "id", "key_col")
       ) %>%
+      dplyr::select(-key_col) %>%
       mutate(across(where(is.factor), as.character)) %>%
       relocate(any_of("genes"), .after = last_col())
 
