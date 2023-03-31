@@ -60,20 +60,22 @@ tr_enrichment_wrapper <- function(input_genes,
   if (is.null(directional)) {
     stopifnot(is.character(input_genes))
     input_clean <- na.omit(unique(as.character(input_genes)))
-    stopifnot(!any(str_detect(input_clean, "[[:alpha:]]")))
 
   } else {
     stopifnot(is.data.frame(input_genes))
 
     input_clean <- list(
-      "up"   = pull(filter(input_genes, .data[[directional[2]]] > 0), directional[1]),
-      "down" = pull(filter(input_genes, .data[[directional[2]]] < 0), directional[1])
+      "up"   = pull(
+        filter(input_genes, .data[[directional[2]]] > 0),
+        directional[1]
+      ),
+      "down" = pull(
+        filter(input_genes, .data[[directional[2]]] < 0),
+        directional[1]
+      )
     ) %>%
       discard(~length(.x) == 0) %>%
       map(~na.omit(unique(as.character(.x))))
-
-    stopifnot(!any(str_detect(input_clean[[1]], "[[:alpha:]]")))
-    stopifnot(!any(str_detect(input_clean[[2]], "[[:alpha:]]")))
   }
 
 
@@ -83,6 +85,8 @@ tr_enrichment_wrapper <- function(input_genes,
     stopifnot(species %in% c("human", "mouse"))
 
     if (is.null(directional)) {
+
+      stopifnot(!any(str_detect(input_clean, "[[:alpha:]]")))
 
       message(glue(
         "Testing {length(input_clean)} genes with ReactomePA..."
@@ -94,14 +98,13 @@ tr_enrichment_wrapper <- function(input_genes,
           organism = species,
           universe = background
         ) %>%
-          pluck("result") %>%
-          remove_rownames() %>%
-          as_tibble() %>%
-          janitor::clean_names() %>%
-          dplyr::rename("pathway_id" = id, "genes" = gene_id)
+          pluck("result")
       )
 
     } else {
+
+      stopifnot(!any(str_detect(input_clean[1], "[[:alpha:]]")))
+      stopifnot(!any(str_detect(input_clean[2], "[[:alpha:]]")))
 
       message(glue(
         "Testing {length(unlist(input_clean))} total genes with ReactomePA:"
@@ -118,32 +121,34 @@ tr_enrichment_wrapper <- function(input_genes,
               organism = species,
               universe = background
             ) %>%
-              pluck("result") %>%
-              remove_rownames() %>%
-              as_tibble() %>%
-              janitor::clean_names() %>%
-              dplyr::rename("pathway_id" = id, "genes" = gene_id)
+              pluck("result")
           }
         ) %>% bind_rows(.id = "direction")
       )
     }
 
+    rpa_part2 <- rpa_part1 %>%
+      remove_rownames() %>%
+      as_tibble() %>%
+      janitor::clean_names() %>%
+      dplyr::rename("pathway_id" = id, "genes" = gene_id)
+
     # Optional gene ratio calculation (applies regardless of "directional")
-    if (gene_ratio) {
-      rpa_part1 <- rpa_part1 %>%
-        mutate(
-          n_cd_genes = count,
-          n_bg_genes = as.numeric(str_extract(bg_ratio, "^[0-9]{1,4}")),
-          gene_ratio = signif(n_cd_genes / n_bg_genes, digits = 2)
-        )
+    rpa_part3 <- if (gene_ratio) {
+      rpa_part2 %>% mutate(
+        n_cd_genes = count,
+        n_bg_genes = as.numeric(str_extract(bg_ratio, "^[0-9]{1,4}")),
+        gene_ratio = signif(n_cd_genes / n_bg_genes, digits = 2)
+      )
+    } else {
+      rpa_part2
     }
 
     # Reorder columns (applies regardless of "directional" and "gene_ratio")
-    output <- rpa_part1 %>%
-      dplyr::select(
-        all_of(c("pathway_id", "description", "pvalue", "p_adjust")),
-        any_of(c("direction", "n_cd_genes", "n_bg_genes", "gene_ratio", "genes"))
-      )
+    output <- rpa_part3 %>% dplyr::select(
+      all_of(c("pathway_id", "description", "pvalue", "p_adjust")),
+      any_of(c("direction", "n_cd_genes", "n_bg_genes", "gene_ratio", "genes"))
+    )
 
 
   # Sigora
@@ -340,6 +345,7 @@ tr_enrichment_wrapper <- function(input_genes,
       return(NULL)
     }
   }
+
 
   # Tool-agnostic: Add species-based Reactome hierarchy info, joining with a
   # lower case version of the "description" column to avoid matching issues
