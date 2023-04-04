@@ -37,6 +37,7 @@
 #' @import ReactomePA
 #' @import sigora
 #' @import tibble
+#' @import tidyr
 #' @import purrr
 #' @import dplyr
 #'
@@ -209,12 +210,14 @@ tr_enrichment_wrapper <- function(input_genes,
           )
         ) %>%
           bind_rows() %>%
-          count(pathwy_id, name = "n_cd_genes")
+          nest(.by = pathwy_id, .key = "cd_genes") %>%
+          mutate(n_cd_genes = map_dbl(cd_genes, nrow))
 
         pathway_bg_data <- sigora_database %>%
-          rename("pathwy_id" = pathway_id) %>%
+          select("pathwy_id" = pathway_id, entrez_gene_id) %>%
           filter(pathwy_id %in% pathway_cd_data$pathwy_id) %>%
-          count(pathwy_id, name = "n_bg_genes")
+          nest(.by = pathwy_id, .key = "bg_genes") %>%
+          mutate(n_bg_genes = map_dbl(bg_genes, nrow))
 
         pathway_ratio_data <- left_join(
           pathway_cd_data,
@@ -272,19 +275,21 @@ tr_enrichment_wrapper <- function(input_genes,
               select(pathway, contains("gene")) %>%
               split(x = ., f = .$pathway)
 
-            pathway_cd_data <- imap(sigora_detailed_list, function(a, b)
+            pathway_cd_data <- imap(sigora_detailed_list, function(x, nm)
               tibble(
-                "pathwy_id" = b,
-                "entrez_gene_id" = unique(c(pull(a, gene1), pull(a, gene2)))
+                "pathwy_id" = nm,
+                "entrez_gene_id" = unique(c(pull(x, gene1), pull(x, gene2)))
               )
             ) %>%
               bind_rows() %>%
-              count(pathwy_id, name = "n_cd_genes")
+              nest(.by = pathwy_id, .key = "cd_genes") %>%
+              mutate(n_cd_genes = map_dbl(cd_genes, nrow))
 
             pathway_bg_data <- sigora_database %>%
-              rename("pathwy_id" = pathway_id) %>%
+              select("pathwy_id" = pathway_id, entrez_gene_id) %>%
               filter(pathwy_id %in% pathway_cd_data$pathwy_id) %>%
-              count(pathwy_id, name = "n_bg_genes")
+              nest(.by = pathwy_id, .key = "bg_genes") %>%
+              mutate(n_bg_genes = map_dbl(bg_genes, nrow))
 
             pathway_ratio_data <- left_join(
               pathway_cd_data,
@@ -338,7 +343,7 @@ tr_enrichment_wrapper <- function(input_genes,
         dplyr::select(
           all_of(c("pathway_id", "description", "pvalue", "bonferroni")),
           any_of(c("direction", "n_cd_genes", "n_bg_genes", "gene_ratio",
-                   "genes"))
+                   "cd_genes", "bg_genes"))
         )
     } else {
       message("\tNo hits found by Sigora!")
