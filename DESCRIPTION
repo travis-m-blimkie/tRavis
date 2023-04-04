@@ -9,19 +9,20 @@ LazyData: true
 LazyDataCompression: xz
 Imports: 
     dplyr,
-    plotly,
     ggplot2,
-    janitor,
     forcats,
+    glue,
+    janitor,
+    plotly,
     purrr,
+    ReactomePA,
     readr,
+    rjson,
     stats,
     stringr,
     tibble,
-    rjson,
-    sigora,
-    ReactomePA,
-    glue
+    tidyr,
+    sigora
 RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 2.1.0)
