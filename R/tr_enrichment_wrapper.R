@@ -11,21 +11,18 @@
 #'   containing values to be used to split the genes into up/down. In this case
 #'   `input_genes` must be a data frame.
 #' @param gene_ratio Logical. Should the output table contain information about
-#'   candidate/background genes and gene ratio for each pathway? Note if using
-#'   this option with Sigora, enrichment will take noticeably longer to run.
-#' @param tool Package to use for enrichment tests - either "ReactomePA" or
-#'   "Sigora"
+#'   candidate/background genes and gene ratio for each pathway?
+#' @param tool Package to use for enrichment tests - either "Sigora" or
+#'   "ReactomePA"
 #' @param species Currently only supports human (default) or mouse. Needed by
 #'   ReactomePA, and also used to add Reactome hierarchy information to the
-#'   results (both tools).
+#'   results (both Sigora and ReactomePA).
 #' @param background Specified gene universe for ReactomePA; default is NULL, or
 #'   can be a character vector of Entrez gene IDs. Does not apply to `tool =
 #'   "sigora"`
-#' @param gps_repo Gene pair signature object for Sigora to use. Can be one of
-#'   the data objects shipped with this package (`gps_rea_hsa` or `gps_rea_mmu`
-#'   for Reactome data for human and mouse, respectively), or one from Sigora
-#'   itself - see `?sigora::sigora` for details. Does not apply for `tool =
-#'   "ReactomePA"`
+#' @param gps_repo Gene pair signature object for Sigora to use, namely `reaH`
+#'   or `reaM` from Sigora. See `?sigora::sigora` for details. Does not apply
+#'   for `tool = "ReactomePA"`
 #' @param lvl Level to use when running Sigora; recommend 4 for Reactome data,
 #'   or 2 for KEGG data. Does not apply when `tool = "ReactomePA"`
 #'
@@ -152,7 +149,7 @@ tr_enrichment_wrapper <- function(input_genes,
     )
 
 
-  # Sigora
+    # Sigora
   } else if (tool == "sigora") {
 
 
@@ -210,14 +207,18 @@ tr_enrichment_wrapper <- function(input_genes,
           )
         ) %>%
           bind_rows() %>%
-          nest(.by = pathwy_id, .key = "cd_genes") %>%
-          mutate(n_cd_genes = map_dbl(cd_genes, nrow))
+          group_by(pathwy_id) %>%
+          summarise(cd_genes = paste0(entrez_gene_id, collapse = ";")) %>%
+          mutate(n_cd_genes = 1 + str_count(cd_genes, ";"), .after = 1) %>%
+          ungroup()
 
         pathway_bg_data <- sigora_database %>%
           select("pathwy_id" = pathway_id, entrez_gene_id) %>%
           filter(pathwy_id %in% pathway_cd_data$pathwy_id) %>%
-          nest(.by = pathwy_id, .key = "bg_genes") %>%
-          mutate(n_bg_genes = map_dbl(bg_genes, nrow))
+          group_by(pathwy_id) %>%
+          summarise(bg_genes = paste0(entrez_gene_id, collapse = ";")) %>%
+          mutate(n_bg_genes = 1 + str_count(bg_genes, ";"), .after = 1) %>%
+          ungroup()
 
         pathway_ratio_data <- left_join(
           pathway_cd_data,
@@ -282,14 +283,18 @@ tr_enrichment_wrapper <- function(input_genes,
               )
             ) %>%
               bind_rows() %>%
-              nest(.by = pathwy_id, .key = "cd_genes") %>%
-              mutate(n_cd_genes = map_dbl(cd_genes, nrow))
+              group_by(pathwy_id) %>%
+              summarise(cd_genes = paste0(entrez_gene_id, collapse = ";")) %>%
+              mutate(n_cd_genes = 1 + str_count(cd_genes, ";"), .after = 1) %>%
+              ungroup()
 
             pathway_bg_data <- sigora_database %>%
               select("pathwy_id" = pathway_id, entrez_gene_id) %>%
               filter(pathwy_id %in% pathway_cd_data$pathwy_id) %>%
-              nest(.by = pathwy_id, .key = "bg_genes") %>%
-              mutate(n_bg_genes = map_dbl(bg_genes, nrow))
+              group_by(pathwy_id) %>%
+              summarise(bg_genes = paste0(entrez_gene_id, collapse = ";")) %>%
+              mutate(n_bg_genes = 1 + str_count(bg_genes, ";"), .after = 1) %>%
+              ungroup()
 
             pathway_ratio_data <- left_join(
               pathway_cd_data,
@@ -366,7 +371,7 @@ tr_enrichment_wrapper <- function(input_genes,
       ) %>%
       dplyr::select(-key_col) %>%
       mutate(across(where(is.factor), as.character)) %>%
-      relocate(any_of("genes"), .after = last_col())
+      relocate(any_of(c("genes", "cd_genes", "bg_genes")), .after = last_col())
 
   } else if (species == "mouse") {
     output_final <- output %>%
@@ -376,7 +381,7 @@ tr_enrichment_wrapper <- function(input_genes,
         by = c("pathway_id" = "id", "description")
       ) %>%
       mutate(across(where(is.factor), as.character)) %>%
-      relocate(any_of("genes"), .after = last_col())
+      relocate(any_of(c("genes", "cd_genes", "bg_genes")), .after = last_col())
   }
 
   # Finished!
