@@ -29,23 +29,21 @@ containing values to be used to split the genes into up/down. In this case
 \code{input_genes} must be a data frame.}
 
 \item{gene_ratio}{Logical. Should the output table contain information about
-candidate/background genes and gene ratio for each pathway? Note if using
-this option with Sigora, enrichment will take noticeably longer to run.}
+candidate/background genes and gene ratio for each pathway?}
 
-\item{tool}{Package to use for enrichment tests - either "ReactomePA" or
-"Sigora"}
+\item{tool}{Package to use for enrichment tests - either "Sigora" or
+"ReactomePA"}
 
 \item{species}{Currently only supports human (default) or mouse. Needed by
 ReactomePA, and also used to add Reactome hierarchy information to the
-results (both tools).}
+results (both Sigora and ReactomePA).}
 
 \item{background}{Specified gene universe for ReactomePA; default is NULL, or
 can be a character vector of Entrez gene IDs. Does not apply to \code{tool = "sigora"}}
 
-\item{gps_repo}{Gene pair signature object for Sigora to use. Can be one of
-the data objects shipped with this package (\code{gps_rea_hsa} or \code{gps_rea_mmu}
-for Reactome data for human and mouse, respectively), or one from Sigora
-itself - see \code{?sigora::sigora} for details. Does not apply for \code{tool = "ReactomePA"}}
+\item{gps_repo}{Gene pair signature object for Sigora to use, namely \code{reaH}
+or \code{reaM} from Sigora. See \code{?sigora::sigora} for details. Does not apply
+for \code{tool = "ReactomePA"}}
 
 \item{lvl}{Level to use when running Sigora; recommend 4 for Reactome data,
 or 2 for KEGG data. Does not apply when \code{tool = "ReactomePA"}}
