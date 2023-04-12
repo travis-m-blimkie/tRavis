@@ -5,7 +5,7 @@
 \alias{biomart_id_mapping_human}
 \title{Human ID mapping from biomaRt}
 \format{
-A tibble with 75123 rows and 4 columns:
+A tibble with 75130 rows and 4 columns:
 \describe{
 \item{ensembl_gene_id}{Human Ensembl gene IDs}
 \item{hgnc_symbol}{Human gene symbols}
