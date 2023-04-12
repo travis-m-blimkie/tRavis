@@ -10,7 +10,8 @@ biomart_id_mapping_human_1 <- getBM(
 )
 
 # Replace empty values with NA
-biomart_id_mapping_human_2 <- biomart_id_mapping_human_1 %>% replace(. == "", NA)
+biomart_id_mapping_human_2 <- biomart_id_mapping_human_1 %>%
+  replace(. == "", NA)
 
 biomart_id_mapping_human <- biomart_id_mapping_human_2 %>%
   rename("entrez_gene_id" = entrezgene_id) %>%

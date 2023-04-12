@@ -1,6 +1,6 @@
 #' Human ID mapping from biomaRt
 #'
-#' @format A tibble with 75123 rows and 4 columns:
+#' @format A tibble with 75130 rows and 4 columns:
 #' \describe{
 #'   \item{ensembl_gene_id}{Human Ensembl gene IDs}
 #'   \item{hgnc_symbol}{Human gene symbols}
@@ -12,7 +12,7 @@
 
 #' Mouse ID mapping from biomaRt
 #'
-#' @format A tibble with 57298 rows and 4 columns:
+#' @format A tibble with 57388 rows and 4 columns:
 #' \describe{
 #'   \item{ensembl_gene_id}{Mouse Ensembl gene IDs}
 #'   \item{mgi_symbol}{Mouse gene name/symbol}

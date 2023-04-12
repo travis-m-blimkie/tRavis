@@ -9,7 +9,8 @@ biomart_id_mapping_mouse_1 <- getBM(
 )
 
 # Replace empty values with NA
-biomart_id_mapping_mouse_2 <- biomart_id_mapping_mouse_1 %>% replace(. == "", NA)
+biomart_id_mapping_mouse_2 <- biomart_id_mapping_mouse_1 %>%
+  replace(. == "", NA)
 
 # Keep only one row for each Ensembl gene
 biomart_id_mapping_mouse <- biomart_id_mapping_mouse_2 %>%
