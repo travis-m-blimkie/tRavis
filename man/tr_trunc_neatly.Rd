@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_trunc_neatly.R
 \name{tr_trunc_neatly}
 \alias{tr_trunc_neatly}
-\title{tr_trunc_neatly}
+\title{Cleanly trim truncate long strings}
 \usage{
 tr_trunc_neatly(x, l = 60)
 }
@@ -13,12 +13,11 @@ end, and without splitting words}
 \item{l}{Desired length at which to trim strings}
 }
 \value{
-A character string, trimmed to the desired length and with an
-ellipsis at the end
+Character
 }
 \description{
 Trims the input string to the desired length, appending an
-ellipsis to the end, without splitting in the middle of a word
+ellipsis to the end, without splitting in the middle of a word.
 }
 \references{
 None.
