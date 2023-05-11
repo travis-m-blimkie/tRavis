@@ -1,6 +1,6 @@
 #' Human ID mapping from biomaRt
 #'
-#' @format A tibble with 75130 rows and 4 columns:
+#' @format A data frame (tibble) with 75130 rows and 4 columns:
 #' \describe{
 #'   \item{ensembl_gene_id}{Human Ensembl gene IDs}
 #'   \item{hgnc_symbol}{Human gene symbols}
@@ -12,7 +12,7 @@
 
 #' Mouse ID mapping from biomaRt
 #'
-#' @format A tibble with 57388 rows and 4 columns:
+#' @format A data frame (tibble) with 57388 rows and 4 columns:
 #' \describe{
 #'   \item{ensembl_gene_id}{Mouse Ensembl gene IDs}
 #'   \item{mgi_symbol}{Mouse gene name/symbol}
@@ -25,7 +25,7 @@
 #' Gene Pair Signature (GPS) object for human Reactome data
 #'
 #' Reactome human pathway data, constructed by `sigora::makeGPS()` and suitable
-#' for use in pathway enrichment.
+#' for use in pathway enrichment with Sigora.
 #'
 #' @details For more information see Sigora's documentation:
 #'   <https://cran.r-project.org/package=sigora>
@@ -48,7 +48,7 @@
 #' Gene Pair Signature (GPS) object for mouse Reactome data
 #'
 #' Reactome mouse pathway data, constructed by `sigora::makeGPS()` and suitable
-#' for use in pathway enrichment.
+#' for use in pathway enrichment with Sigora.
 #'
 #' @details For more information see Sigora's documentation:
 #'   <https://cran.r-project.org/package=sigora>
@@ -72,7 +72,7 @@
 #'
 #' Reactome pathway hierarchy data for humans
 #'
-#' @format A data frame (tibble) with 2610 rows and 4 columns
+#' @format A data frame (tibble) with 2615 rows and 4 columns
 #' \describe{
 #'   \item{id}{Pathway ID}
 #'   \item{description}{Pathway name}
@@ -86,7 +86,7 @@
 #'
 #' Reactome pathway hierarchy data for mice
 #'
-#' @format A data frame (tibble) with 1717 rows and 4 columns
+#' @format A data frame (tibble) with 1718 rows and 4 columns
 #' \describe{
 #'   \item{id}{Pathway ID}
 #'   \item{description}{Pathway name}
@@ -98,9 +98,9 @@
 
 #' Sigora's database
 #'
-#' Table of Reactome pathways and their genes used by Sigora for enrichment
+#' Table of Reactome pathways and their genes used by Sigora for enrichment.
 #'
-#' @format A data frame (tibble) with 60775 rows and 4 columns
+#' @format A data frame (tibble) with 53265 rows and 3 columns
 #' \describe{
 #'   \item{pathway_id}{Pathway ID}
 #'   \item{entrez_gene_id}{Entrez gene ID for constituent genes}

@@ -1,6 +1,6 @@
 # Load packages and sigora data -------------------------------------------
 
-library(tidyverse)
+library(dplyr)
 data("reaH", "idmap", package = "sigora")
 
 
@@ -42,4 +42,4 @@ sigora_database <- sigora_database_description %>%
 
 # Save the object for the package -----------------------------------------
 
-usethis::use_data(sigora_database, overwrite = TRUE)
+usethis::use_data(sigora_database, overwrite = TRUE, compress = "bzip2")

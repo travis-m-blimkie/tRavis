@@ -22,8 +22,12 @@ all_pathways <- readr::read_tsv(
 # Function to join and rename ---------------------------------------------
 
 pathway_join <- function(input, name) {
-  nam <- name
-  p <- left_join(input, pathway_hierarchy, by = "pathway_id") %>%
+  p <- left_join(
+    input,
+    pathway_hierarchy,
+    by = "pathway_id",
+    multiple = "all"
+  ) %>%
     rename(!!name := "pathway_id", pathway_id = "higher")
   return(p)
 }
@@ -80,17 +84,35 @@ for (row in 1:nrow(full_hierarchy)) {
 
 pathway_categories <-
   enr_pathway_high_level %>%
-  left_join(., rename(all_pathways, "level_1" = description), by = c(level_1_id = "pathway_id")) %>%
+  left_join(
+    .,
+    rename(all_pathways, "level_1" = description),
+    by = c(level_1_id = "pathway_id"),
+    multiple = "all"
+  ) %>%
   left_join(., all_pathways, by = "pathway_id") %>%
   select(pathway_id, "pathway_description" = description, level_1) %>%
   distinct(pathway_id, .keep_all = TRUE)
 
 reactome_categories_mouse <- enr_pathway_high_level %>%
-  left_join(., rename(all_pathways, "level_1" = description), by = c(level_1_id = "pathway_id")) %>%
-  left_join(., rename(all_pathways, "level_2" = description), by = c(level_2_id = "pathway_id")) %>%
+  left_join(
+    .,
+    rename(all_pathways, "level_1" = description),
+    by = c(level_1_id = "pathway_id"),
+    multiple = "all"
+  ) %>%
+  left_join(
+    .,
+    rename(all_pathways, "level_2" = description),
+    by = c(level_2_id = "pathway_id"),
+    multiple = "all"
+  ) %>%
   left_join(., all_pathways, by = "pathway_id") %>%
   select("id" = pathway_id, description, level_1, level_2) %>%
   distinct(id, .keep_all = TRUE) %>%
   as_tibble()
+
+
+# Save with compression ---------------------------------------------------
 
 usethis::use_data(reactome_categories_mouse, overwrite = TRUE)
