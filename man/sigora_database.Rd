@@ -5,7 +5,7 @@
 \alias{sigora_database}
 \title{Sigora's database}
 \format{
-A data frame (tibble) with 60775 rows and 4 columns
+A data frame (tibble) with 53265 rows and 3 columns
 \describe{
 \item{pathway_id}{Pathway ID}
 \item{entrez_gene_id}{Entrez gene ID for constituent genes}
@@ -16,6 +16,6 @@ A data frame (tibble) with 60775 rows and 4 columns
 sigora_database
 }
 \description{
-Table of Reactome pathways and their genes used by Sigora for enrichment
+Table of Reactome pathways and their genes used by Sigora for enrichment.
 }
 \keyword{datasets}

@@ -23,7 +23,7 @@ gps_rea_hsa
 }
 \description{
 Reactome human pathway data, constructed by \code{sigora::makeGPS()} and suitable
-for use in pathway enrichment.
+for use in pathway enrichment with Sigora.
 }
 \details{
 For more information see Sigora's documentation:

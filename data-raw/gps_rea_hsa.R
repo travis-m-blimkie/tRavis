@@ -1,7 +1,6 @@
 # Load packages
 library(dplyr)
 library(sigora)
-
 data(idmap)
 
 
@@ -15,11 +14,12 @@ reactome_data_all <- readr::read_tsv(
 # Filter for human-only entries, and select columns we need
 reactome_data_human <- reactome_data_all %>%
   filter(species == "Homo sapiens", stringr::str_detect(gene, "^ENSG")) %>%
-  select(pathwayId, pathwayName, gene) %>%
-  as.data.frame()
+  select(pathwayId, pathwayName, gene)
 
 
 # Construct the GPS object and save
-gps_rea_hsa <- makeGPS(pathwayTable = reactome_data_human)
+gps_rea_hsa <- makeGPS(pathwayTable = as.data.frame(reactome_data_human))
 
-usethis::use_data(gps_rea_hsa, overwrite = TRUE)
+
+# Save for the package
+usethis::use_data(gps_rea_hsa, overwrite = TRUE, compress = "bzip2")
