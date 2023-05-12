@@ -351,7 +351,7 @@ tr_enrichment_wrapper <- function(input_genes,
                    "cd_genes", "bg_genes"))
         )
     } else {
-      message("\tNo hits found by Sigora!")
+      message("No hits found by Sigora!\n")
       return(NULL)
     }
   }
