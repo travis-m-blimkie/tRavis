@@ -2,8 +2,7 @@
 library(biomaRt)
 library(dplyr)
 
-# Use `biomaRt::getBM()` to create the conversion table, with the three most
-# common human ID types.
+# Use `biomaRt::getBM()` to create the conversion table
 biomart_id_mapping_human_0 <- getBM(
   attributes = c("ensembl_gene_id", "hgnc_symbol", "entrezgene_id", "description"),
   mart = useMart("ensembl", dataset = "hsapiens_gene_ensembl")
