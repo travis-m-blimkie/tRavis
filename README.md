@@ -70,54 +70,64 @@ argument to apply to the results:
 ### tr_enrichment_wrapper()
 Perform pathway enrichment using ReactomePA or Sigora. The package also includes
 up-to-date gene-pair signature (GPS) objects for both human and mouse Reactome
-data to use with Sigora.
+data to use with Sigora. The input can be a vector of gene IDs (first example), 
+or you can provide a data frame, indicating an ID column, while splitting those
+genes into up or down using a second column (second example).
 ```r 
 # For ReactomePA
 > tr_enrichment_wrapper(
+  input_genes = as.character(de_gene_table$entrez_gene_id),
   tool        = "ReactomePA",
-  input_genes = entrez_gene_ids,
   species     = "human",
   background  = gene_universe_entrez
 )
-# Testing 1172 genes...Done
-# # A tibble: 981 × 9
-#    id            description                gene_ratio bg_ratio   pvalue p_adjust   qvalue gene_id count
-#    <chr>         <chr>                      <chr>      <chr>       <dbl>    <dbl>    <dbl> <chr>   <int>
-#  1 R-HSA-1474244 Extracellular matrix orga… 59/715     213/7696 3.67e-15 3.61e-12 3.20e-12 1294/3…    59
-#  2 R-HSA-909733  Interferon alpha/beta sig… 28/715     57/7696  8.54e-15 4.19e-12 3.72e-12 91543/…    28
-#  3 R-HSA-913531  Interferon Signaling       46/715     169/7696 8.87e-12 2.69e- 9 2.39e- 9 91543/…    46
-#  4 R-HSA-500792  GPCR ligand binding        47/715     176/7696 1.10e-11 2.69e- 9 2.39e- 9 4161/7…    47
-#  5 R-HSA-1474228 Degradation of the extrac… 31/715     92/7696  6.70e-11 1.32e- 8 1.17e- 8 1294/4…    31
-#  6 R-HSA-198933  Immunoregulatory interact… 32/715     106/7696 8.16e-10 1.33e- 7 1.18e- 7 1278/3…    32
-#  7 R-HSA-1442490 Collagen degradation       20/715     46/7696  9.71e-10 1.36e- 7 1.21e- 7 1294/4…    20
-#  8 R-HSA-375276  Peptide ligand-binding re… 25/715     76/7696  8.43e- 9 8.64e- 7 7.67e- 7 4161/5…    25
-#  9 R-HSA-877300  Interferon gamma signaling 25/715     76/7696  8.43e- 9 8.64e- 7 7.67e- 7 3665/6…    25
-# 10 R-HSA-6783783 Interleukin-10 signaling   18/715     42/7696  8.97e- 9 8.64e- 7 7.67e- 7 3557/3…    18
-# # … with 971 more rows
+# Testing 456 genes with ReactomePA...
+# Done!
+# 
+# # A tibble: 835 × 8
+#    pathway_id    description                            pvalue p_adjust gene_…¹ level_1 level_2 genes
+#    <chr>         <chr>                                   <dbl>    <dbl> <chr>   <chr>   <chr>   <chr>
+#  1 R-HSA-6798695 Neutrophil degranulation             5.47e-21 4.56e-18 57/306  Immune… Innate… 6438…
+#  2 R-HSA-449147  Signaling by Interleukins            1.40e- 7 5.83e- 5 35/306  Immune… Cytoki… 9235…
+#  3 R-HSA-6785807 Interleukin-4 and Interleukin-13 si… 9.81e- 6 2.73e- 3 13/306  Immune… Cytoki… 240/…
+#  4 R-HSA-5602498 MyD88 deficiency (TLR2/4)            7.91e- 5 1.65e- 2 5/306   Disease Diseas… 7099…
+#  5 R-HSA-5603041 IRAK4 deficiency (TLR2/4)            1.07e- 4 1.79e- 2 5/306   Disease Diseas… 7099…
+#  6 R-HSA-5260271 Diseases of Immune System            1.90e- 4 2.26e- 2 6/306   Disease Diseas… 7099…
+#  7 R-HSA-5602358 Diseases associated with the TLR si… 1.90e- 4 2.26e- 2 6/306   Disease Diseas… 7099…
+#  8 R-HSA-5686938 Regulation of TLR by endogenous lig… 2.37e- 4 2.48e- 2 5/306   Immune… Innate… 7099…
+#  9 R-HSA-166058  MyD88:MAL(TIRAP) cascade initiated … 3.25e- 4 2.71e- 2 11/306  Immune… Innate… 4205…
+# 10 R-HSA-168188  Toll Like Receptor TLR6:TLR2 Cascade 3.25e- 4 2.71e- 2 11/306  Immune… Innate… 4205…
+# # … with 825 more rows, and abbreviated variable name ¹gene_ratio
+# # ℹ Use `print(n = ...)` to see more rows
 
 # Or Sigora
 > tr_enrichment_wrapper(
+  input_genes = de_gene_table,
+  directional = c("ensembl_gene_id", "log2FoldChange")
   tool        = "Sigora",
-  input_genes = ensembl_gene_ids,
-  species     = "human",
-  gps_repo    = gps_rea_hsa,
+  gps_repo    = reaH,
   lvl         = 4
 )
-# Testing 1284 genes...Done
-# # A tibble: 467 × 8
-#    pathwy_id     description                pvalues bonferroni successes pathway_size      n sample_size
-#    <chr>         <chr>                        <dbl>      <dbl>     <dbl>        <dbl>  <dbl>       <dbl>
-#  1 R-HSA-909733  Interferon alpha/beta s… 2.57e-166  3.11e-163     172.         1437. 6.37e5       3533.
-#  2 R-HSA-380108  Chemokine receptors bin… 3.87e- 69  4.68e- 66     109.         1964. 6.37e5       3533.
-#  3 R-HSA-1474244 Extracellular matrix or… 8.67e- 66  1.05e- 62     181.         6731. 6.37e5       3533.
-#  4 R-HSA-1442490 Collagen degradation     5.84e- 43  7.06e- 40      48.6         495. 6.37e5       3533.
-#  5 R-HSA-216083  Integrin cell surface i… 3.28e- 42  3.96e- 39      57.4         836. 6.37e5       3533.
-#  6 R-HSA-8948216 Collagen chain trimeriz… 9.26e- 41  1.12e- 37      59.7         974. 6.37e5       3533.
-#  7 R-HSA-913531  Interferon Signaling     3.37e- 37  4.08e- 34      99.9        3609. 6.37e5       3533.
-#  8 R-HSA-5669034 TNFs bind their physiol… 1.02e- 28  1.24e- 25      34.5         407. 6.37e5       3533.
-#  9 R-HSA-1169408 ISG15 antiviral mechani… 1.00e- 26  1.21e- 23      41           767. 6.37e5       3533.
-# 10 R-HSA-877300  Interferon gamma signal… 6.47e- 26  7.82e- 23     114.         6460. 6.37e5       3533.
-# # … with 457 more rows
+# Testing 515 total genes with Sigora:
+# 	131 up-regulated genes...
+# 	384 down-regulated genes...
+# Done!
+# 
+# # A tibble: 195 × 7
+#    pathway_id    description                                  pvalue bonfer…¹ direc…² level_1 level_2
+#    <chr>         <chr>                                         <dbl>    <dbl> <chr>   <chr>   <chr>  
+#  1 R-HSA-373076  Class A/1 (Rhodopsin-like receptors)       5.03e-13 5.04e-10 up      Signal… Signal…
+#  2 R-HSA-77289   Mitochondrial Fatty Acid Beta-Oxidation    3.48e-10 3.48e- 7 up      Metabo… Metabo…
+#  3 R-HSA-380108  Chemokine receptors bind chemokines        9.31e- 5 9.32e- 2 up      Signal… Signal…
+#  4 R-HSA-198933  Immunoregulatory interactions between a L… 7.21e- 4 7.22e- 1 up      Immune… Adapti…
+#  5 R-HSA-391903  Eicosanoid ligand-binding receptors        7.52e- 3 1   e+ 0 up      Signal… Signal…
+#  6 R-HSA-71291   Metabolism of amino acids and derivatives  4.9 e- 2 1   e+ 0 up      Metabo… Metabo…
+#  7 R-HSA-449836  Other interleukin signaling                9.89e- 2 1   e+ 0 up      Immune… Cytoki…
+#  8 R-HSA-877300  Interferon gamma signaling                 1.33e- 1 1   e+ 0 up      Immune… Cytoki…
+#  9 R-HSA-913531  Interferon Signaling                       1.45e- 1 1   e+ 0 up      Immune… Cytoki…
+# 10 R-HSA-8978868 Fatty acid metabolism                      2.00e- 1 1   e+ 0 up      Metabo… Metabo…
+# # … with 185 more rows, and abbreviated variable names ¹bonferroni, ²direction
+# # ℹ Use `print(n = ...)` to see more rows
 ```
 
 ### tr_get_files()
@@ -208,7 +218,7 @@ tr_tidy_gage(gage_result)
 # 5 Down           pae00860 Porphyrin and chl… 0.00983   -2.56 0.00983 0.0664      11 0.00983
 # 6 Down           pae02024 Quorum sensing     0.0173    -2.21 0.0173  0.0933      21 0.0173 
 # 7 Down           pae00190 Oxidative phospho… 0.0207    -2.21 0.0207  0.0933      10 0.0207 
-# # … with abbreviated variable names ¹​$p.geomean, ²​$stat.mean, ³​$set.size
+# # … with abbreviated variable names ¹$p.geomean, ²$stat.mean, ³$set.size
 ```
 
 ### tr_trunc_neatly()
@@ -227,7 +237,8 @@ This package makes use of [SemVer](https://semver.org/).
 ## Authors
 
 Travis Blimkie is the originator and principal contributor. You can check the
-list of all contributors [here](https://github.com/travis-m-blimkie/tRavis/graphs/contributors).
+list of all contributors
+[here](https://github.com/travis-m-blimkie/tRavis/graphs/contributors).
 
 ## License
 This project is written under the MIT license, available
