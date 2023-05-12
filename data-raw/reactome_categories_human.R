@@ -22,8 +22,12 @@ all_pathways <- readr::read_tsv(
 # Function to join and rename ---------------------------------------------
 
 pathway_join <- function(input, name) {
-  nam <- name
-  p <- left_join(input, pathway_hierarchy, by = "pathway_id", multiple = "all") %>%
+  p <- left_join(
+    input,
+    pathway_hierarchy,
+    by = "pathway_id",
+    multiple = "all"
+  ) %>%
     rename(!!name := "pathway_id", pathway_id = "higher")
   return(p)
 }

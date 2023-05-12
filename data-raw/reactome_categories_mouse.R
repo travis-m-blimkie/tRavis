@@ -115,4 +115,4 @@ reactome_categories_mouse <- enr_pathway_high_level %>%
 
 # Save with compression ---------------------------------------------------
 
-usethis::use_data(reactome_categories_mouse, overwrite = TRUE)
+usethis::use_data(reactome_categories_mouse, overwrite = TRUE, compress = "bzip2")
