@@ -29,14 +29,11 @@
 #' @return Data frame (tibble) of unfiltered results
 #' @export
 #'
-#' @importFrom glue glue
-#'
-#' @import ReactomePA
+#' @import dplyr
+#' @import purrr
 #' @import sigora
 #' @import tibble
 #' @import tidyr
-#' @import purrr
-#' @import dplyr
 #'
 #' @references None.
 #'
@@ -86,12 +83,12 @@ tr_enrichment_wrapper <- function(input_genes,
 
       stopifnot(!any(str_detect(input_clean, "[[:alpha:]]")))
 
-      message(glue(
-        "Testing {length(input_clean)} genes with ReactomePA..."
-      ))
+      message(
+        "Testing ", length(input_clean), " genes with ReactomePA..."
+      )
 
       suppressPackageStartupMessages(
-        rpa_part1 <- enrichPathway(
+        rpa_part1 <- ReactomePA::enrichPathway(
           gene = input_clean,
           organism = species,
           universe = background
@@ -104,17 +101,17 @@ tr_enrichment_wrapper <- function(input_genes,
       stopifnot(!any(str_detect(input_clean[1], "[[:alpha:]]")))
       stopifnot(!any(str_detect(input_clean[2], "[[:alpha:]]")))
 
-      message(glue(
-        "Testing {length(unlist(input_clean))} total genes with ReactomePA:"
-      ))
+      message(
+        "Testing ", length(unlist(input_clean)), " total genes with ReactomePA:"
+      )
 
       suppressPackageStartupMessages(
         rpa_part1 <- imap(
           input_clean,
           function(x, nm) {
-            message(glue("\t{length(x)} {nm}-regulated genes..."))
+            message("\t", length(x), " ", nm, "-regulated genes...")
 
-            enrichPathway(
+            ReactomePA::enrichPathway(
               gene = x,
               organism = species,
               universe = background
@@ -178,9 +175,9 @@ tr_enrichment_wrapper <- function(input_genes,
 
     if (is.null(directional)) {
 
-      message(glue(
-        "Testing {length(input_clean)} genes with Sigora..."
-      ))
+      message(
+        "Testing ", length(input_clean), " genes with Sigora..."
+      )
 
       if (gene_ratio) { # Non-directional, "gene_ratio = TRUE"
 
@@ -197,7 +194,7 @@ tr_enrichment_wrapper <- function(input_genes,
 
         sigora_detailed_list <- sigora_part1$detailed_results %>%
           as_tibble() %>%
-          select(pathway, contains("gene")) %>%
+          dplyr::select(pathway, contains("gene")) %>%
           split(x = ., f = .$pathway)
 
         pathway_cd_data <- imap(sigora_detailed_list, function(x, nm)
@@ -213,7 +210,7 @@ tr_enrichment_wrapper <- function(input_genes,
           ungroup()
 
         pathway_bg_data <- sigora_database %>%
-          select("pathwy_id" = pathway_id, entrez_gene_id) %>%
+          dplyr::select("pathwy_id" = pathway_id, entrez_gene_id) %>%
           filter(pathwy_id %in% pathway_cd_data$pathwy_id) %>%
           group_by(pathwy_id) %>%
           summarise(bg_genes = paste0(entrez_gene_id, collapse = ";")) %>%
@@ -249,16 +246,16 @@ tr_enrichment_wrapper <- function(input_genes,
 
     } else { # Directional
 
-      message(glue(
-        "Testing {length(unlist(input_clean))} total genes with Sigora:"
-      ))
+      message(
+        "Testing ", length(unlist(input_clean)), " total genes with Sigora:"
+      )
 
       if (gene_ratio) { # Directional, "gene_ratio = TRUE"
 
         sigora_part3 <- imap(
           input_clean,
           function(x, nm) {
-            message(glue("\t{length(x)} {nm}-regulated genes..."))
+            message("\t", length(x), " ", nm, "-regulated genes...")
 
             sigora_part1 <- quiet(sigora_safe(
               queryList = x,
@@ -273,7 +270,7 @@ tr_enrichment_wrapper <- function(input_genes,
 
             sigora_detailed_list <- sigora_part1$detailed_results %>%
               as_tibble() %>%
-              select(pathway, contains("gene")) %>%
+              dplyr::select(pathway, contains("gene")) %>%
               split(x = ., f = .$pathway)
 
             pathway_cd_data <- imap(sigora_detailed_list, function(x, nm)
@@ -289,7 +286,7 @@ tr_enrichment_wrapper <- function(input_genes,
               ungroup()
 
             pathway_bg_data <- sigora_database %>%
-              select("pathwy_id" = pathway_id, entrez_gene_id) %>%
+              dplyr::select("pathwy_id" = pathway_id, entrez_gene_id) %>%
               filter(pathwy_id %in% pathway_cd_data$pathwy_id) %>%
               group_by(pathwy_id) %>%
               summarise(bg_genes = paste0(entrez_gene_id, collapse = ";")) %>%
@@ -318,7 +315,7 @@ tr_enrichment_wrapper <- function(input_genes,
           input_clean,
           function(x, nm) {
 
-            message(glue("\t{length(x)} {nm}-regulated genes..."))
+            message("\t", length(x), " ", nm, "-regulated genes...")
 
             sigora_part1 <- quiet(sigora_safe(
               queryList = x,

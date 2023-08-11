@@ -11,7 +11,6 @@
 #' @import purrr
 #' @import tibble
 #' @import janitor
-#' @import forcats
 #'
 #' @description Creates three plotly figures from MultiQC results, and returns
 #'   the data along with the plot objects.
@@ -138,7 +137,7 @@ tr_qc_plots <- function(directory) {
 
   star_tidy <- star_raw %>%
     arrange(sample) %>%
-    mutate(sample = fct_rev(sample))
+    mutate(sample = factor(sample, rev(sample)))
 
   star_plot <- plotly::plot_ly(
     star_tidy,
@@ -213,7 +212,7 @@ tr_qc_plots <- function(directory) {
       no_feature_percent = no_feature / total_count,
       too_low_a_qual_percent = too_low_a_qual / total_count,
       not_aligned_percent = not_aligned / total_count,
-      sample = fct_rev(sample)
+      sample = factor(sample, rev(sample))
     ) %>%
     mutate(across(contains("percent"), signif, digits = 3))
 
