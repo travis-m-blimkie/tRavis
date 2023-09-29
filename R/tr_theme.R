@@ -29,10 +29,10 @@ tr_theme <- function(baseSize = 18, baseFamily = "", grid = TRUE) {
       theme(
         text             = element_text(colour = "black"),
         axis.text        = element_text(colour = "black"),
-        axis.ticks       = element_line(colour = "black", size = 0.5),
-        panel.grid.major = element_line(colour = "grey", size = 0.5),
+        axis.ticks       = element_line(colour = "black", linewidth = 0.5),
+        panel.grid.major = element_line(colour = "grey", linewidth = 0.5),
         panel.grid.minor = element_blank(),
-        panel.border     = element_rect(colour = "black", size = 1),
+        panel.border     = element_rect(colour = "black", linewidth = 1),
         strip.background = element_rect(fill = NA),
         strip.text       = element_text(colour = "black", face = "bold", size = 14)
       )
@@ -41,9 +41,9 @@ tr_theme <- function(baseSize = 18, baseFamily = "", grid = TRUE) {
       theme(
         text             = element_text(colour = "black"),
         axis.text        = element_text(colour = "black"),
-        axis.ticks       = element_line(colour = "black", size = 0.5),
+        axis.ticks       = element_line(colour = "black", linewidth = 0.5),
         panel.grid       = element_blank(),
-        panel.border     = element_rect(colour = "black", size = 1),
+        panel.border     = element_rect(colour = "black", linewidth = 1),
         strip.background = element_rect(fill = NA),
         strip.text       = element_text(colour = "black", face = "bold", size = 14)
       )
