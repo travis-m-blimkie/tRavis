@@ -31,7 +31,8 @@ tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
   ), nrow = 2, ncol = 2)
 
   # Run and return Fisher's Exact test on the matrix
-  raw_pval <- stats::fisher.test(enrichment_matrix, alternative = "greater")$p.value
+  raw_pval <-
+    stats::fisher.test(enrichment_matrix, alternative = "greater")$p.value
 
   return(raw_pval)
 }

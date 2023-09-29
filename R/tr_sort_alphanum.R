@@ -19,14 +19,10 @@
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
-#' \dontrun{
-#'
-#'   # Using the column name
-#'   tr_sort_alphanum(input_df = table1, sort_col = "category")
-#'
-#'   # Using pipes and column index
-#'   table1 %>% tr_sort_alphanum(2)
-#' }
+#' tr_sort_alphanum(
+#'   input_df = data.frame(colA = c(2, 1, 3), colB = c("m2", "m1", "m3")),
+#'   sort_col = "colB"
+#' )
 #'
 tr_sort_alphanum <- function(input_df, sort_col) {
   col_contents <- input_df[, sort_col] %>% unlist() %>% as.character()
