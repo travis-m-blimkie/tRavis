@@ -1,21 +1,19 @@
-context("Compare lists")
-library(tRavis)
+test_that("we have basic functionality", {
 
-vec1 <- c("a", "b", "c")
-vec2 <- c("b", "c", "d")
-vec3 <- c("a", NA)
+  vec1 <- c("a", "b", "c")
+  vec2 <- c("b", "c", "d")
+  vec3 <- c("a", NA)
 
-expected_normal <- list(
-  unique_x = "a",
-  common = c("b", "c"),
-  unique_y = "d"
-)
+  expected_normal <- list(
+    unique_x = "a",
+    common   = c("b", "c"),
+    unique_y = "d"
+  )
 
-
-test_that("Basic functionality", {
   expect_length(tr_compare_lists(x = vec1, y = vec2), 3)
-})
 
-test_that("Returns correct values", {
-  expect_equal(tr_compare_lists(x = vec1, y = vec2), expected_normal)
+  expect_equal(
+    tr_compare_lists(x = vec1, y = vec2),
+    expected_normal
+  )
 })
