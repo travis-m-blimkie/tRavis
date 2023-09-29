@@ -31,8 +31,9 @@ identifying differentially expressed genes.
 }
 \examples{
 \dontrun{
-  DESeq2::results(dds, name = "treatment_peptide_vs_vehicle") \%>\%
-    tr_clean_deseq2_result()
+  tr_clean_deseq2_result(
+    DESeq2::results(dds, name = "treatment_peptide_vs_vehicle")
+  )
 }
 
 }

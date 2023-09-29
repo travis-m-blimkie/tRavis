@@ -18,6 +18,9 @@
 #'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
+#' @examples
+#' tr_trunc_neatly("This is a test string", l = 17)
+#'
 tr_trunc_neatly <- function(x, l = 60) {
   map_chr(
     x,
