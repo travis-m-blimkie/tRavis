@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_test_enrichment.R
 \name{tr_test_enrichment}
 \alias{tr_test_enrichment}
-\title{tr_test_enrichment}
+\title{Perform a basic enrichment test}
 \usage{
 tr_test_enrichment(query_genes, enrichment_set, total_genes)
 }

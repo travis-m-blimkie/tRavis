@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_trunc_neatly.R
 \name{tr_trunc_neatly}
 \alias{tr_trunc_neatly}
-\title{Cleanly trim truncate long strings}
+\title{Cleanly trim and truncate long strings}
 \usage{
 tr_trunc_neatly(x, l = 60)
 }

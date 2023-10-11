@@ -1,4 +1,4 @@
-#' tr_test_enrichment
+#' Perform a basic enrichment test
 #'
 #' @param query_genes List of experimentally or otherwise derived genes, in
 #'   which one wishes to test for enrichment.

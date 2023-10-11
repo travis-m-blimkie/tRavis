@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_compare_lists.R
 \name{tr_compare_lists}
 \alias{tr_compare_lists}
-\title{tr_compare_lists}
+\title{Easily compare two lists}
 \usage{
 tr_compare_lists(x, y, names = NULL)
 }

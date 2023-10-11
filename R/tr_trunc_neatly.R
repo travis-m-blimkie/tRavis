@@ -1,4 +1,4 @@
-#' Cleanly trim truncate long strings
+#' Cleanly trim and truncate long strings
 #'
 #' @param x Input string to trim to desired length, appending an ellipsis to the
 #'   end, and without splitting words

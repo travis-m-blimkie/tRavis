@@ -1,4 +1,4 @@
-#' tr_compare_lists
+#' Easily compare two lists
 #'
 #' @param x First vector to compare.
 #' @param y Second vector to compare.

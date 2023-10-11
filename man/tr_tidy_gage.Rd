@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_tidy_gage.R
 \name{tr_tidy_gage}
 \alias{tr_tidy_gage}
-\title{tr_tidy_gage}
+\title{Coerce Gage output to a tidy data frame}
 \usage{
 tr_tidy_gage(gage_result, qval = 0.1)
 }

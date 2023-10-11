@@ -1,4 +1,4 @@
-#' tr_theme
+#' Customized ggplot2 theme
 #'
 #' @param baseSize Base font size applied to all text in the plot
 #' @param baseFamily Base font type applies to all text in the plot
@@ -6,7 +6,6 @@
 #'   TRUE, only "major" grid lines are included.
 #'
 #' @return Theme object
-#'
 #' @export
 #'
 #' @import ggplot2

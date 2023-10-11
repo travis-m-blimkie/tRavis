@@ -1,4 +1,4 @@
-#' tr_clean_deseq2_result
+#' Tidy results from DESeq2
 #'
 #' @param deseq2_result Results object for DE genes, of class
 #'   `DESeqResults`
@@ -27,10 +27,12 @@
 #'   )
 #' }
 #'
-tr_clean_deseq2_result <- function(deseq2_result,
-                                   p_adjusted  = 0.05,
-                                   fold_change = 1.5,
-                                   inform      = TRUE) {
+tr_clean_deseq2_result <- function(
+    deseq2_result,
+    p_adjusted  = 0.05,
+    fold_change = 1.5,
+    inform      = TRUE
+) {
 
   stopifnot(class(deseq2_result) == "DESeqResults")
 

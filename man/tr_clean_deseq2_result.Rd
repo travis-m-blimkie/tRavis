@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_clean_deseq2_result.R
 \name{tr_clean_deseq2_result}
 \alias{tr_clean_deseq2_result}
-\title{tr_clean_deseq2_result}
+\title{Tidy results from DESeq2}
 \usage{
 tr_clean_deseq2_result(
   deseq2_result,

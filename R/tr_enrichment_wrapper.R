@@ -29,6 +29,10 @@
 #' @return Data frame (tibble) of unfiltered results
 #' @export
 #'
+#' @description
+#' `r lifecycle::badge('deprecated')`
+#'
+#'
 #' @import dplyr
 #' @import purrr
 #' @import sigora
@@ -39,14 +43,16 @@
 #'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
-tr_enrichment_wrapper <- function(input_genes,
-                                  directional = NULL,
-                                  gene_ratio = FALSE,
-                                  tool,
-                                  species = "human",
-                                  background = NULL,
-                                  gps_repo = NULL,
-                                  lvl = NULL) {
+tr_enrichment_wrapper <- function(
+    input_genes,
+    directional = NULL,
+    gene_ratio = FALSE,
+    tool,
+    species = "human",
+    background = NULL,
+    gps_repo = NULL,
+    lvl = NULL
+) {
 
   # Basic input checks
   tool <- tolower(tool)

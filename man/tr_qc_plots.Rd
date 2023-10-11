@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_qc_plots.R
 \name{tr_qc_plots}
 \alias{tr_qc_plots}
-\title{tr_qc_plots}
+\title{Create plotly figures from MultiQC}
 \usage{
 tr_qc_plots(directory)
 }

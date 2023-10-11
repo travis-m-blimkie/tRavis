@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_get_files.R
 \name{tr_get_files}
 \alias{tr_get_files}
-\title{tr_get_files}
+\title{Create a named list of files}
 \usage{
 tr_get_files(
   folder,

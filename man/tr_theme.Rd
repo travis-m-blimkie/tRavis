@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_theme.R
 \name{tr_theme}
 \alias{tr_theme}
-\title{tr_theme}
+\title{Customized ggplot2 theme}
 \usage{
 tr_theme(baseSize = 18, baseFamily = "", grid = TRUE)
 }
