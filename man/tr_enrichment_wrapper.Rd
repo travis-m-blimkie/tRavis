@@ -52,7 +52,7 @@ or 2 for KEGG data. Does not apply when \code{tool = "ReactomePA"}}
 Data frame (tibble) of unfiltered results
 }
 \description{
-Wrapper for pathway enrichment with ReactomePA or sigora
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \references{
 None.

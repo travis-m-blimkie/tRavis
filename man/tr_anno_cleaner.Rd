@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_anno_cleaner.R
 \name{tr_anno_cleaner}
 \alias{tr_anno_cleaner}
-\title{tr_anno_cleaner}
+\title{Clean annotations from pseudomonas.com}
 \usage{
 tr_anno_cleaner(input_file, extra_cols = FALSE, fill_names = FALSE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/tr_sort_alphanum.R
 \name{tr_sort_alphanum}
 \alias{tr_sort_alphanum}
-\title{tr_sort_alphanum}
+\title{Properly sort alphanumeric strings}
 \usage{
 tr_sort_alphanum(input_df, sort_col)
 }

@@ -1,4 +1,4 @@
-#' tr_anno_cleaner
+#' Clean annotations from pseudomonas.com
 #'
 #' @param input_file Path to the input TSV or CSV file.
 #' @param extra_cols Logical to determine if start, end, and strand columns
@@ -34,7 +34,11 @@
 #'   )
 #' }
 #'
-tr_anno_cleaner <- function(input_file, extra_cols = FALSE, fill_names = FALSE) {
+tr_anno_cleaner <- function(
+    input_file,
+    extra_cols = FALSE,
+    fill_names = FALSE
+) {
 
   file_type <- stringr::str_extract(input_file, pattern = "(c|t)sv$")
 

@@ -1,4 +1,4 @@
-#' tr_tidy_gage
+#' Coerce Gage output to a tidy data frame
 #'
 #' @param gage_result Output from call to `gage` function.
 #' @param qval Cutoff for q-value. Defaults to 0.1.

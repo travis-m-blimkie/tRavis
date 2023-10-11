@@ -1,4 +1,4 @@
-#' tr_sort_alphanum
+#' Properly sort alphanumeric strings
 #'
 #' @param input_df Input data frame or tibble.
 #' @param sort_col Column to be used in sorting. Can be an index or the name

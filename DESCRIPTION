@@ -20,7 +20,8 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    sigora
+    sigora,
+    lifecycle
 RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 2.1.0),

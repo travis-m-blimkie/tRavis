@@ -1,4 +1,4 @@
-#' tr_get_files
+#' Create a named list of files
 #'
 #' @param folder Directory containing files of interest.
 #' @param pattern Optional, case-sensitive pattern to use in file searching. If
