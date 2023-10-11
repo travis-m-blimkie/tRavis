@@ -9,7 +9,6 @@
 #' }
 "biomart_id_mapping_human"
 
-
 #' Mouse ID mapping from biomaRt
 #'
 #' @format A data frame (tibble) with 57388 rows and 4 columns:
@@ -20,53 +19,6 @@
 #'   \item{description}{Description of the gene}
 #' }
 "biomart_id_mapping_mouse"
-
-
-#' Gene Pair Signature (GPS) object for human Reactome data
-#'
-#' Reactome human pathway data, constructed by `sigora::makeGPS()` and suitable
-#' for use in pathway enrichment with Sigora.
-#'
-#' @details For more information see Sigora's documentation:
-#'   <https://cran.r-project.org/package=sigora>
-#'
-#' @format A list with nine elements:
-#' \describe{
-#'   \item{origRepo}{A list cotaining the original data input to `makeGPS`}
-#'   \item{L1}{Level 1 gene pair signatures}
-#'   \item{L2}{Level 2 gene pair signatures}
-#'   \item{L3}{Level 3 gene pair signatures}
-#'   \item{L4}{Level 4 gene pair signatures}
-#'   \item{L5}{Level 5 gene pair signatures}
-#'   \item{repoName}{Name of the repository used to make the GPS object}
-#'   \item{pathwaydescriptions}{A data frame of pathway names and IDs}
-#'   \item{call}{The call to `makeGPS`}
-#' }
-"gps_rea_hsa"
-
-
-#' Gene Pair Signature (GPS) object for mouse Reactome data
-#'
-#' Reactome mouse pathway data, constructed by `sigora::makeGPS()` and suitable
-#' for use in pathway enrichment with Sigora.
-#'
-#' @details For more information see Sigora's documentation:
-#'   <https://cran.r-project.org/package=sigora>
-#'
-#' @format A list with nine elements:
-#' \describe{
-#'   \item{origRepo}{A list cotaining the original data input to `makeGPS`}
-#'   \item{L1}{Level 1 gene pair signatures}
-#'   \item{L2}{Level 2 gene pair signatures}
-#'   \item{L3}{Level 3 gene pair signatures}
-#'   \item{L4}{Level 4 gene pair signatures}
-#'   \item{L5}{Level 5 gene pair signatures}
-#'   \item{repoName}{Name of the repository used to make the GPS object}
-#'   \item{pathwaydescriptions}{A data frame of pathway names and IDs}
-#'   \item{call}{The call to `makeGPS`}
-#' }
-"gps_rea_mmu"
-
 
 #' Human pathway hierarchy from Reactome
 #'
@@ -81,7 +33,6 @@
 #' }
 "reactome_categories_human"
 
-
 #' Mouse pathway hierarchy from Reactome
 #'
 #' Reactome pathway hierarchy data for mice
@@ -94,16 +45,3 @@
 #'   \item{level_2}{Second-level hierarchy term}
 #' }
 "reactome_categories_mouse"
-
-
-#' Sigora's database
-#'
-#' Table of Reactome pathways and their genes used by Sigora for enrichment.
-#'
-#' @format A data frame (tibble) with 53265 rows and 3 columns
-#' \describe{
-#'   \item{pathway_id}{Pathway ID}
-#'   \item{entrez_gene_id}{Entrez gene ID for constituent genes}
-#'   \item{description}{Pathway name}
-#' }
-"sigora_database"
