@@ -11,16 +11,12 @@ Imports:
     dplyr,
     ggplot2,
     janitor,
-    org.Hs.eg.db,
     plotly,
     purrr,
-    ReactomePA,
     readr,
     rjson,
     stringr,
     tibble,
-    tidyr,
-    sigora,
     lifecycle
 RoxygenNote: 7.2.3
 Suggests: 
