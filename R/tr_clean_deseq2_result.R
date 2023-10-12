@@ -7,14 +7,13 @@
 #' @param inform Should a message be printed with the DE comparison and number
 #'   of DE genes found? Defaults to `TRUE`.
 #'
-#' @return Tidy data frame (tibble) of filtered DE genes.
-#'
+#' @return A data frame (tibble) of filtered DE genes
 #' @export
 #'
 #' @import dplyr
 #'
-#' @description Helper function to filter and sort results from DESeq2 to aid in
-#'   identifying differentially expressed genes.
+#' @description Helper function to filter and sort results from DESeq2, to aid
+#'   in identifying differentially expressed genes.
 #'
 #' @references None.
 #'
@@ -29,19 +28,21 @@
 #'
 tr_clean_deseq2_result <- function(
     deseq2_result,
-    p_adjusted  = 0.05,
+    p_adjusted = 0.05,
     fold_change = 1.5,
-    inform      = TRUE
+    inform = TRUE
 ) {
 
   stopifnot(class(deseq2_result) == "DESeqResults")
 
-  comparison <- attr(deseq2_result, "elementMetadata")[2, 2] %>%
-    str_remove(., "log2 fold change \\(MLE\\): ")
+  comparison <- stringr::str_remove(
+    attr(deseq2_result, "elementMetadata")[2, 2],
+    "log2 fold change \\(MLE\\): "
+  )
 
   output_result <- deseq2_result %>%
     as.data.frame() %>%
-    rownames_to_column("gene") %>%
+    tibble::rownames_to_column("gene") %>%
     filter(
       padj <= p_adjusted,
       abs(log2FoldChange) >= log2(fold_change)

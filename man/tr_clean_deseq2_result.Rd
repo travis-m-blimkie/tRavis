@@ -23,11 +23,11 @@ tr_clean_deseq2_result(
 of DE genes found? Defaults to \code{TRUE}.}
 }
 \value{
-Tidy data frame (tibble) of filtered DE genes.
+A data frame (tibble) of filtered DE genes
 }
 \description{
-Helper function to filter and sort results from DESeq2 to aid in
-identifying differentially expressed genes.
+Helper function to filter and sort results from DESeq2, to aid
+in identifying differentially expressed genes.
 }
 \examples{
 \dontrun{
