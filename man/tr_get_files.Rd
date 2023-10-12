@@ -9,7 +9,7 @@ tr_get_files(
   pattern = "",
   recur = FALSE,
   date = FALSE,
-  removeString = NULL
+  remove_string = NULL
 )
 }
 \arguments{
@@ -26,7 +26,7 @@ FALSE.}
 formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
 Defaults to FALSE.}
 
-\item{removeString}{Optional string which can be removed from file names when
+\item{remove_string}{Optional string which can be removed from file names when
 creating names for the output list.}
 }
 \value{
@@ -38,6 +38,17 @@ directory. The list names are trimmed versions of file names, while
 contents of the list are the file names themselves. In this way, it can be
 easily piped into \code{purrr::map(~read.csv(.))} to create a named list of
 data frames.
+}
+\examples{
+\dontrun{
+  tr_get_files(
+    folder = "DE_genes",
+    pattern = "de_condition",
+    remove_string = "de_condition_"
+  )
+}
+
+
 }
 \references{
 None.
