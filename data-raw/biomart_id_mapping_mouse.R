@@ -4,7 +4,12 @@ library(dplyr)
 
 # Use `biomaRt::getBM()` to create the conversion table
 biomart_id_mapping_mouse_0 <- getBM(
-  attributes = c("ensembl_gene_id", "mgi_symbol", "entrezgene_id", "description"),
+  attributes = c(
+    "ensembl_gene_id",
+    "mgi_symbol",
+    "entrezgene_id",
+    "description"
+  ),
   mart = useMart("ensembl", dataset = "mmusculus_gene_ensembl")
 )
 
@@ -19,4 +24,4 @@ biomart_id_mapping_mouse <- biomart_id_mapping_mouse_0 %>%
   distinct()
 
 # Save the data for use in the package
-usethis::use_data(biomart_id_mapping_mouse, overwrite = TRUE, compress = "bzip2")
+usethis::use_data(biomart_id_mapping_mouse, overwrite = TRUE)

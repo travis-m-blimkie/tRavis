@@ -1,6 +1,7 @@
-#' Human ID mapping from biomaRt
+#' Human gene ID mapping from biomaRt
 #'
-#' @format A data frame (tibble) with 75130 rows and 4 columns:
+#' @return An object of class "tbl_df", "tbl", "data.frame"
+#' @format A data frame (tibble) with 75739 rows and 4 columns:
 #' \describe{
 #'   \item{ensembl_gene_id}{Human Ensembl gene IDs}
 #'   \item{hgnc_symbol}{Human gene symbols}
@@ -9,9 +10,10 @@
 #' }
 "biomart_id_mapping_human"
 
-#' Mouse ID mapping from biomaRt
+#' Mouse gene ID mapping from biomaRt
 #'
-#' @format A data frame (tibble) with 57388 rows and 4 columns:
+#' @return An object of class "tbl_df", "tbl", "data.frame"
+#' @format A data frame (tibble) with 57286 rows and 4 columns:
 #' \describe{
 #'   \item{ensembl_gene_id}{Mouse Ensembl gene IDs}
 #'   \item{mgi_symbol}{Mouse gene name/symbol}
@@ -22,9 +24,8 @@
 
 #' Human pathway hierarchy from Reactome
 #'
-#' Reactome pathway hierarchy data for humans
-#'
-#' @format A data frame (tibble) with 2615 rows and 4 columns
+#' @return An object of class "tbl_df", "tbl", "data.frame"
+#' @format A data frame (tibble) with 2647 rows and 4 columns:
 #' \describe{
 #'   \item{id}{Pathway ID}
 #'   \item{description}{Pathway name}
@@ -35,9 +36,8 @@
 
 #' Mouse pathway hierarchy from Reactome
 #'
-#' Reactome pathway hierarchy data for mice
-#'
-#' @format A data frame (tibble) with 1718 rows and 4 columns
+#' @return An object of class "tbl_df", "tbl", "data.frame"
+#' @format A data frame (tibble) with 1729 rows and 4 columns:
 #' \describe{
 #'   \item{id}{Pathway ID}
 #'   \item{description}{Pathway name}
