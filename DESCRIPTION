@@ -1,6 +1,6 @@
 Package: tRavis
 Title: Custom functions by Travis Blimkie
-Version: 0.73.12
+Version: 0.73.13
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: Includes some custom functions useful for work.
 Depends: R (>= 4.3.0)
@@ -21,8 +21,12 @@ Imports:
 RoxygenNote: 7.2.3
 Suggests: 
     DESeq2,
+    here,
+    knitr,
+    rmarkdown,
     S4Vectors,
     testthat,
     vdiffr
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
+VignetteBuilder: knitr
