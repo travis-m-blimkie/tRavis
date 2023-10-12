@@ -4,8 +4,7 @@
 #'   end, and without splitting words
 #' @param l Desired length at which to trim strings
 #'
-#' @return Character
-#'
+#' @return Character string
 #' @export
 #'
 #' @import stringr

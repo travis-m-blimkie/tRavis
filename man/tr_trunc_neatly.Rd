@@ -13,7 +13,7 @@ end, and without splitting words}
 \item{l}{Desired length at which to trim strings}
 }
 \value{
-Character
+Character string
 }
 \description{
 Trims the input string to the desired length, appending an
