@@ -12,7 +12,7 @@ utils::globalVariables(
     "padj",
     "product_description",
     "product_name",
-    "q.val",
+    "q_val",
     "start",
     "strand",
     "too_low_a_qual",
