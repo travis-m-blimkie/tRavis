@@ -1,20 +1,16 @@
 #' Coerce Gage output to a tidy data frame
 #'
-#' @param gage_result Output from call to `gage` function.
-#' @param qval Cutoff for q-value. Defaults to 0.1.
+#' @param gage_result Output from call to `gage` function; should be a list
+#' @param qval Cutoff for q-value, defaults to 0.1
 #'
-#' @return A data frame (tibble) of enriched KEGG pathways, filtered and without
-#'   rownames (first column contains pathway name/identifier).
-#'
+#' @return A filtered data frame (tibble) of enriched KEGG pathways
 #' @export
 #'
 #' @import dplyr
-#' @import tibble
 #'
 #' @description This function will simply convert the output from Gage
-#'   enrichment into a easier-to-use format, namely a data frame. At the same
-#'   time it also filters the result based on q-value, with a default of
-#'   "0.1".
+#'   enrichment into an easier-to-use tibble format. At the same time it can
+#'   also filter the result based on q value, with a default of `0.1`.
 #'
 #' @references None.
 #'
@@ -22,13 +18,14 @@
 #'
 tr_tidy_gage <- function(gage_result, qval = 0.1) {
 
-  gageList <- list(Up = gage_result[["greater"]], Down = gage_result[["less"]])
+  gageList <- list(gage_result[["greater"]], gage_result[["less"]])
 
   gageOut <- gageList %>%
-    map(~as.data.frame(.) %>% rownames_to_column("Pathway")) %>%
-    bind_rows(.id = "Direction") %>%
-    filter(q.val <= qval)
+    purrr::map(~tibble::rownames_to_column(as.data.frame(.x), "pathway")) %>%
+    bind_rows() %>%
+    janitor::clean_names() %>%
+    tibble::as_tibble() %>%
+    filter(q_val < qval)
 
   return(gageOut)
 }
-

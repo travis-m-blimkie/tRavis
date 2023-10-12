@@ -7,19 +7,17 @@
 tr_tidy_gage(gage_result, qval = 0.1)
 }
 \arguments{
-\item{gage_result}{Output from call to \code{gage} function.}
+\item{gage_result}{Output from call to \code{gage} function; should be a list}
 
-\item{qval}{Cutoff for q-value. Defaults to 0.1.}
+\item{qval}{Cutoff for q-value, defaults to 0.1}
 }
 \value{
-A data frame (tibble) of enriched KEGG pathways, filtered and without
-rownames (first column contains pathway name/identifier).
+A filtered data frame (tibble) of enriched KEGG pathways
 }
 \description{
 This function will simply convert the output from Gage
-enrichment into a easier-to-use format, namely a data frame. At the same
-time it also filters the result based on q-value, with a default of
-"0.1".
+enrichment into an easier-to-use tibble format. At the same time it can
+also filter the result based on q value, with a default of \code{0.1}.
 }
 \references{
 None.
