@@ -3,9 +3,9 @@
 \docType{data}
 \name{biomart_id_mapping_mouse}
 \alias{biomart_id_mapping_mouse}
-\title{Mouse ID mapping from biomaRt}
+\title{Mouse gene ID mapping from biomaRt}
 \format{
-A data frame (tibble) with 57388 rows and 4 columns:
+A data frame (tibble) with 57286 rows and 4 columns:
 \describe{
 \item{ensembl_gene_id}{Mouse Ensembl gene IDs}
 \item{mgi_symbol}{Mouse gene name/symbol}
@@ -16,7 +16,10 @@ A data frame (tibble) with 57388 rows and 4 columns:
 \usage{
 biomart_id_mapping_mouse
 }
+\value{
+An object of class "tbl_df", "tbl", "data.frame"
+}
 \description{
-Mouse ID mapping from biomaRt
+Mouse gene ID mapping from biomaRt
 }
 \keyword{datasets}
