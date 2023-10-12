@@ -9,7 +9,7 @@
 #' @param date Do file names contain a date which should be removed? Must be
 #' formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
 #' Defaults to FALSE.
-#' @param removeString Optional string which can be removed from file names when
+#' @param remove_string Optional string which can be removed from file names when
 #'   creating names for the output list.
 #'
 #' @return Named list of files to be read.
@@ -30,12 +30,22 @@
 #'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
+#' @examples
+#' \dontrun{
+#'   tr_get_files(
+#'     folder = "DE_genes",
+#'     pattern = "de_condition",
+#'     remove_string = "de_condition_"
+#'   )
+#' }
+#'
+#'
 tr_get_files <- function(
     folder,
     pattern = "",
     recur = FALSE,
     date = FALSE,
-    removeString = NULL
+    remove_string = NULL
 ) {
 
   # List all files in the specified folder, using the provided pattern. If no
@@ -71,8 +81,8 @@ tr_get_files <- function(
 
   # Remove specified string if provided. Needs to be conditional, otherwise
   # `str_remove_all()` returns an error for trying to remove NULL.
-  if (!is.null(removeString)) {
-    f_names <- f_names %>% str_remove_all(., pattern = removeString)
+  if (!is.null(remove_string)) {
+    f_names <- f_names %>% str_remove_all(., pattern = remove_string)
   }
 
   # Create and return output object
