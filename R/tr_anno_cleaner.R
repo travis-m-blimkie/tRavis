@@ -12,7 +12,9 @@
 #' @export
 #'
 #' @import dplyr
-#' @import readr
+#' @import stringr
+#' @importFrom janitor clean_names
+#' @importFrom readr cols read_delim
 #'
 #' @description Given an input CSV or TSV annotation file (from *P.
 #'   aeruginosa*), separates and cleans columns, returning a clean and tidy data
@@ -38,7 +40,7 @@ tr_anno_cleaner <- function(
     fill_names = FALSE
 ) {
 
-  file_type <- stringr::str_extract(input_file, pattern = "\\.(c|t)sv")
+  file_type <- str_extract(input_file, pattern = "\\.(c|t)sv")
 
   stopifnot("'input_file' must be a '.csv' or '.tsv' file" = !is.na(file_type))
 
@@ -47,7 +49,7 @@ tr_anno_cleaner <- function(
     delim = switch(file_type, csv = ",", tsv = "\t"),
     col_types = cols()
   ) %>%
-    janitor::clean_names()
+    clean_names()
 
   if (!extra_cols) {
     final_cols <- c("locus_tag", "gene_name", "product_name")

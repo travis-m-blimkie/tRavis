@@ -7,9 +7,12 @@
 #' @export
 #'
 #' @import dplyr
-#' @import purrr
-#' @import tibble
-#' @import janitor
+#' @import stringr
+#' @importFrom janitor clean_names
+#' @importFrom plotly add_trace layout plot_ly style
+#' @importFrom purrr flatten map map2 pluck
+#' @importFrom readr cols read_delim
+#' @importFrom rjson fromJSON
 #'
 #' @description Creates three plotly figures from MultiQC results, and returns
 #'   the data along with the plot objects.
@@ -27,7 +30,7 @@ tr_qc_plots <- function(directory) {
 
   # FastQC ----------------------------------------------------------------
 
-  json_all <- rjson::fromJSON(
+  json_all <- fromJSON(
     file = list.files(
       directory, pattern = "multiqc_data.json", full.names = TRUE
     ),
@@ -43,21 +46,22 @@ tr_qc_plots <- function(directory) {
   fastqc_names <- fastqc_list %>% map(~pluck(., "name"))
 
   fastqc_data <- fastqc_list %>% map(
-    ~pluck(., "data") %>%
-      map(~tibble(Base_Position = .[[1]], Phred_Score = .[[2]])) %>%
-      bind_rows()
+    ~pluck("data") %>%
+      map(~data.frame(Base_Position = .[[1]], Phred_Score = .[[2]])) %>%
+      bind_rows() %>%
+      as_tibble()
   )
 
   fastqc_final <- map2(
     fastqc_names,
     fastqc_data,
-    ~add_column(.y, sample = rep(.x), .before = 1)
+    ~mutate(.y, sample = rep(.x), .before = 1)
   ) %>%
     bind_rows()
 
   read_length <- max(fastqc_final$Base_Position)
 
-  fastqc_plot <- plotly::plot_ly(
+  fastqc_plot <- plot_ly(
     group_by(fastqc_final, sample),
     x = ~Base_Position,
     y = ~Phred_Score,
@@ -69,7 +73,7 @@ tr_qc_plots <- function(directory) {
       "Sample: ", sample
     )
   ) %>%
-    plotly::layout(
+    layout(
       xaxis = list(
         title = "Base Position",
         showline = TRUE,
@@ -121,23 +125,24 @@ tr_qc_plots <- function(directory) {
         )
       )
     ) %>%
-    plotly::style(
+    style(
       hoverlabel = list(bgcolor = "white", bordercolor = "black")
     )
 
 
   # STAR ------------------------------------------------------------------
 
-  star_raw <- read_tsv(
+  star_raw <- read_delim(
     list.files(directory, pattern = "multiqc_star.txt", full.names = TRUE),
-    col_types = cols()
+    col_types = cols(),
+    delim = "\t"
   ) %>% clean_names()
 
   star_tidy <- star_raw %>%
     arrange(sample) %>%
     mutate(sample = factor(sample, rev(sample)))
 
-  star_plot <- plotly::plot_ly(
+  star_plot <- plot_ly(
     star_tidy,
     x = ~uniquely_mapped,
     y = ~sample,
@@ -153,51 +158,50 @@ tr_qc_plots <- function(directory) {
     marker = list(color = "#437bb1"),
     name = "Uniquely Mapped"
   ) %>%
-    plotly::add_trace(
+    add_trace(
       x = ~multimapped,
       y = ~sample,
       type = "bar",
       marker = list(color = "#7cb5ec"),
       name = "Mapped to multiple loci"
     ) %>%
-    plotly::add_trace(
+    add_trace(
       x = ~multimapped_toomany,
       y = ~sample,
       type = "bar",
       marker = list(color = "#eda467"),
       name = "Mapped to too many loci"
     ) %>%
-    plotly::add_trace(
+    add_trace(
       x = ~unmapped_tooshort,
       y = ~sample,
       type = "bar",
       marker = list(color = "#b1084c"),
       name = "Unmapped: too short"
     ) %>%
-    plotly::add_trace(
+    add_trace(
       x = ~unmapped_other,
       y = ~sample,
       type = "bar",
       marker = list(color = "#7f0000"),
       name = "Unmapped: other"
     ) %>%
-    plotly::layout(
+    layout(
       barmode = "stack",
       xaxis = list(title = "Number of Reads"),
       yaxis = list(title = ""),
       legend = list(orientation = "h", y = -0.15),
       title = "<b>STAR: Aligned Reads</b>"
     ) %>%
-    plotly::style(
-      hoverlabel = list(bgcolor = "white", bordercolor = "black")
-    )
+    style(hoverlabel = list(bgcolor = "white", bordercolor = "black"))
 
 
   # HTSeq -----------------------------------------------------------------
 
-  htseq_raw <- read_tsv(
+  htseq_raw <- read_delim(
     list.files(directory, pattern = "multiqc_htseq.txt", full.names = TRUE),
-    col_types = cols()
+    col_types = cols(),
+    delim = "\t"
   ) %>%
     clean_names() %>%
     mutate(sample = str_remove(sample, "\\.count"))
@@ -214,7 +218,7 @@ tr_qc_plots <- function(directory) {
     ) %>%
     mutate(across(contains("percent"), signif, digits = 3))
 
-  htseq_plot <- plotly::plot_ly(
+  htseq_plot <- plot_ly(
     htseq_tidy,
     x = ~assigned,
     y = ~sample,
@@ -231,63 +235,61 @@ tr_qc_plots <- function(directory) {
     marker = list(color = "#7cb5ec"),
     name = "Assigned"
   ) %>%
-    plotly::add_trace(
+    add_trace(
       x = ~ambiguous,
       y = ~sample,
       type = "bar",
       marker = list(color = "#434348"),
       name = "Ambiguous"
     ) %>%
-    plotly::add_trace(
+    add_trace(
       x = ~alignment_not_unique,
       y = ~sample,
       type = "bar",
       marker = list(color = "#90ed7d"),
       name = "Alignment not unique"
     ) %>%
-    plotly::add_trace(
+    add_trace(
       x = ~no_feature,
       y = ~sample,
       type = "bar",
       marker = list(color = "#f7a35c"),
       name = "No feature"
     ) %>%
-    plotly::add_trace(
+    add_trace(
       x = ~too_low_a_qual,
       y = ~sample,
       type = "bar",
       marker = list(color = "#8085e9"),
       name = "Too low aQual"
     ) %>%
-    plotly::add_trace(
+    add_trace(
       x = ~not_aligned,
       y = ~sample,
       type = "bar",
       marker = list(color = "#f15c80"),
       name = "Not aligned"
     ) %>%
-    plotly::layout(
+    layout(
       barmode = "stack",
       xaxis = list(title = "Number of Counts"),
       yaxis = list(title = ""),
       legend = list(orientation = "h", y = -0.15),
       title = "<b>HTSeq-count: Gene Counts</b>"
     ) %>%
-    plotly::style(
-      hoverlabel = list(bgcolor = "white", bordercolor = "black")
-    )
+    style(hoverlabel = list(bgcolor = "white", bordercolor = "black"))
 
 
   # Return all output as a list -------------------------------------------
 
   return(list(
     "fastqc" = fastqc_plot,
-    "star"   = star_plot,
-    "htseq"  = htseq_plot,
+    "star" = star_plot,
+    "htseq" = htseq_plot,
     "data" = list(
       "fastqc" = fastqc_final,
-      "star"   = star_tidy,
-      "htseq"  = htseq_tidy
+      "star" = star_tidy,
+      "htseq" = htseq_tidy
     )
   ))
 }

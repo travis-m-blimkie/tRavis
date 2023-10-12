@@ -11,6 +11,8 @@
 #' @export
 #'
 #' @import dplyr
+#' @import stringr
+#' @importFrom tibble as_tibble rownames_to_column
 #'
 #' @description Helper function to filter and sort results from DESeq2, to aid
 #'   in identifying differentially expressed genes.
@@ -35,14 +37,14 @@ tr_clean_deseq2_result <- function(
 
   stopifnot(class(deseq2_result) == "DESeqResults")
 
-  comparison <- stringr::str_remove(
+  comparison <- str_remove(
     attr(deseq2_result, "elementMetadata")[2, 2],
     "log2 fold change \\(MLE\\): "
   )
 
   output_result <- deseq2_result %>%
     as.data.frame() %>%
-    tibble::rownames_to_column("gene") %>%
+    rownames_to_column("gene") %>%
     filter(
       padj <= p_adjusted,
       abs(log2FoldChange) >= log2(fold_change)
@@ -54,9 +56,9 @@ tr_clean_deseq2_result <- function(
 
   if (inform) {
     if (num_de_genes == 0) {
-      message(paste0("No DE genes found for ", comparison, "."))
+      message("No DE genes found for ", comparison, ".")
     } else {
-      message(paste0("Found ", num_de_genes, " DE genes for ", comparison, "."))
+      message("Found ", num_de_genes, " DE genes for ", comparison, ".")
       return(output_result)
     }
   } else {

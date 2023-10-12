@@ -8,6 +8,9 @@
 #' @return Produces the raw p-value from `fisher.test()`.
 #' @export
 #'
+#' @import dplyr
+#' @importFrom stats fisher.test
+#'
 #' @description Performs Fisher's Exact test to determine enrichment of a set of
 #'   genes of interest compared to some list of experimentally derived genes.
 #'   Assumes `alternative = "greater"` in call to `fisher.test()`.
@@ -30,7 +33,7 @@
 tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
 
   # Calculate overlap between the query list and enrichment set
-  num_overlap <- length(dplyr::intersect(query_genes, enrichment_set))
+  num_overlap <- length(intersect(query_genes, enrichment_set))
 
   # Construct the matrix to be used for the test
   enrichment_matrix <- matrix(c(
@@ -42,7 +45,7 @@ tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
 
   # Run and return Fisher's Exact test on the matrix
   raw_pval <-
-    stats::fisher.test(enrichment_matrix, alternative = "greater")$p.value
+    fisher.test(enrichment_matrix, alternative = "greater")$p.value
 
   return(raw_pval)
 }

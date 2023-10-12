@@ -17,8 +17,8 @@
 #' @export
 #'
 #' @import dplyr
-#' @import purrr
 #' @import stringr
+#' @importFrom stats setNames
 #'
 #' @description Function which creates a named list of files in a specified
 #'   directory. The list names are trimmed versions of file names, while
@@ -39,7 +39,6 @@
 #'   )
 #' }
 #'
-#'
 tr_get_files <- function(
     folder,
     pattern = "",
@@ -48,7 +47,7 @@ tr_get_files <- function(
     remove_string = NULL
 ) {
 
-  # List all files in the specified folder, using the provided pattern. If no
+  # List all files in the specified directory, using the provided pattern. If no
   # pattern is supplied, then we will list all files.
   f_files <- list.files(
     path       = folder,
@@ -58,20 +57,17 @@ tr_get_files <- function(
   )
 
   # Provide a custom error message if no files are found matching the pattern
-  if (length(f_files) == 0) {
-    stop(paste0(
-      "No files found matching the specified pattern."
-    ))
-  }
+  stopifnot(
+    "No files found matching the specified pattern" = length(f_files) != 0
+  )
 
   # Create the names to be assigned to each file in the list, removing the
   # extension from the end. The regex to match any file extension was taken
   # from:
   # https://stackoverflow.com/questions/22235518/regex-for-any-file-extension
-  f_names <-
-    list.files(folder, pattern = pattern, recursive = recur) %>%
-    str_remove(., pattern = "\\.[^\\.]+$") %>%
-    str_remove_all(., pattern = "^_|_$")
+  f_names <- list.files(directory, pattern = pattern, recursive = recur) %>%
+    str_remove(pattern = "\\.[^\\.]+$") %>%
+    str_remove_all(pattern = "^_|_$")
 
   # If specified, remove dates from the file names, assuming YYYYMMDD or similar
   # format
@@ -86,6 +82,6 @@ tr_get_files <- function(
   }
 
   # Create and return output object
-  f_output <- set_names(f_files, f_names) %>% as.list()
+  f_output <- as.list(setNames(f_files, f_names))
   return(f_output)
 }
