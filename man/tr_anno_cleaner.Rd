@@ -28,13 +28,12 @@ strand columns. Designed to work with files from
 \href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
 }
 \examples{
-\dontrun{
-  tr_anno_cleaner(
-    "Downloads/Pseudomonas_aeruginosa_PAO1_107.tsv",
-    extra_cols = FALSE,
-    fill_names = FALSE
+tr_anno_cleaner(
+  input_file = paste0(
+  "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
+  "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
   )
-}
+)
 
 }
 \references{
