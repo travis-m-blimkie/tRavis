@@ -27,9 +27,11 @@
 #'
 tr_compare_lists <- function(x, y, names = NULL) {
 
-  if ((is.vector(x) & is.vector(y)) == FALSE) {
-    stop("Wrong input type. Please ensure both 'x' and 'y' are vectors.")
-  }
+  stopifnot(
+    "Wrong input type. Please ensure both 'x' and 'y' are vectors." = {
+      (is.vector(x) & is.vector(y))
+    }
+  )
 
   output_list <- list(
     unique_x = setdiff(x, y),
