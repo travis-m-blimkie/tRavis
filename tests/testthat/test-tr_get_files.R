@@ -1,7 +1,7 @@
 test_that("we can list files properly", {
 
   retrieved_files <- tr_get_files(
-    folder = test_path("fixtures"),
+    directory = test_path("fixtures"),
     pattern = "^test",
     remove_string = "test_",
     date = TRUE

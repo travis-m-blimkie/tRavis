@@ -5,7 +5,7 @@
 \title{Create a named list of files}
 \usage{
 tr_get_files(
-  folder,
+  directory,
   pattern = "",
   recur = FALSE,
   date = FALSE,
@@ -13,7 +13,7 @@ tr_get_files(
 )
 }
 \arguments{
-\item{folder}{Directory containing files of interest.}
+\item{directory}{Directory containing files of interest.}
 
 \item{pattern}{Optional, case-sensitive pattern to use in file searching. If
 no pattern is supplied, all files in the specified directory will be
@@ -42,12 +42,11 @@ data frames.
 \examples{
 \dontrun{
   tr_get_files(
-    folder = "DE_genes",
+    directory = "DE_genes",
     pattern = "de_condition",
     remove_string = "de_condition_"
   )
 }
-
 
 }
 \references{
