@@ -22,6 +22,18 @@ Performs Fisher's Exact test to determine enrichment of a set of
 genes of interest compared to some list of experimentally derived genes.
 Assumes \code{alternative = "greater"} in call to \code{fisher.test()}.
 }
+\examples{
+all_genes <- paste0("gene", sample(1:10000, 5000))
+de_genes <- sample(all_genes, 1500)
+ex_set <- sample(all_genes, 100)
+
+tr_test_enrichment(
+  de_genes,
+  ex_set,
+  total_genes = 5000
+)
+
+}
 \references{
 None.
 }

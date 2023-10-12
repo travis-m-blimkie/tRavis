@@ -6,7 +6,6 @@
 #'   apply to the output.
 #'
 #' @return A named list of the common and unique elements of x and y.
-#'
 #' @export
 #'
 #' @import dplyr

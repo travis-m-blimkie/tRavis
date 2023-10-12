@@ -5,7 +5,6 @@
 #'   (quoted).
 #'
 #' @return Column-sorted data frame
-#'
 #' @export
 #'
 #' @import stringr

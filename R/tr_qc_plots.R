@@ -4,7 +4,6 @@
 #'   e.g. "multiqc/multiqc_data/".
 #'
 #' @return List of `plotly` plot objects and the data being plotted.
-#'
 #' @export
 #'
 #' @import dplyr
