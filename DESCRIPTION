@@ -1,6 +1,6 @@
 Package: tRavis
 Title: Custom functions by Travis Blimkie
-Version: 0.73.07
+Version: 0.73.08
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: Includes some custom functions useful for work.
 Depends: R (>= 4.3.0)
@@ -20,7 +20,9 @@ Imports:
     lifecycle
 RoxygenNote: 7.2.3
 Suggests: 
-    testthat (>= 2.1.0),
+    DESeq2,
+    S4Vectors,
+    testthat,
     vdiffr
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
