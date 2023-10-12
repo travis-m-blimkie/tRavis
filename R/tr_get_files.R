@@ -1,6 +1,6 @@
 #' Create a named list of files
 #'
-#' @param folder Directory containing files of interest.
+#' @param directory Directory containing files of interest.
 #' @param pattern Optional, case-sensitive pattern to use in file searching. If
 #'   no pattern is supplied, all files in the specified directory will be
 #'   matched.
@@ -33,14 +33,14 @@
 #' @examples
 #' \dontrun{
 #'   tr_get_files(
-#'     folder = "DE_genes",
+#'     directory = "DE_genes",
 #'     pattern = "de_condition",
 #'     remove_string = "de_condition_"
 #'   )
 #' }
 #'
 tr_get_files <- function(
-    folder,
+    directory,
     pattern = "",
     recur = FALSE,
     date = FALSE,
@@ -50,9 +50,9 @@ tr_get_files <- function(
   # List all files in the specified directory, using the provided pattern. If no
   # pattern is supplied, then we will list all files.
   f_files <- list.files(
-    path       = folder,
-    pattern    = pattern,
-    recursive  = recur,
+    path = directory,
+    pattern = pattern,
+    recursive = recur,
     full.names = TRUE
   )
 
