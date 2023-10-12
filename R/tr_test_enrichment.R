@@ -6,7 +6,6 @@
 #' @param total_genes Total number of genes for the organism/species.
 #'
 #' @return Produces the raw p-value from `fisher.test()`.
-#'
 #' @export
 #'
 #' @description Performs Fisher's Exact test to determine enrichment of a set of
@@ -16,6 +15,17 @@
 #' @references None.
 #'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
+#'
+#' @examples
+#' all_genes <- paste0("gene", sample(1:10000, 5000))
+#' de_genes <- sample(all_genes, 1500)
+#' ex_set <- sample(all_genes, 100)
+#'
+#' tr_test_enrichment(
+#'   de_genes,
+#'   ex_set,
+#'   total_genes = 5000
+#' )
 #'
 tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
 
