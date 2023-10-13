@@ -7,8 +7,7 @@ biomart_id_mapping_human_0 <- getBM(
   attributes = c(
     "ensembl_gene_id",
     "hgnc_symbol",
-    "entrezgene_id",
-    "description"
+    "entrezgene_id"
   ),
   mart = useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 )

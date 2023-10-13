@@ -7,8 +7,7 @@ biomart_id_mapping_mouse_0 <- getBM(
   attributes = c(
     "ensembl_gene_id",
     "mgi_symbol",
-    "entrezgene_id",
-    "description"
+    "entrezgene_id"
   ),
   mart = useMart("ensembl", dataset = "mmusculus_gene_ensembl")
 )
