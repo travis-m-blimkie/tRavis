@@ -17,4 +17,4 @@ rownames(input_genes) <- sample(
 
 ex_gage_results <- gage(exprs = input_genes, gsets = kegg_data)
 
-saveRDS(ex_gage_results, "tests/testthat/fixtures/ex_gage_results.rds")
+saveRDS(ex_gage_results, "inst/extdata/ex_gage_results.rds")

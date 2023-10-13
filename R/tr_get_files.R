@@ -1,6 +1,6 @@
 #' Create a named list of files
 #'
-#' @param directory Directory containing files of interest.
+#' @param directory Directory containing files of interest
 #' @param pattern Optional, case-sensitive pattern to use in file searching. If
 #'   no pattern is supplied, all files in the specified directory will be
 #'   matched.
@@ -10,10 +10,9 @@
 #' formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
 #' Defaults to FALSE.
 #' @param remove_string Optional string which can be removed from file names when
-#'   creating names for the output list.
+#'   creating names for the output list
 #'
-#' @return Named list of files to be read.
-#'
+#' @return Named list of files
 #' @export
 #'
 #' @import dplyr
@@ -26,18 +25,15 @@
 #'   easily piped into `purrr::map(~read.csv(.))` to create a named list of
 #'   data frames.
 #'
-#' @references None.
-#'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
-#' \dontrun{
-#'   tr_get_files(
-#'     directory = "DE_genes",
-#'     pattern = "de_condition",
-#'     remove_string = "de_condition_"
-#'   )
-#' }
+#' tr_get_files(
+#'   directory = system.file("extdata", package = "tRavis"),
+#'   pattern = "test",
+#'   remove_string = "test_",
+#'   date = TRUE
+#' )
 #'
 tr_get_files <- function(
     directory,
