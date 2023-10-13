@@ -16,16 +16,15 @@ should be included. Defaults to \code{FALSE}.}
 filled in with corresponding locus tag. Defaults to \code{FALSE}.}
 }
 \value{
-A data frame (tibble) of the cleaned input file, containing the
-following columns: locus tag, gene name, description, start, end, and
-strand.
+A data frame (tibble) of the cleaned input file
 }
 \description{
-Given an input CSV or TSV annotation file (from \emph{P.
-aeruginosa}), separates and cleans columns, returning a clean and tidy data
-frame. Only returns locus tag, gene name, description, start, end, and
-strand columns. Designed to work with files from
-\href{pseudomonas.com}{PGDB}, and only tested on the latest version (19).
+Given an input CSV or TSV annotation file from
+\url{https://pseudomonas.com}, separates and cleans the data, returning a tidy
+tibble with the following columns: "locus_tag", "gene_name", and
+"product_name". Setting the \code{extra_cols} argument to \code{TRUE} will add the
+columns "start", "end", and "strand". Enabling \code{fill_names} will populate
+missing gene names with the corresponding locus tag.
 }
 \examples{
 tr_anno_cleaner(
@@ -37,7 +36,7 @@ tr_anno_cleaner(
 
 }
 \references{
-None.
+Download annotation files from \url{https://pseudomonas.com}
 }
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}

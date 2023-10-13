@@ -14,8 +14,6 @@
 #'   `setdiff(y, x)`. Returns these elements in a list with names "common",
 #'   "unique_x", and "unique_y".
 #'
-#' @references None.
-#'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples

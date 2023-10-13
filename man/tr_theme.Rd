@@ -4,27 +4,26 @@
 \alias{tr_theme}
 \title{Customized ggplot2 theme}
 \usage{
-tr_theme(baseSize = 18, baseFamily = "", grid = TRUE)
+tr_theme(base_size = 18, base_family = "", grid = TRUE)
 }
 \arguments{
-\item{baseSize}{Base font size applied to all text in the plot}
+\item{base_size}{Base font size applied to all text in the plot}
 
-\item{baseFamily}{Base font type applies to all text in the plot}
+\item{base_family}{Base font type applies to all text in the plot}
 
-\item{grid}{Determines if grid lines should be drawn. Defaults to TRUE. When
-TRUE, only "major" grid lines are included.}
+\item{grid}{Determines if grid lines should be drawn. Defaults to
+\code{TRUE}for which only "major" grid lines are drawn.}
 }
 \value{
-Theme object
+A ggplot2 theme
 }
 \description{
 Custom theme that can be applied to ggplot2 plots. Increases
 base font size, sets a white background, grey grid, and black border.
 }
 \examples{
-\dontrun{
-  ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
-}
+if (FALSE)
+  ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
 
 }
 \references{
