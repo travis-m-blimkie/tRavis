@@ -6,9 +6,7 @@
 #' @param fill_names Logical to determine if blank/NA genes names should be
 #'   filled in with corresponding locus tag. Defaults to `FALSE`.
 #'
-#' @return A data frame (tibble) of the cleaned input file, containing the
-#'   following columns: locus tag, gene name, description, start, end, and
-#'   strand.
+#' @return A data frame (tibble) of the cleaned input file
 #' @export
 #'
 #' @import dplyr
@@ -16,14 +14,14 @@
 #' @importFrom janitor clean_names
 #' @importFrom readr cols read_delim
 #'
-#' @description Given an input CSV or TSV annotation file (from *P.
-#'   aeruginosa*), separates and cleans columns, returning a clean and tidy data
-#'   frame. Only returns locus tag, gene name, description, start, end, and
-#'   strand columns. Designed to work with files from
-#'   [PGDB](pseudomonas.com), and only tested on the latest version (19).
+#' @description Given an input CSV or TSV annotation file from
+#'   <https://pseudomonas.com>, separates and cleans the data, returning a tidy
+#'   tibble with the following columns: "locus_tag", "gene_name", and
+#'   "product_name". Setting the `extra_cols` argument to `TRUE` will add the
+#'   columns "start", "end", and "strand". Enabling `fill_names` will populate
+#'   missing gene names with the corresponding locus tag.
 #'
-#' @references None.
-#'
+#' @references Download annotation files from <https://pseudomonas.com>
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples

@@ -1,11 +1,11 @@
 #' Perform a basic enrichment test
 #'
 #' @param query_genes List of experimentally or otherwise derived genes, in
-#'   which one wishes to test for enrichment.
-#' @param enrichment_set Set of genes of interest, such as virulence genes.
-#' @param total_genes Total number of genes for the organism/species.
+#'   which one wishes to test for enrichment
+#' @param enrichment_set Set of genes of interest, such as virulence genes
+#' @param total_genes Total number of genes for the organism/species
 #'
-#' @return Produces the raw p-value from `fisher.test()`.
+#' @return Numeric: the raw p-value from `fisher.test()`
 #' @export
 #'
 #' @import dplyr
@@ -13,9 +13,9 @@
 #'
 #' @description Performs Fisher's Exact test to determine enrichment of a set of
 #'   genes of interest compared to some list of experimentally derived genes.
-#'   Assumes `alternative = "greater"` in call to `fisher.test()`.
+#'   Uses `alternative = "greater"` in the call to `fisher.test()`.
 #'
-#' @references None.
+#' @references ?stats::fisher.test
 #'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'

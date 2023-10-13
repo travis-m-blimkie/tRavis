@@ -1,10 +1,10 @@
 #' Properly sort alphanumeric strings
 #'
-#' @param input_df Input data frame or tibble.
-#' @param sort_col Column to be used in sorting. Can be an index or the name
-#'   (quoted).
+#' @param input_df Input data frame or tibble
+#' @param sort_col Column to be used in sorting. Can be an index, or the name in
+#'   quotes.
 #'
-#' @return Column-sorted data frame
+#' @return Sorted data frame
 #' @export
 #'
 #' @import stringr
@@ -12,8 +12,6 @@
 #' @description Function to sort a column of alphanumeric strings (e.g. c("a1",
 #'   "a11", "a2")) in numeric order (e.g. c("a1", "a2", "a11")). It works with
 #'   pipes, and you can provide column name or index as argument `sort_col`.
-#'
-#' @references None.
 #'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
