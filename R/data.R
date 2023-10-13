@@ -1,24 +1,22 @@
 #' Human gene ID mapping from biomaRt
 #'
 #' @return An object of class "tbl_df", "tbl", "data.frame"
-#' @format A data frame (tibble) with 75739 rows and 4 columns:
+#' @format A data frame (tibble) with 75739 rows and 3 columns:
 #' \describe{
 #'   \item{ensembl_gene_id}{Human Ensembl gene IDs}
 #'   \item{hgnc_symbol}{Human gene symbols}
 #'   \item{entrez_gene_id}{Human NCBI/Entrez gene IDs}
-#'   \item{description}{Description of the gene}
 #' }
 "biomart_id_mapping_human"
 
 #' Mouse gene ID mapping from biomaRt
 #'
 #' @return An object of class "tbl_df", "tbl", "data.frame"
-#' @format A data frame (tibble) with 57286 rows and 4 columns:
+#' @format A data frame (tibble) with 57286 rows and 3 columns:
 #' \describe{
 #'   \item{ensembl_gene_id}{Mouse Ensembl gene IDs}
 #'   \item{mgi_symbol}{Mouse gene name/symbol}
 #'   \item{entrez_gene_id}{Mouse NCBI/Entrez gene IDs}
-#'   \item{description}{Description of the gene}
 #' }
 "biomart_id_mapping_mouse"
 
