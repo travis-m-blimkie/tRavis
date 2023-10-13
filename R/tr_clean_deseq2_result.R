@@ -1,13 +1,13 @@
 #' Tidy results from DESeq2
 #'
-#' @param deseq2_result Results object for DE genes, of class
-#'   `DESeqResults`
+#' @param deseq2_result Results object for DE genes, of class `DESeqResults`
 #' @param p_adjusted Threshold for adjusted p-value, defaults to 0.05
 #' @param fold_change Threshold for fold change, defaults to 1.5
 #' @param inform Should a message be printed with the DE comparison and number
 #'   of DE genes found? Defaults to `TRUE`.
 #'
-#' @return A data frame (tibble) of filtered DE genes
+#' @return A data frame (tibble) of filtered DE genes; see `?DESeq2::results`
+#'   for details on the output.
 #' @export
 #'
 #' @import dplyr
@@ -17,16 +17,14 @@
 #' @description Helper function to filter and sort results from DESeq2, to aid
 #'   in identifying differentially expressed genes.
 #'
-#' @references None.
-#'
+#' @references <https://bioconductor.org/packages/DESeq2/>
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
-#' \dontrun{
-#'   tr_clean_deseq2_result(
-#'     DESeq2::results(dds, name = "treatment_peptide_vs_vehicle")
-#'   )
-#' }
+#' ex_deseq_result <-
+#'   readRDS(system.file("extdata", "ex_deseq_results.rds", package = "tRavis"))
+#'
+#' tr_clean_deseq2_result(ex_deseq_result)
 #'
 tr_clean_deseq2_result <- function(
     deseq2_result,

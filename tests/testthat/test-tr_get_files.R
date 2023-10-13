@@ -1,7 +1,7 @@
 test_that("we can list files properly", {
 
   retrieved_files <- tr_get_files(
-    directory = test_path("fixtures"),
+    directory = system.file("extdata", package = "tRavis"),
     pattern = "^test",
     remove_string = "test_",
     date = TRUE

@@ -13,7 +13,7 @@ tr_get_files(
 )
 }
 \arguments{
-\item{directory}{Directory containing files of interest.}
+\item{directory}{Directory containing files of interest}
 
 \item{pattern}{Optional, case-sensitive pattern to use in file searching. If
 no pattern is supplied, all files in the specified directory will be
@@ -27,10 +27,10 @@ formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
 Defaults to FALSE.}
 
 \item{remove_string}{Optional string which can be removed from file names when
-creating names for the output list.}
+creating names for the output list}
 }
 \value{
-Named list of files to be read.
+Named list of files
 }
 \description{
 Function which creates a named list of files in a specified
@@ -40,17 +40,13 @@ easily piped into \code{purrr::map(~read.csv(.))} to create a named list of
 data frames.
 }
 \examples{
-\dontrun{
-  tr_get_files(
-    directory = "DE_genes",
-    pattern = "de_condition",
-    remove_string = "de_condition_"
-  )
-}
+tr_get_files(
+  directory = system.file("extdata", package = "tRavis"),
+  pattern = "test",
+  remove_string = "test_",
+  date = TRUE
+)
 
-}
-\references{
-None.
 }
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}

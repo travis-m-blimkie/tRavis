@@ -1,5 +1,6 @@
 test_that("gage tidying works", {
-  gage_untidy <- readRDS(test_path("fixtures", "ex_gage_results.rds"))
+  gage_untidy <-
+    readRDS(system.file("extdata", "ex_gage_results.rds", package = "tRavis"))
 
   gage_tidy <- tr_tidy_gage(gage_untidy, qval = 1)
 
