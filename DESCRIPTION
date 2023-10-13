@@ -1,6 +1,6 @@
 Package: tRavis
 Title: Custom functions by Travis Blimkie
-Version: 0.73.16
+Version: 0.73.17
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: Includes some custom functions useful for work.
 Depends: R (>= 4.3.0)
@@ -16,8 +16,7 @@ Imports:
     readr,
     rjson,
     stringr,
-    tibble,
-    lifecycle
+    tibble
 RoxygenNote: 7.2.3
 Suggests: 
     DESeq2,
