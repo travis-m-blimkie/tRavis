@@ -12,6 +12,9 @@ A data frame (tibble) with 75739 rows and 3 columns:
 \item{entrez_gene_id}{Human NCBI/Entrez gene IDs}
 }
 }
+\source{
+\url{https://bioconductor.org/packages/biomaRt/}
+}
 \usage{
 biomart_id_mapping_human
 }

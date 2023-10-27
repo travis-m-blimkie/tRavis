@@ -13,6 +13,9 @@ A data frame (tibble) with 1729 rows and 4 columns:
 \item{level_2}{Second-level hierarchy term}
 }
 }
+\source{
+\url{https://reactome.org/}
+}
 \usage{
 reactome_categories_mouse
 }
