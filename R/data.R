@@ -7,6 +7,8 @@
 #'   \item{hgnc_symbol}{Human gene symbols}
 #'   \item{entrez_gene_id}{Human NCBI/Entrez gene IDs}
 #' }
+#' @source <https://bioconductor.org/packages/biomaRt/>
+#'
 "biomart_id_mapping_human"
 
 #' Mouse gene ID mapping from biomaRt
@@ -18,6 +20,8 @@
 #'   \item{mgi_symbol}{Mouse gene name/symbol}
 #'   \item{entrez_gene_id}{Mouse NCBI/Entrez gene IDs}
 #' }
+#' @source <https://bioconductor.org/packages/biomaRt/>
+#'
 "biomart_id_mapping_mouse"
 
 #' Human pathway hierarchy from Reactome
@@ -30,6 +34,8 @@
 #'   \item{level_1}{Top-level parent term}
 #'   \item{level_2}{Second-level hierarchy term}
 #' }
+#' @source <https://reactome.org/>
+#'
 "reactome_categories_human"
 
 #' Mouse pathway hierarchy from Reactome
@@ -42,4 +48,6 @@
 #'   \item{level_1}{Top-level parent term}
 #'   \item{level_2}{Second-level hierarchy term}
 #' }
+#' @source <https://reactome.org/>
+#'
 "reactome_categories_mouse"
