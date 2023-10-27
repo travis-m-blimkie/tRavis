@@ -7,13 +7,13 @@
 tr_sort_alphanum(input_df, sort_col)
 }
 \arguments{
-\item{input_df}{Input data frame or tibble.}
+\item{input_df}{Input data frame or tibble}
 
-\item{sort_col}{Column to be used in sorting. Can be an index or the name
-(quoted).}
+\item{sort_col}{Column to be used in sorting. Can be an index, or the name in
+quotes.}
 }
 \value{
-Column-sorted data frame
+Sorted data frame
 }
 \description{
 Function to sort a column of alphanumeric strings (e.g. c("a1",
@@ -26,9 +26,6 @@ tr_sort_alphanum(
   sort_col = "colB"
 )
 
-}
-\references{
-None.
 }
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}

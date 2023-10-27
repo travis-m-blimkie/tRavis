@@ -1,9 +1,9 @@
 Package: tRavis
 Title: Custom functions by Travis Blimkie
-Version: 0.72.27
+Version: 0.73.18
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: Includes some custom functions useful for work.
-Depends: R (>= 4.2.0)
+Depends: R (>= 4.3.0)
 License: MIT + file LICENSE
 LazyData: true
 LazyDataCompression: xz
@@ -11,20 +11,21 @@ Imports:
     dplyr,
     ggplot2,
     janitor,
-    org.Hs.eg.db,
     plotly,
     purrr,
-    ReactomePA,
     readr,
     rjson,
     stringr,
-    tibble,
-    tidyr,
-    sigora,
-    lifecycle
+    tibble
 RoxygenNote: 7.2.3
 Suggests: 
-    testthat (>= 2.1.0),
+    DESeq2,
+    here,
+    knitr,
+    rmarkdown,
+    S4Vectors,
+    testthat,
     vdiffr
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
+VignetteBuilder: knitr

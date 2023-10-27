@@ -6,33 +6,31 @@
 #' @param fill_names Logical to determine if blank/NA genes names should be
 #'   filled in with corresponding locus tag. Defaults to `FALSE`.
 #'
-#' @return A data frame (tibble) of the cleaned input file, containing the
-#'   following columns: locus tag, gene name, description, start, end, and
-#'   strand.
-#'
+#' @return A data frame (tibble) of the cleaned input file
 #' @export
 #'
 #' @import dplyr
-#' @import readr
+#' @import stringr
+#' @importFrom janitor clean_names
+#' @importFrom readr cols read_delim
 #'
-#' @description Given an input CSV or TSV annotation file (from *P.
-#'   aeruginosa*), separates and cleans columns, returning a clean and tidy data
-#'   frame. Only returns locus tag, gene name, description, start, end, and
-#'   strand columns. Designed to work with files from
-#'   [PGDB](pseudomonas.com), and only tested on the latest version (19).
+#' @description Given an input CSV or TSV annotation file from
+#'   <https://pseudomonas.com>, separates and cleans the data, returning a tidy
+#'   tibble with the following columns: "locus_tag", "gene_name", and
+#'   "product_name". Setting the `extra_cols` argument to `TRUE` will add the
+#'   columns "start", "end", and "strand". Enabling `fill_names` will populate
+#'   missing gene names with the corresponding locus tag.
 #'
-#' @references None.
-#'
+#' @references Download annotation files from <https://pseudomonas.com>
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
-#' \dontrun{
-#'   tr_anno_cleaner(
-#'     "Downloads/Pseudomonas_aeruginosa_PAO1_107.tsv",
-#'     extra_cols = FALSE,
-#'     fill_names = FALSE
+#' tr_anno_cleaner(
+#'   input_file = paste0(
+#'   "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
+#'   "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
 #'   )
-#' }
+#' )
 #'
 tr_anno_cleaner <- function(
     input_file,
@@ -40,48 +38,37 @@ tr_anno_cleaner <- function(
     fill_names = FALSE
 ) {
 
-  file_type <- stringr::str_extract(input_file, pattern = "(c|t)sv$")
+  file_type <- str_extract(input_file, pattern = "\\.(c|t)sv")
 
-  if (is.na(file_type)) {
-    stop("Input must be a tab- or comma-delimited file from pseudomonas.com")
+  stopifnot("'input_file' must be a '.csv' or '.tsv' file" = !is.na(file_type))
 
-  } else if (file_type == "csv") {
-    step1 <- read_csv(input_file, col_types = cols()) %>% janitor::clean_names()
+  step1 <- read_delim(
+    input_file,
+    delim = switch(file_type, csv = ",", tsv = "\t"),
+    col_types = cols()
+  ) %>%
+    clean_names()
 
-  } else if (file_type == "tsv") {
-    step1 <- read_tsv(input_file, col_types = cols()) %>% janitor::clean_names()
+  if (!extra_cols) {
+    final_cols <- c("locus_tag", "gene_name", "product_name")
+  } else {
+    final_cols <-
+      c("locus_tag", "gene_name", "product_name", "start", "end", "strand")
   }
 
-  # Use tidyverse functions to clean the input file
   step2 <- step1 %>%
-    select(
-      locus_tag,
-      gene_name,
-      "product_description" = product_name,
-      start,
-      end,
-      strand
-    ) %>%
+    select(all_of(final_cols)) %>%
     distinct(locus_tag, .keep_all = TRUE)
 
-  # Conditionally choose columns based on user's choice
-  if (extra_cols) {
-    step3 <- step2
-  } else {
-    step3 <- step2 %>%
-      select(locus_tag, gene_name, product_description)
-  }
-
-
   # Conditionally fill blank gene names with corresponding locus tags
+  step3 <- step2
+
   if (fill_names) {
-    step4 <- step3 %>%
-      mutate(
-        gene_name = case_when(is.na(gene_name) ~ locus_tag, TRUE ~ gene_name)
-      )
-  } else {
-    step4 <- step3
+    step3 <- mutate(
+      step3,
+      gene_name = if_else(is.na(gene_name), locus_tag, gene_name)
+    )
   }
 
-  return(step4)
+  return(step3)
 }

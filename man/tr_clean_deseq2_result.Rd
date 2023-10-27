@@ -12,8 +12,7 @@ tr_clean_deseq2_result(
 )
 }
 \arguments{
-\item{deseq2_result}{Results object for DE genes, of class
-\code{DESeqResults}}
+\item{deseq2_result}{Results object for DE genes, of class \code{DESeqResults}}
 
 \item{p_adjusted}{Threshold for adjusted p-value, defaults to 0.05}
 
@@ -23,22 +22,22 @@ tr_clean_deseq2_result(
 of DE genes found? Defaults to \code{TRUE}.}
 }
 \value{
-Tidy data frame (tibble) of filtered DE genes.
+A data frame (tibble) of filtered DE genes; see \code{?DESeq2::results}
+for details on the output.
 }
 \description{
-Helper function to filter and sort results from DESeq2 to aid in
-identifying differentially expressed genes.
+Helper function to filter and sort results from DESeq2, to aid
+in identifying differentially expressed genes.
 }
 \examples{
-\dontrun{
-  tr_clean_deseq2_result(
-    DESeq2::results(dds, name = "treatment_peptide_vs_vehicle")
-  )
-}
+ex_deseq_result <-
+  readRDS(system.file("extdata", "ex_deseq_results.rds", package = "tRavis"))
+
+tr_clean_deseq2_result(ex_deseq_result)
 
 }
 \references{
-None.
+\url{https://bioconductor.org/packages/DESeq2/}
 }
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}

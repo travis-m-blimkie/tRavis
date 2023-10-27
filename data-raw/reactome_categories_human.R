@@ -120,4 +120,4 @@ reactome_categories_human <- enr_pathway_high_level %>%
 
 # Save with compression ---------------------------------------------------
 
-usethis::use_data(reactome_categories_human, overwrite = TRUE, compress = "bzip2")
+usethis::use_data(reactome_categories_human, overwrite = TRUE)

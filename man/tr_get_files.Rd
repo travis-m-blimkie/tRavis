@@ -5,15 +5,15 @@
 \title{Create a named list of files}
 \usage{
 tr_get_files(
-  folder,
+  directory,
   pattern = "",
   recur = FALSE,
   date = FALSE,
-  removeString = NULL
+  remove_string = NULL
 )
 }
 \arguments{
-\item{folder}{Directory containing files of interest.}
+\item{directory}{Directory containing files of interest}
 
 \item{pattern}{Optional, case-sensitive pattern to use in file searching. If
 no pattern is supplied, all files in the specified directory will be
@@ -26,11 +26,11 @@ FALSE.}
 formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
 Defaults to FALSE.}
 
-\item{removeString}{Optional string which can be removed from file names when
-creating names for the output list.}
+\item{remove_string}{Optional string which can be removed from file names when
+creating names for the output list}
 }
 \value{
-Named list of files to be read.
+Named list of files
 }
 \description{
 Function which creates a named list of files in a specified
@@ -39,8 +39,14 @@ contents of the list are the file names themselves. In this way, it can be
 easily piped into \code{purrr::map(~read.csv(.))} to create a named list of
 data frames.
 }
-\references{
-None.
+\examples{
+tr_get_files(
+  directory = system.file("extdata", package = "tRavis"),
+  pattern = "test",
+  remove_string = "test_",
+  date = TRUE
+)
+
 }
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}

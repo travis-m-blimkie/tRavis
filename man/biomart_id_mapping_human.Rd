@@ -3,20 +3,25 @@
 \docType{data}
 \name{biomart_id_mapping_human}
 \alias{biomart_id_mapping_human}
-\title{Human ID mapping from biomaRt}
+\title{Human gene ID mapping from biomaRt}
 \format{
-A data frame (tibble) with 75130 rows and 4 columns:
+A data frame (tibble) with 75739 rows and 3 columns:
 \describe{
 \item{ensembl_gene_id}{Human Ensembl gene IDs}
 \item{hgnc_symbol}{Human gene symbols}
 \item{entrez_gene_id}{Human NCBI/Entrez gene IDs}
-\item{description}{Description of the gene}
 }
+}
+\source{
+\url{https://bioconductor.org/packages/biomaRt/}
 }
 \usage{
 biomart_id_mapping_human
 }
+\value{
+An object of class "tbl_df", "tbl", "data.frame"
+}
 \description{
-Human ID mapping from biomaRt
+Human gene ID mapping from biomaRt
 }
 \keyword{datasets}

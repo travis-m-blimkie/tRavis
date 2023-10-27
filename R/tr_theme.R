@@ -1,11 +1,11 @@
 #' Customized ggplot2 theme
 #'
-#' @param baseSize Base font size applied to all text in the plot
-#' @param baseFamily Base font type applies to all text in the plot
-#' @param grid Determines if grid lines should be drawn. Defaults to TRUE. When
-#'   TRUE, only "major" grid lines are included.
+#' @param base_size Base font size applied to all text in the plot
+#' @param base_family Base font type applies to all text in the plot
+#' @param grid Determines if grid lines should be drawn. Defaults to
+#'  `TRUE`for which only "major" grid lines are drawn.
 #'
-#' @return Theme object
+#' @return A ggplot2 theme
 #' @export
 #'
 #' @import ggplot2
@@ -18,13 +18,12 @@
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
-#' \dontrun{
-#'   ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme(grid = TRUE)
-#' }
+#' if (FALSE)
+#'   ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
 #'
-tr_theme <- function(baseSize = 18, baseFamily = "", grid = TRUE) {
+tr_theme <- function(base_size = 18, base_family = "", grid = TRUE) {
   if (grid) {
-    theme_light(base_size = baseSize, base_family = baseFamily) +
+    theme_light(base_size = base_size, base_family = base_family) +
       theme(
         text             = element_text(colour = "black"),
         axis.text        = element_text(colour = "black"),
@@ -36,7 +35,7 @@ tr_theme <- function(baseSize = 18, baseFamily = "", grid = TRUE) {
         strip.text       = element_text(colour = "black", face = "bold", size = 14)
       )
   } else {
-    theme_light(base_size = baseSize, base_family = baseFamily) +
+    theme_light(base_size = base_size, base_family = base_family) +
       theme(
         text             = element_text(colour = "black"),
         axis.text        = element_text(colour = "black"),

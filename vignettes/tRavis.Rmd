@@ -1,0 +1,166 @@
+---
+title: "tRavis"
+author: Travis Blimkie
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tRavis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r options, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r setup}
+library(tRavis)
+```
+
+## tr_anno_cleaner
+Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from
+[pseudomonas.com](pseudomonas.com).
+```{r tr_anno_cleaner_I}
+link <- paste0(
+  "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
+  "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
+)
+
+tr_anno_cleaner(link)
+```
+
+Or add some extra columns, and fill empty names with the corresponding locus
+tag.
+```{r tr_anno_cleaner_II}
+tr_anno_cleaner(link, extra_cols = TRUE, fill_names = TRUE)
+```
+
+## tr_clean_deseq2_result
+Takes a [DESeq2](https://bioconductor.org/packages/DESeq2/) results object, and
+returns the significant DE genes, printing a message summarizing the comparison
+and number of significant genes when `inform = TRUE` (default).
+```{r tr_clean_deseq2_result_I, message=FALSE}
+ex_deseq_results <- 
+  readRDS(system.file("extdata", "ex_deseq_results.rds", package = "tRavis"))
+ex_deseq_results
+```
+
+```{r tr_clean_deseq2_result_II}
+tr_clean_deseq2_result(ex_deseq_results)
+```
+
+The default filters applied to the data are: `padj < 0.05` and
+`abs(log2FoldChange) > log2(1.5)`.
+
+## tr_compare_lists
+Compare two lists to find the common/unique elements, with an optional `names`
+argument to apply to the results.
+```{r tr_compare_lists}
+tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6), names = c("A", "B"))
+```
+
+## tr_get_files
+Create a named list of files, easily piped into `purrr::map(~read.csv(.x))` to
+generate a named list of data frames. Supports recursive searching, custom
+string/pattern removal, and date removal assuming a format like YYYYMMDD (can't
+contain punctuation/symbols).
+```{r tr_get_files}
+tr_get_files(
+  directory = system.file("extdata", package = "tRavis"),
+  pattern = "test",
+  date = TRUE,
+  remove_string = "test_"
+)
+```
+
+## tr_qc_plots
+Generate RNA-Seq QC plots from [MultiQC](https://multiqc.info/) outputs.
+Currently only supports summary plots for FastQC, STAR, and HTSeq. Plots are
+created with [plotly](https://plotly.com/r/), meaning they can be embedded in
+RMarkdown documents and retain interactivity.
+```{r tr_qc_plots, eval=FALSE}
+tr_qc_plots(directory = "multiqc_data")
+```
+
+## tr_sort_alphanum
+Sort a column of alphanumeric strings in (non-binary) numerical order given an
+input data frame and desired column. You can use the column name or index, and
+its compatible with pipes.
+```{r tr_sort_alphanum}
+my_dataframe <- data.frame(
+  c1 = c("a1", "a11", "a5"),
+  c2 = c(2, 3, 2)
+)
+
+tr_sort_alphanum(input_df = my_dataframe, sort_col = "c1")
+```
+
+## tr_test_enrichment
+Simple wrapper around Fisher's test for gene enrichment, which constructs the
+matrix for you and returns the p value.
+```{r tr_test_enrichment}
+all_genes <- paste0("gene", sample(1:10000, 5000))
+de_genes <- sample(all_genes, 1500)
+gene_set <- sample(all_genes, 100)
+
+tr_test_enrichment(
+  query_genes = de_genes, 
+  enrichment_set = gene_set, 
+  total_genes = 5000
+)
+```
+
+## tr_theme
+Clean themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve on the
+default by increasing font size, changing the background to white, and adding a
+border. By default, it uses a minimal grid, but you can easily remove the grid
+entirely.
+```{r tr_theme, fig.show='hold'}
+library(ggplot2)
+ggplot(mtcars, aes(as.factor(cyl), mpg)) + geom_boxplot() + tr_theme()
+ggplot(mtcars, aes(as.factor(cyl), mpg)) + geom_boxplot() + tr_theme(grid = FALSE)
+```
+
+## tr_tidy_gage
+Combines the items "greater" and "less" from the list output by
+[gage](https://bioconductor.org/packages/gage/) into a single tidy data frame
+(tibble), and provides an option to filter the results based on q value.
+```{r tr_tidy_gage}
+gage_untidy <- 
+  readRDS(system.file("extdata", "ex_gage_results.rds", package = "tRavis"))
+
+lapply(gage_untidy, function(x) head(x, 3))
+
+tr_tidy_gage(gage_untidy, qval = 1)
+```
+
+## tr_trunc_neatly
+Simple function to truncate long strings without breaking them in the middle of
+a word. Useful for trimming long axis labels in a plot.
+```{r tr_trunc_neatly_I}
+tr_trunc_neatly(
+  x = "This is a long string that we want to break neatly",
+  l = 40
+)
+```
+
+Its also been designed for use inside of a `mutate` call:
+```{r tr_trunc_neatly_II}
+ex_trunc_df <- dplyr::tibble(
+  col1 = c(1, 2, 3),
+  col2 = c(
+    "This is a pretty long string",
+    "This string is actually a bit longer",
+    "Here is the longest string of them all, just!"
+  )
+)
+
+dplyr::mutate(
+  ex_trunc_df,
+  col3 = purrr::map_chr(col2, ~tr_trunc_neatly(.x, l = 20))
+)
+```
+
+## Session information
+```{r session_information, echo=FALSE}
+sessionInfo()
+```

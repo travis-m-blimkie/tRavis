@@ -8,22 +8,34 @@ tr_test_enrichment(query_genes, enrichment_set, total_genes)
 }
 \arguments{
 \item{query_genes}{List of experimentally or otherwise derived genes, in
-which one wishes to test for enrichment.}
+which one wishes to test for enrichment}
 
-\item{enrichment_set}{Set of genes of interest, such as virulence genes.}
+\item{enrichment_set}{Set of genes of interest, such as virulence genes}
 
-\item{total_genes}{Total number of genes for the organism/species.}
+\item{total_genes}{Total number of genes for the organism/species}
 }
 \value{
-Produces the raw p-value from \code{fisher.test()}.
+Numeric: the raw p-value from \code{fisher.test()}
 }
 \description{
 Performs Fisher's Exact test to determine enrichment of a set of
 genes of interest compared to some list of experimentally derived genes.
-Assumes \code{alternative = "greater"} in call to \code{fisher.test()}.
+Uses \code{alternative = "greater"} in the call to \code{fisher.test()}.
+}
+\examples{
+all_genes <- paste0("gene", sample(1:10000, 5000))
+de_genes <- sample(all_genes, 1500)
+ex_set <- sample(all_genes, 100)
+
+tr_test_enrichment(
+  de_genes,
+  ex_set,
+  total_genes = 5000
+)
+
 }
 \references{
-None.
+?stats::fisher.test
 }
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}
