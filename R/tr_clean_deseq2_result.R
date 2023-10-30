@@ -11,7 +11,6 @@
 #' @export
 #'
 #' @import dplyr
-#' @import stringr
 #' @importFrom tibble as_tibble rownames_to_column
 #'
 #' @description Helper function to filter and sort results from DESeq2, to aid
@@ -33,11 +32,12 @@ tr_clean_deseq2_result <- function(
     inform = TRUE
 ) {
 
-  stopifnot(class(deseq2_result) == "DESeqResults")
+  stopifnot(is(deseq2_result, "DESeqResults"))
 
-  comparison <- str_remove(
-    attr(deseq2_result, "elementMetadata")[2, 2],
-    "log2 fold change \\(MLE\\): "
+  comparison <- gsub(
+    x = attr(deseq2_result, "elementMetadata")[2, 2],
+    pattern = "log2 fold change \\(MLE\\): ",
+    replacement = ""
   )
 
   output_result <- deseq2_result %>%

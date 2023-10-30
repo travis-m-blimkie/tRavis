@@ -7,7 +7,6 @@
 #' @return Character string
 #' @export
 #'
-#' @import stringr
 #' @importFrom purrr map_chr
 #'
 #' @description Trims the input string to the desired length, appending an
@@ -23,15 +22,19 @@ tr_trunc_neatly <- function(x, l = 60) {
     x,
     ~if (is.na(.x)) {
       return(NA_character_)
-    } else if (str_length(.x) <= l) {
+    } else if (nchar(.x) <= l) {
       return(.x)
     } else {
-      shortened <- .x %>%
-        as.character() %>%
-        str_sub(., start = 1, end = l) %>%
-        str_replace(., pattern = "\\s([^\\s]*)$", replacement = "...")
+      shortened <- gsub(
+        x = substr(
+          x = as.character(.x),
+          start = 1,
+          stop = l
+        ),
+        pattern = " ([^ ]*)$",
+        replacement = "..."
+      )
       return(shortened)
     }
   )
 }
-

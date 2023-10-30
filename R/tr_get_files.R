@@ -16,7 +16,6 @@
 #' @export
 #'
 #' @import dplyr
-#' @import stringr
 #' @importFrom stats setNames
 #'
 #' @description Function which creates a named list of files in a specified
@@ -62,19 +61,19 @@ tr_get_files <- function(
   # from:
   # https://stackoverflow.com/questions/22235518/regex-for-any-file-extension
   f_names <- list.files(directory, pattern = pattern, recursive = recur) %>%
-    str_remove(pattern = "\\.[^\\.]+$") %>%
-    str_remove_all(pattern = "^_|_$")
+    gsub(pattern = "\\.[^\\.]+$", replacement = "") %>%
+    gsub(pattern = "^_|_$", replacement = "")
 
   # If specified, remove dates from the file names, assuming YYYYMMDD or similar
   # format
   if (date == TRUE) {
-    f_names <- f_names %>% str_remove(., pattern = "_?[0-9]{8}")
+    f_names <- gsub(x = f_names, pattern = "_?[0-9]{8}", replacement = "")
   }
 
   # Remove specified string if provided. Needs to be conditional, otherwise
-  # `str_remove_all()` returns an error for trying to remove NULL.
+  # `gsub()` returns an error for trying to remove NULL.
   if (!is.null(remove_string)) {
-    f_names <- f_names %>% str_remove_all(., pattern = remove_string)
+    f_names <- gsub(x = f_names, pattern = remove_string, replacement = "")
   }
 
   # Create and return output object

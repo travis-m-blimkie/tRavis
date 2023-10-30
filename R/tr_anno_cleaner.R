@@ -10,7 +10,6 @@
 #' @export
 #'
 #' @import dplyr
-#' @import stringr
 #' @importFrom janitor clean_names
 #' @importFrom readr cols read_delim
 #'
@@ -38,7 +37,7 @@ tr_anno_cleaner <- function(
     fill_names = FALSE
 ) {
 
-  file_type <- str_extract(input_file, pattern = "\\.(c|t)sv")
+  file_type <- grep(x = input_file, pattern = "\\.(c|t)sv", value = TRUE)
 
   stopifnot("'input_file' must be a '.csv' or '.tsv' file" = !is.na(file_type))
 

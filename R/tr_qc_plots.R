@@ -7,7 +7,6 @@
 #' @export
 #'
 #' @import dplyr
-#' @import stringr
 #' @importFrom janitor clean_names
 #' @importFrom plotly add_trace layout plot_ly style
 #' @importFrom purrr flatten map map2 pluck
@@ -121,9 +120,7 @@ tr_qc_plots <- function(directory) {
         )
       )
     ) %>%
-    style(
-      hoverlabel = list(bgcolor = "white", bordercolor = "black")
-    )
+    style(hoverlabel = list(bgcolor = "white", bordercolor = "black"))
 
 
   # STAR ------------------------------------------------------------------
@@ -200,7 +197,7 @@ tr_qc_plots <- function(directory) {
     delim = "\t"
   ) %>%
     clean_names() %>%
-    mutate(sample = str_remove(sample, "\\.count"))
+    mutate(sample = gsub(x = sample, pattern = "\\.count", replacement = ""))
 
   htseq_tidy <- htseq_raw %>%
     arrange(sample) %>%

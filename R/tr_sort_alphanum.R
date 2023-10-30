@@ -7,7 +7,7 @@
 #' @return Sorted data frame
 #' @export
 #'
-#' @import stringr
+#' @importFrom stringr str_order
 #'
 #' @description Function to sort a column of alphanumeric strings (e.g. c("a1",
 #'   "a11", "a2")) in numeric order (e.g. c("a1", "a2", "a11")). It works with

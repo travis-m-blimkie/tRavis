@@ -8,7 +8,6 @@
 #' @return Numeric: the raw p-value from `fisher.test()`
 #' @export
 #'
-#' @import dplyr
 #' @importFrom stats fisher.test
 #'
 #' @description Performs Fisher's Exact test to determine enrichment of a set of

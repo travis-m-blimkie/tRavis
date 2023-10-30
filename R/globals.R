@@ -5,6 +5,7 @@ utils::globalVariables(
     "ambiguous",
     "end",
     "gene_name",
+    "is",
     "locus_tag",
     "log2FoldChange",
     "no_feature",
