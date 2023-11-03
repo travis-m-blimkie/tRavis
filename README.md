@@ -1,7 +1,5 @@
 # **tRavis**
 
-![GitHub R package version (branch)](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
-
 Github repository to hold my custom R package, containing a suite of useful R
 functions and data objects.
 

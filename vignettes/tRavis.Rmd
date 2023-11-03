@@ -143,7 +143,7 @@ tr_trunc_neatly(
 )
 ```
 
-Its also been designed for use inside of a `mutate` call:
+It's also been designed for use inside of a `mutate` call:
 ```{r tr_trunc_neatly_II}
 ex_trunc_df <- dplyr::tibble(
   col1 = c(1, 2, 3),
