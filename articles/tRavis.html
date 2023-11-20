@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">tRavis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.73.19</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.73.20</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,12 @@
 </li>
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/extra.html">tRavis: Extra examples</a>
+  </div>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -71,7 +77,7 @@ Blimkie</h4>
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://travis-m-blimkie.github.io/tRavis/">tRavis</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Thanks for using tRavis v0.73.19! If you encounter any bugs</span></span>
+<span><span class="co">#&gt; Thanks for using tRavis v0.73.20! If you encounter any bugs</span></span>
 <span><span class="co">#&gt; or problems, please submit an issue at the Github page:</span></span>
 <span><span class="co">#&gt; https://github.com/travis-m-blimkie/tRavis/issues</span></span></code></pre></div>
 <div class="section level2">
@@ -247,7 +253,7 @@ constructs the matrix for you and returns the p value.</p>
 <span>  enrichment_set <span class="op">=</span> <span class="va">gene_set</span>, </span>
 <span>  total_genes <span class="op">=</span> <span class="fl">5000</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.7780245</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.4506109</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="tr_theme">tr_theme<a class="anchor" aria-label="anchor" href="#tr_theme"></a>
@@ -380,17 +386,17 @@ call:</p>
 <span><span class="co">#&gt; other attached packages:</span></span>
 <span><span class="co">#&gt;  [1] ggplot2_3.4.4               DESeq2_1.40.2              </span></span>
 <span><span class="co">#&gt;  [3] SummarizedExperiment_1.30.2 Biobase_2.60.0             </span></span>
-<span><span class="co">#&gt;  [5] MatrixGenerics_1.12.3       matrixStats_1.0.0          </span></span>
+<span><span class="co">#&gt;  [5] MatrixGenerics_1.12.3       matrixStats_1.1.0          </span></span>
 <span><span class="co">#&gt;  [7] GenomicRanges_1.52.1        GenomeInfoDb_1.36.4        </span></span>
 <span><span class="co">#&gt;  [9] IRanges_2.34.1              S4Vectors_0.38.2           </span></span>
-<span><span class="co">#&gt; [11] BiocGenerics_0.46.0         tRavis_0.73.19             </span></span>
+<span><span class="co">#&gt; [11] BiocGenerics_0.46.0         tRavis_0.73.20             </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
 <span><span class="co">#&gt;  [1] tidyselect_1.2.0        viridisLite_0.4.2       farver_2.1.1           </span></span>
-<span><span class="co">#&gt;  [4] dplyr_1.1.3             bitops_1.0-7            fastmap_1.1.1          </span></span>
-<span><span class="co">#&gt;  [7] lazyeval_0.2.2          RCurl_1.98-1.12         janitor_2.2.0          </span></span>
-<span><span class="co">#&gt; [10] digest_0.6.33           timechange_0.2.0        lifecycle_1.0.3        </span></span>
-<span><span class="co">#&gt; [13] magrittr_2.0.3          compiler_4.3.2          rlang_1.1.1            </span></span>
+<span><span class="co">#&gt;  [4] dplyr_1.1.4             bitops_1.0-7            fastmap_1.1.1          </span></span>
+<span><span class="co">#&gt;  [7] lazyeval_0.2.2          RCurl_1.98-1.13         janitor_2.2.0          </span></span>
+<span><span class="co">#&gt; [10] digest_0.6.33           timechange_0.2.0        lifecycle_1.0.4        </span></span>
+<span><span class="co">#&gt; [13] magrittr_2.0.3          compiler_4.3.2          rlang_1.1.2            </span></span>
 <span><span class="co">#&gt; [16] sass_0.4.7              tools_4.3.2             utf8_1.2.4             </span></span>
 <span><span class="co">#&gt; [19] yaml_2.3.7              data.table_1.14.8       knitr_1.45             </span></span>
 <span><span class="co">#&gt; [22] labeling_0.4.3          S4Arrays_1.0.6          htmlwidgets_1.6.2      </span></span>
@@ -401,19 +407,19 @@ call:</p>
 <span><span class="co">#&gt; [37] cli_3.6.1               rmarkdown_2.25          crayon_1.5.2           </span></span>
 <span><span class="co">#&gt; [40] ragg_1.2.6              generics_0.1.3          httr_1.4.7             </span></span>
 <span><span class="co">#&gt; [43] tzdb_0.4.0              rjson_0.2.21            cachem_1.0.8           </span></span>
-<span><span class="co">#&gt; [46] stringr_1.5.0           zlibbioc_1.46.0         parallel_4.3.2         </span></span>
+<span><span class="co">#&gt; [46] stringr_1.5.1           zlibbioc_1.46.0         parallel_4.3.2         </span></span>
 <span><span class="co">#&gt; [49] XVector_0.40.0          vctrs_0.6.4             Matrix_1.6-1.1         </span></span>
 <span><span class="co">#&gt; [52] jsonlite_1.8.7          hms_1.1.3               bit64_4.0.5            </span></span>
 <span><span class="co">#&gt; [55] systemfonts_1.0.5       locfit_1.5-9.8          plotly_4.10.3          </span></span>
 <span><span class="co">#&gt; [58] tidyr_1.3.0             jquerylib_0.1.4         glue_1.6.2             </span></span>
 <span><span class="co">#&gt; [61] pkgdown_2.0.7           codetools_0.2-19        lubridate_1.9.3        </span></span>
-<span><span class="co">#&gt; [64] stringi_1.7.12          gtable_0.3.4            munsell_0.5.0          </span></span>
-<span><span class="co">#&gt; [67] tibble_3.2.1            pillar_1.9.0            htmltools_0.5.6.1      </span></span>
+<span><span class="co">#&gt; [64] stringi_1.8.1           gtable_0.3.4            munsell_0.5.0          </span></span>
+<span><span class="co">#&gt; [67] tibble_3.2.1            pillar_1.9.0            htmltools_0.5.7        </span></span>
 <span><span class="co">#&gt; [70] GenomeInfoDbData_1.2.10 R6_2.5.1                textshaping_0.3.7      </span></span>
-<span><span class="co">#&gt; [73] rprojroot_2.0.3         vroom_1.6.4             evaluate_0.22          </span></span>
+<span><span class="co">#&gt; [73] rprojroot_2.0.4         vroom_1.6.4             evaluate_0.23          </span></span>
 <span><span class="co">#&gt; [76] lattice_0.21-9          highr_0.10              readr_2.1.4            </span></span>
 <span><span class="co">#&gt; [79] memoise_2.0.1           snakecase_0.11.1        bslib_0.5.1            </span></span>
-<span><span class="co">#&gt; [82] Rcpp_1.0.11             xfun_0.40               fs_1.6.3               </span></span>
+<span><span class="co">#&gt; [82] Rcpp_1.0.11             xfun_0.41               fs_1.6.3               </span></span>
 <span><span class="co">#&gt; [85] pkgconfig_2.0.3</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
