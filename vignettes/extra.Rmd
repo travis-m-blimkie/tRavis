@@ -1,0 +1,44 @@
+---
+title: "tRavis: Extra examples"
+author: Travis Blimkie
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tRavis: Extra examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r options, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r setup}
+library(tRavis)
+```
+
+## Extra examples
+
+### tr_clean_deseq_results
+```{r message=FALSE}
+ex_deseq_results <- 
+  readRDS(system.file("extdata", "ex_deseq_results.rds", package = "tRavis"))
+ex_deseq_results
+```
+
+```{r}
+tr_clean_deseq2_result(ex_deseq_results, p_adjusted = 0.1, fold_change = 2)
+```
+
+### tr_theme
+```{r}
+library(ggplot2)
+
+ggplot(mtcars, aes(as.factor(cyl), mpg)) + 
+  geom_boxplot() + 
+  tr_theme(base_family = "Helvetica", base_size = 20)
+```
+
+## Session information
+```{r session_information, echo=FALSE}
+sessionInfo()
+```
