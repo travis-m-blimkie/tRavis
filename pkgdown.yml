@@ -2,9 +2,8 @@ pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  extra: extra.html
   tRavis: tRavis.html
-last_built: 2023-11-20T17:54Z
+last_built: 2023-11-21T18:13Z
 urls:
   reference: https://travis-m-blimkie.github.io/tRavis/reference
   article: https://travis-m-blimkie.github.io/tRavis/articles
