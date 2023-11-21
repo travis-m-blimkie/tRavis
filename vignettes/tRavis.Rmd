@@ -1,5 +1,5 @@
 ---
-title: "tRavis"
+title: "An overview of tRavis"
 author: Travis Blimkie
 output: rmarkdown::html_vignette
 vignette: >

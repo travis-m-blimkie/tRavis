@@ -1,4 +1,7 @@
 url: https://travis-m-blimkie.github.io/tRavis/
 template:
   bootstrap: 5
-
+  bootswatch: lumen
+navbar:
+  type: dark
+  bg: primary

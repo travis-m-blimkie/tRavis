@@ -29,4 +29,5 @@ Suggests:
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 VignetteBuilder: knitr
-URL: https://travis-m-blimkie.github.io/tRavis/
+URL: https://travis-m-blimkie.github.io/tRavis/, https://github.com/travis-m-blimkie/tRavis
+BugReports: https://github.com/travis-m-blimkie/tRavis/issues
