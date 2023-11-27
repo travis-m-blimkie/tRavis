@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 tRavis is a small R package, comprised of a number of useful R functions, and
 some commonly used data objects. Most of the included functions relate to the
 analysis, testing, and visualization of RNA-Seq results, but some are designed
-as more general in their application.
+to be more general in their application.
 
 ## Installation
 

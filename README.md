@@ -12,7 +12,7 @@
 tRavis is a small R package, comprised of a number of useful R
 functions, and some commonly used data objects. Most of the included
 functions relate to the analysis, testing, and visualization of RNA-Seq
-results, but some are designed as more general in their application.
+results, but some are designed to be more general in their application.
 
 ## Installation
 
@@ -28,7 +28,7 @@ devtools::install_github("travis-m-blimkie/tRavis")
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v0.73.21! If you encounter any bugs
+#> Thanks for using tRavis v0.73.22! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
 
@@ -51,10 +51,10 @@ tr_get_files(
   remove_string = "test_"
 )
 #> $file1
-#> [1] "/tmp/RtmpK8eQbY/temp_libpath685372f67bd7/tRavis/extdata/test_file1_20191231.csv"
+#> [1] "/tmp/RtmpKTvW5j/temp_libpath18f6858bbff42/tRavis/extdata/test_file1_20191231.csv"
 #> 
 #> $file2
-#> [1] "/tmp/RtmpK8eQbY/temp_libpath685372f67bd7/tRavis/extdata/test_file2_20200101.csv"
+#> [1] "/tmp/RtmpKTvW5j/temp_libpath18f6858bbff42/tRavis/extdata/test_file2_20200101.csv"
 
 # Neatly truncate strings:
 tr_trunc_neatly(
