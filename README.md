@@ -7,6 +7,7 @@
 
 ![GitHub R package version
 (branch)](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
+[![R-CMD-check](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 tRavis is a small R package, comprised of a number of useful R
@@ -51,10 +52,10 @@ tr_get_files(
   remove_string = "test_"
 )
 #> $file1
-#> [1] "/tmp/RtmpKTvW5j/temp_libpath18f6858bbff42/tRavis/extdata/test_file1_20191231.csv"
+#> [1] "/tmp/RtmpKTvW5j/temp_libpath18f684ca1966a/tRavis/extdata/test_file1_20191231.csv"
 #> 
 #> $file2
-#> [1] "/tmp/RtmpKTvW5j/temp_libpath18f6858bbff42/tRavis/extdata/test_file2_20200101.csv"
+#> [1] "/tmp/RtmpKTvW5j/temp_libpath18f684ca1966a/tRavis/extdata/test_file2_20200101.csv"
 
 # Neatly truncate strings:
 tr_trunc_neatly(
