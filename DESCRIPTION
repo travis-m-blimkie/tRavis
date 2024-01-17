@@ -1,8 +1,11 @@
 Package: tRavis
-Title: Custom functions by Travis Blimkie
-Version: 0.73.24
+Title: Personal package by Travis Blimkie
+Version: 1.0
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
-Description: Includes some custom functions useful for work.
+Description: tRavis is a small R package meant to hold functions and data that 
+  are used regularly in my day-to-day workflows. Its also provides an 
+  opportunity to practice creating, documenting, and maintaining code, within
+  the framework of an R package and the recommended guidelines. 
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 LazyData: true

@@ -10,30 +10,29 @@
 [![R-CMD-check](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-tRavis is a small R package, comprised of a number of useful R
-functions, and some commonly used data objects. Most of the included
-functions relate to the analysis, testing, and visualization of RNA-Seq
-results, but some are designed to be more general in their application.
+tRavis is a small R package meant to hold functions and data that are
+used regularly in my day-to-day workflows. Its also provides an
+opportunity to practice creating, documenting, and maintaining code,
+within the framework of an R package and the recommended guidelines.
 
 ## Installation
 
-You can install the development version of tRavis from
-[GitHub](https://github.com/) with:
+You can install tRavis from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("travis-m-blimkie/tRavis")
 ```
 
-## Example
+## Examples
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v0.73.22! If you encounter any bugs
+#> Thanks for using tRavis v1.0! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
 
-# Compare two lists:
+# Quickly compare two lists:
 tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6), names = c("A", "B"))
 #> $unique_A
 #> [1] 1 2
@@ -52,10 +51,10 @@ tr_get_files(
   remove_string = "test_"
 )
 #> $file1
-#> [1] "/tmp/RtmpKTvW5j/temp_libpath18f684ca1966a/tRavis/extdata/test_file1_20191231.csv"
+#> [1] "/tmp/Rtmpc4oNPn/temp_libpath1c4e415faf883/tRavis/extdata/test_file1_20191231.csv"
 #> 
 #> $file2
-#> [1] "/tmp/RtmpKTvW5j/temp_libpath18f684ca1966a/tRavis/extdata/test_file2_20200101.csv"
+#> [1] "/tmp/Rtmpc4oNPn/temp_libpath1c4e415faf883/tRavis/extdata/test_file2_20200101.csv"
 
 # Neatly truncate strings:
 tr_trunc_neatly(

@@ -3,7 +3,7 @@ title: "An overview of tRavis"
 author: Travis Blimkie
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tRavis}
+  %\VignetteIndexEntry{An overview of tRavis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

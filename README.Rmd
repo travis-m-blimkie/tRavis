@@ -14,32 +14,28 @@ knitr::opts_chunk$set(
 ```
 
 # tRavis
-
 <!-- badges: start -->
 ![GitHub R package version (branch)](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
 [![R-CMD-check](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-tRavis is a small R package, comprised of a number of useful R functions, and
-some commonly used data objects. Most of the included functions relate to the
-analysis, testing, and visualization of RNA-Seq results, but some are designed
-to be more general in their application.
+tRavis is a small R package meant to hold functions and data that are used
+regularly in my day-to-day workflows. Its also provides an opportunity to
+practice creating, documenting, and maintaining code, within the framework of an
+R package and the recommended guidelines.
 
 ## Installation
-
-You can install the development version of tRavis from
-[GitHub](https://github.com/) with:
+You can install tRavis from [GitHub](https://github.com/) with:
 ``` r
 # install.packages("devtools")
 devtools::install_github("travis-m-blimkie/tRavis")
 ```
 
-## Example
-
+## Examples
 ```{r example}
 library(tRavis)
 
-# Compare two lists:
+# Quickly compare two lists:
 tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6), names = c("A", "B"))
 
 # Create a named list of files:
@@ -58,21 +54,17 @@ tr_trunc_neatly(
 ```
 
 ## Versioning
-
 This package makes use of [SemVer](https://semver.org/).
 
 ## Authors
-
 Travis Blimkie is the originator and principal contributor. You can check the
 list of all contributors
 [here](https://github.com/travis-m-blimkie/tRavis/graphs/contributors).
 
 ## License
-
 This project is written under the MIT license, available
 [here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE)
 
 ## Acknowledgements
-
 Thanks to everyone in the lab who has used these functions and provided
 ideas/feedback!
