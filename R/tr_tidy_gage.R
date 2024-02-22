@@ -15,6 +15,7 @@
 #'   enrichment into an easier-to-use tibble format. At the same time it can
 #'   also filter the result based on q value, with a default of `0.1`.
 #'
+#' @references None.
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples

@@ -13,14 +13,14 @@ tr_get_files(
 )
 }
 \arguments{
-\item{directory}{Directory containing files of interest}
+\item{directory}{Directory containing files to read}
 
 \item{pattern}{Optional, case-sensitive pattern to use in file searching. If
 no pattern is supplied, all files in the specified directory will be
-matched.}
+returned.}
 
-\item{recur}{Whether file listing should be done recursively. Defaults to
-FALSE.}
+\item{recur}{Whether file searching and listing should be done recursively.
+Defaults to FALSE.}
 
 \item{date}{Do file names contain a date which should be removed? Must be
 formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
@@ -36,7 +36,7 @@ Named list of files
 Function which creates a named list of files in a specified
 directory. The list names are trimmed versions of file names, while
 contents of the list are the file names themselves. In this way, it can be
-easily piped into \code{purrr::map(~read.csv(.))} to create a named list of
+easily piped into \code{purrr::map(~read.csv(.x))} to create a named list of
 data frames.
 }
 \examples{
@@ -47,6 +47,9 @@ tr_get_files(
   date = TRUE
 )
 
+}
+\references{
+None.
 }
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}

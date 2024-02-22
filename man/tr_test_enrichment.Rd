@@ -28,8 +28,8 @@ de_genes <- sample(all_genes, 1500)
 ex_set <- sample(all_genes, 100)
 
 tr_test_enrichment(
-  de_genes,
-  ex_set,
+  query_genes = de_genes,
+  enrichment_set = ex_set,
   total_genes = 5000
 )
 

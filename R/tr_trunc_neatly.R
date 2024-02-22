@@ -12,6 +12,7 @@
 #' @description Trims the input string to the desired length, appending an
 #'   ellipsis to the end, without splitting in the middle of a word.
 #'
+#' @references None.
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples

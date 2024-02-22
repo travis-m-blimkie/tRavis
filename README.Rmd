@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-tRavis is a small R package meant to hold functions and data that are used
+tRavis is a small R package which contains functions and data that are used
 regularly in my day-to-day workflows. Its also provides an opportunity to
 practice creating, documenting, and maintaining code, within the framework of an
 R package and the recommended guidelines.

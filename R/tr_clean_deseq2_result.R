@@ -62,5 +62,4 @@ tr_clean_deseq2_result <- function(
   } else {
     return(output_result)
   }
-
 }

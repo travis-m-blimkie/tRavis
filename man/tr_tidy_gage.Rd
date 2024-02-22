@@ -26,6 +26,9 @@ ex_gage_results <-
 tr_tidy_gage(ex_gage_results, qval = 1)
 
 }
+\references{
+None.
+}
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}
 }

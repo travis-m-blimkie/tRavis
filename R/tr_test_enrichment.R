@@ -15,7 +15,6 @@
 #'   Uses `alternative = "greater"` in the call to `fisher.test()`.
 #'
 #' @references ?stats::fisher.test
-#'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
@@ -24,17 +23,15 @@
 #' ex_set <- sample(all_genes, 100)
 #'
 #' tr_test_enrichment(
-#'   de_genes,
-#'   ex_set,
+#'   query_genes = de_genes,
+#'   enrichment_set = ex_set,
 #'   total_genes = 5000
 #' )
 #'
 tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
 
-  # Calculate overlap between the query list and enrichment set
   num_overlap <- length(intersect(query_genes, enrichment_set))
 
-  # Construct the matrix to be used for the test
   enrichment_matrix <- matrix(c(
     num_overlap,
     length(enrichment_set) - num_overlap,
@@ -42,7 +39,6 @@ tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
     total_genes - length(enrichment_set) - (length(query_genes) - num_overlap)
   ), nrow = 2, ncol = 2)
 
-  # Run and return Fisher's Exact test on the matrix
   raw_pval <-
     fisher.test(enrichment_matrix, alternative = "greater")$p.value
 
