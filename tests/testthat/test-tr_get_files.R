@@ -8,6 +8,5 @@ test_that("we can list files properly", {
   )
 
   expect_length(retrieved_files, 2)
-
   expect_named(retrieved_files, c("file1", "file2"))
 })

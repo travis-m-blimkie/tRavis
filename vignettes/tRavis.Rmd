@@ -87,11 +87,11 @@ input data frame and desired column. You can use the column name or index, and
 its compatible with pipes.
 ```{r tr_sort_alphanum}
 my_dataframe <- data.frame(
-  c1 = c("a1", "a11", "a5"),
-  c2 = c(2, 3, 2)
-)
+    colA = c("a11", "a1", "b1", "a2"),
+    colB = c(3, 1, 4, 2)
+  )
 
-tr_sort_alphanum(input_df = my_dataframe, sort_col = "c1")
+tr_sort_alphanum(input_df = my_dataframe, sort_col = "colA")
 ```
 
 ## tr_test_enrichment

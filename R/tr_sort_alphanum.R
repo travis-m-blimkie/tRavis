@@ -18,7 +18,10 @@
 #'
 #' @examples
 #' tr_sort_alphanum(
-#'   input_df = data.frame(colA = c("m2", "m1", "m3")),
+#'   input_df = data.frame(
+#'     colA = c("a11", "a1", "b1", "a2"),
+#'     colB = c(3, 1, 4, 2)
+#'   ),
 #'   sort_col = "colA"
 #' )
 #'
