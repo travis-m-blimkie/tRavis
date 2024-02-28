@@ -1,8 +1,7 @@
 #' Properly sort alphanumeric strings
 #'
-#' @param input_df Input data frame or tibble
-#' @param sort_col Column to be used in sorting. Can be an index, or a name in
-#'   quotes.
+#' @param input_df Input data frame or tibble to be sorted
+#' @param sort_col Column to be used in sorting as an index or quoted name
 #'
 #' @return Sorted data frame
 #' @export
@@ -26,6 +25,8 @@
 #' )
 #'
 tr_sort_alphanum <- function(input_df, sort_col) {
+  stopifnot(is(input_df, "data.frame"))
+
   col_contents <- input_df[, sort_col] %>% unlist() %>% as.character()
   input_df[str_order(col_contents, numeric = TRUE), ]
 }

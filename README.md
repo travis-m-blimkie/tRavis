@@ -5,8 +5,8 @@
 
 <!-- badges: start -->
 
-![GitHub R package version
-(branch)](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
+![R package
+version](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
 [![R-CMD-check](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -28,7 +28,7 @@ devtools::install_github("travis-m-blimkie/tRavis")
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v0.73.21! If you encounter any bugs
+#> Thanks for using tRavis v1.103! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
 

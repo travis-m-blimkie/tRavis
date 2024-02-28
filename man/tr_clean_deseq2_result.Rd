@@ -14,12 +14,12 @@ tr_clean_deseq2_result(
 \arguments{
 \item{deseq2_result}{Results object for DE genes, of class \code{DESeqResults}}
 
-\item{p_adjusted}{Threshold for adjusted p-value, defaults to 0.05}
+\item{p_adjusted}{Threshold for adjusted p-value. Defaults to 0.05.}
 
-\item{fold_change}{Threshold for fold change, defaults to 1.5}
+\item{fold_change}{Threshold for fold change. Defaults to 1.5.}
 
-\item{inform}{Should a message be printed with the DE comparison and number
-of DE genes found? Defaults to \code{TRUE}.}
+\item{inform}{Should a message be printed with the name of the DE comparison
+and number of DE genes found? Defaults to \code{TRUE}.}
 }
 \value{
 A data frame (tibble) of filtered DE genes; see \code{?DESeq2::results}

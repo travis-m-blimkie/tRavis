@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 
 # tRavis
 <!-- badges: start -->
-![GitHub R package version (branch)](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
+![R package version](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
 [![R-CMD-check](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 

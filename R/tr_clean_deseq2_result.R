@@ -1,10 +1,10 @@
 #' Tidy results from DESeq2
 #'
 #' @param deseq2_result Results object for DE genes, of class `DESeqResults`
-#' @param p_adjusted Threshold for adjusted p-value, defaults to 0.05
-#' @param fold_change Threshold for fold change, defaults to 1.5
-#' @param inform Should a message be printed with the DE comparison and number
-#'   of DE genes found? Defaults to `TRUE`.
+#' @param p_adjusted Threshold for adjusted p-value. Defaults to 0.05.
+#' @param fold_change Threshold for fold change. Defaults to 1.5.
+#' @param inform Should a message be printed with the name of the DE comparison
+#'   and number of DE genes found? Defaults to `TRUE`.
 #'
 #' @return A data frame (tibble) of filtered DE genes; see `?DESeq2::results`
 #'   for details on the output.
@@ -50,16 +50,13 @@ tr_clean_deseq2_result <- function(
     arrange(padj, abs(log2FoldChange)) %>%
     as_tibble()
 
-  num_de_genes <- nrow(output_result)
+  n_genes <- nrow(output_result)
 
-  if (inform) {
-    if (num_de_genes == 0) {
-      message("No DE genes found for ", comparison, ".")
-    } else {
-      message("Found ", num_de_genes, " DE genes for ", comparison, ".")
-      return(output_result)
-    }
+  if (n_genes == 0) {
+    if (inform) message("No DE genes found for ", comparison, ".")
+    return(NULL)
   } else {
+    if (inform) message("Found ", n_genes, " DE genes for ", comparison, ".")
     return(output_result)
   }
 }

@@ -21,7 +21,8 @@
 #'   ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
 #'
 tr_theme <- function(base_size = 18, base_family = "", grid = TRUE) {
-  theme_part_1 <-
+
+  theme_basic <-
     theme_light(base_size = base_size, base_family = base_family) +
     theme(
       text = element_text(colour = "black"),
@@ -33,11 +34,11 @@ tr_theme <- function(base_size = 18, base_family = "", grid = TRUE) {
     )
 
   if (grid) {
-    theme_part_1 + theme(
-        panel.grid.major = element_line(colour = "grey", linewidth = 0.5),
-        panel.grid.minor = element_blank()
-      )
+    theme_basic + theme(
+      panel.grid.major = element_line(colour = "grey", linewidth = 0.5),
+      panel.grid.minor = element_blank()
+    )
   } else {
-    theme_part_1 + theme(panel.grid = element_blank())
+    theme_basic + theme(panel.grid = element_blank())
   }
 }

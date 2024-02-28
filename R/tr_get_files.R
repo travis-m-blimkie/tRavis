@@ -62,12 +62,11 @@ tr_get_files <- function(
 
   # Remove dates from the file names if specified, assuming "YYYYMMDD" or
   # similar format
-  if (date == TRUE) {
+  if (date) {
     f_names <- gsub(x = f_names, pattern = "_?[0-9]{8}", replacement = "")
   }
 
-  # Remove specified string if provided. Needs to be conditional, otherwise
-  # `gsub()` returns an error for trying to remove NULL.
+  # Remove specified string, if provided
   if (!is.null(remove_string)) {
     f_names <- gsub(x = f_names, pattern = remove_string, replacement = "")
   }

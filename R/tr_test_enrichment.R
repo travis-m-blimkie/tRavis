@@ -1,7 +1,7 @@
 #' Perform a basic enrichment test
 #'
-#' @param query_genes List of experimentally or otherwise derived genes, in
-#'   which one wishes to test for enrichment
+#' @param query_set List of experimentally or otherwise derived genes, in which
+#'   one wishes to test for enrichment
 #' @param enrichment_set Set of genes of interest, such as virulence genes
 #' @param total_genes Total number of genes for the organism/species
 #'
@@ -23,24 +23,23 @@
 #' ex_set <- sample(all_genes, 100)
 #'
 #' tr_test_enrichment(
-#'   query_genes = de_genes,
+#'   query_set = de_genes,
 #'   enrichment_set = ex_set,
 #'   total_genes = 5000
 #' )
 #'
-tr_test_enrichment <- function(query_genes, enrichment_set, total_genes) {
+tr_test_enrichment <- function(query_set, enrichment_set, total_genes) {
 
-  num_overlap <- length(intersect(query_genes, enrichment_set))
+  n_overlap <- length(intersect(query_set, enrichment_set))
 
   enrichment_matrix <- matrix(c(
-    num_overlap,
-    length(enrichment_set) - num_overlap,
-    length(query_genes) - num_overlap,
-    total_genes - length(enrichment_set) - (length(query_genes) - num_overlap)
+    n_overlap,
+    length(enrichment_set) - n_overlap,
+    length(query_set) - n_overlap,
+    total_genes - length(enrichment_set) - (length(query_set) - n_overlap)
   ), nrow = 2, ncol = 2)
 
-  raw_pval <-
-    fisher.test(enrichment_matrix, alternative = "greater")$p.value
+  raw_p <- fisher.test(enrichment_matrix, alternative = "greater")$p.value
 
-  return(raw_pval)
+  return(raw_p)
 }

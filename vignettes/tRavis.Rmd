@@ -103,7 +103,7 @@ de_genes <- sample(all_genes, 1500)
 gene_set <- sample(all_genes, 100)
 
 tr_test_enrichment(
-  query_genes = de_genes, 
+  query_set = de_genes, 
   enrichment_set = gene_set, 
   total_genes = 5000
 )

@@ -7,10 +7,9 @@
 tr_sort_alphanum(input_df, sort_col)
 }
 \arguments{
-\item{input_df}{Input data frame or tibble}
+\item{input_df}{Input data frame or tibble to be sorted}
 
-\item{sort_col}{Column to be used in sorting. Can be an index, or a name in
-quotes.}
+\item{sort_col}{Column to be used in sorting as an index or quoted name}
 }
 \value{
 Sorted data frame
