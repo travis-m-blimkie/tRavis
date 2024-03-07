@@ -11,7 +11,7 @@ version](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/maste
 <!-- badges: end -->
 
 tRavis is a small R package which contains functions and data that are
-used regularly in my day-to-day workflows. Its also provides an
+used regularly in my day-to-day workflows. It also provides an
 opportunity to practice creating, documenting, and maintaining code,
 within the framework of an R package and the recommended guidelines.
 
