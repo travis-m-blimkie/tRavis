@@ -1,6 +1,6 @@
 Package: tRavis
 Title: tRavis: an R package by Travis Blimkie
-Version: 1.1.04
+Version: 1.1.05
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: tRavis is a small R package meant to hold functions and data that 
   are used regularly in my day-to-day workflows. Its also provides an 
