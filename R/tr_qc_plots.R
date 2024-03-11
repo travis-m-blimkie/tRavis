@@ -16,7 +16,6 @@
 #' @importFrom forcats fct_inorder
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom janitor clean_names
-#' @importFrom plyr round_any
 #' @importFrom readr cols read_delim
 #' @importFrom stringr str_remove str_replace_all
 #' @importFrom tidyr pivot_longer
@@ -105,20 +104,17 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
       ) +
       scale_x_continuous(expand = expansion(mult = 0.02)) +
       scale_y_continuous(limits = c(0, max_phred)) +
-      labs(
-        x = "Position",
-        y = "Phred score"
-      ) +
+      labs(x = "Position", y = "Phred score") +
       qc_theme
 
     output_list$plots$phred_scores <- plot_phred_scores
     output_list$data$phred_scores <- phred_3
   } else {
-    message("No data found for FastQC Phred scores.")
     message(
+      "Required file 'fastqc_per_base_sequence_quality_plot.tsv' not found. ",
       "To get this plot, open the MultiQC HTML report and export the data for ",
-      "the 'fastqc_per_base_sequence_quality' plot as a tab-delimited file ",
-      "(TSV), saving into the same directory as the rest of the data."
+      "the 'FastQC per-base sequence quality' as a tab-delimited file (TSV), ",
+      "saving into the same data directory."
     )
   }
 
@@ -148,17 +144,7 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
         values_to = "n_reads"
       )
 
-    max_total_fastqc <- fastqc_3 %>%
-      group_by(sample) %>%
-      summarise(sum_n_reads = sum(n_reads)) %>%
-      pull(sum_n_reads) %>%
-      max()
-
-    rounded_max_fastqc <- round_any(
-      x = max_total_fastqc * 1.1,
-      accuracy = 10e6,
-      f = ceiling
-    )
+    rounded_max_fastqc <- get_rounded_max(fastqc_3)
 
     plot_fastqc_reads <-
       ggplot(fastqc_3, aes(n_reads, sample, fill = read_type)) +
@@ -182,18 +168,16 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
         limits = c(0, rounded_max_fastqc),
         labels = ~.x / 1e6
       ) +
-      labs(
-        x = "Reads (M)",
-        y = NULL,
-        fill = "Read type"
-      ) +
+      labs(x = "Reads (M)", y = NULL, fill = "Read type") +
       qc_theme +
       theme(panel.grid.major.y = element_blank())
 
     output_list$plots$fastqc_reads <- plot_fastqc_reads
     output_list$data$fastqc_reads <- fastqc_3
   } else {
-    message("No data found for FastQC read types.")
+    message(
+      "No data found for FastQC reads; check that 'multiqc_fastqc.txt' exists."
+    )
   }
 
 
@@ -240,17 +224,7 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
         ))
       )
 
-    max_total_star <- star_3 %>%
-      group_by(sample) %>%
-      summarise(sum_n_reads = sum(n_reads)) %>%
-      pull(sum_n_reads) %>%
-      max()
-
-    rounded_max_star <- round_any(
-      x = max_total_star * 1.1,
-      accuracy = 10e6,
-      f = ceiling
-    )
+    rounded_max_star <- get_rounded_max(star_3)
 
     plot_star <- ggplot(star_3, aes(n_reads, sample, fill = `Read type`)) +
       geom_col() +
@@ -276,18 +250,14 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
         "unmapped too short" = "lightcoral",
         "unmapped other" = "#7f0000"
       )) +
-      labs(
-        x = "Reads (M)",
-        y = NULL,
-        fill = "Read type"
-      ) +
+      labs(x = "Reads (M)", y = NULL, fill = "Read type") +
       qc_theme +
       theme(panel.grid.major.y = element_blank())
 
     output_list$plots$star <- plot_star
     output_list$data$star <- star_3
   } else {
-    message("No data found for STAR")
+    message("No data found for STAR; check that 'multiqc_star.txt' exists.")
   }
 
 
@@ -337,17 +307,7 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
         ))
       )
 
-    max_total_htseq <- htseq_3 %>%
-      group_by(sample) %>%
-      summarise(sum_n_reads = sum(n_reads)) %>%
-      pull(sum_n_reads) %>%
-      max()
-
-    rounded_max_htseq <- round_any(
-      x = max_total_htseq * 1.1,
-      accuracy = 10e6,
-      f = ceiling
-    )
+    rounded_max_htseq <- get_rounded_max(htseq_3)
 
     plot_htseq <-
       ggplot(htseq_3, aes(n_reads, sample, fill = `Read type`)) +
@@ -364,7 +324,7 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
 
       scale_x_continuous(
         expand = expansion(mult = c(0, 0.1)),
-        limits = c(0, max_total_htseq),
+        limits = c(0, rounded_max_htseq),
         labels = ~.x / 1e6
       ) +
       scale_fill_manual(values = c(
@@ -385,8 +345,54 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
     output_list$plots$htseq <- plot_htseq
     output_list$data$htseq <- htseq_3
   } else {
-    message("No data found for HTSeq")
+    message("No data found for HTSeq; check that 'multiqc_htseq.txt' exists.")
   }
 
   return(output_list)
+}
+
+
+#' Find highest number of reads in a long table
+#'
+#' @param x Data frame of read information
+#' @param buffer Multiply the largest value by this factor before rounding.
+#'   Defaults to `1.1`, i.e. adds a 10% buffer to the maximum value.
+#' @param nearest Nearest number to round up to. Defaults to `10e6`.
+#'
+#' @return Numeric; maximum number of total reads or counts
+#'
+#' @import dplyr
+#' @importFrom plyr round_any
+#'
+#' @description Internal helper which takes a long and tidy data frame
+#'   containing read or count numbers derived from MultiQC, and finds the
+#'   largest read or count value, then round it up to the nearest ten million.
+#'
+#' @details Must contain the columns "sample" and "n_reads".
+#'
+#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
+#'
+#' @examples
+#' count_table <- tibble(
+#'   sample = rep(paste0("s", seq(1, 5)), each = 2),
+#'   read_type = rep(c("unique", "duplicate"), 5),
+#'   n_reads = rnorm(n = 10, mean = 20e6, sd = 5e6)
+#' )
+#' get_rounded_max(count_table)
+#'
+get_rounded_max <- function(x, buffer = 1.1, nearest = 10e6) {
+  stopifnot(is.data.frame(x))
+  stopifnot(c("sample", "n_reads") %in% colnames(x))
+
+  max_value <- x %>%
+    group_by(sample) %>%
+    summarise(sum_n_reads = sum(n_reads)) %>%
+    pull(sum_n_reads) %>%
+    max()
+
+  round_any(
+    x = max_value * buffer,
+    f = ceiling,
+    accuracy = nearest
+  )
 }
