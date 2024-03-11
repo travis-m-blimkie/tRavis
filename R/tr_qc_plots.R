@@ -54,6 +54,75 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
   output_list <- list()
 
 
+  # Phred scores ----------------------------------------------------------
+
+  if (file.exists(file_phred_scores)) {
+
+    phred_1 <- read_delim(
+      file = file_phred_scores,
+      delim = "\t",
+      col_types = cols()
+    )
+
+    phred_2 <- phred_1 %>%
+      pivot_longer(
+        -`Position (bp)`,
+        names_to = "sample",
+        values_to = "phred_score"
+      ) %>%
+      rename("position" = `Position (bp)`)
+
+    bad_samples <- phred_2 %>%
+      filter(phred_score < 30) %>%
+      distinct(sample, .keep_all = TRUE) %>%
+      mutate(qc = sample)
+
+    phred_3 <- left_join(
+      phred_2,
+      bad_samples,
+    )
+
+    max_phred <- round_any(
+      x = max(phred_3$phred_score),
+      accuracy = 5,
+      f = ceiling
+    )
+
+    plot_phred_scores <-
+      ggplot(phred_3, aes(position, phred_score, group = sample)) +
+      geom_line(alpha = 0.3) +
+      geom_hline(
+        yintercept = 30,
+        linetype = "dashed",
+        colour = "palegreen3",
+        linewidth = 1.5
+      ) +
+      geom_label_repel(
+        aes(label = qc),
+        size = 4,
+        min.segment.length = 0,
+        show.legend = FALSE
+      ) +
+      scale_x_continuous(expand = expansion(mult = 0.02)) +
+      scale_y_continuous(limits = c(0, max_phred)) +
+      labs(
+        x = "Position",
+        y = "Phred score"
+      ) +
+      qc_theme
+
+    output_list$plots$phred_scores <- plot_phred_scores
+    output_list$data$phred_scores <- phred_3
+  } else {
+    message("No data found for FastQC Phred scores.")
+    message(
+      "To get this plot, open the MultiQC HTML report and export the data for ",
+      "the 'fastqc_per_base_sequence_quality' plot as a tab-delimited file ",
+      "(TSV), saving into the same directory as the rest of the data."
+    )
+  }
+
+
   # FastQC reads ----------------------------------------------------------
 
   if (file.exists(file_fastqc_reads)) {
@@ -67,20 +136,26 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
         unique = total_sequences * (total_deduplicated_percentage / 100),
         duplicate = total_sequences - unique
       ) %>%
-      select(sample, unique, duplicate) %>%
-      arrange(unique) %>%
+      select(sample, unique, duplicate, total_sequences) %>%
+      arrange(total_sequences) %>%
       mutate(sample = fct_inorder(sample))
 
     fastqc_3 <- fastqc_2 %>%
+      select(-total_sequences) %>%
       pivot_longer(
         unique:duplicate,
         names_to = "read_type",
         values_to = "n_reads"
       )
 
-    # Round the upper limit to the nearest 10M
+    max_total_fastqc <- fastqc_3 %>%
+      group_by(sample) %>%
+      summarise(sum_n_reads = sum(n_reads)) %>%
+      pull(sum_n_reads) %>%
+      max()
+
     rounded_max_fastqc <- round_any(
-      x = max(fastqc_3$n_reads) + 20e6,
+      x = max_total_fastqc * 1.1,
       accuracy = 10e6,
       f = ceiling
     )
@@ -119,69 +194,6 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
     output_list$data$fastqc_reads <- fastqc_3
   } else {
     message("No data found for FastQC read types.")
-  }
-
-
-  # Phred scores ----------------------------------------------------------
-
-  if (file.exists(file_phred_scores)) {
-
-    phred_1 <- read_delim(
-      file = file_phred_scores,
-      delim = "\t",
-      col_types = cols()
-    )
-
-    phred_2 <- phred_1 %>%
-      pivot_longer(
-        -`Position (bp)`,
-        names_to = "sample",
-        values_to = "phred_score"
-      ) %>%
-      rename("position" = `Position (bp)`)
-
-    bad_samples <- phred_2 %>%
-      filter(phred_score < 30) %>%
-      distinct(sample, .keep_all = TRUE) %>%
-      mutate(qc = sample)
-
-    phred_3 <- left_join(
-      phred_2,
-      bad_samples,
-    )
-
-    plot_phred_scores <-
-      ggplot(phred_3, aes(position, phred_score, group = sample)) +
-      geom_line(alpha = 0.3) +
-      geom_hline(
-        yintercept = 30,
-        linetype = "dashed",
-        colour = "palegreen3",
-        linewidth = 1.5
-      ) +
-      geom_label_repel(
-        aes(label = qc),
-        size = 4,
-        min.segment.length = 0,
-        show.legend = FALSE
-      ) +
-      scale_x_continuous(expand = expansion(mult = 0.01)) +
-      scale_y_continuous(limits = c(0, 40)) +
-      labs(
-        x = "Position",
-        y = "Phred score"
-      ) +
-      qc_theme
-
-    output_list$plots$phred_scores <- plot_phred_scores
-    output_list$data$phred_scores <- phred_3
-  } else {
-    message("No data found for FastQC Phred scores.")
-    message(
-      "To get this plot, open the MultiQC HTML report and export the data for ",
-      "the 'fastqc_per_base_sequence_quality' plot as a tab-delimited file ",
-      "(TSV), saving into the same directory as the rest of the data."
-    )
   }
 
 
@@ -235,7 +247,7 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
       max()
 
     rounded_max_star <- round_any(
-      x = max_total_star + 10e6,
+      x = max_total_star * 1.1,
       accuracy = 10e6,
       f = ceiling
     )
@@ -332,7 +344,7 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
       max()
 
     rounded_max_htseq <- round_any(
-      x = max_total_htseq + 10e6,
+      x = max_total_htseq * 1.1,
       accuracy = 10e6,
       f = ceiling
     )
