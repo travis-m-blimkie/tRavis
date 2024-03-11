@@ -74,12 +74,22 @@ tr_get_files(
 
 ## tr_qc_plots
 Generate RNA-Seq QC plots from [MultiQC](https://multiqc.info/) outputs.
-Currently only supports summary plots for FastQC, STAR, and HTSeq. Plots are
-created with [plotly](https://plotly.com/r/), meaning they can be embedded in
-RMarkdown documents and retain interactivity.
-```{r tr_qc_plots, eval=FALSE}
-tr_qc_plots(directory = "multiqc_data")
+Currently only supports summary plots for FastQC (Phred scores and read counts),
+STAR, and HTSeq. Plots are created with [ggplot2](https://ggplot2.tidyverse.org/)
+for simplicity. A few arguments are provided to modify the overall font size, 
+and toggle a theshold line at a given number of reads/counts:
+```{r tr_qc_plots, warning=FALSE, fig.show='hold', fig.width=8}
+qc_plot_output <- tr_qc_plots(
+  directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+  font_size = 12,
+  threshold_line = 5e6
+)
+
+qc_plot_output$plots
 ```
+
+All underlying data is also returned, so one can easily generate their own plots
+if further refinements are required. 
 
 ## tr_sort_alphanum
 Sort a column of alphanumeric strings in (non-binary) numerical order given an
