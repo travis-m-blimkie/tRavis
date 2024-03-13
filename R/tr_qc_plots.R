@@ -11,7 +11,7 @@
 #'   of three values to modify each individually. Defaults to NULL, which sets
 #'   automatic limits.
 #'
-#' @return A list with elements "plot" containing the  `ggplot` objects, and
+#' @return A list with elements "plot" containing the `ggplot` objects, and
 #'   "data" containing all the underlying data
 #' @export
 #'
@@ -144,7 +144,8 @@ tr_qc_plots <- function(
         aes(label = qc),
         size = 4,
         min.segment.length = 0,
-        show.legend = FALSE
+        show.legend = FALSE,
+        na.rm = TRUE
       ) +
       scale_x_continuous(expand = expansion(mult = 0.02)) +
       scale_y_continuous(limits = c(0, max_phred)) +
