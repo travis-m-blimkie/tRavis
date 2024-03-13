@@ -6,6 +6,10 @@
 #' @param threshold_line Provide a number to draw a red dashed line at the
 #'   indicated number of reads for FastQC read, STAR, and HTSeq plots. Defaults
 #'   to 10e6; set to NULL to disable.
+#' @param limits Override the upper limit of FastQC read, STAR, and HTSeq plots.
+#'   Supply a single number to give all three plots the same limit, or a vector
+#'   of three values to modify each individually. Defaults to NULL, which sets
+#'   automatic limits.
 #'
 #' @return A list with elements "plot" containing the  `ggplot` objects, and
 #'   "data" containing all the underlying data
@@ -34,7 +38,12 @@
 #' @examples
 #' if (FALSE) tr_qc_plots("multiqc_data")
 #'
-tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
+tr_qc_plots <- function(
+    directory,
+    font_size = 18,
+    threshold_line = 10e6,
+    limits = NULL
+) {
 
 
   # Setup -----------------------------------------------------------------
@@ -49,6 +58,34 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
     theme(axis.text = element_text(colour = "black"))
 
   draw_line <- ifelse(!is.null(threshold_line), TRUE, FALSE)
+
+  dashed_line <- geom_vline(
+    xintercept = threshold_line,
+    linetype = "dashed",
+    colour = "#EE2C2C",
+    linewidth = 1
+  )
+
+  key_colours <- list(
+    "fastqc" = c(
+      "unique" = "lightblue3",
+      "duplicate" = "grey50"
+    ),
+    "star" = c(
+      "uniquely mapped" = "dodgerblue4",
+      "multimapped" = "#7cb5ec",
+      "multimapped too many" = "#f7a35c",
+      "unmapped too short" = "lightcoral",
+      "unmapped other" = "#7f0000"
+    ),
+    "htseq" = c(
+      "assigned" = "dodgerblue4",
+      "ambiguous" = "grey50",
+      "alignment not unique" = "#00CD66",
+      "no feature" = "#f7a35c",
+      "too low aQual" = "#8085e9"
+    )
+  )
 
   output_list <- list()
 
@@ -88,13 +125,19 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
       f = ceiling
     )
 
+    line_alpha <- ifelse(
+      length(unique(phred_3$sample)) > 20,
+      0.3,
+      1
+    )
+
     plot_phred_scores <-
       ggplot(phred_3, aes(position, phred_score, group = sample)) +
-      geom_line(alpha = 0.3) +
+      geom_line(alpha = line_alpha) +
       geom_hline(
         yintercept = 30,
         linetype = "dashed",
-        colour = "palegreen3",
+        colour = "#00CD66",
         linewidth = 1.5
       ) +
       geom_label_repel(
@@ -145,25 +188,25 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
         values_to = "n_reads"
       )
 
-    rounded_max_fastqc <- get_rounded_max(fastqc_3)
+    rounded_max_fastqc <-
+      if (is.null(limits)) {
+        get_rounded_max(fastqc_3)
+      } else if (length(limits) == 1) {
+        limits
+      } else if (length(limits) == 3) {
+        limits[1]
+      } else {
+        stop(
+          "Argument 'limits' must be NULL, a single value, or a numeric ",
+          "vector with length 3."
+        )
+      }
 
     plot_fastqc_reads <-
       ggplot(fastqc_3, aes(n_reads, sample, fill = read_type)) +
       geom_col() +
-
-      {if (draw_line) {
-        geom_vline(
-          xintercept = threshold_line,
-          linetype = "dashed",
-          colour = "red",
-          linewidth = 1
-        )
-      }} +
-
-      scale_fill_manual(values = c(
-        "unique" = "lightblue3",
-        "duplicate" = "grey50"
-      )) +
+      {if (draw_line) dashed_line} +
+      scale_fill_manual(values = key_colours$fastqc) +
       scale_x_continuous(
         expand = expansion(mult = c(0, 0.1)),
         limits = c(0, rounded_max_fastqc),
@@ -225,32 +268,29 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
         ))
       )
 
-    rounded_max_star <- get_rounded_max(star_3)
+    rounded_max_star <-
+      if (is.null(limits)) {
+        get_rounded_max(star_3)
+      } else if (length(limits) == 1) {
+        limits
+      } else if (length(limits) == 3) {
+        limits[2]
+      } else {
+        stop(
+          "Argument 'limits' must be NULL, a single value, or a numeric ",
+          "vector with length 3."
+        )
+      }
 
     plot_star <- ggplot(star_3, aes(n_reads, sample, fill = `Read type`)) +
       geom_col() +
-
-      {if (draw_line) {
-        geom_vline(
-          xintercept = threshold_line,
-          linetype = "dashed",
-          colour = "red",
-          linewidth = 1
-        )
-      }} +
-
+      {if (draw_line) dashed_line} +
       scale_x_continuous(
         expand = expansion(mult = c(0, 0.1)),
         limits = c(0, rounded_max_star),
         labels = ~.x / 1e6
       ) +
-      scale_fill_manual(values = c(
-        "uniquely mapped" = "dodgerblue4",
-        "multimapped" = "#7cb5ec",
-        "multimapped too many" = "#f7a35c",
-        "unmapped too short" = "lightcoral",
-        "unmapped other" = "#7f0000"
-      )) +
+      scale_fill_manual(values = key_colours$star) +
       labs(x = "Reads (M)", y = NULL, fill = "Read type") +
       qc_theme +
       theme(panel.grid.major.y = element_blank())
@@ -308,38 +348,31 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
         ))
       )
 
-    rounded_max_htseq <- get_rounded_max(htseq_3)
+    rounded_max_htseq <-
+      if (is.null(limits)) {
+        get_rounded_max(htseq_3)
+      } else if (length(limits) == 1) {
+        limits
+      } else if (length(limits) == 3) {
+        limits[3]
+      } else {
+        stop(
+          "Argument 'limits' must be NULL, a single value, or a numeric ",
+          "vector with length 3."
+        )
+      }
 
     plot_htseq <-
       ggplot(htseq_3, aes(n_reads, sample, fill = `Read type`)) +
       geom_col() +
-
-      {if (draw_line) {
-        geom_vline(
-          xintercept = threshold_line,
-          linetype = "dashed",
-          colour = "red",
-          linewidth = 1
-        )
-      }} +
-
+      {if (draw_line) dashed_line} +
       scale_x_continuous(
         expand = expansion(mult = c(0, 0.1)),
         limits = c(0, rounded_max_htseq),
         labels = ~.x / 1e6
       ) +
-      scale_fill_manual(values = c(
-        "assigned" = "#7cb5ec",
-        "ambiguous" = "#434348",
-        "alignment not unique" = "#90ed7d",
-        "no feature" = "#f7a35c",
-        "too low aQual" = "#8085e9"
-      )) +
-      labs(
-        x = "Reads (M)",
-        y = NULL,
-        fill = "Read type"
-      ) +
+      scale_fill_manual(values = key_colours$htseq) +
+      labs(x = "Reads (M)", y = NULL, fill = "Read type") +
       qc_theme +
       theme(panel.grid.major.y = element_blank())
 
