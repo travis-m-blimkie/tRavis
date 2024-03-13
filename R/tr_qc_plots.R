@@ -79,6 +79,7 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
     phred_3 <- left_join(
       phred_2,
       bad_samples,
+      by = c("position", "sample", "phred_score")
     )
 
     max_phred <- round_any(
@@ -349,50 +350,4 @@ tr_qc_plots <- function(directory, font_size = 18, threshold_line = 10e6) {
   }
 
   return(output_list)
-}
-
-
-#' Find highest number of reads in a long table
-#'
-#' @param x Data frame of read information
-#' @param buffer Multiply the largest value by this factor before rounding.
-#'   Defaults to `1.1`, i.e. adds a 10% buffer to the maximum value.
-#' @param nearest Nearest number to round up to. Defaults to `10e6`.
-#'
-#' @return Numeric; maximum number of total reads or counts
-#'
-#' @import dplyr
-#' @importFrom plyr round_any
-#'
-#' @description Internal helper which takes a long and tidy data frame
-#'   containing read or count numbers derived from MultiQC, and finds the
-#'   largest read or count value, then round it up to the nearest ten million.
-#'
-#' @details Must contain the columns "sample" and "n_reads".
-#'
-#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
-#'
-#' @examples
-#' count_table <- tibble(
-#'   sample = rep(paste0("s", seq(1, 5)), each = 2),
-#'   read_type = rep(c("unique", "duplicate"), 5),
-#'   n_reads = rnorm(n = 10, mean = 20e6, sd = 5e6)
-#' )
-#' get_rounded_max(count_table)
-#'
-get_rounded_max <- function(x, buffer = 1.1, nearest = 10e6) {
-  stopifnot(is.data.frame(x))
-  stopifnot(c("sample", "n_reads") %in% colnames(x))
-
-  max_value <- x %>%
-    group_by(sample) %>%
-    summarise(sum_n_reads = sum(n_reads)) %>%
-    pull(sum_n_reads) %>%
-    max()
-
-  round_any(
-    x = max_value * buffer,
-    f = ceiling,
-    accuracy = nearest
-  )
 }
