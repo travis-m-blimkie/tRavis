@@ -22,7 +22,7 @@ of three values to modify each individually. Defaults to NULL, which sets
 automatic limits.}
 }
 \value{
-A list with elements "plot" containing the  \code{ggplot} objects, and
+A list with elements "plot" containing the \code{ggplot} objects, and
 "data" containing all the underlying data
 }
 \description{

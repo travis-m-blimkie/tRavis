@@ -17,8 +17,8 @@ library(tRavis)
 ```
 
 ## tr_anno_cleaner
-Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from
-[pseudomonas.com](pseudomonas.com).
+Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from 
+<https://pseudomonas.com>.
 ```{r tr_anno_cleaner_I}
 link <- paste0(
   "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
@@ -28,8 +28,7 @@ link <- paste0(
 tr_anno_cleaner(link)
 ```
 
-Or add some extra columns, and fill empty names with the corresponding locus
-tag.
+Or add some extra columns and fill empty names with the corresponding locus tag.
 ```{r tr_anno_cleaner_II}
 tr_anno_cleaner(link, extra_cols = TRUE, fill_names = TRUE)
 ```
@@ -77,10 +76,13 @@ Generate RNA-Seq QC plots from [MultiQC](https://multiqc.info/) outputs.
 Currently only supports summary plots for FastQC (Phred scores and read counts),
 STAR, and HTSeq. Plots are created with [ggplot2](https://ggplot2.tidyverse.org/)
 for simplicity. A few arguments are provided to modify the overall font size, 
-and toggle a theshold line at a given number of reads/counts:
-```{r tr_qc_plots, warning=FALSE, fig.show='hold', fig.width=8}
+and toggle a threshold line at a given number of reads/counts:
+```{r tr_qc_plots, fig.show='hold', fig.width=8}
+multiqc_data <- system.file("extdata/tr_qc_plots_data", package = "tRavis")
+list.files(multiqc_data)
+
 qc_plot_output <- tr_qc_plots(
-  directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+  directory = multiqc_data,
   font_size = 12,
   threshold_line = 5e6
 )

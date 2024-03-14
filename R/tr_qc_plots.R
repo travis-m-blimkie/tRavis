@@ -66,24 +66,24 @@ tr_qc_plots <- function(
     linewidth = 1
   )
 
-  key_colours <- list(
+  colour_keys <- list(
     "fastqc" = c(
-      "unique" = "lightblue3",
-      "duplicate" = "grey50"
+      "unique" = "#9AC0CD",
+      "duplicate" = "#7F7F7F"
     ),
     "star" = c(
-      "uniquely mapped" = "dodgerblue4",
-      "multimapped" = "#7cb5ec",
-      "multimapped too many" = "#f7a35c",
-      "unmapped too short" = "lightcoral",
-      "unmapped other" = "#7f0000"
+      "uniquely mapped" = "#104E8B",
+      "multimapped" = "#7CB5EC",
+      "multimapped too many" = "#F7A35C",
+      "unmapped too short" = "#F08080",
+      "unmapped other" = "#7F0000"
     ),
     "htseq" = c(
-      "assigned" = "dodgerblue4",
-      "ambiguous" = "grey50",
-      "alignment not unique" = "#00CD66",
-      "no feature" = "#f7a35c",
-      "too low aQual" = "#8085e9"
+      "assigned" = "#7CB5EC",
+      "ambiguous" = "#434348",
+      "alignment not unique" = "#90ED7D",
+      "no feature" = "#F7A35C",
+      "too low aQual" = "#8085E9"
     )
   )
 
@@ -207,7 +207,7 @@ tr_qc_plots <- function(
       ggplot(fastqc_3, aes(n_reads, sample, fill = read_type)) +
       geom_col() +
       {if (draw_line) dashed_line} +
-      scale_fill_manual(values = key_colours$fastqc) +
+      scale_fill_manual(values = colour_keys$fastqc) +
       scale_x_continuous(
         expand = expansion(mult = c(0, 0.1)),
         limits = c(0, rounded_max_fastqc),
@@ -252,15 +252,15 @@ tr_qc_plots <- function(
     star_3 <- star_2 %>%
       pivot_longer(
         -sample,
-        names_to = "Read type",
+        names_to = "read_type",
         values_to = "n_reads"
       ) %>%
       mutate(
-        `Read type` = str_replace_all(
-          string = `Read type`,
+        read_type = str_replace_all(
+          string = read_type,
           pattern = c("_" = " ", "too" = "too ")
         ),
-        `Read type` = factor(`Read type`, c(
+        read_type = factor(read_type, c(
           "unmapped other",
           "unmapped too short",
           "multimapped too many",
@@ -283,7 +283,7 @@ tr_qc_plots <- function(
         )
       }
 
-    plot_star <- ggplot(star_3, aes(n_reads, sample, fill = `Read type`)) +
+    plot_star <- ggplot(star_3, aes(n_reads, sample, fill = read_type)) +
       geom_col() +
       {if (draw_line) dashed_line} +
       scale_x_continuous(
@@ -291,7 +291,7 @@ tr_qc_plots <- function(
         limits = c(0, rounded_max_star),
         labels = ~.x / 1e6
       ) +
-      scale_fill_manual(values = key_colours$star) +
+      scale_fill_manual(values = colour_keys$star) +
       labs(x = "Reads (M)", y = NULL, fill = "Read type") +
       qc_theme +
       theme(panel.grid.major.y = element_blank())
@@ -332,15 +332,15 @@ tr_qc_plots <- function(
     htseq_3 <- htseq_2 %>%
       pivot_longer(
         -sample,
-        names_to = "Read type",
+        names_to = "read_type",
         values_to = "n_reads"
       ) %>%
       mutate(
-        `Read type` = str_replace_all(
-          string = `Read type`,
+        read_type = str_replace_all(
+          string = read_type,
           pattern = c("_" = " ", "a qual" = "aQual")
         ),
-        `Read type` = factor(`Read type`, c(
+        read_type = factor(read_type, c(
           "too low aQual",
           "no feature",
           "alignment not unique",
@@ -364,7 +364,7 @@ tr_qc_plots <- function(
       }
 
     plot_htseq <-
-      ggplot(htseq_3, aes(n_reads, sample, fill = `Read type`)) +
+      ggplot(htseq_3, aes(n_reads, sample, fill = read_type)) +
       geom_col() +
       {if (draw_line) dashed_line} +
       scale_x_continuous(
@@ -372,7 +372,7 @@ tr_qc_plots <- function(
         limits = c(0, rounded_max_htseq),
         labels = ~.x / 1e6
       ) +
-      scale_fill_manual(values = key_colours$htseq) +
+      scale_fill_manual(values = colour_keys$htseq) +
       labs(x = "Reads (M)", y = NULL, fill = "Read type") +
       qc_theme +
       theme(panel.grid.major.y = element_blank())
