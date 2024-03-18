@@ -48,9 +48,9 @@ tr_qc_plots <- function(
 
   # Setup -----------------------------------------------------------------
 
-  file_fastqc_reads <- file.path(directory, "multiqc_fastqc.txt")
   file_phred_scores <-
     file.path(directory, "fastqc_per_base_sequence_quality_plot.tsv")
+  file_fastqc_reads <- file.path(directory, "multiqc_fastqc.txt")
   file_star <- file.path(directory, "multiqc_star.txt")
   file_htseq <- file.path(directory, "multiqc_htseq.txt")
 
@@ -72,18 +72,18 @@ tr_qc_plots <- function(
       "duplicate" = "#7F7F7F"
     ),
     "star" = c(
-      "uniquely mapped" = "#104E8B",
+      "unique" = "#104E8B",
       "multimapped" = "#7CB5EC",
-      "multimapped too many" = "#F7A35C",
-      "unmapped too short" = "#F08080",
-      "unmapped other" = "#7F0000"
+      "too many" = "#F7A35C",
+      "too short" = "#F08080",
+      "unmapped" = "#7F0000"
     ),
     "htseq" = c(
       "assigned" = "#7CB5EC",
       "ambiguous" = "#434348",
-      "alignment not unique" = "#90ED7D",
+      "not unique" = "#90ED7D",
       "no feature" = "#F7A35C",
-      "too low aQual" = "#8085E9"
+      "low aQual" = "#8085E9"
     )
   )
 
@@ -242,11 +242,11 @@ tr_qc_plots <- function(
       mutate(sample = fct_inorder(sample)) %>%
       select(
         sample,
-        uniquely_mapped,
+        "unique" = uniquely_mapped,
         multimapped,
-        multimapped_toomany,
-        unmapped_tooshort,
-        unmapped_other
+        "too_many" = multimapped_toomany,
+        "too_short" = unmapped_tooshort,
+        "unmapped" = unmapped_other
       )
 
     star_3 <- star_2 %>%
@@ -256,16 +256,13 @@ tr_qc_plots <- function(
         values_to = "n_reads"
       ) %>%
       mutate(
-        read_type = str_replace_all(
-          string = read_type,
-          pattern = c("_" = " ", "too" = "too ")
-        ),
+        read_type = str_replace_all(read_type, pattern = c("_" = " ")),
         read_type = factor(read_type, c(
-          "unmapped other",
-          "unmapped too short",
-          "multimapped too many",
+          "unmapped",
+          "too short",
+          "too many",
           "multimapped",
-          "uniquely mapped"
+          "unique"
         ))
       )
 
@@ -324,9 +321,9 @@ tr_qc_plots <- function(
         sample,
         assigned,
         ambiguous,
-        alignment_not_unique,
+        "not_unique" = alignment_not_unique,
         no_feature,
-        too_low_a_qual
+        "low_aQual" = too_low_a_qual
       )
 
     htseq_3 <- htseq_2 %>%
@@ -336,14 +333,11 @@ tr_qc_plots <- function(
         values_to = "n_reads"
       ) %>%
       mutate(
-        read_type = str_replace_all(
-          string = read_type,
-          pattern = c("_" = " ", "a qual" = "aQual")
-        ),
+        read_type = str_replace_all(read_type, pattern = c("_" = " ")),
         read_type = factor(read_type, c(
-          "too low aQual",
+          "low aQual",
           "no feature",
-          "alignment not unique",
+          "not unique",
           "ambiguous",
           "assigned"
         ))
