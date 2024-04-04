@@ -14,8 +14,9 @@
 #'   containing read or count numbers derived from MultiQC, and finds the
 #'   largest read or count value, then round it up to the nearest ten million.
 #'
-#' @details Must contain the columns "sample" and "n_reads".
+#' @details Input data frame must contain the columns "sample" and "n_reads".
 #'
+#' @references None.
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 get_rounded_max <- function(x, buffer = 1.1, nearest = 10e6) {

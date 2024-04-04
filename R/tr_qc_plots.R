@@ -32,8 +32,8 @@
 #'   export the data for "fastqc_per_base_sequence_quality_plot" as a tab-
 #'   delimited file (TSV), placing it inside the same directory as the rest.
 #'
-#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #' @references <https://multiqc.info/>
+#' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
 #' if (FALSE) tr_qc_plots("multiqc_data")

@@ -16,7 +16,7 @@ tr_clean_deseq2_result(
 
 \item{p_adjusted}{Threshold for adjusted p-value. Defaults to 0.05.}
 
-\item{fold_change}{Threshold for fold change. Defaults to 1.5.}
+\item{fold_change}{Threshold for absolute fold change. Defaults to 1.5.}
 
 \item{inform}{Should a message be printed with the name of the DE comparison
 and number of DE genes found? Defaults to \code{TRUE}.}
