@@ -12,7 +12,7 @@ in identifying differentially expressed genes."><!-- mathjax --><script src="htt
     
     <a class="navbar-brand me-2" href="../index.html">tRavis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,16 +69,16 @@ in identifying differentially expressed genes.</p>
 
 
 <dt>p_adjusted</dt>
-<dd><p>Threshold for adjusted p-value, defaults to 0.05</p></dd>
+<dd><p>Threshold for adjusted p-value. Defaults to 0.05.</p></dd>
 
 
 <dt>fold_change</dt>
-<dd><p>Threshold for fold change, defaults to 1.5</p></dd>
+<dd><p>Threshold for absolute fold change. Defaults to 1.5.</p></dd>
 
 
 <dt>inform</dt>
-<dd><p>Should a message be printed with the DE comparison and number
-of DE genes found? Defaults to <code>TRUE</code>.</p></dd>
+<dd><p>Should a message be printed with the name of the DE comparison
+and number of DE genes found? Defaults to <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -167,7 +167,6 @@ of DE genes found? Defaults to <code>TRUE</code>.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:matrixStats’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     anyMissing, rowMedians</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>replacing previous import ‘S4Arrays::makeNindexFromArrayViewport’ by ‘DelayedArray::makeNindexFromArrayViewport’ when loading ‘SummarizedExperiment’</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">tr_clean_deseq2_result</span><span class="op">(</span><span class="va">ex_deseq_result</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Found 100 DE genes for condition B vs A.</span>

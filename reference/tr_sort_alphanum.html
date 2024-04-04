@@ -14,7 +14,7 @@ pipes, and you can provide column name or index as argument sort_col.'><!-- math
     
     <a class="navbar-brand me-2" href="../index.html">tRavis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,12 +63,11 @@ pipes, and you can provide column name or index as argument <code>sort_col</code
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>input_df</dt>
-<dd><p>Input data frame or tibble</p></dd>
+<dd><p>Input data frame or tibble to be sorted</p></dd>
 
 
 <dt>sort_col</dt>
-<dd><p>Column to be used in sorting. Can be an index, or the name in
-quotes.</p></dd>
+<dd><p>Column to be used in sorting as an index or quoted name</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -78,6 +77,10 @@ quotes.</p></dd>
 <p>Sorted data frame</p>
     </div>
     <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>None.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="https://www.github.com/travis-m-blimkie/tRavis" class="external-link">https://www.github.com/travis-m-blimkie/tRavis</a></p></div>
     </div>
@@ -85,13 +88,17 @@ quotes.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">tr_sort_alphanum</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  input_df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>colA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, colB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"m2"</span>, <span class="st">"m1"</span>, <span class="st">"m3"</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  sort_col <span class="op">=</span> <span class="st">"colB"</span></span></span>
+<span class="r-in"><span>  input_df <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    colA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a11"</span>, <span class="st">"a1"</span>, <span class="st">"b1"</span>, <span class="st">"a2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    colB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  sort_col <span class="op">=</span> <span class="st">"colA"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   colA colB</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1   m1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    2   m2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3   m3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   a1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   a2    2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  a11    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   b1    4</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
