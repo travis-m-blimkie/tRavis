@@ -15,6 +15,7 @@
 #'   enrichment into an easier-to-use tibble format. At the same time it can
 #'   also filter the result based on q value, with a default of `0.1`.
 #'
+#' @references None.
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
@@ -25,14 +26,14 @@
 #'
 tr_tidy_gage <- function(gage_result, qval = 0.1) {
 
-  gageList <- list(gage_result[["greater"]], gage_result[["less"]])
+  gage_list <- list(gage_result[["greater"]], gage_result[["less"]])
 
-  gageOut <- gageList %>%
+  gage_out <- gage_list %>%
     map(~rownames_to_column(as.data.frame(.x), "pathway")) %>%
     bind_rows() %>%
     clean_names() %>%
     as_tibble() %>%
     filter(q_val < qval)
 
-  return(gageOut)
+  return(gage_out)
 }

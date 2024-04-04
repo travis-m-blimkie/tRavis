@@ -5,7 +5,7 @@
 \alias{reactome_categories_human}
 \title{Human pathway hierarchy from Reactome}
 \format{
-A data frame (tibble) with 2647 rows and 4 columns:
+A data frame (tibble) with 2673 rows and 4 columns:
 \describe{
 \item{id}{Pathway ID}
 \item{description}{Pathway name}

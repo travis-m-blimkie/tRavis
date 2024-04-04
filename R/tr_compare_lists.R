@@ -14,6 +14,7 @@
 #'   `setdiff(y, x)`. Returns these elements in a list with names "common",
 #'   "unique_x", and "unique_y".
 #'
+#' @references None.
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
@@ -27,13 +28,13 @@ tr_compare_lists <- function(x, y, names = NULL) {
 
   stopifnot(
     "Wrong input type. Please ensure both 'x' and 'y' are vectors." = {
-      (is.vector(x) & is.vector(y))
+      all(is.vector(x), is.vector(y))
     }
   )
 
   output_list <- list(
     unique_x = setdiff(x, y),
-    common   = intersect(x, y),
+    common = intersect(x, y),
     unique_y = setdiff(y, x)
   )
 

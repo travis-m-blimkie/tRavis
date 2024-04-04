@@ -14,7 +14,6 @@
 #'   base font size, sets a white background, grey grid, and black border.
 #'
 #' @references None.
-#'
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
 #'
 #' @examples
@@ -22,29 +21,24 @@
 #'   ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
 #'
 tr_theme <- function(base_size = 18, base_family = "", grid = TRUE) {
+
+  theme_basic <-
+    theme_light(base_size = base_size, base_family = base_family) +
+    theme(
+      text = element_text(colour = "black"),
+      axis.text = element_text(colour = "black"),
+      axis.ticks = element_line(colour = "black", linewidth = 0.5),
+      panel.border = element_rect(colour = "black", linewidth = 1),
+      strip.background = element_rect(fill = NA),
+      strip.text = element_text(colour = "black", face = "bold", size = 14)
+    )
+
   if (grid) {
-    theme_light(base_size = base_size, base_family = base_family) +
-      theme(
-        text             = element_text(colour = "black"),
-        axis.text        = element_text(colour = "black"),
-        axis.ticks       = element_line(colour = "black", linewidth = 0.5),
-        panel.grid.major = element_line(colour = "grey", linewidth = 0.5),
-        panel.grid.minor = element_blank(),
-        panel.border     = element_rect(colour = "black", linewidth = 1),
-        strip.background = element_rect(fill = NA),
-        strip.text       = element_text(colour = "black", face = "bold", size = 14)
-      )
+    theme_basic + theme(
+      panel.grid.major = element_line(colour = "grey", linewidth = 0.5),
+      panel.grid.minor = element_blank()
+    )
   } else {
-    theme_light(base_size = base_size, base_family = base_family) +
-      theme(
-        text             = element_text(colour = "black"),
-        axis.text        = element_text(colour = "black"),
-        axis.ticks       = element_line(colour = "black", linewidth = 0.5),
-        panel.grid       = element_blank(),
-        panel.border     = element_rect(colour = "black", linewidth = 1),
-        strip.background = element_rect(fill = NA),
-        strip.text       = element_text(colour = "black", face = "bold", size = 14)
-      )
+    theme_basic + theme(panel.grid = element_blank())
   }
 }
-

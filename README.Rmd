@@ -15,12 +15,12 @@ knitr::opts_chunk$set(
 
 # tRavis
 <!-- badges: start -->
-![GitHub R package version (branch)](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
+![R package version](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
 [![R-CMD-check](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-tRavis is a small R package meant to hold functions and data that are used
-regularly in my day-to-day workflows. Its also provides an opportunity to
+tRavis is a small R package which contains functions and data that are used
+regularly in my day-to-day workflows. It also provides an opportunity to
 practice creating, documenting, and maintaining code, within the framework of an
 R package and the recommended guidelines.
 

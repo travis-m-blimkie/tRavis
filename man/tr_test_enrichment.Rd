@@ -4,11 +4,11 @@
 \alias{tr_test_enrichment}
 \title{Perform a basic enrichment test}
 \usage{
-tr_test_enrichment(query_genes, enrichment_set, total_genes)
+tr_test_enrichment(query_set, enrichment_set, total_genes)
 }
 \arguments{
-\item{query_genes}{List of experimentally or otherwise derived genes, in
-which one wishes to test for enrichment}
+\item{query_set}{List of experimentally or otherwise derived genes, in which
+one wishes to test for enrichment}
 
 \item{enrichment_set}{Set of genes of interest, such as virulence genes}
 
@@ -28,8 +28,8 @@ de_genes <- sample(all_genes, 1500)
 ex_set <- sample(all_genes, 100)
 
 tr_test_enrichment(
-  de_genes,
-  ex_set,
+  query_set = de_genes,
+  enrichment_set = ex_set,
   total_genes = 5000
 )
 

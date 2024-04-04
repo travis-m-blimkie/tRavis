@@ -5,13 +5,13 @@
 
 <!-- badges: start -->
 
-![GitHub R package version
-(branch)](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
+![R package
+version](https://img.shields.io/github/r-package/v/travis-m-blimkie/tRavis/master?label=tRavis%40master)
 [![R-CMD-check](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/travis-m-blimkie/tRavis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-tRavis is a small R package meant to hold functions and data that are
-used regularly in my day-to-day workflows. Its also provides an
+tRavis is a small R package which contains functions and data that are
+used regularly in my day-to-day workflows. It also provides an
 opportunity to practice creating, documenting, and maintaining code,
 within the framework of an R package and the recommended guidelines.
 
@@ -28,7 +28,7 @@ devtools::install_github("travis-m-blimkie/tRavis")
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v1.0! If you encounter any bugs
+#> Thanks for using tRavis v1.103! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
 
@@ -51,10 +51,10 @@ tr_get_files(
   remove_string = "test_"
 )
 #> $file1
-#> [1] "/tmp/Rtmpc4oNPn/temp_libpath1c4e415faf883/tRavis/extdata/test_file1_20191231.csv"
+#> [1] "/home/travisblimkie/R/x86_64-pc-linux-gnu-library/4.3/tRavis/extdata/test_file1_20191231.csv"
 #> 
 #> $file2
-#> [1] "/tmp/Rtmpc4oNPn/temp_libpath1c4e415faf883/tRavis/extdata/test_file2_20200101.csv"
+#> [1] "/home/travisblimkie/R/x86_64-pc-linux-gnu-library/4.3/tRavis/extdata/test_file2_20200101.csv"
 
 # Neatly truncate strings:
 tr_trunc_neatly(

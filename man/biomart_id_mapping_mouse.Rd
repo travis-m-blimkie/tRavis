@@ -5,7 +5,7 @@
 \alias{biomart_id_mapping_mouse}
 \title{Mouse gene ID mapping from biomaRt}
 \format{
-A data frame (tibble) with 57286 rows and 3 columns:
+A data frame (tibble) with 57548 rows and 3 columns:
 \describe{
 \item{ensembl_gene_id}{Mouse Ensembl gene IDs}
 \item{mgi_symbol}{Mouse gene name/symbol}

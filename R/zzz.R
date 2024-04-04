@@ -1,5 +1,4 @@
 .onAttach <- function(...) {
-
   packageStartupMessage(
     paste0(
       "Thanks for using tRavis v", utils::packageVersion("tRavis"), "! ",

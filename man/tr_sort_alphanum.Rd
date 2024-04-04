@@ -7,10 +7,9 @@
 tr_sort_alphanum(input_df, sort_col)
 }
 \arguments{
-\item{input_df}{Input data frame or tibble}
+\item{input_df}{Input data frame or tibble to be sorted}
 
-\item{sort_col}{Column to be used in sorting. Can be an index, or the name in
-quotes.}
+\item{sort_col}{Column to be used in sorting as an index or quoted name}
 }
 \value{
 Sorted data frame
@@ -22,10 +21,16 @@ pipes, and you can provide column name or index as argument \code{sort_col}.
 }
 \examples{
 tr_sort_alphanum(
-  input_df = data.frame(colA = c(2, 1, 3), colB = c("m2", "m1", "m3")),
-  sort_col = "colB"
+  input_df = data.frame(
+    colA = c("a11", "a1", "b1", "a2"),
+    colB = c(3, 1, 4, 2)
+  ),
+  sort_col = "colA"
 )
 
+}
+\references{
+None.
 }
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}

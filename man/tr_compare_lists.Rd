@@ -30,6 +30,9 @@ tr_compare_lists(
 )
 
 }
+\references{
+None.
+}
 \seealso{
 \url{https://www.github.com/travis-m-blimkie/tRavis}
 }
