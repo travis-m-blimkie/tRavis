@@ -30,7 +30,11 @@ tr_theme <- function(base_size = 18, base_family = "", grid = TRUE) {
       axis.ticks = element_line(colour = "black", linewidth = 0.5),
       panel.border = element_rect(colour = "black", linewidth = 1),
       strip.background = element_rect(fill = NA),
-      strip.text = element_text(colour = "black", face = "bold", size = 14)
+      strip.text = element_text(
+        colour = "black",
+        face = "bold",
+        size = base_size - 4
+      )
     )
 
   if (grid) {
