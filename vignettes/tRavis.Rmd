@@ -20,12 +20,13 @@ library(tRavis)
 Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from 
 <https://pseudomonas.com>.
 ```{r tr_anno_cleaner_I}
+# A URL can also be supplied, instead of a local file path
 link <- paste0(
   "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
   "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
 )
 
-tr_anno_cleaner(link)
+tr_anno_cleaner(input_file = link)
 ```
 
 Or add some extra columns and fill empty names with the corresponding locus tag.
@@ -76,7 +77,7 @@ Generate RNA-Seq QC plots from [MultiQC](https://multiqc.info/) outputs.
 Currently only supports summary plots for FastQC (Phred scores and read counts),
 STAR, and HTSeq. Plots are created with [ggplot2](https://ggplot2.tidyverse.org/)
 for simplicity. A few arguments are provided to modify the overall font size, 
-and toggle a threshold line at a given number of reads/counts:
+set the limits, and toggle a threshold line at a given number of reads/counts:
 ```{r tr_qc_plots, fig.show='hold', fig.width=8}
 multiqc_data <- system.file("extdata/tr_qc_plots_data", package = "tRavis")
 list.files(multiqc_data)
@@ -90,20 +91,43 @@ qc_plot_output <- tr_qc_plots(
 qc_plot_output$plots
 ```
 
-All underlying data is also returned, so one can easily generate their own plots
-if further refinements are required. 
+
+### Data {.tabset}
+All the underlying tidy data is also returned, so one can easily generate their
+own plots or further examine the data as desired:
+
+#### Phred scores
+```{r tr_qc_plots_data_phred_scores}
+qc_plot_output$data$phred_scores
+```
+
+#### FastQC reads
+```{r tr_qc_plots_data_fastqc_reads}
+qc_plot_output$data$fastqc_reads
+```
+
+#### STAR
+```{r tr_qc_plots_data_star}
+qc_plot_output$data$star
+```
+
+#### HTSeq
+```{r tr_qc_plots_data_htseq}
+qc_plot_output$data$htseq
+```
+
 
 ## tr_sort_alphanum
 Sort a column of alphanumeric strings in (non-binary) numerical order given an
 input data frame and desired column. You can use the column name or index, and
 its compatible with pipes.
 ```{r tr_sort_alphanum}
-my_dataframe <- data.frame(
-    colA = c("a11", "a1", "b1", "a2"),
-    colB = c(3, 1, 4, 2)
-  )
+df_unsorted <- data.frame(
+  colA = c("a11", "a1", "b1", "a2"),
+  colB = c(3, 1, 4, 2)
+)
 
-tr_sort_alphanum(input_df = my_dataframe, sort_col = "colA")
+tr_sort_alphanum(input_df = df_unsorted, sort_col = "colA")
 ```
 
 ## tr_test_enrichment
@@ -124,12 +148,14 @@ tr_test_enrichment(
 ## tr_theme
 Clean themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve on the
 default by increasing font size, changing the background to white, and adding a
-border. By default, it uses a minimal grid, but you can easily remove the grid
+border. By default it uses a minimal grid, but you can easily remove the grid
 entirely.
-```{r tr_theme, fig.show='hold'}
+```{r tr_theme, fig.show='hold', fig.width=4}
 library(ggplot2)
-ggplot(mtcars, aes(as.factor(cyl), mpg)) + geom_boxplot() + tr_theme()
-ggplot(mtcars, aes(as.factor(cyl), mpg)) + geom_boxplot() + tr_theme(grid = FALSE)
+basic_box_plot <- ggplot(mtcars, aes(as.factor(cyl), mpg)) + geom_boxplot()
+
+basic_box_plot + tr_theme()
+basic_box_plot + tr_theme(grid = FALSE)
 ```
 
 ## tr_tidy_gage
@@ -157,7 +183,7 @@ tr_trunc_neatly(
 
 It's also been designed for use inside of a `mutate` call:
 ```{r tr_trunc_neatly_II}
-ex_trunc_df <- dplyr::tibble(
+ex_df <- data.frame(
   col1 = c(1, 2, 3),
   col2 = c(
     "This is a pretty long string",
@@ -165,9 +191,8 @@ ex_trunc_df <- dplyr::tibble(
     "Here is the longest string of them all, just!"
   )
 )
-
 dplyr::mutate(
-  ex_trunc_df,
+  ex_df,
   col3 = purrr::map_chr(col2, ~tr_trunc_neatly(.x, l = 20))
 )
 ```
