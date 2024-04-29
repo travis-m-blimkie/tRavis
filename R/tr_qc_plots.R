@@ -54,7 +54,7 @@ tr_qc_plots <- function(
   file_phred_scores <-
     file.path(directory, "fastqc_per_base_sequence_quality_plot.tsv")
   file_phred_scores_alt <-
-    file.path(directory, "mqc_fastqc_per_base_sequence_quality_plot_1")
+    file.path(directory, "mqc_fastqc_per_base_sequence_quality_plot_1.txt")
 
   file_fastqc_reads <- file.path(directory, "multiqc_fastqc.txt")
   file_star <- file.path(directory, "multiqc_star.txt")
