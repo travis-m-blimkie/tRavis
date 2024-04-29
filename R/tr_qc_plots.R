@@ -106,21 +106,31 @@ tr_qc_plots <- function(
         delim = "\t",
         col_types = cols()
       )
+
+      phred_2 <- phred_1 %>%
+        pivot_longer(
+          -`Position (bp)`,
+          names_to = "sample",
+          values_to = "phred_score"
+        ) %>%
+        rename("position" = `Position (bp)`)
+
     } else {
       phred_1 <- read_delim(
         file = file_phred_scores_alt,
         delim = "\t",
         col_types = cols()
       )
-    }
 
-    phred_2 <- phred_1 %>%
-      pivot_longer(
-        -`Position (bp)`,
-        names_to = "sample",
-        values_to = "phred_score"
-      ) %>%
-      rename("position" = `Position (bp)`)
+      phred_2 <- phred_1 %>%
+        pivot_longer(
+          !Sample,
+          names_to = "position",
+          values_to = "phred_score"
+        ) %>%
+        mutate(position = as.numeric(position)) %>%
+        rename("sample" = Sample)
+    }
 
     bad_samples <- phred_2 %>%
       filter(phred_score < 30) %>%
