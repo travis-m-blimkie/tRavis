@@ -33,7 +33,10 @@ and Phred scores), STAR, and HTSeq. See Details for more information.
 \details{
 For the Phred scores, one must open the MultiQC HTML report, and
 export the data for "fastqc_per_base_sequence_quality_plot" as a tab-
-delimited file (TSV), placing it inside the same directory as the rest.
+delimited file (TSV), placing it inside the same directory as the rest. If
+there are too many samples, the data gets saved in
+"mqc_fastqc_per_base_sequence_quality_plot_1.txt"; this file is also
+checked for automatically.
 }
 \examples{
 if (FALSE) tr_qc_plots("multiqc_data")

@@ -30,7 +30,10 @@
 #'
 #' @details For the Phred scores, one must open the MultiQC HTML report, and
 #'   export the data for "fastqc_per_base_sequence_quality_plot" as a tab-
-#'   delimited file (TSV), placing it inside the same directory as the rest.
+#'   delimited file (TSV), placing it inside the same directory as the rest. If
+#'   there are too many samples, the data gets saved in
+#'   "mqc_fastqc_per_base_sequence_quality_plot_1.txt"; this file is also
+#'   checked for automatically.
 #'
 #' @references <https://multiqc.info/>
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
@@ -50,6 +53,9 @@ tr_qc_plots <- function(
 
   file_phred_scores <-
     file.path(directory, "fastqc_per_base_sequence_quality_plot.tsv")
+  file_phred_scores_alt <-
+    file.path(directory, "mqc_fastqc_per_base_sequence_quality_plot_1")
+
   file_fastqc_reads <- file.path(directory, "multiqc_fastqc.txt")
   file_star <- file.path(directory, "multiqc_star.txt")
   file_htseq <- file.path(directory, "multiqc_htseq.txt")
@@ -92,13 +98,21 @@ tr_qc_plots <- function(
 
   # Phred scores ----------------------------------------------------------
 
-  if (file.exists(file_phred_scores)) {
+  if (any(file.exists(file_phred_scores), file.exists(file_phred_scores_alt))) {
 
-    phred_1 <- read_delim(
-      file = file_phred_scores,
-      delim = "\t",
-      col_types = cols()
-    )
+    if (file.exists(file_phred_scores)) {
+      phred_1 <- read_delim(
+        file = file_phred_scores,
+        delim = "\t",
+        col_types = cols()
+      )
+    } else {
+      phred_1 <- read_delim(
+        file = file_phred_scores_alt,
+        delim = "\t",
+        col_types = cols()
+      )
+    }
 
     phred_2 <- phred_1 %>%
       pivot_longer(
@@ -156,9 +170,10 @@ tr_qc_plots <- function(
     output_list$data$phred_scores <- phred_3
   } else {
     message(
-      "Required file 'fastqc_per_base_sequence_quality_plot.tsv' not found. ",
-      "To get this plot, open the MultiQC HTML report and export the data for ",
-      "the 'FastQC per-base sequence quality' as a tab-delimited file (TSV), ",
+      "Required file 'fastqc_per_base_sequence_quality_plot.tsv' or ",
+      "'mqc_fastqc_per_base_sequence_quality_plot_1.txt' not found. To get ",
+      "this plot, open the MultiQC HTML report and export the data for the ",
+      "'FastQC per-base sequence quality' as a tab-delimited file (TSV), ",
       "saving into the same data directory."
     )
   }
