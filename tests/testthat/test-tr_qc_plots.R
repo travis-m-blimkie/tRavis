@@ -63,7 +63,7 @@ test_that("star plot is correct, and 'threshold_line' is working", {
   )
 })
 
-test_that("htseq phred plot is correct, and 'limits' is working", {
+test_that("htseq plot is correct, and 'limits' is working", {
   tr_qc_plots_output <- tr_qc_plots(
     directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
     limits = 50e6
@@ -71,6 +71,45 @@ test_that("htseq phred plot is correct, and 'limits' is working", {
 
   vdiffr::expect_doppelganger(
     "htseq_example",
+    tr_qc_plots_output$plots$htseq
+  )
+})
+
+test_that("fastqc box plots are correct", {
+  tr_qc_plots_output <- tr_qc_plots(
+    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+    type = "box",
+    add_points = FALSE
+  )
+
+  vdiffr::expect_doppelganger(
+    "fastqc_reads_box_example",
+    tr_qc_plots_output$plots$fastqc
+  )
+})
+
+test_that("star box plots are correct", {
+  tr_qc_plots_output <- tr_qc_plots(
+    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+    type = "box",
+    add_points = FALSE
+  )
+
+  vdiffr::expect_doppelganger(
+    "star_reads_box_example",
+    tr_qc_plots_output$plots$star
+  )
+})
+
+test_that("htseq box plots are correct", {
+  tr_qc_plots_output <- tr_qc_plots(
+    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+    type = "box",
+    add_points = FALSE
+  )
+
+  vdiffr::expect_doppelganger(
+    "htseq_reads_box_example",
     tr_qc_plots_output$plots$htseq
   )
 })
