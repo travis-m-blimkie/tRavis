@@ -84,12 +84,29 @@ list.files(multiqc_data)
 
 qc_plot_output <- tr_qc_plots(
   directory = multiqc_data,
-  font_size = 12,
   threshold_line = 5e6
 )
 
 qc_plot_output$plots
 ```
+
+### Alternate boxplots
+The bar plots work well enough for relatively few samples, but quickly become
+unwieldy with lots of samples. Box plots can also be generated using the same
+function as follows:
+```{r tr_qc_plots_box, fig.show='hold'}
+qc_plot_output_box <- tr_qc_plots(
+  directory = multiqc_data,
+  type = "box",
+  threshold_line = 5e6
+)
+
+qc_plot_output_box$plots$fastqc
+qc_plot_output_box$plots$star
+qc_plot_output_box$plots$htseq
+```
+
+The points can be toggled on or off using the `add_points` argument.
 
 ### Data {.tabset}
 All the underlying tidy data is also returned, so one can easily generate their

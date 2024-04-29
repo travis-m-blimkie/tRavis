@@ -73,8 +73,7 @@ tr_qc_plots <- function(
       text = element_text(colour = "black"),
       axis.text = element_text(colour = "black"),
       axis.ticks = element_line(colour = "black", linewidth = 0.5),
-      panel.border = element_rect(colour = "black", linewidth = 1),
-      panel.grid.major.y = element_blank()
+      panel.border = element_rect(colour = "black", linewidth = 1)
     )
 
   draw_line <- ifelse(!is.null(threshold_line), TRUE, FALSE)
@@ -260,7 +259,11 @@ tr_qc_plots <- function(
           labels = ~.x / 1e6
         ) +
         labs(x = "Reads (M)", y = NULL, fill = "Read type") +
-        qc_theme
+        qc_theme +
+        theme(
+          panel.grid.major.y = element_blank(),
+          panel.grid.minor.y = element_blank()
+        )
 
     } else if (type == "box") {
       ggplot(fastqc_3, aes(read_type, n_reads, fill = read_type)) +
@@ -347,16 +350,21 @@ tr_qc_plots <- function(
 
     plot_star <- if (type == "bar") {
       ggplot(star_3, aes(n_reads, sample, fill = read_type)) +
-      geom_col() +
-      {if (draw_line) dashed_vline} +
-      scale_x_continuous(
-        expand = expansion(mult = c(0, 0.1)),
-        limits = c(0, rounded_max_star),
-        labels = ~.x / 1e6
-      ) +
-      scale_fill_manual(values = colour_keys$star) +
-      labs(x = "Reads (M)", y = NULL, fill = "Read type") +
-      qc_theme
+        geom_col() +
+        {if (draw_line) dashed_vline} +
+        scale_x_continuous(
+          expand = expansion(mult = c(0, 0.1)),
+          limits = c(0, rounded_max_star),
+          labels = ~.x / 1e6
+        ) +
+        scale_fill_manual(values = colour_keys$star) +
+        labs(x = "Reads (M)", y = NULL, fill = "Read type") +
+        qc_theme +
+        theme(
+          panel.grid.major.y = element_blank(),
+          panel.grid.minor.y = element_blank()
+        )
+
     } else if (type == "box") {
       ggplot(star_3, aes(read_type, n_reads, fill = read_type)) +
         geom_boxplot(outlier.shape = NA) +
@@ -452,7 +460,12 @@ tr_qc_plots <- function(
         ) +
         scale_fill_manual(values = colour_keys$htseq) +
         labs(x = "Reads (M)", y = NULL, fill = "Read type") +
-        qc_theme
+        qc_theme +
+        theme(
+          panel.grid.major.y = element_blank(),
+          panel.grid.minor.y = element_blank()
+        )
+
     } else if (type == "box") {
       ggplot(htseq_3, aes(read_type, n_reads, fill = read_type)) +
         geom_boxplot(outlier.shape = NA) +
