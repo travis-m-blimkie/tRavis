@@ -98,7 +98,7 @@ tr_qc_plots <- function(
 
   # Phred scores ----------------------------------------------------------
 
-  if (any(file.exists(file_phred_scores), file.exists(file_phred_scores_alt))) {
+  if (any(file.exists(file_phred_scores, file_phred_scores_alt))) {
 
     if (file.exists(file_phred_scores)) {
       phred_1 <- read_delim(
@@ -141,7 +141,9 @@ tr_qc_plots <- function(
       phred_2,
       bad_samples,
       by = c("position", "sample", "phred_score")
-    )
+    ) %>%
+      relocate(sample, position, phred_score, qc) %>%
+      mutate(sample = str_remove(string = sample, pattern = "_?(r|R)[0-9]_?"))
 
     max_phred <- round_any(
       x = max(phred_3$phred_score),
@@ -204,7 +206,9 @@ tr_qc_plots <- function(
       ) %>%
       select(sample, unique, duplicate, total_sequences) %>%
       arrange(total_sequences) %>%
-      mutate(sample = fct_inorder(sample))
+      mutate(sample = fct_inorder(
+        str_remove(string = sample, pattern = "_?(r|R)[0-9]_?")
+      ))
 
     fastqc_3 <- fastqc_2 %>%
       select(-total_sequences) %>%
