@@ -61,7 +61,13 @@ tr_qc_plots <- function(
   file_htseq <- file.path(directory, "multiqc_htseq.txt")
 
   qc_theme <- theme_bw(base_size = font_size) +
-    theme(axis.text = element_text(colour = "black"))
+    theme(
+      text = element_text(colour = "black"),
+      axis.text = element_text(colour = "black"),
+      axis.ticks = element_line(colour = "black", linewidth = 0.5),
+      panel.border = element_rect(colour = "black", linewidth = 1),
+      panel.grid.major.y = element_blank()
+    )
 
   draw_line <- ifelse(!is.null(threshold_line), TRUE, FALSE)
 
@@ -243,8 +249,7 @@ tr_qc_plots <- function(
         labels = ~.x / 1e6
       ) +
       labs(x = "Reads (M)", y = NULL, fill = "Read type") +
-      qc_theme +
-      theme(panel.grid.major.y = element_blank())
+      qc_theme
 
     output_list$plots$fastqc_reads <- plot_fastqc_reads
     output_list$data$fastqc_reads <- fastqc_3
@@ -319,8 +324,7 @@ tr_qc_plots <- function(
       ) +
       scale_fill_manual(values = colour_keys$star) +
       labs(x = "Reads (M)", y = NULL, fill = "Read type") +
-      qc_theme +
-      theme(panel.grid.major.y = element_blank())
+      qc_theme
 
     output_list$plots$star <- plot_star
     output_list$data$star <- star_3
@@ -397,8 +401,7 @@ tr_qc_plots <- function(
       ) +
       scale_fill_manual(values = colour_keys$htseq) +
       labs(x = "Reads (M)", y = NULL, fill = "Read type") +
-      qc_theme +
-      theme(panel.grid.major.y = element_blank())
+      qc_theme
 
     output_list$plots$htseq <- plot_htseq
     output_list$data$htseq <- htseq_3

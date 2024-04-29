@@ -91,7 +91,6 @@ qc_plot_output <- tr_qc_plots(
 qc_plot_output$plots
 ```
 
-
 ### Data {.tabset}
 All the underlying tidy data is also returned, so one can easily generate their
 own plots or further examine the data as desired:
@@ -115,7 +114,6 @@ qc_plot_output$data$star
 ```{r tr_qc_plots_data_htseq}
 qc_plot_output$data$htseq
 ```
-
 
 ## tr_sort_alphanum
 Sort a column of alphanumeric strings in (non-binary) numerical order given an
