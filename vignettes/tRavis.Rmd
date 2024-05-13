@@ -196,7 +196,7 @@ tr_trunc_neatly(
 )
 ```
 
-It's also been designed for use inside of a `mutate` call:
+It's can also be used inside of a `mutate` call:
 ```{r tr_trunc_neatly_II}
 ex_df <- data.frame(
   col1 = c(1, 2, 3),
