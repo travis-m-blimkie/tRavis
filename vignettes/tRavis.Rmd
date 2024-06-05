@@ -84,10 +84,11 @@ list.files(multiqc_data)
 
 qc_plot_output <- tr_qc_plots(
   directory = multiqc_data,
-  threshold_line = 5e6
+  threshold_line = 5e6,
+  font_size = 14
 )
 
-qc_plot_output$plots
+qc_plot_output[["plots"]]
 ```
 
 ### Alternate boxplots
@@ -98,12 +99,11 @@ function as follows:
 qc_plot_output_box <- tr_qc_plots(
   directory = multiqc_data,
   type = "box",
-  threshold_line = 5e6
+  threshold_line = 5e6,
+  font_size = 16
 )
 
-qc_plot_output_box$plots$fastqc
-qc_plot_output_box$plots$star
-qc_plot_output_box$plots$htseq
+qc_plot_output_box[["plots"]][c("fastqc_reads", "star", "htseq")]
 ```
 
 The points can be toggled on or off using the `add_points` argument.
@@ -114,22 +114,22 @@ own plots or further examine the data as desired:
 
 #### Phred scores
 ```{r tr_qc_plots_data_phred_scores}
-qc_plot_output$data$phred_scores
+qc_plot_output[["data"]][["phred_scores"]]
 ```
 
 #### FastQC reads
 ```{r tr_qc_plots_data_fastqc_reads}
-qc_plot_output$data$fastqc_reads
+qc_plot_output[["data"]][["fastqc_reads"]]
 ```
 
 #### STAR
 ```{r tr_qc_plots_data_star}
-qc_plot_output$data$star
+qc_plot_output[["data"]][["star"]]
 ```
 
 #### HTSeq
 ```{r tr_qc_plots_data_htseq}
-qc_plot_output$data$htseq
+qc_plot_output[["data"]][["htseq"]]
 ```
 
 ## tr_sort_alphanum
@@ -181,7 +181,8 @@ Combines the items "greater" and "less" from the list output by
 gage_untidy <- 
   readRDS(system.file("extdata", "ex_gage_results.rds", package = "tRavis"))
 
-lapply(gage_untidy, function(x) head(x, 3))
+# Have a look at the original results
+lapply(gage_untidy, function(x) dplyr::as_tibble(x, rownames = "pathway"))
 
 tr_tidy_gage(gage_untidy, qval = 1)
 ```
