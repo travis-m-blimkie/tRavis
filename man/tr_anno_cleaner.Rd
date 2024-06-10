@@ -29,8 +29,8 @@ missing gene names with the corresponding locus tag.
 \examples{
 tr_anno_cleaner(
   input_file = paste0(
-  "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
-  "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
+    "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
+    "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
   )
 )
 
