@@ -222,9 +222,7 @@ tr_qc_plots <- function(
       ) %>%
       select(sample, unique, duplicate, total_sequences) %>%
       arrange(total_sequences) %>%
-      mutate(sample = fct_inorder(
-        str_remove(string = sample, pattern = "_?(r|R)[0-9]_?")
-      ))
+      mutate(sample = fct_inorder(sample))
 
     fastqc_3 <- fastqc_2 %>%
       select(-total_sequences) %>%
@@ -234,9 +232,20 @@ tr_qc_plots <- function(
         values_to = "n_reads"
       )
 
+    found_r1 <- any(grepl(x = tolower(fastqc_3$sample), pattern = "r1"))
+    found_r2 <- any(grepl(x = tolower(fastqc_3$sample), pattern = "r2"))
+
+    if (found_r1 & !found_r2) { # R1 but no R2
+      fastqc_4 <- fastqc_3 %>%
+        mutate(sample = fct_inorder(str_remove(sample, "_?(r|R)1_?")))
+    } else {
+      fastqc_4 <- fastqc_3 %>%
+        mutate(sample = fct_inorder(sample))
+    }
+
     rounded_max_fastqc <-
       if (is.null(limits)) {
-        get_rounded_max(fastqc_3)
+        get_rounded_max(fastqc_4)
       } else if (length(limits) == 1) {
         limits
       } else if (length(limits) == 3) {
@@ -249,7 +258,7 @@ tr_qc_plots <- function(
       }
 
     plot_fastqc_reads <- if (type == "bar") {
-      ggplot(fastqc_3, aes(n_reads, sample, fill = read_type)) +
+      ggplot(fastqc_4, aes(n_reads, sample, fill = read_type)) +
         geom_col() +
         {if (draw_line) dashed_vline} +
         scale_fill_manual(values = colour_keys$fastqc) +
@@ -266,7 +275,7 @@ tr_qc_plots <- function(
         )
 
     } else if (type == "box") {
-      ggplot(fastqc_3, aes(read_type, n_reads, fill = read_type)) +
+      ggplot(fastqc_4, aes(read_type, n_reads, fill = read_type)) +
         geom_boxplot(outlier.shape = NA) +
         {if (add_points) {
           geom_point(
@@ -286,7 +295,7 @@ tr_qc_plots <- function(
     }
 
     output_list$plots$fastqc_reads <- plot_fastqc_reads
-    output_list$data$fastqc_reads <- fastqc_3
+    output_list$data$fastqc_reads <- fastqc_4
   } else {
     message(
       "No data found for FastQC reads; check that 'multiqc_fastqc.txt' exists."

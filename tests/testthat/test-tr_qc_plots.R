@@ -113,3 +113,24 @@ test_that("htseq box plots are correct", {
     tr_qc_plots_output$plots$htseq
   )
 })
+
+test_that("samples with 'R1' are handled properly", {
+  tr_qc_plots_output <- tr_qc_plots(
+    directory = system.file("extdata/tr_qc_plots_data_R1", package = "tRavis")
+  )
+
+  testthat::expect_false(
+    any(grepl(x = tr_qc_plots_output$data$fastqc_reads, pattern = "R1"))
+  )
+})
+
+test_that("samples with 'R1' and 'R2' are handled properly", {
+  tr_qc_plots_output <- tr_qc_plots(
+    directory = system.file("extdata/tr_qc_plots_data_R1_R2", package = "tRavis")
+  )
+
+  testthat::expect_true(
+    any(grepl(x = tr_qc_plots_output$data$fastqc_reads$sample, pattern = "R1")) &
+      any(grepl(x = tr_qc_plots_output$data$fastqc_reads$sample, pattern = "R2"))
+  )
+})
