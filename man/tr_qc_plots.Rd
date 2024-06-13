@@ -10,6 +10,9 @@ tr_qc_plots(
   add_points = TRUE,
   font_size = 18,
   threshold_line = 1e+07,
+  threshold_line_colour = "#EE2C2C",
+  threshold_line_type = "dashed",
+  threshold_line_size = 1,
   limits = NULL
 )
 }
@@ -27,6 +30,13 @@ be plotted as points? Defaults to TRUE.}
 \item{threshold_line}{Provide a number to draw a line at the indicated number
 of reads for FastQC read, STAR, and HTSeq plots. Defaults to 10e6; set to
 NULL to disable.}
+
+\item{threshold_line_colour}{Colour for the threshold line ("#EE2C2C")}
+
+\item{threshold_line_type}{Type of threshold line to draw ("dashed"). See
+\code{?aes_linetype_size_shape} for available options.}
+
+\item{threshold_line_size}{Size of threshold line (1)}
 
 \item{limits}{Override the upper limit of FastQC read, STAR, and HTSeq bar
 plots. Supply a single number to give all three plots the same limit, or a

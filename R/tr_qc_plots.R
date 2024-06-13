@@ -9,6 +9,10 @@
 #' @param threshold_line Provide a number to draw a line at the indicated number
 #'   of reads for FastQC read, STAR, and HTSeq plots. Defaults to 10e6; set to
 #'   NULL to disable.
+#' @param threshold_line_colour Colour for the threshold line ("#EE2C2C")
+#' @param threshold_line_type Type of threshold line to draw ("dashed"). See
+#'   `?aes_linetype_size_shape` for available options.
+#' @param threshold_line_size Size of threshold line (1)
 #' @param limits Override the upper limit of FastQC read, STAR, and HTSeq bar
 #'   plots. Supply a single number to give all three plots the same limit, or a
 #'   vector of three values to modify each individually. Defaults to NULL, which
@@ -58,6 +62,9 @@ tr_qc_plots <- function(
     add_points = TRUE,
     font_size = 18,
     threshold_line = 10e6,
+    threshold_line_colour = "#EE2C2C",
+    threshold_line_type = "dashed",
+    threshold_line_size = 1,
     limits = NULL
 ) {
 
@@ -80,16 +87,16 @@ tr_qc_plots <- function(
 
   dashed_vline <- geom_vline(
     xintercept = threshold_line,
-    linetype = "dashed",
-    colour = "#EE2C2C",
-    linewidth = 1
+    linetype = threshold_line_type,
+    colour = threshold_line_colour,
+    linewidth = threshold_line_size
   )
 
   dashed_hline <- geom_hline(
     yintercept = threshold_line,
-    linetype = "dashed",
-    colour = "#EE2C2C",
-    linewidth = 1
+    linetype = threshold_line_type,
+    colour = threshold_line_colour,
+    linewidth = threshold_line_size
   )
 
   colour_keys <- list(
