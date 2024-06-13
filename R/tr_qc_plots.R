@@ -28,7 +28,7 @@
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom janitor clean_names
 #' @importFrom readr cols read_delim
-#' @importFrom stringr str_remove str_replace_all
+#' @importFrom stringr str_remove str_replace_all str_wrap
 #' @importFrom tidyr pivot_longer
 #'
 #' @description Creates four ggplot2 figures from MultiQC results, and returns
@@ -434,6 +434,7 @@ tr_qc_plots <- function(
       }
 
       plot_star_base +
+        scale_x_discrete(labels = ~str_wrap(.x, width = 3)) +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$star, guide = NULL) +
         {if (draw_line) dashed_hline} +
@@ -555,6 +556,7 @@ tr_qc_plots <- function(
       }
 
       plot_htseq_base +
+        scale_x_discrete(labels = ~str_wrap(.x, width = 3)) +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$htseq, guide = NULL) +
         {if (draw_line) dashed_hline} +
