@@ -19,14 +19,14 @@ e.g. "multiqc_data/"}
 
 \item{type}{Type of plot to produce, either "bar" (default) or "box"}
 
-\item{add_points}{Logical: When making a "box" type plot, should individual
-samples/points be plotted on top? Defaults to TRUE.}
+\item{add_points}{Logical: When making a box plot, should individual samples
+be plotted as points? Defaults to TRUE.}
 
 \item{font_size}{Base font size (defaults to 18)}
 
-\item{threshold_line}{Provide a number to draw a red dashed line at the
-indicated number of reads for FastQC read, STAR, and HTSeq plots. Defaults
-to 10e6; set to NULL to disable.}
+\item{threshold_line}{Provide a number to draw a line at the indicated number
+of reads for FastQC read, STAR, and HTSeq plots. Defaults to 10e6; set to
+NULL to disable.}
 
 \item{limits}{Override the upper limit of FastQC read, STAR, and HTSeq bar
 plots. Supply a single number to give all three plots the same limit, or a
@@ -51,7 +51,12 @@ there are too many samples, the data gets saved in
 checked for automatically.
 
 Note that the "limits" argument only applies to bar plots - it has no
-effect on boxplots.
+effect on box plots.
+
+If the data is paired end (i.e. there is R1 and R2 for each sample), each
+read will be plotted seperately in the FastQC Phred score and read number
+plots. If the samples are named with "R1" but no "R2" is found, the "R1"
+will be removed from the sample names.
 }
 \examples{
 if (FALSE) tr_qc_plots("multiqc_data")

@@ -6,9 +6,9 @@
 #' @param add_points Logical: When making a box plot, should individual samples
 #'   be plotted as points? Defaults to TRUE.
 #' @param font_size Base font size (defaults to 18)
-#' @param threshold_line Provide a number to draw a red dashed line at the
-#'   indicated number of reads for FastQC read, STAR, and HTSeq plots. Defaults
-#'   to 10e6; set to NULL to disable.
+#' @param threshold_line Provide a number to draw a line at the indicated number
+#'   of reads for FastQC read, STAR, and HTSeq plots. Defaults to 10e6; set to
+#'   NULL to disable.
 #' @param limits Override the upper limit of FastQC read, STAR, and HTSeq bar
 #'   plots. Supply a single number to give all three plots the same limit, or a
 #'   vector of three values to modify each individually. Defaults to NULL, which
@@ -284,19 +284,32 @@ tr_qc_plots <- function(
         )
 
     } else if (type == "box") {
-      ggplot(fastqc_4, aes(read_type, n_reads, fill = read_type)) +
-        geom_boxplot(outlier.shape = NA) +
-        {if (add_points) {
+
+      if (add_points) {
+        plot_fastqc_base <-
+          ggplot(fastqc_4, aes(read_type, n_reads, fill = read_type)) +
+          geom_boxplot(outlier.shape = NA) +
           geom_point(
             pch = 21,
             size = 2,
             alpha = 0.8,
             position = position_jitter(width = 0.25, height = 0, seed = 1)
           )
-        }} +
-        {if (draw_line) dashed_hline} +
+      } else {
+        plot_fastqc_base <-
+          ggplot(fastqc_4, aes(read_type, n_reads, fill = read_type)) +
+          geom_boxplot(
+            outlier.shape = 21,
+            outlier.size = 2,
+            outlier.alpha = 0.8,
+            outlier.fill = NULL
+          )
+      }
+
+      plot_fastqc_final <- plot_fastqc_base +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$fastqc, guide = NULL) +
+        {if (draw_line) dashed_hline} +
         labs(
           x = "Read type",
           y = "Reads (M)",
@@ -305,7 +318,7 @@ tr_qc_plots <- function(
         tr_theme(base_size = font_size)
     }
 
-    output_list$plots$fastqc_reads <- plot_fastqc_reads
+    output_list$plots$fastqc_reads <- plot_fastqc_final
     output_list$data$fastqc_reads <- fastqc_4
   } else {
     message(
@@ -391,19 +404,32 @@ tr_qc_plots <- function(
         )
 
     } else if (type == "box") {
-      ggplot(star_3, aes(read_type, n_reads, fill = read_type)) +
-        geom_boxplot(outlier.shape = NA) +
-        {if (add_points) {
+
+      if (add_points) {
+        plot_star_base <-
+          ggplot(star_3, aes(read_type, n_reads, fill = read_type)) +
+          geom_boxplot(outlier.shape = NA) +
           geom_point(
             pch = 21,
             size = 2,
             alpha = 0.8,
             position = position_jitter(width = 0.25, height = 0, seed = 1)
           )
-        }} +
-        {if (draw_line) dashed_hline} +
+      } else {
+        plot_star_base <-
+          ggplot(star_3, aes(read_type, n_reads, fill = read_type)) +
+          geom_boxplot(
+            outlier.shape = 21,
+            outlier.size = 2,
+            outlier.alpha = 0.8,
+            outlier.fill = NULL
+          )
+      }
+
+      plot_star_final <- plot_star_base +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$star, guide = NULL) +
+        {if (draw_line) dashed_hline} +
         labs(
           x = "Read type",
           y = "Reads (M)",
@@ -412,7 +438,7 @@ tr_qc_plots <- function(
         tr_theme(base_size = font_size)
     }
 
-    output_list$plots$star <- plot_star
+    output_list$plots$star <- plot_star_final
     output_list$data$star <- star_3
   } else {
     message("No data found for STAR; check that 'multiqc_star.txt' exists.")
@@ -499,19 +525,32 @@ tr_qc_plots <- function(
         )
 
     } else if (type == "box") {
-      ggplot(htseq_3, aes(read_type, n_reads, fill = read_type)) +
-        geom_boxplot(outlier.shape = NA) +
-        {if (add_points) {
+
+      if (add_points) {
+        plot_htseq_base <-
+          ggplot(htseq_3, aes(read_type, n_reads, fill = read_type)) +
+          geom_boxplot(outlier.shape = NA) +
           geom_point(
             pch = 21,
             size = 2,
             alpha = 0.8,
             position = position_jitter(width = 0.25, height = 0, seed = 1)
           )
-        }} +
-        {if (draw_line) dashed_hline} +
+      } else {
+        plot_htseq_base <-
+          ggplot(htseq_3, aes(read_type, n_reads, fill = read_type)) +
+          geom_boxplot(
+            outlier.shape = 21,
+            outlier.size = 2,
+            outlier.alpha = 0.8,
+            outlier.fill = NULL
+          )
+      }
+
+      plot_htseq_final <- plot_htseq_base +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$htseq, guide = NULL) +
+        {if (draw_line) dashed_hline} +
         labs(
           x = "Read type",
           y = "Reads (M)",
