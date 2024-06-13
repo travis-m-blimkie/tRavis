@@ -39,7 +39,12 @@
 #'   checked for automatically.
 #'
 #'   Note that the "limits" argument only applies to bar plots - it has no
-#'   effect on boxplots.
+#'   effect on box plots.
+#'
+#'   If the data is paired end (i.e. there is R1 and R2 for each sample), each
+#'   read will be plotted seperately in the FastQC Phred score and read number
+#'   plots. If the samples are named with "R1" but no "R2" is found, the "R1"
+#'   will be removed from the sample names.
 #'
 #' @references <https://multiqc.info/>
 #' @seealso <https://www.github.com/travis-m-blimkie/tRavis>
@@ -67,14 +72,6 @@ tr_qc_plots <- function(
   file_fastqc_reads <- file.path(directory, "multiqc_fastqc.txt")
   file_star <- file.path(directory, "multiqc_star.txt")
   file_htseq <- file.path(directory, "multiqc_htseq.txt")
-
-  qc_theme <- theme_bw(base_size = font_size) +
-    theme(
-      text = element_text(colour = "black"),
-      axis.text = element_text(colour = "black"),
-      axis.ticks = element_line(colour = "black", linewidth = 0.5),
-      panel.border = element_rect(colour = "black", linewidth = 1)
-    )
 
   draw_line <- ifelse(!is.null(threshold_line), TRUE, FALSE)
 
@@ -180,7 +177,7 @@ tr_qc_plots <- function(
         yintercept = 30,
         linetype = "dashed",
         colour = "#00CD66",
-        linewidth = 1.5
+        linewidth = 1
       ) +
       geom_label_repel(
         aes(label = qc),
@@ -191,8 +188,12 @@ tr_qc_plots <- function(
       ) +
       scale_x_continuous(expand = expansion(mult = 0.02)) +
       scale_y_continuous(limits = c(0, max_phred)) +
-      labs(x = "Position", y = "Phred score") +
-      qc_theme
+      labs(
+        x = "Position (bp)",
+        y = "Phred score",
+        title = "FastQC: Mean quality scores"
+      ) +
+      tr_theme(base_size = font_size)
 
     output_list$plots$phred_scores <- plot_phred_scores
     output_list$data$phred_scores <- phred_3
@@ -267,8 +268,13 @@ tr_qc_plots <- function(
           limits = c(0, rounded_max_fastqc),
           labels = ~.x / 1e6
         ) +
-        labs(x = "Reads (M)", y = NULL, fill = "Read type") +
-        qc_theme +
+        labs(
+          x = "Reads (M)",
+          y = NULL,
+          title = "FastQC: Sequence counts",
+          fill = "Read type"
+        ) +
+        tr_theme(base_size = font_size) +
         theme(
           panel.grid.major.y = element_blank(),
           panel.grid.minor.y = element_blank()
@@ -281,15 +287,19 @@ tr_qc_plots <- function(
           geom_point(
             pch = 21,
             size = 2,
-            alpha = 0.5,
+            alpha = 0.8,
             position = position_jitter(width = 0.25, height = 0, seed = 1)
           )
         }} +
         {if (draw_line) dashed_hline} +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$fastqc, guide = NULL) +
-        labs(x = "Read type", y = "Reads (M)") +
-        qc_theme
+        labs(
+          x = "Read type",
+          y = "Reads (M)",
+          title = "FastQC: Sequence counts"
+        ) +
+        tr_theme(base_size = font_size)
     } else {
       stop("Argument 'type' must be 'bar' or 'box'")
     }
@@ -367,8 +377,13 @@ tr_qc_plots <- function(
           labels = ~.x / 1e6
         ) +
         scale_fill_manual(values = colour_keys$star) +
-        labs(x = "Reads (M)", y = NULL, fill = "Read type") +
-        qc_theme +
+        labs(
+          x = "Reads (M)",
+          y = NULL,
+          title = "STAR: Alignment scores",
+          fill = "Read type"
+        ) +
+        tr_theme(base_size = font_size) +
         theme(
           panel.grid.major.y = element_blank(),
           panel.grid.minor.y = element_blank()
@@ -381,15 +396,19 @@ tr_qc_plots <- function(
           geom_point(
             pch = 21,
             size = 2,
-            alpha = 0.5,
+            alpha = 0.8,
             position = position_jitter(width = 0.25, height = 0, seed = 1)
           )
         }} +
         {if (draw_line) dashed_hline} +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$star, guide = NULL) +
-        labs(x = "Read type", y = "Reads (M)") +
-        qc_theme
+        labs(
+          x = "Read type",
+          y = "Reads (M)",
+          title = "STAR: Alignment scores"
+        ) +
+        tr_theme(base_size = font_size)
     } else {
       stop("Argument 'type' must be 'bar' or 'box'")
     }
@@ -468,8 +487,13 @@ tr_qc_plots <- function(
           labels = ~.x / 1e6
         ) +
         scale_fill_manual(values = colour_keys$htseq) +
-        labs(x = "Reads (M)", y = NULL, fill = "Read type") +
-        qc_theme +
+        labs(
+          x = "Reads (M)",
+          y = NULL,
+          title = "HTSeq: Count assignments",
+          fill = "Read type"
+        ) +
+        tr_theme(base_size = font_size) +
         theme(
           panel.grid.major.y = element_blank(),
           panel.grid.minor.y = element_blank()
@@ -482,15 +506,19 @@ tr_qc_plots <- function(
           geom_point(
             pch = 21,
             size = 2,
-            alpha = 0.5,
+            alpha = 0.8,
             position = position_jitter(width = 0.25, height = 0, seed = 1)
           )
         }} +
         {if (draw_line) dashed_hline} +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$htseq, guide = NULL) +
-        labs(x = "Read type", y = "Reads (M)") +
-        qc_theme
+        labs(
+          x = "Read type",
+          y = "Reads (M)",
+          title = "HTSeq: Count assignments"
+        ) +
+        tr_theme(base_size = font_size)
     } else {
       stop("Argument 'type' must be 'bar' or 'box'")
     }
