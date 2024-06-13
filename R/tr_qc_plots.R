@@ -313,7 +313,7 @@ tr_qc_plots <- function(
           )
       }
 
-      plot_fastqc_final <- plot_fastqc_base +
+      plot_fastqc_base +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$fastqc, guide = NULL) +
         {if (draw_line) dashed_hline} +
@@ -325,7 +325,7 @@ tr_qc_plots <- function(
         tr_theme(base_size = font_size)
     }
 
-    output_list$plots$fastqc_reads <- plot_fastqc_final
+    output_list$plots$fastqc_reads <- plot_fastqc_reads
     output_list$data$fastqc_reads <- fastqc_4
   } else {
     message(
@@ -433,7 +433,7 @@ tr_qc_plots <- function(
           )
       }
 
-      plot_star_final <- plot_star_base +
+      plot_star_base +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$star, guide = NULL) +
         {if (draw_line) dashed_hline} +
@@ -445,7 +445,7 @@ tr_qc_plots <- function(
         tr_theme(base_size = font_size)
     }
 
-    output_list$plots$star <- plot_star_final
+    output_list$plots$star <- plot_star
     output_list$data$star <- star_3
   } else {
     message("No data found for STAR; check that 'multiqc_star.txt' exists.")
@@ -554,7 +554,7 @@ tr_qc_plots <- function(
           )
       }
 
-      plot_htseq_final <- plot_htseq_base +
+      plot_htseq_base +
         scale_y_continuous(labels = ~.x/1e6) +
         scale_fill_manual(values = colour_keys$htseq, guide = NULL) +
         {if (draw_line) dashed_hline} +
