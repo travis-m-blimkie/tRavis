@@ -194,7 +194,8 @@ tr_qc_plots <- function(
         size = 4,
         min.segment.length = 0,
         show.legend = FALSE,
-        na.rm = TRUE
+        na.rm = TRUE,
+        seed = 1
       ) +
       scale_x_continuous(expand = expansion(mult = 0.02)) +
       scale_y_continuous(limits = c(0, max_phred)) +
@@ -206,7 +207,7 @@ tr_qc_plots <- function(
       tr_theme(base_size = font_size)
 
     output_list$plots$phred_scores <- plot_phred_scores
-    output_list$data$phred_scores <- phred_3
+    output_list$data$phred_scores <- select(phred_3, !qc)
   } else {
     message(
       "Required file 'fastqc_per_base_sequence_quality_plot.tsv' or ",

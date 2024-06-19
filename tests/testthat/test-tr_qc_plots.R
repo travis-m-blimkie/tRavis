@@ -9,7 +9,7 @@ test_that("the function is working properly", {
 
   expect_equal(
     dim(tr_qc_plots_output$data$phred_scores),
-    c(760, 4)
+    c(760, 3)
   )
 
   expect_equal(
