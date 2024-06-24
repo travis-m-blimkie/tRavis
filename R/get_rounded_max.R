@@ -21,7 +21,10 @@
 #'
 get_rounded_max <- function(x, buffer = 1.1, nearest = 10e6) {
   stopifnot(is.data.frame(x))
-  stopifnot(c("sample", "n_reads") %in% colnames(x))
+  stopifnot(
+    "'x' must contain columns 'sample' and 'n_reads'." =
+      c("sample", "n_reads") %in% colnames(x)
+  )
 
   max_value <- x %>%
     group_by(sample) %>%

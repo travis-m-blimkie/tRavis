@@ -26,8 +26,8 @@
 #' @examples
 #' tr_anno_cleaner(
 #'   input_file = paste0(
-#'   "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
-#'   "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
+#'     "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
+#'     "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
 #'   )
 #' )
 #'
@@ -41,33 +41,30 @@ tr_anno_cleaner <- function(
 
   stopifnot("'input_file' must be a '.csv' or '.tsv' file" = !is.na(file_type))
 
-  step1 <- read_delim(
+  data_init <- read_delim(
     input_file,
     delim = switch(file_type, csv = ",", tsv = "\t"),
     col_types = cols()
   ) %>%
     clean_names()
 
-  if (!extra_cols) {
-    final_cols <- c("locus_tag", "gene_name", "product_name")
-  } else {
-    final_cols <-
-      c("locus_tag", "gene_name", "product_name", "start", "end", "strand")
+  final_cols <- c("locus_tag", "gene_name", "product_name")
+
+  if (extra_cols) {
+    final_cols <- append(final_cols, c("start", "end", "strand"))
   }
 
-  step2 <- step1 %>%
+  data_final <- data_init %>%
     select(all_of(final_cols)) %>%
     distinct(locus_tag, .keep_all = TRUE)
 
   # Conditionally fill blank gene names with corresponding locus tags
-  step3 <- step2
-
   if (fill_names) {
-    step3 <- mutate(
-      step3,
+    data_final <- mutate(
+      data_final,
       gene_name = if_else(is.na(gene_name), locus_tag, gene_name)
     )
   }
 
-  return(step3)
+  return(data_final)
 }

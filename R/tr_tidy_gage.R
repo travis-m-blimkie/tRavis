@@ -29,10 +29,9 @@ tr_tidy_gage <- function(gage_result, qval = 0.1) {
   gage_list <- list(gage_result[["greater"]], gage_result[["less"]])
 
   gage_out <- gage_list %>%
-    map(~rownames_to_column(as.data.frame(.x), "pathway")) %>%
+    map(~as_tibble(.x, rownames = "pathway")) %>%
     bind_rows() %>%
     clean_names() %>%
-    as_tibble() %>%
     filter(q_val < qval)
 
   return(gage_out)

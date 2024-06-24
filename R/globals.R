@@ -24,6 +24,7 @@ utils::globalVariables(c(
   "qc",
   "read_type",
   "Read type",
+  "Sample",
   "start",
   "strand",
   "sum_n_reads",

@@ -27,7 +27,7 @@
 #' Human pathway hierarchy from Reactome
 #'
 #' @return An object of class "tbl_df", "tbl", "data.frame"
-#' @format A data frame (tibble) with 2673 rows and 4 columns:
+#' @format A data frame (tibble) with 2698 rows and 4 columns:
 #' \describe{
 #'   \item{id}{Pathway ID}
 #'   \item{description}{Pathway name}
@@ -41,7 +41,7 @@
 #' Mouse pathway hierarchy from Reactome
 #'
 #' @return An object of class "tbl_df", "tbl", "data.frame"
-#' @format A data frame (tibble) with 1737 rows and 4 columns:
+#' @format A data frame (tibble) with 1748 rows and 4 columns:
 #' \describe{
 #'   \item{id}{Pathway ID}
 #'   \item{description}{Pathway name}

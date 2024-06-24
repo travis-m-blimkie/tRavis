@@ -26,8 +26,8 @@ Defaults to FALSE.}
 formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
 Defaults to FALSE.}
 
-\item{remove_string}{Optional string which can be removed from file names when
-creating names for the output list}
+\item{remove_string}{Optional string which can be removed from file names
+when creating names for the output list}
 }
 \value{
 Named list of files
