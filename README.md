@@ -28,9 +28,12 @@ devtools::install_github("travis-m-blimkie/tRavis")
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v1.103! If you encounter any bugs
+#> Thanks for using tRavis v1.3.25! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
+```
+
+``` r
 
 # Quickly compare two lists:
 tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6), names = c("A", "B"))
@@ -42,6 +45,9 @@ tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6), names = c("A", "B"))
 #> 
 #> $unique_B
 #> [1] 5 6
+```
+
+``` r
 
 # Create a named list of files:
 tr_get_files(
@@ -51,10 +57,13 @@ tr_get_files(
   remove_string = "test_"
 )
 #> $file1
-#> [1] "/home/travisblimkie/R/x86_64-pc-linux-gnu-library/4.3/tRavis/extdata/test_file1_20191231.csv"
+#> [1] "/tmp/RtmpLKGpni/temp_libpath530de3264991/tRavis/extdata/test_file1_20191231.csv"
 #> 
 #> $file2
-#> [1] "/home/travisblimkie/R/x86_64-pc-linux-gnu-library/4.3/tRavis/extdata/test_file2_20200101.csv"
+#> [1] "/tmp/RtmpLKGpni/temp_libpath530de3264991/tRavis/extdata/test_file2_20200101.csv"
+```
+
+``` r
 
 # Neatly truncate strings:
 tr_trunc_neatly(
@@ -63,10 +72,6 @@ tr_trunc_neatly(
 )
 #> [1] "This is a long string that we want to..."
 ```
-
-## Versioning
-
-This package makes use of [SemVer](https://semver.org/).
 
 ## Authors
 
@@ -77,7 +82,7 @@ check the list of all contributors
 ## License
 
 This project is written under the MIT license, available
-[here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE)
+[here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE.md)
 
 ## Acknowledgements
 

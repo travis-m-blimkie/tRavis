@@ -64,7 +64,7 @@ Note that the "limits" argument only applies to bar plots - it has no
 effect on box plots.
 
 If the data is paired end (i.e. there is R1 and R2 for each sample), each
-read will be plotted seperately in the FastQC Phred score and read number
+read will be plotted separately in the FastQC Phred score and read number
 plots. If the samples are named with "R1" but no "R2" is found, the "R1"
 will be removed from the sample names.
 }

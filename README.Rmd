@@ -53,9 +53,6 @@ tr_trunc_neatly(
 )
 ```
 
-## Versioning
-This package makes use of [SemVer](https://semver.org/).
-
 ## Authors
 Travis Blimkie is the originator and principal contributor. You can check the
 list of all contributors
@@ -63,7 +60,7 @@ list of all contributors
 
 ## License
 This project is written under the MIT license, available
-[here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE)
+[here.](https://github.com/travis-m-blimkie/tRavis/blob/master/LICENSE.md)
 
 ## Acknowledgements
 Thanks to everyone in the lab who has used these functions and provided

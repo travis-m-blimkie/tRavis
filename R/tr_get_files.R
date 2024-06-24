@@ -9,8 +9,8 @@
 #' @param date Do file names contain a date which should be removed? Must be
 #'   formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
 #'   Defaults to FALSE.
-#' @param remove_string Optional string which can be removed from file names when
-#'   creating names for the output list
+#' @param remove_string Optional string which can be removed from file names
+#'   when creating names for the output list
 #'
 #' @return Named list of files
 #' @export
