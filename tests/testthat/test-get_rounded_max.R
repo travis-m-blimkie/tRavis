@@ -2,7 +2,7 @@ test_that("the function is working", {
   set.seed(1)
 
   count_table <- data.frame(
-    sample = rep(paste0("s", seq(1, 5)), each = 2),
+    Samples = rep(paste0("s", seq(1, 5)), each = 2),
     read_type = rep(c("unique", "duplicate"), 5),
     n_reads = rnorm(n = 10, mean = 20e6, sd = 5e6)
   )
@@ -14,7 +14,7 @@ test_that("missing columns are handled properly", {
   set.seed(1)
 
   count_table <- data.frame(
-    sample = rep(paste0("s", seq(1, 5)), each = 2),
+    Samples = rep(paste0("s", seq(1, 5)), each = 2),
     read_type = rep(c("unique", "duplicate"), 5)
   )
 
