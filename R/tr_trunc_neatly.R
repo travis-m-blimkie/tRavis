@@ -2,7 +2,7 @@
 #'
 #' @param x Input string to trim to desired length, appending an ellipsis to the
 #'   end, and without splitting words
-#' @param l Desired length at which to trim strings
+#' @param l Desired length at which to trim strings (defaults to 60)
 #'
 #' @return Character string
 #' @export

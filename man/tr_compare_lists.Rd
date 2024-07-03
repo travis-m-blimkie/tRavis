@@ -12,7 +12,7 @@ tr_compare_lists(x, y, names = NULL)
 \item{y}{Second vector to compare.}
 
 \item{names}{Optional character vector, containing names of \code{x} and \code{y} to
-apply to the output.}
+apply to the output. Defaults to NULL for no names.}
 }
 \value{
 A named list of the common and unique elements of x and y.

@@ -10,7 +10,7 @@ tr_trunc_neatly(x, l = 60)
 \item{x}{Input string to trim to desired length, appending an ellipsis to the
 end, and without splitting words}
 
-\item{l}{Desired length at which to trim strings}
+\item{l}{Desired length at which to trim strings (defaults to 60)}
 }
 \value{
 Character string

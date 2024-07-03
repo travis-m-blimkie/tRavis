@@ -10,7 +10,7 @@
 #'   formatted akin to "YYYYMMDD", i.e. all numeric with no spaces, dashes, etc.
 #'   Defaults to FALSE.
 #' @param remove_string Optional string which can be removed from file names
-#'   when creating names for the output list
+#'   when creating names for the output list. Defaults to NULL for no changes.
 #'
 #' @return Named list of files
 #' @export

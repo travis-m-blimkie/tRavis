@@ -1,6 +1,6 @@
 #' Customized ggplot2 theme
 #'
-#' @param base_size Base font size applied to all text in the plot
+#' @param base_size Base font size applied to all text in the plot (default 18)
 #' @param base_family Base font type applies to all text in the plot
 #' @param grid Determines if grid lines should be drawn. Defaults to
 #'  `TRUE`for which only "major" grid lines are drawn.
