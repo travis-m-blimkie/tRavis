@@ -245,7 +245,7 @@ tr_qc_plots <- function(
     output_list$plots$phred_scores <- plot_phred_scores
     output_list$data$phred_scores <- select(phred_3, !qc)
   } else {
-    message(
+    warning(
       "Required file 'fastqc_per_base_sequence_quality_plot.tsv' or ",
       "'mqc_fastqc_per_base_sequence_quality_plot_1.txt' not found. To get ",
       "this plot, open the MultiQC HTML report and export the data for the ",
@@ -390,7 +390,7 @@ tr_qc_plots <- function(
     output_list$plots$fastqc_reads <- plot_fastqc_reads
     output_list$data$fastqc_reads <- fastqc_4
   } else {
-    message(
+    warning(
       "No data found for FastQC reads; check that '",
       paste0(file_fastqc_reads[1], "' or '", file_fastqc_reads[2]),
       "' exist."
@@ -542,7 +542,7 @@ tr_qc_plots <- function(
     output_list$plots$star <- plot_star
     output_list$data$star <- star_3
   } else {
-    message(
+    warning(
       "No data found for STAR; check that '",
       paste0(file_star[1], "' or '", file_star[2]),
       "' exist."
@@ -711,7 +711,7 @@ tr_qc_plots <- function(
     output_list$plots$htseq <- plot_htseq
     output_list$data$htseq <- htseq_3
   } else {
-    message(
+    warning(
       "No data found for HTSeq; check that '",
       paste0(file_htseq[1], "' or '", file_htseq[2]),
       "' exist."
