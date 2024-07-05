@@ -33,6 +33,7 @@
 #' @importFrom janitor clean_names
 #' @importFrom stringr str_remove str_replace_all str_wrap
 #' @importFrom tidyr pivot_longer
+#' @importFrom utils read.delim
 #'
 #' @description Creates four ggplot2 figures from MultiQC results, and returns
 #'   the data along with the plot objects. The plots are for FastQC (read counts
