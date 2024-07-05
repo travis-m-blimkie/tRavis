@@ -31,7 +31,6 @@
 #' @importFrom forcats fct_inorder
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom janitor clean_names
-#' @importFrom readr cols read_delim
 #' @importFrom stringr str_remove str_replace_all str_wrap
 #' @importFrom tidyr pivot_longer
 #'
@@ -148,11 +147,11 @@ tr_qc_plots <- function(
     if (file.exists(file_phred_scores[[1]])) {
 
       if (grepl(x = readLines(file_phred_scores[[1]])[1], pattern = "Position")) {
-        phred_1 <- read_delim(
+        phred_1 <- read.delim(
           file = file_phred_scores[[1]],
-          delim = "\t",
-          col_types = cols()
-        )
+          sep = "\t",
+          check.names = FALSE
+        ) %>% as_tibble()
 
         phred_2 <- phred_1 %>%
           pivot_longer(
@@ -163,11 +162,11 @@ tr_qc_plots <- function(
           rename("position" = `Position (bp)`)
 
       } else {
-        phred_1 <- read_delim(
+        phred_1 <- read.delim(
           file = file_phred_scores[[1]],
-          delim = "\t",
-          col_types = cols()
-        )
+          sep = "\t",
+          check.names = FALSE
+        ) %>% as_tibble()
 
         phred_2 <- phred_1 %>%
           pivot_longer(
@@ -180,11 +179,11 @@ tr_qc_plots <- function(
       }
 
     } else {
-      phred_1 <- read_delim(
+      phred_1 <- read.delim(
         file = file_phred_scores[[2]],
-        delim = "\t",
-        col_types = cols()
-      )
+        sep = "\t",
+        check.names = FALSE
+      ) %>% as_tibble()
 
       phred_2 <- phred_1 %>%
         pivot_longer(
@@ -264,8 +263,12 @@ tr_qc_plots <- function(
   )) {
 
     if (file.exists(file_fastqc_reads[[1]])) {
-      fastqc_1 <-
-        read_delim(file_fastqc_reads[[1]], delim = "\t", col_types = cols()) %>%
+      fastqc_1 <- read.delim(
+        file_fastqc_reads[[1]],
+        sep = "\t",
+        check.names = FALSE
+      ) %>%
+        as_tibble() %>%
         clean_names()
 
       fastqc_2 <- fastqc_1 %>%
@@ -278,8 +281,12 @@ tr_qc_plots <- function(
         mutate(Samples = fct_inorder(Samples))
 
     } else if (file.exists(file_fastqc_reads[[2]])) {
-      fastqc_1 <-
-        read_delim(file_fastqc_reads[[2]], delim = "\t", col_types = cols()) %>%
+      fastqc_1 <- read.delim(
+        file_fastqc_reads[[2]],
+        sep = "\t",
+        check.names = FALSE
+      ) %>%
+        as_tibble() %>%
         clean_names()
 
       fastqc_2 <- fastqc_1 %>%
@@ -397,11 +404,12 @@ tr_qc_plots <- function(
   if (any(file.exists(file_star[[1]]), file.exists(file_star[[2]]))) {
 
     if (file.exists(file_star[[1]])) {
-      star_1 <- read_delim(
+      star_1 <- read.delim(
         file = file_star[[1]],
-        delim = "\t",
-        col_types = cols()
+        sep = "\t",
+        check.names = FALSE
       ) %>%
+        as_tibble() %>%
         clean_names()
 
       star_2 <- star_1 %>%
@@ -417,11 +425,12 @@ tr_qc_plots <- function(
         )
 
     } else if (file.exists(file_star[[2]])) {
-      star_1 <- read_delim(
+      star_1 <- read.delim(
         file = file_star[[2]],
-        delim = "\t",
-        col_types = cols()
+        sep = "\t",
+        check.names = FALSE
       ) %>%
+        as_tibble() %>%
         clean_names()
 
       star_2 <- star_1 %>%
@@ -542,11 +551,12 @@ tr_qc_plots <- function(
 
   if (any(file.exists(file_htseq[[1]]), file.exists(file_htseq[[2]]))) {
     if (file.exists(file_htseq[[1]])) {
-      htseq_1 <- read_delim(
+      htseq_1 <- read.delim(
         file = file_htseq[[1]],
-        delim = "\t",
-        col_types = cols()
+        sep = "\t",
+        check.names = FALSE
       ) %>%
+        as_tibble() %>%
         clean_names()
 
       htseq_2 <- htseq_1 %>%
@@ -582,11 +592,12 @@ tr_qc_plots <- function(
         )
 
     } else if (file.exists(file_htseq[[2]])) {
-      htseq_1 <- read_delim(
+      htseq_1 <- read.delim(
         file = file_htseq[[2]],
-        delim = "\t",
-        col_types = cols()
+        sep = "\t",
+        check.names = FALSE
       ) %>%
+        as_tibble() %>%
         clean_names()
 
       htseq_2 <- htseq_1 %>%
