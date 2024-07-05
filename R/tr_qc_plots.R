@@ -74,8 +74,9 @@ tr_qc_plots <- function(
     limits = NULL
 ) {
 
-  stopifnot("Argument 'type' must be either 'bar' or 'box'." =
-              type %in% c("bar", "box"))
+  stopifnot(
+    "Argument 'type' must be 'bar' or 'box'." = type %in% c("bar", "box")
+  )
 
 
   # Setup -----------------------------------------------------------------
@@ -85,9 +86,20 @@ tr_qc_plots <- function(
     file.path(directory, "mqc_fastqc_per_base_sequence_quality_plot_1.txt")
   )
 
-  file_fastqc_reads <- file.path(directory, "multiqc_fastqc.txt")
-  file_star <- file.path(directory, "multiqc_star.txt")
-  file_htseq <- file.path(directory, "multiqc_htseq.txt")
+  file_fastqc_reads <- list(
+    file.path(directory, "multiqc_fastqc.txt"),
+    file.path(directory, "fastqc_sequence_counts_plot.txt")
+  )
+
+  file_star <- list(
+    file.path(directory, "multiqc_star.txt"),
+    file.path(directory, "star_alignment_plot.txt")
+  )
+
+  file_htseq <- list(
+    file.path(directory, "multiqc_htseq.txt"),
+    file.path(directory, "htseq_assignment_plot.txt")
+  )
 
   draw_line <- ifelse(!is.null(threshold_line), TRUE, FALSE)
 
@@ -246,20 +258,36 @@ tr_qc_plots <- function(
 
   # FastQC reads ----------------------------------------------------------
 
-  if (file.exists(file_fastqc_reads)) {
+  if (any(
+    file.exists(file_fastqc_reads[[1]]),
+    file.exists(file_fastqc_reads[[2]])
+  )) {
 
-    fastqc_1 <-
-      read_delim(file_fastqc_reads, delim = "\t", col_types = cols()) %>%
-      clean_names()
+    if (file.exists(file_fastqc_reads[[1]])) {
+      fastqc_1 <-
+        read_delim(file_fastqc_reads[[1]], delim = "\t", col_types = cols()) %>%
+        clean_names()
 
-    fastqc_2 <- fastqc_1 %>%
-      mutate(
-        unique = total_sequences * (total_deduplicated_percentage / 100),
-        duplicate = total_sequences - unique
-      ) %>%
-      select("Samples" = sample, unique, duplicate, total_sequences) %>%
-      arrange(total_sequences) %>%
-      mutate(Samples = fct_inorder(Samples))
+      fastqc_2 <- fastqc_1 %>%
+        mutate(
+          unique = total_sequences * (total_deduplicated_percentage / 100),
+          duplicate = total_sequences - unique
+        ) %>%
+        select("Samples" = sample, unique, duplicate, total_sequences) %>%
+        arrange(total_sequences) %>%
+        mutate(Samples = fct_inorder(Samples))
+
+    } else if (file.exists(file_fastqc_reads[[2]])) {
+      fastqc_1 <-
+        read_delim(file_fastqc_reads[[2]], delim = "\t", col_types = cols()) %>%
+        clean_names()
+
+      fastqc_2 <- fastqc_1 %>%
+        rename("Samples" = sample, "unique" = unique_reads, "duplicate" = duplicate_reads) %>%
+        mutate(total_sequences = unique + duplicate) %>%
+        arrange(total_sequences) %>%
+        mutate(Samples = forcats::fct_inorder(Samples))
+    }
 
     fastqc_3 <- fastqc_2 %>%
       select(-total_sequences) %>%
@@ -366,10 +394,11 @@ tr_qc_plots <- function(
 
   # STAR ------------------------------------------------------------------
 
-  if (file.exists(file_star)) {
+  # if (any(file.exists(file_star[[1]]), file.exists(file_star[[2]]))) {
+  if (file.exists(file_star[[1]])) {
 
     star_1 <- read_delim(
-      file = file_star,
+      file = file_star[[1]],
       delim = "\t",
       col_types = cols()
     ) %>%
@@ -489,10 +518,11 @@ tr_qc_plots <- function(
 
   # HTSeq -----------------------------------------------------------------
 
-  if (file.exists(file_htseq)) {
+  # if (any(file.exists(file_htseq[[1]]), file.exists(file_htseq[[2]]))) {
+  if (file.exists(file_htseq[[1]])) {
 
     htseq_1 <- read_delim(
-      file = file_htseq,
+      file = file_htseq[[1]],
       delim = "\t",
       col_types = cols()
     ) %>%
