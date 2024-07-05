@@ -80,10 +80,10 @@ tr_qc_plots <- function(
 
   # Setup -----------------------------------------------------------------
 
-  file_phred_scores <-
-    file.path(directory, "fastqc_per_base_sequence_quality_plot.tsv")
-  file_phred_scores_alt <-
+  file_phred_scores <- list(
+    file.path(directory, "fastqc_per_base_sequence_quality_plot.tsv"),
     file.path(directory, "mqc_fastqc_per_base_sequence_quality_plot_1.txt")
+  )
 
   file_fastqc_reads <- file.path(directory, "multiqc_fastqc.txt")
   file_star <- file.path(directory, "multiqc_star.txt")
@@ -131,26 +131,45 @@ tr_qc_plots <- function(
 
   # Phred scores ----------------------------------------------------------
 
-  if (any(file.exists(file_phred_scores, file_phred_scores_alt))) {
+  if (any(file.exists(file_phred_scores[[1]], file_phred_scores[[2]]))) {
 
-    if (file.exists(file_phred_scores)) {
-      phred_1 <- read_delim(
-        file = file_phred_scores,
-        delim = "\t",
-        col_types = cols()
-      )
+    if (file.exists(file_phred_scores[[1]])) {
 
-      phred_2 <- phred_1 %>%
-        pivot_longer(
-          -`Position (bp)`,
-          names_to = "sample",
-          values_to = "phred_score"
-        ) %>%
-        rename("position" = `Position (bp)`)
+      if (grepl(x = readLines(file_phred_scores[[1]])[1], pattern = "Position")) {
+        phred_1 <- read_delim(
+          file = file_phred_scores[[1]],
+          delim = "\t",
+          col_types = cols()
+        )
+
+        phred_2 <- phred_1 %>%
+          pivot_longer(
+            !`Position (bp)`,
+            names_to = "sample",
+            values_to = "phred_score"
+          ) %>%
+          rename("position" = `Position (bp)`)
+
+      } else {
+        phred_1 <- read_delim(
+          file = file_phred_scores[[1]],
+          delim = "\t",
+          col_types = cols()
+        )
+
+        phred_2 <- phred_1 %>%
+          pivot_longer(
+            !Sample,
+            names_to = "position",
+            values_to = "phred_score"
+          ) %>%
+          mutate(position = as.numeric(position)) %>%
+          rename("sample" = Sample)
+      }
 
     } else {
       phred_1 <- read_delim(
-        file = file_phred_scores_alt,
+        file = file_phred_scores[[2]],
         delim = "\t",
         col_types = cols()
       )
