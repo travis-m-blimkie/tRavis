@@ -394,31 +394,53 @@ tr_qc_plots <- function(
 
   # STAR ------------------------------------------------------------------
 
-  # if (any(file.exists(file_star[[1]]), file.exists(file_star[[2]]))) {
-  if (file.exists(file_star[[1]])) {
+  if (any(file.exists(file_star[[1]]), file.exists(file_star[[2]]))) {
 
-    star_1 <- read_delim(
-      file = file_star[[1]],
-      delim = "\t",
-      col_types = cols()
-    ) %>%
-      clean_names()
+    if (file.exists(file_star[[1]])) {
+      star_1 <- read_delim(
+        file = file_star[[1]],
+        delim = "\t",
+        col_types = cols()
+      ) %>%
+        clean_names()
 
-    star_2 <- star_1 %>%
-      arrange(total_reads) %>%
-      mutate(sample = fct_inorder(sample)) %>%
-      select(
-        "Samples" = sample,
-        "unique" = uniquely_mapped,
-        multimapped,
-        "too_many" = multimapped_toomany,
-        "too_short" = unmapped_tooshort,
-        "unmapped" = unmapped_other
-      )
+      star_2 <- star_1 %>%
+        arrange(total_reads) %>%
+        mutate(sample = fct_inorder(sample)) %>%
+        select(
+          "Samples" = sample,
+          "unique" = uniquely_mapped,
+          multimapped,
+          "too_many" = multimapped_toomany,
+          "too_short" = unmapped_tooshort,
+          "unmapped" = unmapped_other
+        )
+
+    } else if (file.exists(file_star[[2]])) {
+      star_1 <- read_delim(
+        file = file_star[[2]],
+        delim = "\t",
+        col_types = cols()
+      ) %>%
+        clean_names()
+
+      star_2 <- star_1 %>%
+        mutate(total_reads = rowSums(across(where(is.numeric)))) %>%
+        arrange(total_reads) %>%
+        mutate(sample = forcats::fct_inorder(sample)) %>%
+        select(
+          "Samples" = sample,
+          "unique" = uniquely_mapped,
+          "multimapped" = mapped_to_multiple_loci,
+          "too_many" = mapped_to_too_many_loci,
+          "too_short" = unmapped_too_short,
+          "unmapped" = unmapped_other
+        )
+    }
 
     star_3 <- star_2 %>%
       pivot_longer(
-        -Samples,
+        !Samples,
         names_to = "read_type",
         values_to = "n_reads"
       ) %>%
