@@ -540,47 +540,83 @@ tr_qc_plots <- function(
 
   # HTSeq -----------------------------------------------------------------
 
-  # if (any(file.exists(file_htseq[[1]]), file.exists(file_htseq[[2]]))) {
-  if (file.exists(file_htseq[[1]])) {
-
-    htseq_1 <- read_delim(
-      file = file_htseq[[1]],
-      delim = "\t",
-      col_types = cols()
-    ) %>%
-      clean_names()
-
-    htseq_2 <- htseq_1 %>%
-      arrange(total_count) %>%
-      mutate(
-        sample = str_remove(sample, ".count$"),
-        sample = fct_inorder(sample)
+  if (any(file.exists(file_htseq[[1]]), file.exists(file_htseq[[2]]))) {
+    if (file.exists(file_htseq[[1]])) {
+      htseq_1 <- read_delim(
+        file = file_htseq[[1]],
+        delim = "\t",
+        col_types = cols()
       ) %>%
-      select(
-        "Samples" = sample,
-        assigned,
-        ambiguous,
-        "not_unique" = alignment_not_unique,
-        no_feature,
-        "low_aQual" = too_low_a_qual
-      )
+        clean_names()
 
-    htseq_3 <- htseq_2 %>%
-      pivot_longer(
-        -Samples,
-        names_to = "read_type",
-        values_to = "n_reads"
+      htseq_2 <- htseq_1 %>%
+        arrange(total_count) %>%
+        mutate(
+          sample = str_remove(sample, ".count$"),
+          sample = fct_inorder(sample)
+        ) %>%
+        select(
+          "Samples" = sample,
+          assigned,
+          ambiguous,
+          "not_unique" = alignment_not_unique,
+          no_feature,
+          "low_aQual" = too_low_a_qual
+        )
+
+      htseq_3 <- htseq_2 %>%
+        pivot_longer(
+          !Samples,
+          names_to = "read_type",
+          values_to = "n_reads"
+        ) %>%
+        mutate(
+          read_type = str_replace_all(read_type, pattern = c("_" = " ")),
+          read_type = factor(read_type, c(
+            "low aQual",
+            "no feature",
+            "not unique",
+            "ambiguous",
+            "assigned"
+          ))
+        )
+
+    } else if (file.exists(file_htseq[[2]])) {
+      htseq_1 <- read_delim(
+        file = file_htseq[[2]],
+        delim = "\t",
+        col_types = cols()
       ) %>%
-      mutate(
-        read_type = str_replace_all(read_type, pattern = c("_" = " ")),
-        read_type = factor(read_type, c(
-          "low aQual",
-          "no feature",
-          "not unique",
-          "ambiguous",
-          "assigned"
-        ))
-      )
+        clean_names()
+
+      htseq_2 <- htseq_1 %>%
+        mutate(total_count = rowSums(across(where(is.numeric)))) %>%
+        arrange(total_count) %>%
+        mutate(sample = fct_inorder(str_remove(sample, ".count$"))) %>%
+        select(
+          "Samples" = sample,
+          assigned,
+          ambiguous,
+          "not_unique" = alignment_not_unique,
+          no_feature
+        )
+
+      htseq_3 <- htseq_2 %>%
+        pivot_longer(
+          !Samples,
+          names_to = "read_type",
+          values_to = "n_reads"
+        ) %>%
+        mutate(
+          read_type = str_replace_all(read_type, pattern = c("_" = " ")),
+          read_type = factor(read_type, c(
+            "no feature",
+            "not unique",
+            "ambiguous",
+            "assigned"
+          ))
+        )
+    }
 
     rounded_max_htseq <-
       if (is.null(limits)) {
