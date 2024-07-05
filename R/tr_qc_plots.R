@@ -80,22 +80,22 @@ tr_qc_plots <- function(
 
   # Setup -----------------------------------------------------------------
 
-  file_phred_scores <- list(
+  file_phred_scores <- c(
     file.path(directory, "fastqc_per_base_sequence_quality_plot.tsv"),
     file.path(directory, "mqc_fastqc_per_base_sequence_quality_plot_1.txt")
   )
 
-  file_fastqc_reads <- list(
+  file_fastqc_reads <- c(
     file.path(directory, "multiqc_fastqc.txt"),
     file.path(directory, "fastqc_sequence_counts_plot.txt")
   )
 
-  file_star <- list(
+  file_star <- c(
     file.path(directory, "multiqc_star.txt"),
     file.path(directory, "star_alignment_plot.txt")
   )
 
-  file_htseq <- list(
+  file_htseq <- c(
     file.path(directory, "multiqc_htseq.txt"),
     file.path(directory, "htseq_assignment_plot.txt")
   )
@@ -142,13 +142,13 @@ tr_qc_plots <- function(
 
   # Phred scores ----------------------------------------------------------
 
-  if (any(file.exists(file_phred_scores[[1]], file_phred_scores[[2]]))) {
+  if (any(file.exists(file_phred_scores))) {
 
-    if (file.exists(file_phred_scores[[1]])) {
+    if (file.exists(file_phred_scores[1])) {
 
-      if (grepl(x = readLines(file_phred_scores[[1]])[1], pattern = "Position")) {
+      if (grepl(x = readLines(file_phred_scores[1])[1], pattern = "Position")) {
         phred_1 <- read.delim(
-          file = file_phred_scores[[1]],
+          file = file_phred_scores[1],
           sep = "\t",
           check.names = FALSE
         ) %>% as_tibble()
@@ -163,7 +163,7 @@ tr_qc_plots <- function(
 
       } else {
         phred_1 <- read.delim(
-          file = file_phred_scores[[1]],
+          file = file_phred_scores[1],
           sep = "\t",
           check.names = FALSE
         ) %>% as_tibble()
@@ -180,7 +180,7 @@ tr_qc_plots <- function(
 
     } else {
       phred_1 <- read.delim(
-        file = file_phred_scores[[2]],
+        file = file_phred_scores[2],
         sep = "\t",
         check.names = FALSE
       ) %>% as_tibble()
@@ -257,14 +257,11 @@ tr_qc_plots <- function(
 
   # FastQC reads ----------------------------------------------------------
 
-  if (any(
-    file.exists(file_fastqc_reads[[1]]),
-    file.exists(file_fastqc_reads[[2]])
-  )) {
+  if (any(file.exists(file_fastqc_reads))) {
 
-    if (file.exists(file_fastqc_reads[[1]])) {
+    if (file.exists(file_fastqc_reads[1])) {
       fastqc_1 <- read.delim(
-        file_fastqc_reads[[1]],
+        file_fastqc_reads[1],
         sep = "\t",
         check.names = FALSE
       ) %>%
@@ -280,9 +277,9 @@ tr_qc_plots <- function(
         arrange(total_sequences) %>%
         mutate(Samples = fct_inorder(Samples))
 
-    } else if (file.exists(file_fastqc_reads[[2]])) {
+    } else if (file.exists(file_fastqc_reads[2])) {
       fastqc_1 <- read.delim(
-        file_fastqc_reads[[2]],
+        file_fastqc_reads[2],
         sep = "\t",
         check.names = FALSE
       ) %>%
@@ -394,18 +391,20 @@ tr_qc_plots <- function(
     output_list$data$fastqc_reads <- fastqc_4
   } else {
     message(
-      "No data found for FastQC reads; check that 'multiqc_fastqc.txt' exists."
+      "No data found for FastQC reads; check that '",
+      paste0(file_fastqc_reads[1], "' or '", file_fastqc_reads[2]),
+      "' exist."
     )
   }
 
 
   # STAR ------------------------------------------------------------------
 
-  if (any(file.exists(file_star[[1]]), file.exists(file_star[[2]]))) {
+  if (any(file.exists(file_star))) {
 
-    if (file.exists(file_star[[1]])) {
+    if (file.exists(file_star[1])) {
       star_1 <- read.delim(
-        file = file_star[[1]],
+        file = file_star[1],
         sep = "\t",
         check.names = FALSE
       ) %>%
@@ -424,9 +423,9 @@ tr_qc_plots <- function(
           "unmapped" = unmapped_other
         )
 
-    } else if (file.exists(file_star[[2]])) {
+    } else if (file.exists(file_star[2])) {
       star_1 <- read.delim(
-        file = file_star[[2]],
+        file = file_star[2],
         sep = "\t",
         check.names = FALSE
       ) %>%
@@ -543,16 +542,20 @@ tr_qc_plots <- function(
     output_list$plots$star <- plot_star
     output_list$data$star <- star_3
   } else {
-    message("No data found for STAR; check that 'multiqc_star.txt' exists.")
+    message(
+      "No data found for STAR; check that '",
+      paste0(file_star[1], "' or '", file_star[2]),
+      "' exist."
+    )
   }
 
 
   # HTSeq -----------------------------------------------------------------
 
-  if (any(file.exists(file_htseq[[1]]), file.exists(file_htseq[[2]]))) {
-    if (file.exists(file_htseq[[1]])) {
+  if (any(file.exists(file_htseq))) {
+    if (file.exists(file_htseq[1])) {
       htseq_1 <- read.delim(
-        file = file_htseq[[1]],
+        file = file_htseq[1],
         sep = "\t",
         check.names = FALSE
       ) %>%
@@ -591,9 +594,9 @@ tr_qc_plots <- function(
           ))
         )
 
-    } else if (file.exists(file_htseq[[2]])) {
+    } else if (file.exists(file_htseq[2])) {
       htseq_1 <- read.delim(
-        file = file_htseq[[2]],
+        file = file_htseq[2],
         sep = "\t",
         check.names = FALSE
       ) %>%
@@ -708,8 +711,11 @@ tr_qc_plots <- function(
     output_list$plots$htseq <- plot_htseq
     output_list$data$htseq <- htseq_3
   } else {
-    message("No data found for HTSeq; check that 'multiqc_htseq.txt' exists.")
+    message(
+      "No data found for HTSeq; check that '",
+      paste0(file_htseq[1], "' or '", file_htseq[2]),
+      "' exist."
+    )
   }
-
   return(output_list)
 }
