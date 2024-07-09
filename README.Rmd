@@ -53,6 +53,9 @@ tr_trunc_neatly(
 )
 ```
 
+More details and examples can be found at the GitHub Pages website: 
+<https://travis-m-blimkie.github.io/tRavis/>
+
 ## Authors
 Travis Blimkie is the originator and principal contributor. You can check the
 list of all contributors
