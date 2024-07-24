@@ -3,7 +3,7 @@
 #' @param x First vector to compare.
 #' @param y Second vector to compare.
 #' @param names Optional character vector, containing names of `x` and `y` to
-#'   apply to the output.
+#'   apply to the output. Defaults to NULL for no names.
 #'
 #' @return A named list of the common and unique elements of x and y.
 #' @export

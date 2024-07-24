@@ -130,7 +130,7 @@ test_that("samples with 'R1' and 'R2' are handled properly", {
   )
 
   testthat::expect_true(
-    any(grepl(x = tr_qc_plots_output$data$fastqc_reads$sample, pattern = "R1")) &
-      any(grepl(x = tr_qc_plots_output$data$fastqc_reads$sample, pattern = "R2"))
+    any(grepl(x = tr_qc_plots_output$data$fastqc_reads$Samples, pattern = "R1")) &
+      any(grepl(x = tr_qc_plots_output$data$fastqc_reads$Samples, pattern = "R2"))
   )
 })

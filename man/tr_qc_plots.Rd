@@ -7,6 +7,8 @@
 tr_qc_plots(
   directory,
   type = "bar",
+  hide_samples = FALSE,
+  col_width = 0.9,
   add_points = TRUE,
   font_size = 18,
   threshold_line = 1e+07,
@@ -21,6 +23,12 @@ tr_qc_plots(
 e.g. "multiqc_data/"}
 
 \item{type}{Type of plot to produce, either "bar" (default) or "box"}
+
+\item{hide_samples}{Logical: For \code{type = "bar"}, remove samples names from
+the y axis when there are many samples. Defaults to FALSE.}
+
+\item{col_width}{Width of bars when \code{type = "bar"}, which can be reduced when
+plotting many samples. Defaults to 0.9}
 
 \item{add_points}{Logical: When making a box plot, should individual samples
 be plotted as points? Defaults to TRUE.}

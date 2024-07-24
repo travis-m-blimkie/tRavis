@@ -7,7 +7,7 @@
 tr_theme(base_size = 18, base_family = "", grid = TRUE)
 }
 \arguments{
-\item{base_size}{Base font size applied to all text in the plot}
+\item{base_size}{Base font size applied to all text in the plot (default 18)}
 
 \item{base_family}{Base font type applies to all text in the plot}
 

@@ -23,7 +23,7 @@ containing read or count numbers derived from MultiQC, and finds the
 largest read or count value, then round it up to the nearest ten million.
 }
 \details{
-Input data frame must contain the columns "sample" and "n_reads".
+Input data frame must contain the columns "Samples" and "n_reads".
 }
 \references{
 None.

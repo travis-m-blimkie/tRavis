@@ -28,7 +28,7 @@ devtools::install_github("travis-m-blimkie/tRavis")
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v1.3.25! If you encounter any bugs
+#> Thanks for using tRavis v1.5.11! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
 ```
@@ -57,10 +57,10 @@ tr_get_files(
   remove_string = "test_"
 )
 #> $file1
-#> [1] "/tmp/RtmpLKGpni/temp_libpath530de3264991/tRavis/extdata/test_file1_20191231.csv"
+#> [1] "/tmp/RtmprMVMMF/temp_libpathbf115b3f51b/tRavis/extdata/test_file1_20191231.csv"
 #> 
 #> $file2
-#> [1] "/tmp/RtmpLKGpni/temp_libpath530de3264991/tRavis/extdata/test_file2_20200101.csv"
+#> [1] "/tmp/RtmprMVMMF/temp_libpathbf115b3f51b/tRavis/extdata/test_file2_20200101.csv"
 ```
 
 ``` r
@@ -72,6 +72,9 @@ tr_trunc_neatly(
 )
 #> [1] "This is a long string that we want to..."
 ```
+
+More details and examples can be found at the GitHub Pages website:
+<https://travis-m-blimkie.github.io/tRavis/>
 
 ## Authors
 
