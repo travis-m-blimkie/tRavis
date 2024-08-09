@@ -119,7 +119,7 @@ test_that("samples with 'R1' are handled properly", {
     directory = system.file("extdata/tr_qc_plots_data_R1", package = "tRavis")
   )
 
-  testthat::expect_false(
+  expect_false(
     any(grepl(x = tr_qc_plots_output$data$fastqc_reads, pattern = "R1"))
   )
 })
@@ -129,8 +129,22 @@ test_that("samples with 'R1' and 'R2' are handled properly", {
     directory = system.file("extdata/tr_qc_plots_data_R1_R2", package = "tRavis")
   )
 
-  testthat::expect_true(
+  expect_true(
     any(grepl(x = tr_qc_plots_output$data$fastqc_reads$Samples, pattern = "R1")) &
       any(grepl(x = tr_qc_plots_output$data$fastqc_reads$Samples, pattern = "R2"))
+  )
+})
+
+
+test_that("option 'show_grid' is working", {
+  tr_qc_plots_output <- tr_qc_plots(
+    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+    type = "box",
+    show_grid = FALSE
+  )
+
+  vdiffr::expect_doppelganger(
+    "htseq_reads_box_no_grid_example",
+    tr_qc_plots_output$plots$htseq
   )
 })

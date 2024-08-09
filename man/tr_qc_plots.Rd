@@ -10,12 +10,13 @@ tr_qc_plots(
   hide_samples = FALSE,
   col_width = 0.9,
   add_points = TRUE,
-  font_size = 18,
   threshold_line = 1e+07,
   threshold_line_colour = "#EE2C2C",
   threshold_line_type = "dashed",
   threshold_line_size = 1,
-  limits = NULL
+  limits = NULL,
+  font_size = 18,
+  show_grid = TRUE
 )
 }
 \arguments{
@@ -33,8 +34,6 @@ plotting many samples. Defaults to 0.9}
 \item{add_points}{Logical: When making a box plot, should individual samples
 be plotted as points? Defaults to TRUE.}
 
-\item{font_size}{Base font size (defaults to 18)}
-
 \item{threshold_line}{Provide a number to draw a line at the indicated number
 of reads for FastQC read, STAR, and HTSeq plots. Defaults to 10e6; set to
 NULL to disable.}
@@ -50,6 +49,10 @@ NULL to disable.}
 plots. Supply a single number to give all three plots the same limit, or a
 vector of three values to modify each individually. Defaults to NULL, which
 sets automatic limits.}
+
+\item{font_size}{Base font size (defaults to 18)}
+
+\item{show_grid}{Should a grid be drawn on all plots? Defaults to "TRUE"}
 }
 \value{
 A list with elements "plot" containing the \code{ggplot} objects, and
