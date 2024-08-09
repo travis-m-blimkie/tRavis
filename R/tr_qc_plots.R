@@ -124,7 +124,7 @@ tr_qc_plots <- function(
     ),
     "star" = c(
       "unique" = "#104E8B",
-      "multimapped" = "#7CB5EC",
+      "multi- mapped" = "#7CB5EC",
       "too many" = "#F7A35C",
       "too short" = "#F08080",
       "unmapped" = "#7F0000"
@@ -464,9 +464,21 @@ tr_qc_plots <- function(
         ))
       )
 
+    star_4 <- mutate(
+      star_3,
+      read_type = str_replace_all(read_type, "multimapped", "multi- mapped"),
+      read_type = factor(read_type, c(
+        "unmapped",
+        "too short",
+        "too many",
+        "multi- mapped",
+        "unique"
+      ))
+    )
+
     rounded_max_star <-
       if (is.null(limits)) {
-        get_rounded_max(star_3)
+        get_rounded_max(star_4)
       } else if (length(limits) == 1) {
         limits
       } else if (length(limits) == 3) {
@@ -479,7 +491,7 @@ tr_qc_plots <- function(
       }
 
     plot_star <- if (type == "bar") {
-      ggplot(star_3, aes(n_reads, Samples, fill = read_type)) +
+      ggplot(star_4, aes(n_reads, Samples, fill = read_type)) +
         geom_col(width = col_width) +
         {if (draw_line) dashed_vline} +
         scale_x_continuous(
@@ -508,7 +520,7 @@ tr_qc_plots <- function(
 
       if (add_points) {
         plot_star_base <-
-          ggplot(star_3, aes(read_type, n_reads, fill = read_type)) +
+          ggplot(star_4, aes(read_type, n_reads, fill = read_type)) +
           geom_boxplot(outlier.shape = NA) +
           geom_point(
             pch = 21,
@@ -518,7 +530,7 @@ tr_qc_plots <- function(
           )
       } else {
         plot_star_base <-
-          ggplot(star_3, aes(read_type, n_reads, fill = read_type)) +
+          ggplot(star_4, aes(read_type, n_reads, fill = read_type)) +
           geom_boxplot(
             outlier.shape = 21,
             outlier.size = 2,
@@ -529,7 +541,7 @@ tr_qc_plots <- function(
 
       plot_star_base +
         scale_x_discrete(labels = ~str_wrap(.x, width = 3)) +
-        scale_y_continuous(labels = ~.x/1e6) +
+        scale_y_continuous(labels = ~.x / 1e6) +
         scale_fill_manual(values = colour_keys$star, guide = NULL) +
         {if (draw_line) dashed_hline} +
         labs(
