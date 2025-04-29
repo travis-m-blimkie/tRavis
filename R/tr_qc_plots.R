@@ -208,8 +208,7 @@ tr_qc_plots <- function(
       bad_samples,
       by = c("position", "sample", "phred_score")
     ) %>%
-      relocate(sample, position, phred_score, qc) %>%
-      mutate(sample = str_remove(string = sample, pattern = "_?(r|R)[0-9]_?"))
+      relocate(sample, position, phred_score, qc)
 
     max_phred <- round_any(
       x = max(phred_3$phred_score),
