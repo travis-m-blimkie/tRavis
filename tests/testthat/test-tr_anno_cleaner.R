@@ -1,8 +1,9 @@
 test_that("basic annotation cleaning works", {
   cleaned_basic <- tr_anno_cleaner(
-    input_file = paste0(
-      "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
-      "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
+    input_file = system.file(
+      "extdata",
+      "Pseudomonas_aeruginosa_PAO1_107.csv.gz",
+      package = "tRavis"
     )
   )
 
@@ -16,9 +17,10 @@ test_that("basic annotation cleaning works", {
 
 test_that("'extra_cols' functions properly", {
   cleaned_extra <- tr_anno_cleaner(
-    input_file = paste0(
-      "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
-      "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
+    input_file = system.file(
+      "extdata",
+      "Pseudomonas_aeruginosa_PAO1_107.csv.gz",
+      package = "tRavis"
     ),
     extra_cols = TRUE
   )
