@@ -20,10 +20,10 @@ library(tRavis)
 Clean annotation files (CSV or TSV) for *Pseudomonas aeruginosa* from 
 <https://pseudomonas.com>.
 ```{r tr_anno_cleaner_I}
-# A URL can also be supplied, instead of a local file path
-link <- paste0(
-  "https://pseudomonas.com/downloads/pseudomonas/pgd_r_22_1/",
-  "Pseudomonas_aeruginosa_PAO1_107/Pseudomonas_aeruginosa_PAO1_107.csv.gz"
+# For this vignette we use a file that comes with the package. 
+link <- system.file(
+  "extdata/Pseudomonas_aeruginosa_PAO1_107.csv.gz",
+  package = "tRavis"
 )
 
 tr_anno_cleaner(input_file = link)
