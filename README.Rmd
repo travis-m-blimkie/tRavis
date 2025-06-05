@@ -38,7 +38,8 @@ library(tRavis)
 # Quickly compare two lists:
 tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6), names = c("A", "B"))
 
-# Create a named list of files:
+# Create a named list of files, with support for pattern matching and recursive
+# searching:
 tr_get_files(
   directory = system.file("extdata", package = "tRavis"),
   pattern = "test",
@@ -46,7 +47,7 @@ tr_get_files(
   remove_string = "test_"
 )
 
-# Neatly truncate strings:
+# Neatly truncate strings, appending with an ellipsis:
 tr_trunc_neatly(
   x = "This is a long string that we want to break neatly",
   l = 40

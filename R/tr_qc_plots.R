@@ -9,7 +9,6 @@
 #'   plotting many samples. Defaults to 0.9
 #' @param add_points Logical: When making a box plot, should individual samples
 #'   be plotted as points? Defaults to TRUE.
-#' @param font_size Base font size (defaults to 18)
 #' @param threshold_line Provide a number to draw a line at the indicated number
 #'   of reads for FastQC read, STAR, and HTSeq plots. Defaults to 10e6; set to
 #'   NULL to disable.
@@ -21,6 +20,9 @@
 #'   plots. Supply a single number to give all three plots the same limit, or a
 #'   vector of three values to modify each individually. Defaults to NULL, which
 #'   sets automatic limits.
+#' @param font_size Base font size (defaults to 18)
+#' @param show_grid Should a grid be drawn on all plots? Defaults to "all", can
+#'   also be "x", "y", or "none".
 #'
 #' @return A list with elements "plot" containing the `ggplot` objects, and
 #'   "data" containing all the underlying data
@@ -66,12 +68,13 @@ tr_qc_plots <- function(
     hide_samples = FALSE,
     col_width = 0.9,
     add_points = TRUE,
-    font_size = 18,
     threshold_line = 10e6,
     threshold_line_colour = "#EE2C2C",
     threshold_line_type = "dashed",
     threshold_line_size = 1,
-    limits = NULL
+    limits = NULL,
+    font_size = 18,
+    show_grid = "all"
 ) {
 
   stopifnot(
@@ -124,7 +127,7 @@ tr_qc_plots <- function(
     ),
     "star" = c(
       "unique" = "#104E8B",
-      "multimapped" = "#7CB5EC",
+      "multi- mapped" = "#7CB5EC",
       "too many" = "#F7A35C",
       "too short" = "#F08080",
       "unmapped" = "#7F0000"
@@ -206,8 +209,7 @@ tr_qc_plots <- function(
       bad_samples,
       by = c("position", "sample", "phred_score")
     ) %>%
-      relocate(sample, position, phred_score, qc) %>%
-      mutate(sample = str_remove(string = sample, pattern = "_?(r|R)[0-9]_?"))
+      relocate(sample, position, phred_score, qc)
 
     max_phred <- round_any(
       x = max(phred_3$phred_score),
@@ -241,7 +243,7 @@ tr_qc_plots <- function(
         y = "Phred score",
         title = "FastQC: Mean quality scores"
       ) +
-      tr_theme(base_size = font_size)
+      tr_theme(base_size = font_size, grid = show_grid)
 
     output_list$plots$phred_scores <- plot_phred_scores
     output_list$data$phred_scores <- select(phred_3, !qc)
@@ -342,13 +344,9 @@ tr_qc_plots <- function(
           title = "FastQC: Sequence counts",
           fill = "Read type"
         ) +
-        tr_theme(base_size = font_size) +
-        theme(
-          panel.grid.major.y = element_blank(),
-          panel.grid.minor.y = element_blank()
-        ) +
+        tr_theme(base_size = font_size, grid = show_grid) +
         { if (hide_samples) {
-          theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+          theme(axis.text.y = element_blank())
         } else {
           labs(y = NULL)
         }}
@@ -385,7 +383,7 @@ tr_qc_plots <- function(
           y = "Reads (M)",
           title = "FastQC: Sequence counts"
         ) +
-        tr_theme(base_size = font_size)
+        tr_theme(base_size = font_size, grid = show_grid)
     }
 
     output_list$plots$fastqc_reads <- plot_fastqc_reads
@@ -464,9 +462,21 @@ tr_qc_plots <- function(
         ))
       )
 
+    star_4 <- mutate(
+      star_3,
+      read_type = str_replace_all(read_type, "multimapped", "multi- mapped"),
+      read_type = factor(read_type, c(
+        "unmapped",
+        "too short",
+        "too many",
+        "multi- mapped",
+        "unique"
+      ))
+    )
+
     rounded_max_star <-
       if (is.null(limits)) {
-        get_rounded_max(star_3)
+        get_rounded_max(star_4)
       } else if (length(limits) == 1) {
         limits
       } else if (length(limits) == 3) {
@@ -479,7 +489,7 @@ tr_qc_plots <- function(
       }
 
     plot_star <- if (type == "bar") {
-      ggplot(star_3, aes(n_reads, Samples, fill = read_type)) +
+      ggplot(star_4, aes(n_reads, Samples, fill = read_type)) +
         geom_col(width = col_width) +
         {if (draw_line) dashed_vline} +
         scale_x_continuous(
@@ -493,13 +503,9 @@ tr_qc_plots <- function(
           title = "STAR: Alignment scores",
           fill = "Read type"
         ) +
-        tr_theme(base_size = font_size) +
-        theme(
-          panel.grid.major.y = element_blank(),
-          panel.grid.minor.y = element_blank()
-        ) +
+        tr_theme(base_size = font_size, grid = show_grid) +
         { if (hide_samples) {
-          theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+          theme(axis.text.y = element_blank())
         } else {
           labs(y = NULL)
         }}
@@ -508,7 +514,7 @@ tr_qc_plots <- function(
 
       if (add_points) {
         plot_star_base <-
-          ggplot(star_3, aes(read_type, n_reads, fill = read_type)) +
+          ggplot(star_4, aes(read_type, n_reads, fill = read_type)) +
           geom_boxplot(outlier.shape = NA) +
           geom_point(
             pch = 21,
@@ -518,7 +524,7 @@ tr_qc_plots <- function(
           )
       } else {
         plot_star_base <-
-          ggplot(star_3, aes(read_type, n_reads, fill = read_type)) +
+          ggplot(star_4, aes(read_type, n_reads, fill = read_type)) +
           geom_boxplot(
             outlier.shape = 21,
             outlier.size = 2,
@@ -529,7 +535,7 @@ tr_qc_plots <- function(
 
       plot_star_base +
         scale_x_discrete(labels = ~str_wrap(.x, width = 3)) +
-        scale_y_continuous(labels = ~.x/1e6) +
+        scale_y_continuous(labels = ~.x / 1e6) +
         scale_fill_manual(values = colour_keys$star, guide = NULL) +
         {if (draw_line) dashed_hline} +
         labs(
@@ -537,7 +543,7 @@ tr_qc_plots <- function(
           y = "Reads (M)",
           title = "STAR: Alignment scores"
         ) +
-        tr_theme(base_size = font_size)
+        tr_theme(base_size = font_size, grid = show_grid)
     }
 
     output_list$plots$star <- plot_star
@@ -662,13 +668,9 @@ tr_qc_plots <- function(
           title = "HTSeq: Count assignments",
           fill = "Read type"
         ) +
-        tr_theme(base_size = font_size) +
-        theme(
-          panel.grid.major.y = element_blank(),
-          panel.grid.minor.y = element_blank()
-        ) +
+        tr_theme(base_size = font_size, grid = show_grid) +
         { if (hide_samples) {
-          theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+          theme(axis.text.y = element_blank())
         } else {
           labs(y = NULL)
         }}
@@ -706,7 +708,7 @@ tr_qc_plots <- function(
           y = "Reads (M)",
           title = "HTSeq: Count assignments"
         ) +
-        tr_theme(base_size = font_size)
+        tr_theme(base_size = font_size, grid = show_grid)
     }
 
     output_list$plots$htseq <- plot_htseq
