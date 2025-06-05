@@ -16,7 +16,7 @@ tr_qc_plots(
   threshold_line_size = 1,
   limits = NULL,
   font_size = 18,
-  show_grid = TRUE
+  show_grid = "all"
 )
 }
 \arguments{
@@ -52,7 +52,8 @@ sets automatic limits.}
 
 \item{font_size}{Base font size (defaults to 18)}
 
-\item{show_grid}{Should a grid be drawn on all plots? Defaults to "TRUE"}
+\item{show_grid}{Should a grid be drawn on all plots? Defaults to "all", can
+also be "x", "y", or "none".}
 }
 \value{
 A list with elements "plot" containing the \code{ggplot} objects, and

@@ -4,26 +4,30 @@
 \alias{tr_theme}
 \title{Customized ggplot2 theme}
 \usage{
-tr_theme(base_size = 18, base_family = "", grid = TRUE)
+tr_theme(base_size = 16, base_family = "", grid = "all", ticks = FALSE)
 }
 \arguments{
 \item{base_size}{Base font size applied to all text in the plot (default 18)}
 
 \item{base_family}{Base font type applies to all text in the plot}
 
-\item{grid}{Determines if grid lines should be drawn. Defaults to
-\code{TRUE}for which only "major" grid lines are drawn.}
+\item{grid}{Character to determines how grid lines should be drawn. Options
+are "all", "x", "y", or "none".}
+
+\item{ticks}{Logical indicating if axis ticks should be drawn. Defaults to
+\code{FALSE}.}
 }
 \value{
 A ggplot2 theme
 }
 \description{
 Custom theme that can be applied to ggplot2 plots. Increases
-base font size, sets a white background, grey grid, and black border.
+base font size, sets a white background, grey grid, and black border and
+text.
 }
 \examples{
 if (FALSE)
-  ggplot(mtcars, aes(cyl, mpg)) + geom_point() + tr_theme()
+  ggplot(mtcars, aes(factor(cyl), mpg)) + geom_boxplot() + tr_theme()
 
 }
 \references{

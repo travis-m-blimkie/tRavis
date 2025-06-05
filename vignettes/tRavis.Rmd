@@ -170,7 +170,7 @@ library(ggplot2)
 basic_box_plot <- ggplot(mtcars, aes(as.factor(cyl), mpg)) + geom_boxplot()
 
 basic_box_plot + tr_theme()
-basic_box_plot + tr_theme(grid = FALSE)
+basic_box_plot + tr_theme(grid = "none")
 ```
 
 ## tr_tidy_gage
