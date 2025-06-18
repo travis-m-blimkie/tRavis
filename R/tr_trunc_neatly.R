@@ -20,7 +20,7 @@
 #'
 tr_trunc_neatly <- function(x, l = 60) {
   map_chr(
-    x,
+    as.character(x),
     ~if (is.na(.x)) {
       return(NA_character_)
     } else if (nchar(.x) <= l) {
