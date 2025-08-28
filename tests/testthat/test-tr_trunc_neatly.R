@@ -6,7 +6,7 @@ test_that("string truncation works", {
 })
 
 test_that("we can handle factors", {
-  expect_no_error(
+  expect_warning(
     tr_trunc_neatly(as.factor("This is a test string"), l = 17)
   )
 })
