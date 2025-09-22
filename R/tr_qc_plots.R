@@ -21,8 +21,6 @@
 #'   vector of three values to modify each individually. Defaults to NULL, which
 #'   sets automatic limits.
 #' @param font_size Base font size (defaults to 18)
-#' @param show_grid Should a grid be drawn on all plots? Defaults to "all", can
-#'   also be "x", "y", or "none".
 #'
 #' @return A list with elements "plot" containing the `ggplot` objects, and
 #'   "data" containing all the underlying data
@@ -73,8 +71,7 @@ tr_qc_plots <- function(
     threshold_line_type = "dashed",
     threshold_line_size = 1,
     limits = NULL,
-    font_size = 18,
-    show_grid = "all"
+    font_size = 14
 ) {
 
   stopifnot(
@@ -243,7 +240,7 @@ tr_qc_plots <- function(
         y = "Phred score",
         title = "FastQC: Mean quality scores"
       ) +
-      tr_theme(base_size = font_size, grid = show_grid)
+      tr_theme(base_size = font_size, grid = "y")
 
     output_list$plots$phred_scores <- plot_phred_scores
     output_list$data$phred_scores <- select(phred_3, !qc)
@@ -344,7 +341,7 @@ tr_qc_plots <- function(
           title = "FastQC: Sequence counts",
           fill = "Read type"
         ) +
-        tr_theme(base_size = font_size, grid = show_grid) +
+        tr_theme(base_size = font_size, grid = "x") +
         { if (hide_samples) {
           theme(axis.text.y = element_blank())
         } else {
@@ -383,7 +380,7 @@ tr_qc_plots <- function(
           y = "Reads (M)",
           title = "FastQC: Sequence counts"
         ) +
-        tr_theme(base_size = font_size, grid = show_grid)
+        tr_theme(base_size = font_size, grid = "y")
     }
 
     output_list$plots$fastqc_reads <- plot_fastqc_reads
@@ -503,7 +500,7 @@ tr_qc_plots <- function(
           title = "STAR: Alignment scores",
           fill = "Read type"
         ) +
-        tr_theme(base_size = font_size, grid = show_grid) +
+        tr_theme(base_size = font_size, grid = "x") +
         { if (hide_samples) {
           theme(axis.text.y = element_blank())
         } else {
@@ -543,7 +540,7 @@ tr_qc_plots <- function(
           y = "Reads (M)",
           title = "STAR: Alignment scores"
         ) +
-        tr_theme(base_size = font_size, grid = show_grid)
+        tr_theme(base_size = font_size, grid = "y")
     }
 
     output_list$plots$star <- plot_star
@@ -668,7 +665,7 @@ tr_qc_plots <- function(
           title = "HTSeq: Count assignments",
           fill = "Read type"
         ) +
-        tr_theme(base_size = font_size, grid = show_grid) +
+        tr_theme(base_size = font_size, grid = "x") +
         { if (hide_samples) {
           theme(axis.text.y = element_blank())
         } else {
@@ -708,7 +705,7 @@ tr_qc_plots <- function(
           y = "Reads (M)",
           title = "HTSeq: Count assignments"
         ) +
-        tr_theme(base_size = font_size, grid = show_grid)
+        tr_theme(base_size = font_size, grid = "y")
     }
 
     output_list$plots$htseq <- plot_htseq
