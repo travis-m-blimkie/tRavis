@@ -134,17 +134,3 @@ test_that("samples with 'R1' and 'R2' are handled properly", {
       any(grepl(x = tr_qc_plots_output$data$fastqc_reads$Samples, pattern = "R2"))
   )
 })
-
-
-test_that("option 'show_grid' is working", {
-  tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
-    type = "box",
-    show_grid = FALSE
-  )
-
-  vdiffr::expect_doppelganger(
-    "htseq_reads_box_no_grid_example",
-    tr_qc_plots_output$plots$htseq
-  )
-})

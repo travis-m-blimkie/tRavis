@@ -21,21 +21,27 @@
 tr_trunc_neatly <- function(x, l = 60) {
   map_chr(
     x,
-    ~if (is.na(.x)) {
-      return(NA_character_)
-    } else if (nchar(.x) <= l) {
-      return(.x)
-    } else {
-      shortened <- gsub(
-        x = substr(
-          x = as.character(.x),
-          start = 1,
-          stop = l
-        ),
-        pattern = " ([^ ]*)$",
-        replacement = "..."
-      )
-      return(shortened)
+    ~ {
+      if (is.factor(.x)) {
+        warning("Input was a factor and will be coerced to character.")
+        .x <- as.character(.x)
+      }
+      if (is.na(.x)) {
+        return(NA_character_)
+      } else if (nchar(.x) <= l) {
+        return(.x)
+      } else {
+        shortened <- gsub(
+          x = substr(
+            x = as.character(.x),
+            start = 1,
+            stop = l
+          ),
+          pattern = " ([^ ]*)$",
+          replacement = "..."
+        )
+        return(shortened)
+      }
     }
   )
 }
