@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   tRavis: tRavis.html
-last_built: 2025-06-10T17:44Z
+last_built: 2025-09-22T16:48Z
 urls:
   reference: https://travis-m-blimkie.github.io/tRavis/reference
   article: https://travis-m-blimkie.github.io/tRavis/articles
