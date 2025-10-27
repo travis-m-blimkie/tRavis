@@ -14,7 +14,7 @@ test_that("the function is working properly", {
 
   expect_equal(
     dim(tr_qc_plots_output$data$fastqc_reads),
-    c(40, 3)
+    c(20, 2)
   )
 
   expect_equal(

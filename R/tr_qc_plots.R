@@ -61,23 +61,21 @@
 #' if (FALSE) tr_qc_plots("multiqc_data")
 #'
 tr_qc_plots <- function(
-    directory,
-    type = "bar",
-    hide_samples = FALSE,
-    col_width = 0.9,
-    add_points = TRUE,
-    threshold_line = 10e6,
-    threshold_line_colour = "#EE2C2C",
-    threshold_line_type = "dashed",
-    threshold_line_size = 1,
-    limits = NULL,
-    font_size = 14
+  directory,
+  type = "bar",
+  hide_samples = FALSE,
+  col_width = 0.9,
+  add_points = TRUE,
+  threshold_line = 10e6,
+  threshold_line_colour = "#EE2C2C",
+  threshold_line_type = "dashed",
+  threshold_line_size = 1,
+  limits = NULL,
+  font_size = 14
 ) {
-
   stopifnot(
     "Argument 'type' must be 'bar' or 'box'." = type %in% c("bar", "box")
   )
-
 
   # Setup -----------------------------------------------------------------
 
@@ -86,10 +84,7 @@ tr_qc_plots <- function(
     file.path(directory, "mqc_fastqc_per_base_sequence_quality_plot_1.txt")
   )
 
-  file_fastqc_reads <- c(
-    file.path(directory, "multiqc_fastqc.txt"),
-    file.path(directory, "fastqc_sequence_counts_plot.txt")
-  )
+  file_fastqc_reads <- file.path(directory, "multiqc_fastqc.txt")
 
   file_star <- c(
     file.path(directory, "multiqc_star.txt"),
@@ -118,10 +113,6 @@ tr_qc_plots <- function(
   )
 
   colour_keys <- list(
-    "fastqc" = c(
-      "unique" = "#9AC0CD",
-      "duplicate" = "#7F7F7F"
-    ),
     "star" = c(
       "unique" = "#104E8B",
       "multi- mapped" = "#7CB5EC",
@@ -140,19 +131,17 @@ tr_qc_plots <- function(
 
   output_list <- list()
 
-
   # Phred scores ----------------------------------------------------------
 
   if (any(file.exists(file_phred_scores))) {
-
     if (file.exists(file_phred_scores[1])) {
-
       if (grepl(x = readLines(file_phred_scores[1])[1], pattern = "Position")) {
         phred_1 <- read.delim(
           file = file_phred_scores[1],
           sep = "\t",
           check.names = FALSE
-        ) %>% as_tibble()
+        ) %>%
+          as_tibble()
 
         phred_2 <- phred_1 %>%
           pivot_longer(
@@ -161,13 +150,13 @@ tr_qc_plots <- function(
             values_to = "phred_score"
           ) %>%
           rename("position" = `Position (bp)`)
-
       } else {
         phred_1 <- read.delim(
           file = file_phred_scores[1],
           sep = "\t",
           check.names = FALSE
-        ) %>% as_tibble()
+        ) %>%
+          as_tibble()
 
         phred_2 <- phred_1 %>%
           pivot_longer(
@@ -178,13 +167,13 @@ tr_qc_plots <- function(
           mutate(position = as.numeric(position)) %>%
           rename("sample" = Sample)
       }
-
     } else {
       phred_1 <- read.delim(
         file = file_phred_scores[2],
         sep = "\t",
         check.names = FALSE
-      ) %>% as_tibble()
+      ) %>%
+        as_tibble()
 
       phred_2 <- phred_1 %>%
         pivot_longer(
@@ -254,67 +243,37 @@ tr_qc_plots <- function(
     )
   }
 
-
   # FastQC reads ----------------------------------------------------------
 
-  if (any(file.exists(file_fastqc_reads))) {
+  if (file.exists(file_fastqc_reads)) {
+    fastqc_1 <- read.delim(
+      file_fastqc_reads[1],
+      sep = "\t",
+      check.names = FALSE
+    ) %>%
+      as_tibble() %>%
+      clean_names()
 
-    if (file.exists(file_fastqc_reads[1])) {
-      fastqc_1 <- read.delim(
-        file_fastqc_reads[1],
-        sep = "\t",
-        check.names = FALSE
-      ) %>%
-        as_tibble() %>%
-        clean_names()
+    fastqc_2 <- fastqc_1 %>%
+      select("Samples" = sample, total_sequences) %>%
+      arrange(total_sequences) %>%
+      mutate(Samples = fct_inorder(Samples))
 
-      fastqc_2 <- fastqc_1 %>%
-        mutate(
-          unique = total_sequences * (total_deduplicated_percentage / 100),
-          duplicate = total_sequences - unique
-        ) %>%
-        select("Samples" = sample, unique, duplicate, total_sequences) %>%
-        arrange(total_sequences) %>%
-        mutate(Samples = fct_inorder(Samples))
+    found_r1 <- any(grepl(x = tolower(fastqc_2$Samples), pattern = "r1"))
+    found_r2 <- any(grepl(x = tolower(fastqc_2$Samples), pattern = "r2"))
 
-    } else if (file.exists(file_fastqc_reads[2])) {
-      fastqc_1 <- read.delim(
-        file_fastqc_reads[2],
-        sep = "\t",
-        check.names = FALSE
-      ) %>%
-        as_tibble() %>%
-        clean_names()
-
-      fastqc_2 <- fastqc_1 %>%
-        rename("Samples" = sample, "unique" = unique_reads, "duplicate" = duplicate_reads) %>%
-        mutate(total_sequences = unique + duplicate) %>%
-        arrange(total_sequences) %>%
-        mutate(Samples = forcats::fct_inorder(Samples))
-    }
-
-    fastqc_3 <- fastqc_2 %>%
-      select(-total_sequences) %>%
-      pivot_longer(
-        unique:duplicate,
-        names_to = "read_type",
-        values_to = "n_reads"
-      )
-
-    found_r1 <- any(grepl(x = tolower(fastqc_3$Samples), pattern = "r1"))
-    found_r2 <- any(grepl(x = tolower(fastqc_3$Samples), pattern = "r2"))
-
-    if (found_r1 & !found_r2) { # R1 but no R2
-      fastqc_4 <- fastqc_3 %>%
+    if (found_r1 & !found_r2) {
+      # R1 but no R2
+      fastqc_3 <- fastqc_2 %>%
         mutate(Samples = fct_inorder(str_remove(Samples, "_?(r|R)1_?")))
     } else {
-      fastqc_4 <- fastqc_3 %>%
+      fastqc_3 <- fastqc_2 %>%
         mutate(Samples = fct_inorder(Samples))
     }
 
     rounded_max_fastqc <-
       if (is.null(limits)) {
-        get_rounded_max(fastqc_4)
+        get_rounded_max(fastqc_3)
       } else if (length(limits) == 1) {
         limits
       } else if (length(limits) == 3) {
@@ -327,43 +286,45 @@ tr_qc_plots <- function(
       }
 
     plot_fastqc_reads <- if (type == "bar") {
-      ggplot(fastqc_4, aes(n_reads, Samples, fill = read_type)) +
-        geom_col(width = col_width) +
-        {if (draw_line) dashed_vline} +
-        scale_fill_manual(values = colour_keys$fastqc) +
+      ggplot(fastqc_3, aes(total_sequences, Samples)) +
+        geom_col(width = col_width, fill = "#9AC0CD") +
+        {
+          if (draw_line) dashed_vline
+        } +
         scale_x_continuous(
           expand = expansion(mult = c(0, 0.1)),
           limits = c(0, rounded_max_fastqc),
-          labels = ~.x / 1e6
+          labels = ~ .x / 1e6
         ) +
         labs(
           x = "Reads (M)",
-          title = "FastQC: Sequence counts",
-          fill = "Read type"
+          title = "FastQC: Total sequence counts",
         ) +
         tr_theme(base_size = font_size, grid = "x") +
-        { if (hide_samples) {
-          theme(axis.text.y = element_blank())
-        } else {
-          labs(y = NULL)
-        }}
-
+        {
+          if (hide_samples) {
+            theme(axis.text.y = element_blank())
+          } else {
+            labs(y = NULL)
+          }
+        }
     } else if (type == "box") {
-
       if (add_points) {
         plot_fastqc_base <-
-          ggplot(fastqc_4, aes(read_type, n_reads, fill = read_type)) +
-          geom_boxplot(outlier.shape = NA) +
+          ggplot(fastqc_3, aes("Samples", total_sequences)) +
+          geom_boxplot(fill = "#9AC0CD", outlier.shape = NA) +
           geom_point(
             pch = 21,
+            fill = "#9AC0CD",
             size = 2,
             alpha = 0.8,
             position = position_jitter(width = 0.25, height = 0, seed = 1)
           )
       } else {
         plot_fastqc_base <-
-          ggplot(fastqc_4, aes(read_type, n_reads, fill = read_type)) +
+          ggplot(fastqc_3, aes("Samples", total_sequences)) +
           geom_boxplot(
+            fill = "#9AC0CD",
             outlier.shape = 21,
             outlier.size = 2,
             outlier.alpha = 0.8,
@@ -372,24 +333,24 @@ tr_qc_plots <- function(
       }
 
       plot_fastqc_base +
-        scale_y_continuous(labels = ~.x/1e6) +
-        scale_fill_manual(values = colour_keys$fastqc, guide = NULL) +
-        {if (draw_line) dashed_hline} +
+        scale_y_continuous(labels = ~ .x / 1e6) +
+        {
+          if (draw_line) dashed_hline
+        } +
         labs(
           x = "Read type",
           y = "Reads (M)",
-          title = "FastQC: Sequence counts"
+          title = "FastQC: Total sequence counts"
         ) +
         tr_theme(base_size = font_size, grid = "y")
     }
 
     output_list$plots$fastqc_reads <- plot_fastqc_reads
-    output_list$data$fastqc_reads <- fastqc_4
+    output_list$data$fastqc_reads <- fastqc_3
   } else {
     warning(
       "No data found for FastQC reads; check that '",
-      paste0(file_fastqc_reads[1], "' or '", file_fastqc_reads[2]),
-      "' exist."
+      file_fastqc_reads, "' exist."
     )
   }
 
@@ -397,7 +358,6 @@ tr_qc_plots <- function(
   # STAR ------------------------------------------------------------------
 
   if (any(file.exists(file_star))) {
-
     if (file.exists(file_star[1])) {
       star_1 <- read.delim(
         file = file_star[1],
@@ -418,7 +378,6 @@ tr_qc_plots <- function(
           "too_short" = unmapped_tooshort,
           "unmapped" = unmapped_other
         )
-
     } else if (file.exists(file_star[2])) {
       star_1 <- read.delim(
         file = file_star[2],
@@ -450,25 +409,31 @@ tr_qc_plots <- function(
       ) %>%
       mutate(
         read_type = str_replace_all(read_type, pattern = c("_" = " ")),
-        read_type = factor(read_type, c(
-          "unmapped",
-          "too short",
-          "too many",
-          "multimapped",
-          "unique"
-        ))
+        read_type = factor(
+          read_type,
+          c(
+            "unmapped",
+            "too short",
+            "too many",
+            "multimapped",
+            "unique"
+          )
+        )
       )
 
     star_4 <- mutate(
       star_3,
       read_type = str_replace_all(read_type, "multimapped", "multi- mapped"),
-      read_type = factor(read_type, c(
-        "unmapped",
-        "too short",
-        "too many",
-        "multi- mapped",
-        "unique"
-      ))
+      read_type = factor(
+        read_type,
+        c(
+          "unmapped",
+          "too short",
+          "too many",
+          "multi- mapped",
+          "unique"
+        )
+      )
     )
 
     rounded_max_star <-
@@ -488,11 +453,13 @@ tr_qc_plots <- function(
     plot_star <- if (type == "bar") {
       ggplot(star_4, aes(n_reads, Samples, fill = read_type)) +
         geom_col(width = col_width) +
-        {if (draw_line) dashed_vline} +
+        {
+          if (draw_line) dashed_vline
+        } +
         scale_x_continuous(
           expand = expansion(mult = c(0, 0.1)),
           limits = c(0, rounded_max_star),
-          labels = ~.x / 1e6
+          labels = ~ .x / 1e6
         ) +
         scale_fill_manual(values = colour_keys$star) +
         labs(
@@ -501,14 +468,14 @@ tr_qc_plots <- function(
           fill = "Read type"
         ) +
         tr_theme(base_size = font_size, grid = "x") +
-        { if (hide_samples) {
-          theme(axis.text.y = element_blank())
-        } else {
-          labs(y = NULL)
-        }}
-
+        {
+          if (hide_samples) {
+            theme(axis.text.y = element_blank())
+          } else {
+            labs(y = NULL)
+          }
+        }
     } else if (type == "box") {
-
       if (add_points) {
         plot_star_base <-
           ggplot(star_4, aes(read_type, n_reads, fill = read_type)) +
@@ -531,10 +498,12 @@ tr_qc_plots <- function(
       }
 
       plot_star_base +
-        scale_x_discrete(labels = ~str_wrap(.x, width = 3)) +
-        scale_y_continuous(labels = ~.x / 1e6) +
+        scale_x_discrete(labels = ~ str_wrap(.x, width = 3)) +
+        scale_y_continuous(labels = ~ .x / 1e6) +
         scale_fill_manual(values = colour_keys$star, guide = NULL) +
-        {if (draw_line) dashed_hline} +
+        {
+          if (draw_line) dashed_hline
+        } +
         labs(
           x = "Read type",
           y = "Reads (M)",
@@ -552,7 +521,6 @@ tr_qc_plots <- function(
       "' exist."
     )
   }
-
 
   # HTSeq -----------------------------------------------------------------
 
@@ -589,15 +557,17 @@ tr_qc_plots <- function(
         ) %>%
         mutate(
           read_type = str_replace_all(read_type, pattern = c("_" = " ")),
-          read_type = factor(read_type, c(
-            "low aQual",
-            "no feature",
-            "not unique",
-            "ambiguous",
-            "assigned"
-          ))
+          read_type = factor(
+            read_type,
+            c(
+              "low aQual",
+              "no feature",
+              "not unique",
+              "ambiguous",
+              "assigned"
+            )
+          )
         )
-
     } else if (file.exists(file_htseq[2])) {
       htseq_1 <- read.delim(
         file = file_htseq[2],
@@ -627,12 +597,15 @@ tr_qc_plots <- function(
         ) %>%
         mutate(
           read_type = str_replace_all(read_type, pattern = c("_" = " ")),
-          read_type = factor(read_type, c(
-            "no feature",
-            "not unique",
-            "ambiguous",
-            "assigned"
-          ))
+          read_type = factor(
+            read_type,
+            c(
+              "no feature",
+              "not unique",
+              "ambiguous",
+              "assigned"
+            )
+          )
         )
     }
 
@@ -653,11 +626,13 @@ tr_qc_plots <- function(
     plot_htseq <- if (type == "bar") {
       ggplot(htseq_3, aes(n_reads, Samples, fill = read_type)) +
         geom_col(width = col_width) +
-        {if (draw_line) dashed_vline} +
+        {
+          if (draw_line) dashed_vline
+        } +
         scale_x_continuous(
           expand = expansion(mult = c(0, 0.1)),
           limits = c(0, rounded_max_htseq),
-          labels = ~.x / 1e6
+          labels = ~ .x / 1e6
         ) +
         scale_fill_manual(values = colour_keys$htseq) +
         labs(
@@ -666,14 +641,14 @@ tr_qc_plots <- function(
           fill = "Read type"
         ) +
         tr_theme(base_size = font_size, grid = "x") +
-        { if (hide_samples) {
-          theme(axis.text.y = element_blank())
-        } else {
-          labs(y = NULL)
-        }}
-
+        {
+          if (hide_samples) {
+            theme(axis.text.y = element_blank())
+          } else {
+            labs(y = NULL)
+          }
+        }
     } else if (type == "box") {
-
       if (add_points) {
         plot_htseq_base <-
           ggplot(htseq_3, aes(read_type, n_reads, fill = read_type)) +
@@ -696,10 +671,12 @@ tr_qc_plots <- function(
       }
 
       plot_htseq_base +
-        scale_x_discrete(labels = ~str_wrap(.x, width = 3)) +
-        scale_y_continuous(labels = ~.x/1e6) +
+        scale_x_discrete(labels = ~ str_wrap(.x, width = 3)) +
+        scale_y_continuous(labels = ~ .x / 1e6) +
         scale_fill_manual(values = colour_keys$htseq, guide = NULL) +
-        {if (draw_line) dashed_hline} +
+        {
+          if (draw_line) dashed_hline
+        } +
         labs(
           x = "Read type",
           y = "Reads (M)",

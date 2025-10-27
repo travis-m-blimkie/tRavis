@@ -1,6 +1,6 @@
 Package: tRavis
 Title: tRavis: an R package by Travis Blimkie
-Version: 1.7.11
+Version: 1.7.12
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: tRavis is a small R package meant to hold functions and data that 
   are used regularly in my day-to-day workflows. Its also provides an 
@@ -22,7 +22,7 @@ Imports:
     stringr,
     tibble,
     tidyr
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Suggests: 
     DESeq2,
     here,
