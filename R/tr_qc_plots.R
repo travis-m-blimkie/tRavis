@@ -338,11 +338,12 @@ tr_qc_plots <- function(
           if (draw_line) dashed_hline
         } +
         labs(
-          x = "Read type",
+          x = "Samples",
           y = "Reads (M)",
           title = "FastQC: Total sequence counts"
         ) +
-        tr_theme(base_size = font_size, grid = "y")
+        tr_theme(base_size = font_size, grid = "y") +
+        theme(axis.text.x = element_blank())
     }
 
     output_list$plots$fastqc_reads <- plot_fastqc_reads
