@@ -21,16 +21,22 @@
 #'
 get_rounded_max <- function(x, buffer = 1.1, nearest = 10e6) {
   stopifnot(is.data.frame(x))
+
   stopifnot(
-    "'x' must contain columns 'Samples' and 'n_reads'." =
-      c("Samples", "n_reads") %in% colnames(x)
+    "Missing columns" = "Samples" %in%
+      colnames(x) &
+      ("n_reads" %in% colnames(x) | "total_sequences" %in% colnames(x))
   )
 
-  max_value <- x %>%
-    group_by(Samples) %>%
-    summarise(sum_n_reads = sum(n_reads)) %>%
-    pull(sum_n_reads) %>%
-    max()
+  max_value <- if ("n_reads" %in% colnames(x)) {
+    x %>%
+      group_by(Samples) %>%
+      summarise(sum_n_reads = sum(n_reads)) %>%
+      pull(sum_n_reads) %>%
+      max()
+  } else if ("total_sequences" %in% colnames(x)) {
+    max(x$total_sequences)
+  }
 
   round_any(
     x = max_value * buffer,

@@ -1,16 +1,16 @@
 Package: tRavis
 Title: tRavis: an R package by Travis Blimkie
-Version: 1.7.11
+Version: 1.8.1
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
-Description: tRavis is a small R package meant to hold functions and data that 
-  are used regularly in my day-to-day workflows. Its also provides an 
+Description: tRavis is a small R package meant to hold functions and data that
+  are used regularly in my day-to-day workflows. Its also provides an
   opportunity to practice creating, documenting, and maintaining code, within
-  the framework of an R package and the recommended guidelines. 
+  the framework of an R package and the recommended guidelines.
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 LazyData: true
 LazyDataCompression: xz
-Imports: 
+Imports:
     dplyr,
     forcats,
     ggplot2,
@@ -22,15 +22,14 @@ Imports:
     stringr,
     tibble,
     tidyr
-RoxygenNote: 7.3.2
-Suggests: 
+RoxygenNote: 7.3.3
+Suggests:
     DESeq2,
     here,
     knitr,
     rmarkdown,
     S4Vectors,
-    testthat,
-    vdiffr
+    testthat
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 VignetteBuilder: knitr
