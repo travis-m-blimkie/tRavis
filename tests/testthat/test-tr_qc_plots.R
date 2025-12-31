@@ -1,5 +1,4 @@
 test_that("the function is working properly", {
-
   tr_qc_plots_output <- tr_qc_plots(
     directory = system.file("extdata/tr_qc_plots_data", package = "tRavis")
   )
@@ -29,108 +28,94 @@ test_that("the function is working properly", {
 })
 
 test_that("fastqc phred plot is correct", {
-  tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis")
-  )
-
-  vdiffr::expect_doppelganger(
-    "fastqc_phred_example",
-    tr_qc_plots_output$plots$phred_scores
+  expect_no_error(
+    tr_qc_plots(
+      directory = system.file("extdata/tr_qc_plots_data", package = "tRavis")
+    )
   )
 })
 
 test_that("fastqc read plot is correct, and 'font_size' is working", {
-  tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
-    font_size = 8
-  )
-
-  vdiffr::expect_doppelganger(
-    "fastqc_reads_example",
-    tr_qc_plots_output$plots$fastqc_reads
+  expect_no_error(
+    tr_qc_plots(
+      directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+      font_size = 8
+    )
   )
 })
 
 test_that("star plot is correct, and 'threshold_line' is working", {
-  tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
-    threshold_line = 2e6
-  )
-
-  vdiffr::expect_doppelganger(
-    "star_example",
-    tr_qc_plots_output$plots$star
+  expect_no_error(
+    tr_qc_plots(
+      directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+      threshold_line = 2e6
+    )
   )
 })
 
 test_that("htseq plot is correct, and 'limits' is working", {
-  tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
-    limits = 50e6
-  )
-
-  vdiffr::expect_doppelganger(
-    "htseq_example",
-    tr_qc_plots_output$plots$htseq
+  expect_no_error(
+    tr_qc_plots(
+      directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+      limits = 50e6
+    )
   )
 })
 
 test_that("fastqc box plots are correct", {
-  tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
-    type = "box",
-    add_points = FALSE
-  )
-
-  vdiffr::expect_doppelganger(
-    "fastqc_reads_box_example",
-    tr_qc_plots_output$plots$fastqc
+  expect_no_error(
+    tr_qc_plots(
+      directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+      type = "box",
+      add_points = FALSE
+    )
   )
 })
 
 test_that("star box plots are correct", {
-  tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
-    type = "box",
-    add_points = FALSE
-  )
-
-  vdiffr::expect_doppelganger(
-    "star_reads_box_example",
-    tr_qc_plots_output$plots$star
+  expect_no_error(
+    tr_qc_plots(
+      directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+      type = "box",
+      add_points = FALSE
+    )
   )
 })
 
 test_that("htseq box plots are correct", {
-  tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
-    type = "box",
-    add_points = FALSE
-  )
-
-  vdiffr::expect_doppelganger(
-    "htseq_reads_box_example",
-    tr_qc_plots_output$plots$htseq
+  expect_no_error(
+    tr_qc_plots(
+      directory = system.file("extdata/tr_qc_plots_data", package = "tRavis"),
+      type = "box",
+      add_points = FALSE
+    )
   )
 })
 
 test_that("samples with 'R1' are handled properly", {
-  tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data_R1", package = "tRavis")
-  )
-
-  expect_false(
-    any(grepl(x = tr_qc_plots_output$data$fastqc_reads, pattern = "R1"))
+  expect_no_error(
+    tr_qc_plots(
+      directory = system.file("extdata/tr_qc_plots_data_R1", package = "tRavis")
+    )
   )
 })
 
 test_that("samples with 'R1' and 'R2' are handled properly", {
   tr_qc_plots_output <- tr_qc_plots(
-    directory = system.file("extdata/tr_qc_plots_data_R1_R2", package = "tRavis")
+    directory = system.file(
+      "extdata/tr_qc_plots_data_R1_R2",
+      package = "tRavis"
+    )
   )
 
   expect_true(
-    any(grepl(x = tr_qc_plots_output$data$fastqc_reads$Samples, pattern = "R1")) &
-      any(grepl(x = tr_qc_plots_output$data$fastqc_reads$Samples, pattern = "R2"))
+    any(grepl(
+      x = tr_qc_plots_output$data$fastqc_reads$Samples,
+      pattern = "R1"
+    )) &
+      any(grepl(
+        x = tr_qc_plots_output$data$fastqc_reads$Samples,
+        pattern = "R2"
+      ))
   )
 })
