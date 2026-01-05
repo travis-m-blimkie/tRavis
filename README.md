@@ -28,7 +28,7 @@ devtools::install_github("travis-m-blimkie/tRavis")
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v1.5.12! If you encounter any bugs
+#> Thanks for using tRavis v1.8.2! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
 
@@ -36,10 +36,10 @@ library(tRavis)
 tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6), names = c("A", "B"))
 #> $unique_A
 #> [1] 1 2
-#> 
+#>
 #> $common
 #> [1] 3 4
-#> 
+#>
 #> $unique_B
 #> [1] 5 6
 
@@ -52,10 +52,10 @@ tr_get_files(
   remove_string = "test_"
 )
 #> $file1
-#> [1] "/home/travisblimkie/R/x86_64-pc-linux-gnu-library/4.4/tRavis/extdata/test_file1_20191231.csv"
-#> 
+#> [1] "/tmp/RtmpFP9Mri/temp_libpath2101c67a30806/tRavis/extdata/test_file1_20191231.csv"
+#>
 #> $file2
-#> [1] "/home/travisblimkie/R/x86_64-pc-linux-gnu-library/4.4/tRavis/extdata/test_file2_20200101.csv"
+#> [1] "/tmp/RtmpFP9Mri/temp_libpath2101c67a30806/tRavis/extdata/test_file2_20200101.csv"
 
 # Neatly truncate strings, appending with an ellipsis:
 tr_trunc_neatly(
