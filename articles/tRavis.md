@@ -2,7 +2,7 @@
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v1.7.14! If you encounter any bugs
+#> Thanks for using tRavis v1.8.1! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
 ```
@@ -485,7 +485,7 @@ dplyr::mutate(
     #> [1] stats     graphics  grDevices utils     datasets  methods   base     
     #> 
     #> other attached packages:
-    #> [1] ggplot2_4.0.1 tRavis_1.7.14
+    #> [1] ggplot2_4.0.1 tRavis_1.8.1 
     #> 
     #> loaded via a namespace (and not attached):
     #>  [1] SummarizedExperiment_1.40.0 gtable_0.3.6               
