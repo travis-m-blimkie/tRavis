@@ -5,7 +5,7 @@
 \alias{reactome_categories_mouse}
 \title{Mouse pathway hierarchy from Reactome}
 \format{
-A data frame (tibble) with 1748 rows and 4 columns:
+A data frame (tibble) with 1822 rows and 4 columns:
 \describe{
 \item{id}{Pathway ID}
 \item{description}{Pathway name}

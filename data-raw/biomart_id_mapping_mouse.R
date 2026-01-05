@@ -12,14 +12,14 @@ biomart_id_mapping_mouse_0 <- getBM(
   mart = useMart("ensembl", dataset = "mmusculus_gene_ensembl")
 )
 
-biomart_id_mapping_mouse <- biomart_id_mapping_mouse_0 %>%
-  as_tibble() %>%
-  rename("entrez_gene_id" = entrezgene_id) %>%
+biomart_id_mapping_mouse <- biomart_id_mapping_mouse_0 |>
+  as_tibble() |>
+  rename("entrez_gene_id" = entrezgene_id) |>
   mutate(
     across(everything(), as.character),
     across(everything(), ~stringr::str_replace(.x, "^$", NA_character_))
-  ) %>%
-  arrange(ensembl_gene_id, mgi_symbol, entrez_gene_id) %>%
+  ) |>
+  arrange(ensembl_gene_id, mgi_symbol, entrez_gene_id) |>
   distinct()
 
 # Save the data for use in the package
