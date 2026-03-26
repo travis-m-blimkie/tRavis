@@ -10,7 +10,7 @@ reactome_categories_human
 
 ## Format
 
-A data frame (tibble) with 2698 rows and 4 columns:
+A data frame (tibble) with 2848 rows and 4 columns:
 
 - id:
 

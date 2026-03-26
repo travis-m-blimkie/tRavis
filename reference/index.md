@@ -27,7 +27,11 @@
 - [`tr_test_enrichment()`](https://travis-m-blimkie.github.io/tRavis/reference/tr_test_enrichment.md)
   : Perform a basic enrichment test
 - [`tr_theme()`](https://travis-m-blimkie.github.io/tRavis/reference/tr_theme.md)
-  : Customized ggplot2 theme
+  : Customized ggplot2 black & white theme
+- [`tr_theme_bw()`](https://travis-m-blimkie.github.io/tRavis/reference/tr_theme_bw.md)
+  : Customized ggplot2 black & white theme
+- [`tr_theme_min()`](https://travis-m-blimkie.github.io/tRavis/reference/tr_theme_min.md)
+  : Customized ggplot2 minimal theme
 - [`tr_tidy_gage()`](https://travis-m-blimkie.github.io/tRavis/reference/tr_tidy_gage.md)
   : Coerce Gage output to a tidy data frame
 - [`tr_trunc_neatly()`](https://travis-m-blimkie.github.io/tRavis/reference/tr_trunc_neatly.md)

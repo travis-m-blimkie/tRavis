@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>An overview of tRavis • tRavis</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,11 +16,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">tRavis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.10.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +37,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/travis-m-blimkie/tRavis/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -55,7 +63,7 @@
 Blimkie</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/travis-m-blimkie/tRavis/blob/v.1.8.1/vignettes/tRavis.Rmd" class="external-link"><code>vignettes/tRavis.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/travis-m-blimkie/tRavis/blob/v1.10.1/vignettes/tRavis.Rmd" class="external-link"><code>vignettes/tRavis.Rmd</code></a></small>
       <div class="d-none name"><code>tRavis.Rmd</code></div>
     </div>
 
@@ -63,7 +71,7 @@ Blimkie</h4>
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://travis-m-blimkie.github.io/tRavis/">tRavis</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Thanks for using tRavis v1.8.1! If you encounter any bugs</span></span>
+<span><span class="co">#&gt; Thanks for using tRavis v1.10.1! If you encounter any bugs</span></span>
 <span><span class="co">#&gt; or problems, please submit an issue at the Github page:</span></span>
 <span><span class="co">#&gt; https://github.com/travis-m-blimkie/tRavis/issues</span></span></code></pre></div>
 <div class="section level2">
@@ -99,7 +107,7 @@ locus tag.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tr_anno_cleaner.html">tr_anno_cleaner</a></span><span class="op">(</span><span class="va">link</span>, extra_cols <span class="op">=</span> <span class="cn">TRUE</span>, fill_names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,713 × 6</span></span></span>
 <span><span class="co">#&gt;    locus_tag gene_name product_name                           start   end strand</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> PA0001    dnaA      chromosomal replication initiator pro…   483  <span style="text-decoration: underline;">2</span>027 +     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> PA0002    dnaN      DNA polymerase III, beta chain          <span style="text-decoration: underline;">2</span>056  <span style="text-decoration: underline;">3</span>159 +     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> PA0003    recF      RecF protein                            <span style="text-decoration: underline;">3</span>169  <span style="text-decoration: underline;">4</span>278 +     </span></span>
@@ -400,19 +408,21 @@ constructs the matrix for you and returns the p value.</p>
 <span><span class="co">#&gt; [1] 0.05127792</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="tr_theme">tr_theme<a class="anchor" aria-label="anchor" href="#tr_theme"></a>
+<h2 id="tr_theme_bw">tr_theme_bw<a class="anchor" aria-label="anchor" href="#tr_theme_bw"></a>
 </h2>
-<p>Clean themes for <a href="https://ggplot2.tidyverse.org/" class="external-link">ggplot2</a>
-that improve on the default by increasing font size, changing the
-background to white, and adding a border. By default it uses a minimal
-grid, but you can easily remove the grid entirely.</p>
+<p>A clean theme for <a href="https://ggplot2.tidyverse.org/" class="external-link">ggplot2</a> that improve on the
+default by increasing font size, changing the background to white, and
+adding a border. By default it uses a minimal grid, but you can easily
+remove the grid entirely.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="va">basic_box_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">basic_box_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/tr_theme.html">tr_theme</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">basic_box_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/tr_theme.html">tr_theme</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">basic_box_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/tr_theme_bw.html">tr_theme_bw</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">basic_box_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/tr_theme_bw.html">tr_theme_bw</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tRavis_files/figure-html/tr_theme-1.png" class="r-plt" alt="" width="384"><img src="tRavis_files/figure-html/tr_theme-2.png" class="r-plt" alt="" width="384"></p>
+<p>A more minimal version is also available as
+<code><a href="../reference/tr_theme_min.html">tr_theme_min()</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="tr_tidy_gage">tr_tidy_gage<a class="anchor" aria-label="anchor" href="#tr_tidy_gage"></a>
@@ -434,49 +444,49 @@ based on q value.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;   rownames                      p.geomean stat.mean  p.val q.val set.size   exp1</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pae00470 D-Amino acid metabo…    0.063<span style="text-decoration: underline;">0</span>     1.61  0.063<span style="text-decoration: underline;">0</span> 0.924       10 0.063<span style="text-decoration: underline;">0</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pae01232 Nucleotide metaboli…    0.111      1.24  0.111  0.924       16 0.111 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> pae00640 Propanoate metaboli…    0.167      0.994 0.167  0.924       11 0.167 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> pae00330 Arginine and prolin…    0.179      0.937 0.179  0.924       14 0.179 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> pae03010 Ribosome                0.197      0.862 0.197  0.924       19 0.197 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> pae01210 2-Oxocarboxylic aci…    0.250      0.684 0.250  0.924       12 0.250 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pae00650 Butanoate metabolism    0.049<span style="text-decoration: underline;">9</span>     1.72  0.049<span style="text-decoration: underline;">9</span> 0.678       12 0.049<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pae00280 Valine, leucine and…    0.053<span style="text-decoration: underline;">3</span>     1.67  0.053<span style="text-decoration: underline;">3</span> 0.678       14 0.053<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> pae01212 Fatty acid metaboli…    0.085<span style="text-decoration: underline;">8</span>     1.40  0.085<span style="text-decoration: underline;">8</span> 0.678       15 0.085<span style="text-decoration: underline;">8</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> pae02025 Biofilm formation -…    0.140      1.09  0.140  0.678       35 0.140 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> pae00620 Pyruvate metabolism     0.171      0.963 0.171  0.678       18 0.171 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> pae00061 Fatty acid biosynth…    0.233      0.746 0.233  0.678       11 0.233 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $less</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
-<span><span class="co">#&gt;   rownames                      p.geomean stat.mean  p.val q.val set.size   exp1</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pae00650 Butanoate metabolism    0.076<span style="text-decoration: underline;">4</span>    -<span style="color: #BB0000;">1.48</span>  0.076<span style="text-decoration: underline;">4</span> 0.680       13 0.076<span style="text-decoration: underline;">4</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pae01230 Biosynthesis of ami…    0.077<span style="text-decoration: underline;">3</span>    -<span style="color: #BB0000;">1.44</span>  0.077<span style="text-decoration: underline;">3</span> 0.680       45 0.077<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> pae00260 Glycine, serine and…    0.087<span style="text-decoration: underline;">7</span>    -<span style="color: #BB0000;">1.39</span>  0.087<span style="text-decoration: underline;">7</span> 0.680       16 0.087<span style="text-decoration: underline;">7</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> pae01100 Metabolic pathways      0.097<span style="text-decoration: underline;">3</span>    -<span style="color: #BB0000;">1.30</span>  0.097<span style="text-decoration: underline;">3</span> 0.680      269 0.097<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> pae00630 Glyoxylate and dica…    0.118     -<span style="color: #BB0000;">1.23</span>  0.118  0.680       11 0.118 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> pae01120 Microbial metabolis…    0.160     -<span style="color: #BB0000;">0.999</span> 0.160  0.680       77 0.160 </span></span>
+<span><span class="co">#&gt;   rownames                        p.geomean stat.mean p.val q.val set.size  exp1</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pae02030 Bacterial chemotaxis       0.132    -<span style="color: #BB0000;">1.14</span>  0.132 0.881       15 0.132</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pae02010 ABC transporters           0.163    -<span style="color: #BB0000;">0.987</span> 0.163 0.881       46 0.163</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> pae00860 Porphyrin metabolism       0.361    -<span style="color: #BB0000;">0.360</span> 0.361 0.881       12 0.361</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> pae01230 Biosynthesis of amino…     0.367    -<span style="color: #BB0000;">0.340</span> 0.367 0.881       42 0.367</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> pae01100 Metabolic pathways         0.374    -<span style="color: #BB0000;">0.322</span> 0.374 0.881      263 0.374</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> pae01200 Carbon metabolism          0.377    -<span style="color: #BB0000;">0.316</span> 0.377 0.881       31 0.377</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
-<span><span class="co">#&gt;   rownames                                 stat.mean  exp1</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pae00470 D-Amino acid metabolism             1.61  1.61 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pae01232 Nucleotide metabolism               1.24  1.24 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> pae00640 Propanoate metabolism               0.994 0.994</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> pae00330 Arginine and proline metabolism     0.937 0.937</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> pae03010 Ribosome                            0.862 0.862</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> pae01210 2-Oxocarboxylic acid metabolism     0.684 0.684</span></span>
+<span><span class="co">#&gt;   rownames                                            stat.mean  exp1</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pae00650 Butanoate metabolism                           1.72  1.72 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pae00280 Valine, leucine and isoleucine degradation     1.67  1.67 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> pae01212 Fatty acid metabolism                          1.40  1.40 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> pae02025 Biofilm formation - Pseudomonas aeruginosa     1.09  1.09 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> pae00620 Pyruvate metabolism                            0.963 0.963</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> pae00061 Fatty acid biosynthesis                        0.746 0.746</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/tr_tidy_gage.html">tr_tidy_gage</a></span><span class="op">(</span><span class="va">gage_untidy</span>, qval <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 70 × 7</span></span></span>
 <span><span class="co">#&gt;    pathway                      p_geomean stat_mean  p_val q_val set_size   exp1</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> pae00470 D-Amino acid metab…    0.063<span style="text-decoration: underline;">0</span>     1.61  0.063<span style="text-decoration: underline;">0</span> 0.924       10 0.063<span style="text-decoration: underline;">0</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> pae01232 Nucleotide metabol…    0.111      1.24  0.111  0.924       16 0.111 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> pae00640 Propanoate metabol…    0.167      0.994 0.167  0.924       11 0.167 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> pae00330 Arginine and proli…    0.179      0.937 0.179  0.924       14 0.179 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> pae03010 Ribosome               0.197      0.862 0.197  0.924       19 0.197 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> pae01210 2-Oxocarboxylic ac…    0.250      0.684 0.250  0.924       12 0.250 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> pae02040 Flagellar assembly     0.267      0.635 0.267  0.924       11 0.267 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> pae00620 Pyruvate metabolism    0.302      0.526 0.302  0.924       13 0.302 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> pae02024 Quorum sensing         0.327      0.452 0.327  0.924       29 0.327 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> pae00405 Phenazine biosynth…    0.367      0.345 0.367  0.924       10 0.367 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> pae00650 Butanoate metaboli…    0.049<span style="text-decoration: underline;">9</span>     1.72  0.049<span style="text-decoration: underline;">9</span> 0.678       12 0.049<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> pae00280 Valine, leucine an…    0.053<span style="text-decoration: underline;">3</span>     1.67  0.053<span style="text-decoration: underline;">3</span> 0.678       14 0.053<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> pae01212 Fatty acid metabol…    0.085<span style="text-decoration: underline;">8</span>     1.40  0.085<span style="text-decoration: underline;">8</span> 0.678       15 0.085<span style="text-decoration: underline;">8</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> pae02025 Biofilm formation …    0.140      1.09  0.140  0.678       35 0.140 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> pae00620 Pyruvate metabolism    0.171      0.963 0.171  0.678       18 0.171 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> pae00061 Fatty acid biosynt…    0.233      0.746 0.233  0.678       11 0.233 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> pae00640 Propanoate metabol…    0.252      0.679 0.252  0.678       14 0.252 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> pae01232 Nucleotide metabol…    0.272      0.614 0.272  0.678       14 0.272 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> pae00970 Aminoacyl-tRNA bio…    0.298      0.535 0.298  0.678       23 0.298 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> pae01503 Cationic antimicro…    0.346      0.403 0.346  0.678       10 0.346 </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 60 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -512,7 +522,7 @@ middle of a word. Useful for trimming long axis labels in a plot.</p>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<pre><code><span><span class="co">#&gt; R version 4.5.2 (2025-10-31)</span></span>
+<pre><code><span><span class="co">#&gt; R version 4.5.3 (2026-03-11)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
 <span><span class="co">#&gt; Running under: Ubuntu 24.04.3 LTS</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -533,51 +543,48 @@ middle of a word. Useful for trimming long axis labels in a plot.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] ggplot2_4.0.1 tRavis_1.8.1 </span></span>
+<span><span class="co">#&gt; [1] ggplot2_4.0.2 tRavis_1.10.1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
 <span><span class="co">#&gt;  [1] SummarizedExperiment_1.40.0 gtable_0.3.6               </span></span>
-<span><span class="co">#&gt;  [3] xfun_0.55                   bslib_0.9.0                </span></span>
-<span><span class="co">#&gt;  [5] ggrepel_0.9.6               lattice_0.22-7             </span></span>
-<span><span class="co">#&gt;  [7] Biobase_2.70.0              tzdb_0.5.0                 </span></span>
-<span><span class="co">#&gt;  [9] vctrs_0.6.5                 tools_4.5.2                </span></span>
-<span><span class="co">#&gt; [11] generics_0.1.4              stats4_4.5.2               </span></span>
-<span><span class="co">#&gt; [13] parallel_4.5.2              tibble_3.3.0               </span></span>
-<span><span class="co">#&gt; [15] pkgconfig_2.0.3             Matrix_1.7-4               </span></span>
-<span><span class="co">#&gt; [17] RColorBrewer_1.1-3          S7_0.2.1                   </span></span>
-<span><span class="co">#&gt; [19] desc_1.4.3                  S4Vectors_0.48.0           </span></span>
-<span><span class="co">#&gt; [21] lifecycle_1.0.4             compiler_4.5.2             </span></span>
-<span><span class="co">#&gt; [23] farver_2.1.2                stringr_1.6.0              </span></span>
-<span><span class="co">#&gt; [25] textshaping_1.0.4           janitor_2.2.1              </span></span>
-<span><span class="co">#&gt; [27] DESeq2_1.50.2               Seqinfo_1.0.0              </span></span>
-<span><span class="co">#&gt; [29] codetools_0.2-20            snakecase_0.11.1           </span></span>
-<span><span class="co">#&gt; [31] htmltools_0.5.9             sass_0.4.10                </span></span>
-<span><span class="co">#&gt; [33] yaml_2.3.12                 pillar_1.11.1              </span></span>
-<span><span class="co">#&gt; [35] pkgdown_2.2.0               crayon_1.5.3               </span></span>
-<span><span class="co">#&gt; [37] jquerylib_0.1.4             tidyr_1.3.2                </span></span>
-<span><span class="co">#&gt; [39] BiocParallel_1.44.0         DelayedArray_0.36.0        </span></span>
-<span><span class="co">#&gt; [41] cachem_1.1.0                abind_1.4-8                </span></span>
-<span><span class="co">#&gt; [43] locfit_1.5-9.12             tidyselect_1.2.1           </span></span>
-<span><span class="co">#&gt; [45] digest_0.6.39               stringi_1.8.7              </span></span>
-<span><span class="co">#&gt; [47] dplyr_1.1.4                 purrr_1.2.0                </span></span>
-<span><span class="co">#&gt; [49] labeling_0.4.3              forcats_1.0.1              </span></span>
-<span><span class="co">#&gt; [51] fastmap_1.2.0               grid_4.5.2                 </span></span>
-<span><span class="co">#&gt; [53] SparseArray_1.10.8          cli_3.6.5                  </span></span>
-<span><span class="co">#&gt; [55] magrittr_2.0.4              S4Arrays_1.10.1            </span></span>
-<span><span class="co">#&gt; [57] utf8_1.2.6                  readr_2.1.6                </span></span>
-<span><span class="co">#&gt; [59] withr_3.0.2                 scales_1.4.0               </span></span>
-<span><span class="co">#&gt; [61] bit64_4.6.0-1               lubridate_1.9.4            </span></span>
-<span><span class="co">#&gt; [63] timechange_0.3.0            XVector_0.50.0             </span></span>
-<span><span class="co">#&gt; [65] rmarkdown_2.30              matrixStats_1.5.0          </span></span>
-<span><span class="co">#&gt; [67] bit_4.6.0                   ragg_1.5.0                 </span></span>
-<span><span class="co">#&gt; [69] hms_1.1.4                   evaluate_1.0.5             </span></span>
-<span><span class="co">#&gt; [71] knitr_1.51                  GenomicRanges_1.62.1       </span></span>
-<span><span class="co">#&gt; [73] IRanges_2.44.0              rlang_1.1.6                </span></span>
-<span><span class="co">#&gt; [75] Rcpp_1.1.0                  glue_1.8.0                 </span></span>
-<span><span class="co">#&gt; [77] BiocGenerics_0.56.0         vroom_1.6.7                </span></span>
-<span><span class="co">#&gt; [79] jsonlite_2.0.0              R6_2.6.1                   </span></span>
-<span><span class="co">#&gt; [81] plyr_1.8.9                  MatrixGenerics_1.22.0      </span></span>
-<span><span class="co">#&gt; [83] systemfonts_1.3.1           fs_1.6.6</span></span></code></pre>
+<span><span class="co">#&gt;  [3] xfun_0.57                   bslib_0.10.0               </span></span>
+<span><span class="co">#&gt;  [5] ggrepel_0.9.8               Biobase_2.70.0             </span></span>
+<span><span class="co">#&gt;  [7] lattice_0.22-9              vctrs_0.7.2                </span></span>
+<span><span class="co">#&gt;  [9] tools_4.5.3                 generics_0.1.4             </span></span>
+<span><span class="co">#&gt; [11] stats4_4.5.3                parallel_4.5.3             </span></span>
+<span><span class="co">#&gt; [13] tibble_3.3.1                pkgconfig_2.0.3            </span></span>
+<span><span class="co">#&gt; [15] Matrix_1.7-4                RColorBrewer_1.1-3         </span></span>
+<span><span class="co">#&gt; [17] S7_0.2.1                    desc_1.4.3                 </span></span>
+<span><span class="co">#&gt; [19] S4Vectors_0.48.0            lifecycle_1.0.5            </span></span>
+<span><span class="co">#&gt; [21] compiler_4.5.3              farver_2.1.2               </span></span>
+<span><span class="co">#&gt; [23] stringr_1.6.0               textshaping_1.0.5          </span></span>
+<span><span class="co">#&gt; [25] janitor_2.2.1               DESeq2_1.50.2              </span></span>
+<span><span class="co">#&gt; [27] Seqinfo_1.0.0               codetools_0.2-20           </span></span>
+<span><span class="co">#&gt; [29] snakecase_0.11.1            htmltools_0.5.9            </span></span>
+<span><span class="co">#&gt; [31] sass_0.4.10                 yaml_2.3.12                </span></span>
+<span><span class="co">#&gt; [33] pillar_1.11.1               pkgdown_2.2.0              </span></span>
+<span><span class="co">#&gt; [35] jquerylib_0.1.4             tidyr_1.3.2                </span></span>
+<span><span class="co">#&gt; [37] BiocParallel_1.44.0         DelayedArray_0.36.0        </span></span>
+<span><span class="co">#&gt; [39] cachem_1.1.0                abind_1.4-8                </span></span>
+<span><span class="co">#&gt; [41] locfit_1.5-9.12             tidyselect_1.2.1           </span></span>
+<span><span class="co">#&gt; [43] digest_0.6.39               stringi_1.8.7              </span></span>
+<span><span class="co">#&gt; [45] dplyr_1.2.0                 purrr_1.2.1                </span></span>
+<span><span class="co">#&gt; [47] labeling_0.4.3              forcats_1.0.1              </span></span>
+<span><span class="co">#&gt; [49] fastmap_1.2.0               grid_4.5.3                 </span></span>
+<span><span class="co">#&gt; [51] SparseArray_1.10.9          cli_3.6.5                  </span></span>
+<span><span class="co">#&gt; [53] magrittr_2.0.4              S4Arrays_1.10.1            </span></span>
+<span><span class="co">#&gt; [55] utf8_1.2.6                  withr_3.0.2                </span></span>
+<span><span class="co">#&gt; [57] scales_1.4.0                lubridate_1.9.5            </span></span>
+<span><span class="co">#&gt; [59] timechange_0.4.0            XVector_0.50.0             </span></span>
+<span><span class="co">#&gt; [61] rmarkdown_2.30              matrixStats_1.5.0          </span></span>
+<span><span class="co">#&gt; [63] ragg_1.5.2                  evaluate_1.0.5             </span></span>
+<span><span class="co">#&gt; [65] knitr_1.51                  GenomicRanges_1.62.1       </span></span>
+<span><span class="co">#&gt; [67] IRanges_2.44.0              rlang_1.1.7                </span></span>
+<span><span class="co">#&gt; [69] Rcpp_1.1.1                  glue_1.8.0                 </span></span>
+<span><span class="co">#&gt; [71] BiocGenerics_0.56.0         jsonlite_2.0.0             </span></span>
+<span><span class="co">#&gt; [73] R6_2.6.1                    plyr_1.8.9                 </span></span>
+<span><span class="co">#&gt; [75] MatrixGenerics_1.22.0       systemfonts_1.3.2          </span></span>
+<span><span class="co">#&gt; [77] fs_2.0.1</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

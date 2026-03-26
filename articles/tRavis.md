@@ -2,7 +2,7 @@
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v1.8.1! If you encounter any bugs
+#> Thanks for using tRavis v1.10.1! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
 ```
@@ -43,7 +43,7 @@ locus tag.
 tr_anno_cleaner(link, extra_cols = TRUE, fill_names = TRUE)
 #> # A tibble: 5,713 × 6
 #>    locus_tag gene_name product_name                           start   end strand
-#>    <chr>     <chr>     <chr>                                  <dbl> <dbl> <chr> 
+#>    <chr>     <chr>     <chr>                                  <int> <int> <chr> 
 #>  1 PA0001    dnaA      chromosomal replication initiator pro…   483  2027 +     
 #>  2 PA0002    dnaN      DNA polymerase III, beta chain          2056  3159 +     
 #>  3 PA0003    recF      RecF protein                            3169  4278 +     
@@ -344,9 +344,9 @@ tr_test_enrichment(
 #> [1] 0.05127792
 ```
 
-## tr_theme
+## tr_theme_bw
 
-Clean themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve
+A clean theme for [ggplot2](https://ggplot2.tidyverse.org/) that improve
 on the default by increasing font size, changing the background to
 white, and adding a border. By default it uses a minimal grid, but you
 can easily remove the grid entirely.
@@ -355,11 +355,14 @@ can easily remove the grid entirely.
 library(ggplot2)
 basic_box_plot <- ggplot(mtcars, aes(as.factor(cyl), mpg)) + geom_boxplot()
 
-basic_box_plot + tr_theme()
-basic_box_plot + tr_theme(grid = "none")
+basic_box_plot + tr_theme_bw()
+basic_box_plot + tr_theme_bw(grid = "none")
 ```
 
 ![](tRavis_files/figure-html/tr_theme-1.png)![](tRavis_files/figure-html/tr_theme-2.png)
+
+A more minimal version is also available as
+[`tr_theme_min()`](https://travis-m-blimkie.github.io/tRavis/reference/tr_theme_min.md).
 
 ## tr_tidy_gage
 
@@ -382,49 +385,49 @@ lapply(gage_untidy, tibble_head)
 #> # A tibble: 6 × 7
 #>   rownames                      p.geomean stat.mean  p.val q.val set.size   exp1
 #>   <chr>                             <dbl>     <dbl>  <dbl> <dbl>    <dbl>  <dbl>
-#> 1 pae00470 D-Amino acid metabo…    0.0630     1.61  0.0630 0.924       10 0.0630
-#> 2 pae01232 Nucleotide metaboli…    0.111      1.24  0.111  0.924       16 0.111 
-#> 3 pae00640 Propanoate metaboli…    0.167      0.994 0.167  0.924       11 0.167 
-#> 4 pae00330 Arginine and prolin…    0.179      0.937 0.179  0.924       14 0.179 
-#> 5 pae03010 Ribosome                0.197      0.862 0.197  0.924       19 0.197 
-#> 6 pae01210 2-Oxocarboxylic aci…    0.250      0.684 0.250  0.924       12 0.250 
+#> 1 pae00650 Butanoate metabolism    0.0499     1.72  0.0499 0.678       12 0.0499
+#> 2 pae00280 Valine, leucine and…    0.0533     1.67  0.0533 0.678       14 0.0533
+#> 3 pae01212 Fatty acid metaboli…    0.0858     1.40  0.0858 0.678       15 0.0858
+#> 4 pae02025 Biofilm formation -…    0.140      1.09  0.140  0.678       35 0.140 
+#> 5 pae00620 Pyruvate metabolism     0.171      0.963 0.171  0.678       18 0.171 
+#> 6 pae00061 Fatty acid biosynth…    0.233      0.746 0.233  0.678       11 0.233 
 #> 
 #> $less
 #> # A tibble: 6 × 7
-#>   rownames                      p.geomean stat.mean  p.val q.val set.size   exp1
-#>   <chr>                             <dbl>     <dbl>  <dbl> <dbl>    <dbl>  <dbl>
-#> 1 pae00650 Butanoate metabolism    0.0764    -1.48  0.0764 0.680       13 0.0764
-#> 2 pae01230 Biosynthesis of ami…    0.0773    -1.44  0.0773 0.680       45 0.0773
-#> 3 pae00260 Glycine, serine and…    0.0877    -1.39  0.0877 0.680       16 0.0877
-#> 4 pae01100 Metabolic pathways      0.0973    -1.30  0.0973 0.680      269 0.0973
-#> 5 pae00630 Glyoxylate and dica…    0.118     -1.23  0.118  0.680       11 0.118 
-#> 6 pae01120 Microbial metabolis…    0.160     -0.999 0.160  0.680       77 0.160 
+#>   rownames                        p.geomean stat.mean p.val q.val set.size  exp1
+#>   <chr>                               <dbl>     <dbl> <dbl> <dbl>    <dbl> <dbl>
+#> 1 pae02030 Bacterial chemotaxis       0.132    -1.14  0.132 0.881       15 0.132
+#> 2 pae02010 ABC transporters           0.163    -0.987 0.163 0.881       46 0.163
+#> 3 pae00860 Porphyrin metabolism       0.361    -0.360 0.361 0.881       12 0.361
+#> 4 pae01230 Biosynthesis of amino…     0.367    -0.340 0.367 0.881       42 0.367
+#> 5 pae01100 Metabolic pathways         0.374    -0.322 0.374 0.881      263 0.374
+#> 6 pae01200 Carbon metabolism          0.377    -0.316 0.377 0.881       31 0.377
 #> 
 #> $stats
 #> # A tibble: 6 × 3
-#>   rownames                                 stat.mean  exp1
-#>   <chr>                                        <dbl> <dbl>
-#> 1 pae00470 D-Amino acid metabolism             1.61  1.61 
-#> 2 pae01232 Nucleotide metabolism               1.24  1.24 
-#> 3 pae00640 Propanoate metabolism               0.994 0.994
-#> 4 pae00330 Arginine and proline metabolism     0.937 0.937
-#> 5 pae03010 Ribosome                            0.862 0.862
-#> 6 pae01210 2-Oxocarboxylic acid metabolism     0.684 0.684
+#>   rownames                                            stat.mean  exp1
+#>   <chr>                                                   <dbl> <dbl>
+#> 1 pae00650 Butanoate metabolism                           1.72  1.72 
+#> 2 pae00280 Valine, leucine and isoleucine degradation     1.67  1.67 
+#> 3 pae01212 Fatty acid metabolism                          1.40  1.40 
+#> 4 pae02025 Biofilm formation - Pseudomonas aeruginosa     1.09  1.09 
+#> 5 pae00620 Pyruvate metabolism                            0.963 0.963
+#> 6 pae00061 Fatty acid biosynthesis                        0.746 0.746
 
 tr_tidy_gage(gage_untidy, qval = 1)
 #> # A tibble: 70 × 7
 #>    pathway                      p_geomean stat_mean  p_val q_val set_size   exp1
 #>    <chr>                            <dbl>     <dbl>  <dbl> <dbl>    <dbl>  <dbl>
-#>  1 pae00470 D-Amino acid metab…    0.0630     1.61  0.0630 0.924       10 0.0630
-#>  2 pae01232 Nucleotide metabol…    0.111      1.24  0.111  0.924       16 0.111 
-#>  3 pae00640 Propanoate metabol…    0.167      0.994 0.167  0.924       11 0.167 
-#>  4 pae00330 Arginine and proli…    0.179      0.937 0.179  0.924       14 0.179 
-#>  5 pae03010 Ribosome               0.197      0.862 0.197  0.924       19 0.197 
-#>  6 pae01210 2-Oxocarboxylic ac…    0.250      0.684 0.250  0.924       12 0.250 
-#>  7 pae02040 Flagellar assembly     0.267      0.635 0.267  0.924       11 0.267 
-#>  8 pae00620 Pyruvate metabolism    0.302      0.526 0.302  0.924       13 0.302 
-#>  9 pae02024 Quorum sensing         0.327      0.452 0.327  0.924       29 0.327 
-#> 10 pae00405 Phenazine biosynth…    0.367      0.345 0.367  0.924       10 0.367 
+#>  1 pae00650 Butanoate metaboli…    0.0499     1.72  0.0499 0.678       12 0.0499
+#>  2 pae00280 Valine, leucine an…    0.0533     1.67  0.0533 0.678       14 0.0533
+#>  3 pae01212 Fatty acid metabol…    0.0858     1.40  0.0858 0.678       15 0.0858
+#>  4 pae02025 Biofilm formation …    0.140      1.09  0.140  0.678       35 0.140 
+#>  5 pae00620 Pyruvate metabolism    0.171      0.963 0.171  0.678       18 0.171 
+#>  6 pae00061 Fatty acid biosynt…    0.233      0.746 0.233  0.678       11 0.233 
+#>  7 pae00640 Propanoate metabol…    0.252      0.679 0.252  0.678       14 0.252 
+#>  8 pae01232 Nucleotide metabol…    0.272      0.614 0.272  0.678       14 0.272 
+#>  9 pae00970 Aminoacyl-tRNA bio…    0.298      0.535 0.298  0.678       23 0.298 
+#> 10 pae01503 Cationic antimicro…    0.346      0.403 0.346  0.678       10 0.346 
 #> # ℹ 60 more rows
 ```
 
@@ -464,7 +467,7 @@ dplyr::mutate(
 
 ## Session information
 
-    #> R version 4.5.2 (2025-10-31)
+    #> R version 4.5.3 (2026-03-11)
     #> Platform: x86_64-pc-linux-gnu
     #> Running under: Ubuntu 24.04.3 LTS
     #> 
@@ -485,48 +488,45 @@ dplyr::mutate(
     #> [1] stats     graphics  grDevices utils     datasets  methods   base     
     #> 
     #> other attached packages:
-    #> [1] ggplot2_4.0.1 tRavis_1.8.1 
+    #> [1] ggplot2_4.0.2 tRavis_1.10.1
     #> 
     #> loaded via a namespace (and not attached):
     #>  [1] SummarizedExperiment_1.40.0 gtable_0.3.6               
-    #>  [3] xfun_0.55                   bslib_0.9.0                
-    #>  [5] ggrepel_0.9.6               lattice_0.22-7             
-    #>  [7] Biobase_2.70.0              tzdb_0.5.0                 
-    #>  [9] vctrs_0.6.5                 tools_4.5.2                
-    #> [11] generics_0.1.4              stats4_4.5.2               
-    #> [13] parallel_4.5.2              tibble_3.3.0               
-    #> [15] pkgconfig_2.0.3             Matrix_1.7-4               
-    #> [17] RColorBrewer_1.1-3          S7_0.2.1                   
-    #> [19] desc_1.4.3                  S4Vectors_0.48.0           
-    #> [21] lifecycle_1.0.4             compiler_4.5.2             
-    #> [23] farver_2.1.2                stringr_1.6.0              
-    #> [25] textshaping_1.0.4           janitor_2.2.1              
-    #> [27] DESeq2_1.50.2               Seqinfo_1.0.0              
-    #> [29] codetools_0.2-20            snakecase_0.11.1           
-    #> [31] htmltools_0.5.9             sass_0.4.10                
-    #> [33] yaml_2.3.12                 pillar_1.11.1              
-    #> [35] pkgdown_2.2.0               crayon_1.5.3               
-    #> [37] jquerylib_0.1.4             tidyr_1.3.2                
-    #> [39] BiocParallel_1.44.0         DelayedArray_0.36.0        
-    #> [41] cachem_1.1.0                abind_1.4-8                
-    #> [43] locfit_1.5-9.12             tidyselect_1.2.1           
-    #> [45] digest_0.6.39               stringi_1.8.7              
-    #> [47] dplyr_1.1.4                 purrr_1.2.0                
-    #> [49] labeling_0.4.3              forcats_1.0.1              
-    #> [51] fastmap_1.2.0               grid_4.5.2                 
-    #> [53] SparseArray_1.10.8          cli_3.6.5                  
-    #> [55] magrittr_2.0.4              S4Arrays_1.10.1            
-    #> [57] utf8_1.2.6                  readr_2.1.6                
-    #> [59] withr_3.0.2                 scales_1.4.0               
-    #> [61] bit64_4.6.0-1               lubridate_1.9.4            
-    #> [63] timechange_0.3.0            XVector_0.50.0             
-    #> [65] rmarkdown_2.30              matrixStats_1.5.0          
-    #> [67] bit_4.6.0                   ragg_1.5.0                 
-    #> [69] hms_1.1.4                   evaluate_1.0.5             
-    #> [71] knitr_1.51                  GenomicRanges_1.62.1       
-    #> [73] IRanges_2.44.0              rlang_1.1.6                
-    #> [75] Rcpp_1.1.0                  glue_1.8.0                 
-    #> [77] BiocGenerics_0.56.0         vroom_1.6.7                
-    #> [79] jsonlite_2.0.0              R6_2.6.1                   
-    #> [81] plyr_1.8.9                  MatrixGenerics_1.22.0      
-    #> [83] systemfonts_1.3.1           fs_1.6.6
+    #>  [3] xfun_0.57                   bslib_0.10.0               
+    #>  [5] ggrepel_0.9.8               Biobase_2.70.0             
+    #>  [7] lattice_0.22-9              vctrs_0.7.2                
+    #>  [9] tools_4.5.3                 generics_0.1.4             
+    #> [11] stats4_4.5.3                parallel_4.5.3             
+    #> [13] tibble_3.3.1                pkgconfig_2.0.3            
+    #> [15] Matrix_1.7-4                RColorBrewer_1.1-3         
+    #> [17] S7_0.2.1                    desc_1.4.3                 
+    #> [19] S4Vectors_0.48.0            lifecycle_1.0.5            
+    #> [21] compiler_4.5.3              farver_2.1.2               
+    #> [23] stringr_1.6.0               textshaping_1.0.5          
+    #> [25] janitor_2.2.1               DESeq2_1.50.2              
+    #> [27] Seqinfo_1.0.0               codetools_0.2-20           
+    #> [29] snakecase_0.11.1            htmltools_0.5.9            
+    #> [31] sass_0.4.10                 yaml_2.3.12                
+    #> [33] pillar_1.11.1               pkgdown_2.2.0              
+    #> [35] jquerylib_0.1.4             tidyr_1.3.2                
+    #> [37] BiocParallel_1.44.0         DelayedArray_0.36.0        
+    #> [39] cachem_1.1.0                abind_1.4-8                
+    #> [41] locfit_1.5-9.12             tidyselect_1.2.1           
+    #> [43] digest_0.6.39               stringi_1.8.7              
+    #> [45] dplyr_1.2.0                 purrr_1.2.1                
+    #> [47] labeling_0.4.3              forcats_1.0.1              
+    #> [49] fastmap_1.2.0               grid_4.5.3                 
+    #> [51] SparseArray_1.10.9          cli_3.6.5                  
+    #> [53] magrittr_2.0.4              S4Arrays_1.10.1            
+    #> [55] utf8_1.2.6                  withr_3.0.2                
+    #> [57] scales_1.4.0                lubridate_1.9.5            
+    #> [59] timechange_0.4.0            XVector_0.50.0             
+    #> [61] rmarkdown_2.30              matrixStats_1.5.0          
+    #> [63] ragg_1.5.2                  evaluate_1.0.5             
+    #> [65] knitr_1.51                  GenomicRanges_1.62.1       
+    #> [67] IRanges_2.44.0              rlang_1.1.7                
+    #> [69] Rcpp_1.1.1                  glue_1.8.0                 
+    #> [71] BiocGenerics_0.56.0         jsonlite_2.0.0             
+    #> [73] R6_2.6.1                    plyr_1.8.9                 
+    #> [75] MatrixGenerics_1.22.0       systemfonts_1.3.2          
+    #> [77] fs_2.0.1

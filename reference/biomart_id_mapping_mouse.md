@@ -10,7 +10,7 @@ biomart_id_mapping_mouse
 
 ## Format
 
-A data frame (tibble) with 57548 rows and 3 columns:
+A data frame (tibble) with 78873 rows and 3 columns:
 
 - ensembl_gene_id:
 

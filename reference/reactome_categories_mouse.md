@@ -10,7 +10,7 @@ reactome_categories_mouse
 
 ## Format
 
-A data frame (tibble) with 1748 rows and 4 columns:
+A data frame (tibble) with 1822 rows and 4 columns:
 
 - id:
 

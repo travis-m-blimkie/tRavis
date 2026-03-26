@@ -6,7 +6,7 @@ size, sets a white background, grey grid, and black border and text.
 ## Usage
 
 ``` r
-tr_theme(base_size = 16, base_family = "", grid = "all", ticks = FALSE)
+tr_theme_bw(base_size = 16, base_family = "", grid = "all", ticks = FALSE)
 ```
 
 ## Arguments
@@ -44,5 +44,5 @@ None.
 
 ``` r
 if (FALSE)
-  ggplot(mtcars, aes(factor(cyl), mpg)) + geom_boxplot() + tr_theme()
+  ggplot(mtcars, aes(factor(cyl), mpg)) + geom_boxplot() + tr_theme_bw()
 ```

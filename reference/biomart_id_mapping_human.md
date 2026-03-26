@@ -10,7 +10,7 @@ biomart_id_mapping_human
 
 ## Format
 
-A data frame (tibble) with 76064 rows and 3 columns:
+A data frame (tibble) with 91703 rows and 3 columns:
 
 - ensembl_gene_id:
 

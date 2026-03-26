@@ -1,4 +1,4 @@
-# Customized ggplot2 black & white theme
+# Customized ggplot2 minimal theme
 
 Custom theme that can be applied to ggplot2 plots. Increases base font
 size, sets a white background, grey grid, and black border and text.
@@ -6,7 +6,7 @@ size, sets a white background, grey grid, and black border and text.
 ## Usage
 
 ``` r
-tr_theme(base_size = 16, base_family = "", grid = "all", ticks = FALSE)
+tr_theme_min(base_size = 16, base_family = "", grid = "all")
 ```
 
 ## Arguments
@@ -24,10 +24,6 @@ tr_theme(base_size = 16, base_family = "", grid = "all", ticks = FALSE)
   Character to determines how grid lines should be drawn. Options are
   "all", "x", "y", or "none".
 
-- ticks:
-
-  Logical indicating if axis ticks should be drawn. Defaults to `FALSE`.
-
 ## Value
 
 A ggplot2 theme
@@ -44,5 +40,5 @@ None.
 
 ``` r
 if (FALSE)
-  ggplot(mtcars, aes(factor(cyl), mpg)) + geom_boxplot() + tr_theme()
+  ggplot(mtcars, aes(factor(cyl), mpg)) + geom_boxplot() + tr_theme_min()
 ```
