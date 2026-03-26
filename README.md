@@ -28,7 +28,7 @@ devtools::install_github("travis-m-blimkie/tRavis")
 
 ``` r
 library(tRavis)
-#> Thanks for using tRavis v1.9.7! If you encounter any bugs
+#> Thanks for using tRavis v1.10.0! If you encounter any bugs
 #> or problems, please submit an issue at the Github page:
 #> https://github.com/travis-m-blimkie/tRavis/issues
 
@@ -36,10 +36,10 @@ library(tRavis)
 tr_compare_lists(c(1, 2, 3, 4), c(3, 4, 5, 6), names = c("A", "B"))
 #> $unique_A
 #> [1] 1 2
-#> 
+#>
 #> $common
 #> [1] 3 4
-#> 
+#>
 #> $unique_B
 #> [1] 5 6
 
