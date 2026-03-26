@@ -1,11 +1,9 @@
-#' Customized ggplot2 black & white theme
+#' Customized ggplot2 minimal theme
 #'
 #' @param base_size Base font size applied to all text in the plot (default 18)
 #' @param base_family Base font type applies to all text in the plot
 #' @param grid Character to determines how grid lines should be drawn. Options
 #'   are "all", "x", "y", or "none".
-#' @param ticks Logical indicating if axis ticks should be drawn. Defaults to
-#'   `FALSE`.
 #'
 #' @return A ggplot2 theme
 #' @export
@@ -21,12 +19,12 @@
 #'
 #' @examples
 #' if (FALSE)
-#'   ggplot(mtcars, aes(factor(cyl), mpg)) + geom_boxplot() + tr_theme()
+#'   ggplot(mtcars, aes(factor(cyl), mpg)) + geom_boxplot() + tr_theme_min()
 #'
-tr_theme <- function(base_size = 16, base_family = "", grid = "all", ticks = FALSE) {
+tr_theme_min <- function(base_size = 16, base_family = "", grid = "all") {
 
   theme_1 <-
-    theme_bw(base_size = base_size, base_family = base_family) +
+    theme_minimal(base_size = base_size, base_family = base_family) +
     theme(
       text = element_text(colour = "black"),
       axis.text = element_text(colour = "black"),
@@ -49,11 +47,5 @@ tr_theme <- function(base_size = 16, base_family = "", grid = "all", ticks = FAL
     theme_1 + theme(panel.grid.major.x = element_blank())
   }
 
-  theme_3 <- if (ticks) {
-    theme_2 + theme(axis.ticks = element_line(colour = "black", linewidth = 0.25))
-  } else {
-    theme_2 + theme(axis.ticks = element_blank())
-  }
-
-  return(theme_3)
+  return(theme_2)
 }

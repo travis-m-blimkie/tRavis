@@ -167,8 +167,8 @@ tr_test_enrichment(
 )
 ```
 
-## tr_theme
-Clean themes for [ggplot2](https://ggplot2.tidyverse.org/) that improve on the
+## tr_theme_bw
+A clean theme for [ggplot2](https://ggplot2.tidyverse.org/) that improve on the
 default by increasing font size, changing the background to white, and adding a
 border. By default it uses a minimal grid, but you can easily remove the grid
 entirely.
@@ -176,9 +176,11 @@ entirely.
 library(ggplot2)
 basic_box_plot <- ggplot(mtcars, aes(as.factor(cyl), mpg)) + geom_boxplot()
 
-basic_box_plot + tr_theme()
-basic_box_plot + tr_theme(grid = "none")
+basic_box_plot + tr_theme_bw()
+basic_box_plot + tr_theme_bw(grid = "none")
 ```
+
+A more minimal version is also available as `tr_theme_min()`.
 
 ## tr_tidy_gage
 Combines the items "greater" and "less" from the list output by

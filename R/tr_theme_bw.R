@@ -21,9 +21,9 @@
 #'
 #' @examples
 #' if (FALSE)
-#'   ggplot(mtcars, aes(factor(cyl), mpg)) + geom_boxplot() + tr_theme()
+#'   ggplot(mtcars, aes(factor(cyl), mpg)) + geom_boxplot() + tr_theme_bw()
 #'
-tr_theme <- function(base_size = 16, base_family = "", grid = "all", ticks = FALSE) {
+tr_theme_bw <- function(base_size = 16, base_family = "", grid = "all", ticks = FALSE) {
 
   theme_1 <-
     theme_bw(base_size = base_size, base_family = base_family) +
