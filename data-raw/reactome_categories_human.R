@@ -8,14 +8,14 @@ library(dplyr)
 pathway_hierarchy <- readr::read_tsv(
   "https://reactome.org/download/current/ReactomePathwaysRelation.txt",
   col_names = c("higher", "pathway_id")
-) %>%
+) |>
   filter(stringr::str_detect(higher, "^R-HSA"))
 
 all_pathways <- readr::read_tsv(
   "https://reactome.org/download/current/ReactomePathways.txt",
   col_names = c("pathway_id", "description", "organism")
-) %>%
-  filter(stringr::str_detect(pathway_id, "^R-HSA")) %>%
+) |>
+  filter(stringr::str_detect(pathway_id, "^R-HSA")) |>
   select(-organism)
 
 
@@ -26,30 +26,33 @@ pathway_join <- function(input, name) {
     input,
     pathway_hierarchy,
     by = "pathway_id",
-    multiple = "all"
-  ) %>%
-    rename(!!name := "pathway_id", pathway_id = "higher")
+    multiple = "all",
+    relationship = "many-to-many"
+  ) |>
+    rename(!!name := pathway_id) |>
+    rename("pathway_id" = higher)
   return(p)
 }
 
 
 # Initial join of all pathways to their parent ----------------------------
 
-full_hierarchy <- all_pathways %>%
-  select(pathway_id) %>%
-  pathway_join(name = "enr_pathway")
+full_hierarchy <- pathway_join(
+  input = select(all_pathways, pathway_id),
+  name = "enr_pathway"
+)
 
 
 # Run successive joins to fully expand the hierarchy ----------------------
 
 for (i in 1:11) {
-  names <- as.character(english::as.english(i))
-  full_hierarchy <- full_hierarchy %>% pathway_join(name = names)
+  nm <- as.character(english::as.english(i))
+  full_hierarchy <- pathway_join(full_hierarchy, name = nm)
 }
 
 # All entries in "pathway_id" column are NA, so remove that column
 length(na.omit(full_hierarchy$pathway_id))
-full_hierarchy <- full_hierarchy %>% select(-pathway_id)
+full_hierarchy <- select(full_hierarchy, !pathway_id)
 
 
 # Reduce hierarchy --------------------------------------------------------
@@ -83,38 +86,34 @@ for (row in 1:nrow(full_hierarchy)) {
 # Add descriptions --------------------------------------------------------
 
 pathway_categories <-
-  enr_pathway_high_level %>%
+  enr_pathway_high_level |>
   left_join(
-    .,
     rename(all_pathways, "level_1" = description),
     by = c(level_1_id = "pathway_id"),
     multiple = "all"
-  ) %>%
+  ) |>
   left_join(
-    .,
     all_pathways,
     by = "pathway_id",
     multiple = "all"
-  ) %>%
-  select(pathway_id, "pathway_description" = description, level_1) %>%
+  ) |>
+  select(pathway_id, "pathway_description" = description, level_1) |>
   distinct(pathway_id, .keep_all = TRUE)
 
-reactome_categories_human <- enr_pathway_high_level %>%
+reactome_categories_human <- enr_pathway_high_level |>
   left_join(
-    .,
     rename(all_pathways, "level_1" = description),
     by = c(level_1_id = "pathway_id"),
     multiple = "all"
-  ) %>%
+  ) |>
   left_join(
-    .,
     rename(all_pathways, "level_2" = description),
     by = c(level_2_id = "pathway_id"),
     multiple = "all"
-  ) %>%
-  left_join(., all_pathways, by = "pathway_id", multiple = "all") %>%
-  select("id" = pathway_id, description, level_1, level_2) %>%
-  distinct(id, .keep_all = TRUE) %>%
+  ) |>
+  left_join(all_pathways, by = "pathway_id", multiple = "all") |>
+  select("id" = pathway_id, description, level_1, level_2) |>
+  distinct(id, .keep_all = TRUE) |>
   as_tibble()
 
 

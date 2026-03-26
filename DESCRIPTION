@@ -3,7 +3,7 @@ Title: tRavis: an R package by Travis Blimkie
 Version: 1.10.1
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: tRavis is a small R package meant to hold functions and data that
-  are used regularly in my day-to-day workflows. Its also provides an
+  are used regularly in my day-to-day workflows. It also provides an
   opportunity to practice creating, documenting, and maintaining code, within
   the framework of an R package and the recommended guidelines.
 Depends: R (>= 4.0.0)
@@ -18,7 +18,6 @@ Imports:
     janitor,
     plyr,
     purrr,
-    readr,
     stringr,
     tibble,
     tidyr

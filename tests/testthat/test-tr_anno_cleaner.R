@@ -15,6 +15,19 @@ test_that("basic annotation cleaning works", {
   )
 })
 
+test_that("filling gene names works properly", {
+  cleaned_filled <- tr_anno_cleaner(
+    input_file = system.file(
+      "extdata",
+      "Pseudomonas_aeruginosa_PAO1_107.csv.gz",
+      package = "tRavis"
+    ),
+    fill_names = TRUE
+  )
+
+  expect_false(any(is.na(cleaned_filled[["gene_name"]])))
+})
+
 test_that("'extra_cols' functions properly", {
   cleaned_extra <- tr_anno_cleaner(
     input_file = system.file(

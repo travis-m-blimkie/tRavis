@@ -11,7 +11,6 @@
 #'
 #' @import dplyr
 #' @importFrom janitor clean_names
-#' @importFrom readr cols read_delim
 #'
 #' @description Given an input CSV or TSV annotation file from
 #'   <https://pseudomonas.com>, separates and cleans the data, returning a tidy
@@ -37,16 +36,20 @@ tr_anno_cleaner <- function(
     fill_names = FALSE
 ) {
 
-  file_type <- grep(x = input_file, pattern = "\\.(c|t)sv", value = TRUE)
+  file_type <- gsub(
+    pattern = ".*((c|t)sv).*",
+    replacement = "\\1",
+    x = tolower(input_file)
+  )
 
   stopifnot("'input_file' must be a '.csv' or '.tsv' file" = !is.na(file_type))
 
-  data_init <- read_delim(
+  data_init <- read.delim(
     input_file,
-    delim = switch(file_type, csv = ",", tsv = "\t"),
-    col_types = cols()
+    sep = switch(file_type, csv = ",", tsv = "\t")
   ) %>%
-    clean_names()
+    clean_names() %>%
+    as_tibble()
 
   final_cols <- c("locus_tag", "gene_name", "product_name")
 
@@ -57,6 +60,8 @@ tr_anno_cleaner <- function(
   data_final <- data_init %>%
     select(all_of(final_cols)) %>%
     distinct(locus_tag, .keep_all = TRUE)
+
+  data_final[data_final == ""] <- NA
 
   # Conditionally fill blank gene names with corresponding locus tags
   if (fill_names) {
