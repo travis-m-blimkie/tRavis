@@ -1,6 +1,6 @@
 Package: tRavis
 Title: tRavis: an R package by Travis Blimkie
-Version: 1.9.6
+Version: 1.9.7
 Authors@R: person("Travis", "Blimkie", email = "travis.m.blimkie@gmail.com", role = c("aut", "cre"))
 Description: tRavis is a small R package meant to hold functions and data that
   are used regularly in my day-to-day workflows. It also provides an
@@ -18,7 +18,6 @@ Imports:
     janitor,
     plyr,
     purrr,
-    readr,
     stringr,
     tibble,
     tidyr
